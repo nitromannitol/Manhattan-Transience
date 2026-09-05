@@ -1,0 +1,13 @@
+/.lake/
+ledger/*.log
+codex_logs/
+scratch/
+bootstrap.log
+Scratch/
+tools/__pycache__/
+tools/glm.sh
+run_codex.sh
+Audit/
+ledger/briefs/
+ledger/decisions-archive/
+ledger/WORK_IN_PROGRESS.md

@@ -1,0 +1,953 @@
+# Manhattan frozen-statement manifest.
+#
+# This is the single source of truth for the certified public statement
+# surface. There is one entry per frozen declaration, and every Lean file under
+# Manhattan/Frozen/ must have exactly one owner. Run
+# `python3 tools/check_manifest.py` before every landing.
+#
+# Fields:
+#   id               stable node id (normally a paper label)
+#   version          integer, bumped only by an approved successor
+#   kind             theorem | definition
+#   source           pinned manuscript.tex line range plus ruling ids
+#   file             repository-relative path of the single frozen file
+#   export           fully qualified Lean name of the frozen declaration
+#   state            DRAFT_SORRY | PROVED | SEALED
+#                    for theorems; FROZEN for definitions
+#   superseded_by    optional approved successor id; the predecessor remains
+#                    historical and is excluded from the headline imports
+#   frozen_sha256    SHA-256 of the exact bytes between the frozen markers
+#   closure_sha256   optional SHA-256 of the explicit local support closure
+#   provider         sealed provider export, or intended provider for a draft
+#   draft_allowlist  consumers allowed while the provider is unsealed
+#   approved         date the exact declaration bytes were approved
+#
+# Invariants checked by tools/check_manifest.py:
+#   - exactly one frozen block and declaration per owned file;
+#   - exact frozen-byte and present closure hashes;
+#   - `sorry` only as the one post-marker proof body of a registered draft
+#     theorem, never in a definition or proved support;
+#   - no custom `axiom`, `admit`, or explicit `sorryAx` in Manhattan/;
+#   - every Manhattan/Frozen/ file has exactly one manifest owner.
+
+version: 1
+source_pin:
+  file: paper/manuscript.tex
+  sha256: b212a597bf0f76505609fb7fcf569aed8b0681048fcb4e8b2e3e5603b8c95c40
+
+nodes:
+  - id: op-damped-orbit-has-deriv-at
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/DampedOrbitHasDerivAt.lean
+    export: Manhattan.Frozen.Operator.dampedOrbit_hasDerivAt
+    state: PROVED
+    frozen_sha256: a4539ab6deabcb8be40b3d33b40215434bba74e43c7149268de20fec11ff9636
+    closure_sha256: 6c6570db5ed494ccf6bc819bc6ff3101881612eac98045c14a8f161f63d40d97
+    provider: Manhattan.Operator.dampedOrbit_hasDerivAt
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-damped-orbit-norm-le
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/DampedOrbitNormLe.lean
+    export: Manhattan.Frozen.Operator.dampedOrbit_norm_le
+    state: PROVED
+    frozen_sha256: f82830e285ee2c1c9401a943a4b7680403d8be67071e79b4de5da784e02024a6
+    closure_sha256: 98f371fe7f9fa29ddbd367dbe7a7fe4ad8b8258a10242d89adfd475c1fd2d6c6
+    provider: Manhattan.Operator.dampedOrbit_norm_le
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-fiber-a-eq-formula
+    version: 1
+    kind: theorem
+    source: manuscript.tex:576-585
+    file: Manhattan/Frozen/Operator/FiberAEqFormula.lean
+    export: Manhattan.Frozen.Operator.fiberA_eq_formula
+    state: PROVED
+    frozen_sha256: 0fd41f2fdbe0a27cb7e454d97668a53665ab5630286d8889d08b1e3d2fe5faf6
+    closure_sha256: 6fdc44e2355a7dc09b10e7410de2dd63e2edab4bbcefe00d986dbb2a3b6e9708
+    provider: Manhattan.Operator.FiberEnvironment.fiberA_eq_formula
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-fiber-a-norm-le
+    version: 1
+    kind: theorem
+    source: manuscript.tex:576-585
+    file: Manhattan/Frozen/Operator/FiberANormLe.lean
+    export: Manhattan.Frozen.Operator.fiberA_norm_le
+    state: PROVED
+    frozen_sha256: 28217260d35db46f860a206d81a40ff31a6a51355e7622acb560ed7b007e3cc4
+    closure_sha256: 6fdc44e2355a7dc09b10e7410de2dd63e2edab4bbcefe00d986dbb2a3b6e9708
+    provider: Manhattan.Operator.FiberEnvironment.fiberA_norm_le
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-fiber-a-skew-adjoint
+    version: 1
+    kind: theorem
+    source: manuscript.tex:576-585
+    file: Manhattan/Frozen/Operator/FiberASkewAdjoint.lean
+    export: Manhattan.Frozen.Operator.fiberA_skewAdjoint
+    state: PROVED
+    frozen_sha256: fdff42786cad63641cddd8aeb271c00a13fcd844b6ef61414958ed73f8eaaf3f
+    closure_sha256: 6fdc44e2355a7dc09b10e7410de2dd63e2edab4bbcefe00d986dbb2a3b6e9708
+    provider: Manhattan.Operator.FiberEnvironment.fiberA_skewAdjoint
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-fiber-s-eq-formula
+    version: 1
+    kind: theorem
+    source: manuscript.tex:576-585
+    file: Manhattan/Frozen/Operator/FiberSEqFormula.lean
+    export: Manhattan.Frozen.Operator.fiberS_eq_formula
+    state: PROVED
+    frozen_sha256: 5ebe964d8e619898a9b4cf5cf257d0f8671e0f83dc37bb741de40572d4a993aa
+    closure_sha256: 6fdc44e2355a7dc09b10e7410de2dd63e2edab4bbcefe00d986dbb2a3b6e9708
+    provider: Manhattan.Operator.FiberEnvironment.fiberS_eq_formula
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-fiber-s-nonpositive
+    version: 1
+    kind: theorem
+    source: manuscript.tex:576-585
+    file: Manhattan/Frozen/Operator/FiberSNonpositive.lean
+    export: Manhattan.Frozen.Operator.fiberS_nonpositive
+    state: PROVED
+    frozen_sha256: 955e4f12a2142bed16dc21c2afaff3c7577077ad08b9d0a8aaad24cb1810dc7c
+    closure_sha256: 6fdc44e2355a7dc09b10e7410de2dd63e2edab4bbcefe00d986dbb2a3b6e9708
+    provider: Manhattan.Operator.FiberEnvironment.fiberS_nonpositive
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-fiber-s-norm-le
+    version: 1
+    kind: theorem
+    source: manuscript.tex:576-585
+    file: Manhattan/Frozen/Operator/FiberSNormLe.lean
+    export: Manhattan.Frozen.Operator.fiberS_norm_le
+    state: PROVED
+    frozen_sha256: 05c3a115ff43272b6f3785717fae92bcf0cdffb33e28278cfdcc22c82dc33011
+    closure_sha256: 6fdc44e2355a7dc09b10e7410de2dd63e2edab4bbcefe00d986dbb2a3b6e9708
+    provider: Manhattan.Operator.FiberEnvironment.fiberS_norm_le
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-fiber-s-self-adjoint
+    version: 1
+    kind: theorem
+    source: manuscript.tex:576-585
+    file: Manhattan/Frozen/Operator/FiberSSelfAdjoint.lean
+    export: Manhattan.Frozen.Operator.fiberS_selfAdjoint
+    state: PROVED
+    frozen_sha256: ee18ea36db1035f926985b0595cf7db59bc6160c70fa03616de6686c6b738dbc
+    closure_sha256: 6fdc44e2355a7dc09b10e7410de2dd63e2edab4bbcefe00d986dbb2a3b6e9708
+    provider: Manhattan.Operator.FiberEnvironment.fiberS_selfAdjoint
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-frequency-resolvent-le-of-competitor
+    version: 1
+    kind: theorem
+    source: manuscript.tex:640-666 (D-004)
+    file: Manhattan/Frozen/Operator/FrequencyResolventLeOfCompetitor.lean
+    export: Manhattan.Frozen.Operator.frequency_resolvent_le_of_competitor
+    state: PROVED
+    superseded_by: op-frequency-resolvent-le-of-competitor-v2
+    frozen_sha256: e16355e2d5e2177395a2919684099d098b3d0f6206e8877eb38c40e713c1e978
+    closure_sha256: 6fc341a7759e26bfeaf1c8b6aa10a8253b8af40c8d347a78be46136b1a940cac
+    provider: Manhattan.Operator.frequency_resolvent_le_of_competitor
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-frequency-resolvent-le-of-competitor-v2
+    version: 2
+    kind: theorem
+    source: manuscript.tex:640-666 (D-004/D-020/D-024/E-007)
+    file: Manhattan/Frozen/Operator/FrequencyResolventLeOfCompetitorV2.lean
+    export: Manhattan.Frozen.Operator.frequency_resolvent_le_of_competitor_v2
+    state: PROVED
+    frozen_sha256: e62574cc3badb817b5e27e05f9432a859c15793c613d3389ba436f1b40c25b7c
+    closure_sha256: 31a239fcd3b8542ca3b480af54ae75782b983df0d4529180d3d1e355de36a29c
+    provider: Manhattan.Operator.frequency_resolvent_le_of_competitor_v2
+    draft_allowlist: []
+    approved: 2026-09-03
+  - id: op-generator-commutes-operator-semigroup
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/GeneratorCommutesOperatorSemigroup.lean
+    export: Manhattan.Frozen.Operator.generator_commutes_operatorSemigroup
+    state: PROVED
+    frozen_sha256: 6dd539272ebf0ed85abbc403bc73d45074419f0d908c720c8a4ee0366bda038f
+    closure_sha256: add8b17c71a5a8768d029705f7b0720f2aa524d164cfc9d250dedc9bf382b3b0
+    provider: Manhattan.Operator.generator_commutes_operatorSemigroup
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-h-bijective
+    version: 1
+    kind: theorem
+    source: manuscript.tex:610-638 (D-004/D-005)
+    file: Manhattan/Frozen/Operator/HBijective.lean
+    export: Manhattan.Frozen.Operator.H_bijective
+    state: PROVED
+    frozen_sha256: a326797efb2c4d864b2eae88e4850fafe3e1cefd709b7a1cc2e3c72c51fb5e21
+    closure_sha256: e874f568cb3a17a94f3bd6b6baba37efa1c15dd50a565f44830cb112673adb9f
+    provider: Manhattan.Operator.DissipativeSkewPair.H_bijective
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-integrable-on-damped-orbit
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/IntegrableOnDampedOrbit.lean
+    export: Manhattan.Frozen.Operator.integrableOn_dampedOrbit
+    state: PROVED
+    frozen_sha256: e43ce47055f934ab60b769abc71c701dd219976c74fbaf76de41b35e83b83d0c
+    closure_sha256: 98f371fe7f9fa29ddbd367dbe7a7fe4ad8b8258a10242d89adfd475c1fd2d6c6
+    provider: Manhattan.Operator.integrableOn_dampedOrbit
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-integrable-on-resolvent-damped-orbit
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/IntegrableOnResolventDampedOrbit.lean
+    export: Manhattan.Frozen.Operator.integrableOn_resolvent_dampedOrbit
+    state: PROVED
+    frozen_sha256: 63f18b1a2c4d6922cf8dfe370d200ae1d36b3f644dcc0725b9c1f23f33005334
+    closure_sha256: 6c6570db5ed494ccf6bc819bc6ff3101881612eac98045c14a8f161f63d40d97
+    provider: Manhattan.Operator.integrableOn_resolvent_dampedOrbit
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-integral-inner-operator-semigroup-eq-resolvent
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/IntegralInnerOperatorSemigroupEqResolvent.lean
+    export: Manhattan.Frozen.Operator.integral_inner_operatorSemigroup_eq_resolvent
+    state: PROVED
+    frozen_sha256: 6b9487fe4339c420edf1ef91db0dd6cf22d60eb88f41ae8faa1fab73c5a186ca
+    closure_sha256: 3ead4fafd5800cb1d93b42ae55c3a4695ed275c579aeef8a66370970b16a608a
+    provider: Manhattan.Operator.integral_inner_operatorSemigroup_eq_resolvent
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-laplace-vector-resolvent-operator
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/LaplaceVectorResolventOperator.lean
+    export: Manhattan.Frozen.Operator.laplaceVector_resolventOperator
+    state: PROVED
+    frozen_sha256: c85eec0ac0764ba05e58416ef085725fdb98f5dfc3fa4efd1a10cc48b07f349c
+    closure_sha256: 78e54fed07fbfe0b75c6984035eea2682dd25a72fb1af5e519582e0bb548642c
+    provider: Manhattan.Operator.laplaceVector_resolventOperator
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-logarithmic-tail-eq-two
+    version: 1
+    kind: theorem
+    source: manuscript.tex:668-681
+    file: Manhattan/Frozen/Operator/LogarithmicTailEqTwo.lean
+    export: Manhattan.Frozen.Operator.logarithmicTail_eq_two
+    state: PROVED
+    frozen_sha256: 651890b1b911de10194d054e8c74cf793d08ec4fc3d3fc1f970b51f8b39463de
+    closure_sha256: b3cfcf309cfdb16a32d81dd28eadfb6ab67336e5293b274f7216a06116554c7e
+    provider: Manhattan.Operator.logarithmicTail_eq_two
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-minus-bijective
+    version: 1
+    kind: theorem
+    source: manuscript.tex:610-638 (D-004/D-005)
+    file: Manhattan/Frozen/Operator/MinusBijective.lean
+    export: Manhattan.Frozen.Operator.minus_bijective
+    state: PROVED
+    frozen_sha256: c9b66f839679cf8989c81c7fd961e03e49d46fc0427d42308b3e499fe2943a83
+    closure_sha256: e874f568cb3a17a94f3bd6b6baba37efa1c15dd50a565f44830cb112673adb9f
+    provider: Manhattan.Operator.DissipativeSkewPair.minus_bijective
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-operator-semigroup-has-deriv-at
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/OperatorSemigroupHasDerivAt.lean
+    export: Manhattan.Frozen.Operator.operatorSemigroup_hasDerivAt
+    state: PROVED
+    frozen_sha256: 4ae021ef2a50f6edff5ba8cbe12c0b00b37aa2a08b338aaf56b16b46613eddb7
+    closure_sha256: add8b17c71a5a8768d029705f7b0720f2aa524d164cfc9d250dedc9bf382b3b0
+    provider: Manhattan.Operator.operatorSemigroup_hasDerivAt
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-plus-bijective
+    version: 1
+    kind: theorem
+    source: manuscript.tex:610-638 (D-004/D-005)
+    file: Manhattan/Frozen/Operator/PlusBijective.lean
+    export: Manhattan.Frozen.Operator.plus_bijective
+    state: PROVED
+    frozen_sha256: 4fa27e790f6b0f8bc8a805b373781a9126d7536e347d9f1a0f739e6b4dd2b583
+    closure_sha256: e874f568cb3a17a94f3bd6b6baba37efa1c15dd50a565f44830cb112673adb9f
+    provider: Manhattan.Operator.DissipativeSkewPair.plus_bijective
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-position-fourier-norm
+    version: 1
+    kind: theorem
+    source: manuscript.tex:568-570
+    file: Manhattan/Frozen/Operator/PositionFourierNorm.lean
+    export: Manhattan.Frozen.Operator.positionFourier_norm
+    state: PROVED
+    frozen_sha256: 3f071f8107704ae2e9bc53f8ed42960c64b5f104852ffc375ac164028475d1a2
+    closure_sha256: 5e0e67f4ae4598e578d519c66493ed2259c130151c76330de8eee5df3d574cb3
+    provider: Manhattan.Operator.positionFourier_norm
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-position-fourier-single
+    version: 1
+    kind: theorem
+    source: manuscript.tex:568-570
+    file: Manhattan/Frozen/Operator/PositionFourierSingle.lean
+    export: Manhattan.Frozen.Operator.positionFourier_single
+    state: PROVED
+    frozen_sha256: f355b5fa3c0add9491dcbc928c14661f321c156c4a9c0c47eec82747c55d31d0
+    closure_sha256: 698fbf844cb15b679d69731e5ec343ac1b61d2f8cd4614860a0ce05a46430e77
+    provider: Manhattan.Operator.positionFourier_single
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-real-form-h-coercive
+    version: 1
+    kind: theorem
+    source: manuscript.tex:610-638 (D-004/D-005)
+    file: Manhattan/Frozen/Operator/RealFormHCoercive.lean
+    export: Manhattan.Frozen.Operator.realForm_H_coercive
+    state: PROVED
+    frozen_sha256: 52ca0fc60e8749226bfc3890793a29888f52e6522c09e3b258ef0d880f7212a1
+    closure_sha256: b317714598d6c799e61d4ffe30da52dc5bca635c00e841b33f4e811911b6934d
+    provider: Manhattan.Operator.DissipativeSkewPair.realForm_H_coercive
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-real-form-minus-coercive
+    version: 1
+    kind: theorem
+    source: manuscript.tex:610-638 (D-004/D-005)
+    file: Manhattan/Frozen/Operator/RealFormMinusCoercive.lean
+    export: Manhattan.Frozen.Operator.realForm_minus_coercive
+    state: PROVED
+    frozen_sha256: 331b0ad92424452569b5df6069c286ff7b0f710f9ae2309b01eba3a5ba8c57b4
+    closure_sha256: b317714598d6c799e61d4ffe30da52dc5bca635c00e841b33f4e811911b6934d
+    provider: Manhattan.Operator.DissipativeSkewPair.realForm_minus_coercive
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-real-form-plus-coercive
+    version: 1
+    kind: theorem
+    source: manuscript.tex:610-638 (D-004/D-005)
+    file: Manhattan/Frozen/Operator/RealFormPlusCoercive.lean
+    export: Manhattan.Frozen.Operator.realForm_plus_coercive
+    state: PROVED
+    frozen_sha256: 63fcdab5ac4ebbfe7b0cc89ae47b18e7bbba80a600810ceb3667bc1cddc0169d
+    closure_sha256: b317714598d6c799e61d4ffe30da52dc5bca635c00e841b33f4e811911b6934d
+    provider: Manhattan.Operator.DissipativeSkewPair.realForm_plus_coercive
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-resolvent-equiv-symm-apply
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/ResolventEquivSymmApply.lean
+    export: Manhattan.Frozen.Operator.resolventEquiv_symm_apply
+    state: PROVED
+    frozen_sha256: f5887f4f848030591b4b30d9671d23d26a08702260fa968fbe2610cea9aac4ce
+    closure_sha256: d7f1271c40256f61e4f1e4ad07ad0b3ba9193839692428b7e92f3f67b7c861d8
+    provider: Manhattan.Operator.resolventEquiv_symm_apply
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-resolvent-operator-bijective
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/ResolventOperatorBijective.lean
+    export: Manhattan.Frozen.Operator.resolventOperator_bijective
+    state: PROVED
+    frozen_sha256: 26eb643afd5e56541ae6d04cf5ea9a77cd2afa923f70fe74baf282dbc4889669
+    closure_sha256: 8c75b93c578cce1284871594f86e1cdf8f04cfc8c027656122c11e36656dd105
+    provider: Manhattan.Operator.resolventOperator_bijective
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-resolvent-operator-injective
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/ResolventOperatorInjective.lean
+    export: Manhattan.Frozen.Operator.resolventOperator_injective
+    state: PROVED
+    frozen_sha256: a0d58450e15e244dbd56fc5dbff142b1c9b47f1a1d30aa1717cc44271aba88b9
+    closure_sha256: 8c75b93c578cce1284871594f86e1cdf8f04cfc8c027656122c11e36656dd105
+    provider: Manhattan.Operator.resolventOperator_injective
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-resolvent-operator-laplace-vector
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/ResolventOperatorLaplaceVector.lean
+    export: Manhattan.Frozen.Operator.resolventOperator_laplaceVector
+    state: PROVED
+    frozen_sha256: 2a13e329360657dc374acacbccc856c38829a6ce0cd2966c3b4bb84f76ab7ab2
+    closure_sha256: 78e54fed07fbfe0b75c6984035eea2682dd25a72fb1af5e519582e0bb548642c
+    provider: Manhattan.Operator.resolventOperator_laplaceVector
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: var-ineq
+    version: 1
+    kind: theorem
+    source: manuscript.tex:626-638 (D-004/D-005)
+    file: Manhattan/Frozen/Operator/ResolventQuadraticLe.lean
+    export: Manhattan.Frozen.Operator.resolventQuadratic_le
+    state: PROVED
+    frozen_sha256: 10628d63dc82af387adb395f4116902290a77884779d489f4b948dd582d602a3
+    closure_sha256: e874f568cb3a17a94f3bd6b6baba37efa1c15dd50a565f44830cb112673adb9f
+    provider: Manhattan.Operator.DissipativeSkewPair.resolventQuadratic_le
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-resolvent-quadratic-le-h-minus-energy
+    version: 1
+    kind: theorem
+    source: manuscript.tex:610-638 (D-004/D-005)
+    file: Manhattan/Frozen/Operator/ResolventQuadraticLeHMinusEnergy.lean
+    export: Manhattan.Frozen.Operator.resolventQuadratic_le_hMinusEnergy
+    state: PROVED
+    frozen_sha256: 889f24a1fd0cb60efcb8810f242cf65483c7ed18f829e81d7969d9e13156a4af
+    closure_sha256: e874f568cb3a17a94f3bd6b6baba37efa1c15dd50a565f44830cb112673adb9f
+    provider: Manhattan.Operator.DissipativeSkewPair.resolventQuadratic_le_hMinusEnergy
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-tendsto-damped-orbit-at-top
+    version: 1
+    kind: theorem
+    source: manuscript.tex:564-607
+    file: Manhattan/Frozen/Operator/TendstoDampedOrbitAtTop.lean
+    export: Manhattan.Frozen.Operator.tendsto_dampedOrbit_atTop
+    state: PROVED
+    frozen_sha256: f2ff6b12638697ede7ca17fb68923613b942d699f687e5bec927ed4988834532
+    closure_sha256: 98f371fe7f9fa29ddbd367dbe7a7fe4ad8b8258a10242d89adfd475c1fd2d6c6
+    provider: Manhattan.Operator.tendsto_dampedOrbit_atTop
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: op-uniform-green-bound-of-regional-bounds
+    version: 1
+    kind: theorem
+    source: manuscript.tex:668-681
+    file: Manhattan/Frozen/Operator/UniformGreenBoundOfRegionalBounds.lean
+    export: Manhattan.Frozen.Operator.uniform_green_bound_of_regional_bounds
+    state: PROVED
+    frozen_sha256: 28d76fc88f00f062683f09b8269a04f213f57fb05a46bfb20baccd9466127cf1
+    closure_sha256: 8763824ce30485a4d8809bbad32f83eff961ccd2603c98ef7c65758d86d1300a
+    provider: Manhattan.Operator.uniform_green_bound_of_regional_bounds
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-coefficient-degree-erase
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1179-1191 (D-003/E-001)
+    file: Manhattan/Frozen/Estimates/CoefficientDegreeErase.lean
+    export: Manhattan.Frozen.Estimates.coefficientDegree_erase
+    state: PROVED
+    frozen_sha256: 1eed5e948b8b5cc1eb63be2b0a99b887b1036f3f88271780b2a6e1808786f313
+    closure_sha256: d2c74a6b8f4b96b904bfae2fcf2cccfb46ccc0ced3429a64482439065f3e1b3b
+    provider: Manhattan.Estimates.coefficientDegree_erase
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-correction-v-euler
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1030-1055
+    file: Manhattan/Frozen/Estimates/CorrectionVEuler.lean
+    export: Manhattan.Frozen.Estimates.correctionV_euler
+    state: PROVED
+    frozen_sha256: 4505b4d9bbe34555ae0fc1f03536255170d55b2660bab6cb054c26384d407150
+    closure_sha256: 651169688f8b13dfdbe077b006d1e0a4780336bac3e4cc18728450e072d3c3bb
+    provider: Manhattan.Estimates.correctionV_euler
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-dispersion-le-half-mul-sq
+    version: 1
+    kind: theorem
+    source: manuscript.tex:743-756
+    file: Manhattan/Frozen/Estimates/DispersionLeHalfMulSq.lean
+    export: Manhattan.Frozen.Estimates.dispersion_le_half_mul_sq
+    state: PROVED
+    frozen_sha256: a57bf059a0ce9004916ecc93028420ba78246b2031de20182839487abc1306bb
+    closure_sha256: 43fb6100811734bf09903a342edb9632bb5dcea0dae0401b0c7ede9c8f93a9ec
+    provider: Manhattan.Estimates.dispersion_le_half_mul_sq
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-dispersion-nonneg
+    version: 1
+    kind: theorem
+    source: manuscript.tex:743-756
+    file: Manhattan/Frozen/Estimates/DispersionNonneg.lean
+    export: Manhattan.Frozen.Estimates.dispersion_nonneg
+    state: PROVED
+    frozen_sha256: 400d0ffaa2465a7cc231962323c83089a974624605e5ce66a525827a0e0ff054
+    closure_sha256: 43fb6100811734bf09903a342edb9632bb5dcea0dae0401b0c7ede9c8f93a9ec
+    provider: Manhattan.Estimates.dispersion_nonneg
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-dispersion-quadratic-bounds
+    version: 1
+    kind: theorem
+    source: manuscript.tex:743-756
+    file: Manhattan/Frozen/Estimates/DispersionQuadraticBounds.lean
+    export: Manhattan.Frozen.Estimates.dispersion_quadratic_bounds
+    state: PROVED
+    frozen_sha256: f8c1f5877eefcb5d4fc1e5cbb1b070fb78366114d2845e2dd3c25e568788df7c
+    closure_sha256: 43fb6100811734bf09903a342edb9632bb5dcea0dae0401b0c7ede9c8f93a9ec
+    provider: Manhattan.Estimates.dispersion_quadratic_bounds
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-four-estimate-core-le-multiplier
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1257-1271
+    file: Manhattan/Frozen/Estimates/FourEstimateCoreLeMultiplier.lean
+    export: Manhattan.Frozen.Estimates.fourEstimateCore_le_multiplier
+    state: PROVED
+    frozen_sha256: a18e9a6707b483a0cf6e6ea57ea4448ecc26a79703644fb31ad7c83182cbca76
+    closure_sha256: 706adefe08631f8a4d17c853767757fd586c7d871003438644274d470ff1fbdc
+    provider: Manhattan.Estimates.fourEstimateCore_le_multiplier
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-h-weight-pos
+    version: 1
+    kind: theorem
+    source: manuscript.tex:743-758
+    file: Manhattan/Frozen/Estimates/HWeightPos.lean
+    export: Manhattan.Frozen.Estimates.hWeight_pos
+    state: PROVED
+    frozen_sha256: 02e61a9028f75449079aee3661255aad7f293bc150a540d424fbda51853c2b48
+    closure_sha256: f8456c89d3acdb09aa0b43e578083ab3e4c0f52aa8d90a2530b8db029ea6918a
+    provider: Manhattan.Estimates.hWeight_pos
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-log-scale-integral
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1121-1125
+    file: Manhattan/Frozen/Estimates/LogScaleIntegral.lean
+    export: Manhattan.Frozen.Estimates.logScaleIntegral
+    state: PROVED
+    frozen_sha256: fb73ecd7f9c3861f813c1eff034f7624f6efbe2c7870ddaca41bd58207660b7a
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+    provider: Manhattan.Estimates.logScaleIntegral
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-log-scale-integral-le
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1121-1125
+    file: Manhattan/Frozen/Estimates/LogScaleIntegralLe.lean
+    export: Manhattan.Frozen.Estimates.logScaleIntegral_le
+    state: PROVED
+    frozen_sha256: ff8a7e852383117d0292141093f01b5a22a075b600344b32eeb9bb0b2c81a2b5
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+    provider: Manhattan.Estimates.logScaleIntegral_le
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-mixed-denominator-pos
+    version: 1
+    kind: theorem
+    source: manuscript.tex:937-944
+    file: Manhattan/Frozen/Estimates/MixedDenominatorPos.lean
+    export: Manhattan.Frozen.Estimates.mixed_denominator_pos
+    state: PROVED
+    frozen_sha256: 26731bc102dca4402bfc1096141430e8dbcff32f38fc689d58c3c037d09cfc28
+    closure_sha256: e79f430d3238890d9a19b87c2f8353b99d274264ee220db5d81e84d0ab21b889
+    provider: Manhattan.Estimates.mixed_denominator_pos
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-mixed-residual-eq-indicator
+    version: 1
+    kind: theorem
+    source: manuscript.tex:937-940
+    file: Manhattan/Frozen/Estimates/MixedResidualEqIndicator.lean
+    export: Manhattan.Frozen.Estimates.mixedResidual_eq_indicator
+    state: PROVED
+    frozen_sha256: aa9b2cd027494fee9924bb703128772318827162bdfd97d9bed45c500532f257
+    closure_sha256: 1511ff9386c782eec344ca84b0b486ebabc157144e8859afee20c8d5151001fe
+    provider: Manhattan.Estimates.mixedResidual_eq_indicator
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-multiplier-comparison-claim-proved
+    version: 1
+    kind: theorem
+    source: manuscript.tex:991-1000
+    file: Manhattan/Frozen/Estimates/MultiplierComparisonClaimProved.lean
+    export: Manhattan.Frozen.Estimates.multiplierComparisonClaim_proved
+    state: PROVED
+    frozen_sha256: 9c246d6e4345d8424cbcd575dd254d828c963fd14a9576734c7e3e13a876f58a
+    closure_sha256: 3cf29f5e72076bff1720f1e2b9b97574499612cb9f7004bf0281b9c9fa6b5bd6
+    provider: Manhattan.Estimates.multiplierComparisonClaim_proved
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-multiplier-comparison-explicit
+    version: 1
+    kind: theorem
+    source: manuscript.tex:991-1000
+    file: Manhattan/Frozen/Estimates/MultiplierComparisonExplicit.lean
+    export: Manhattan.Frozen.Estimates.multiplier_comparison_explicit
+    state: PROVED
+    frozen_sha256: cb0bb3a60ac6610968ec9f47bdfbcfcea0a852d095af33a17f9105c7f4762d80
+    closure_sha256: 3307d6cb40c3fcb5720c78ed341e82115bcd8c06dc3ba9a28eca4921419f3571
+    provider: Manhattan.Estimates.multiplier_comparison_explicit
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-multiplier-nonneg
+    version: 1
+    kind: theorem
+    source: manuscript.tex:982-1000
+    file: Manhattan/Frozen/Estimates/MultiplierNonneg.lean
+    export: Manhattan.Frozen.Estimates.multiplier_nonneg
+    state: PROVED
+    frozen_sha256: 1bfc5d663486062e841cdecccacc0cbc58ecf7ea529a404c74055a34abd18251
+    closure_sha256: 331ab7c8738ef80a3e5f9aa479df3eb3513ebbbedfd0e164931c89fdb5002f72
+    provider: Manhattan.Estimates.multiplier_nonneg
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-one-sub-sigma-mul-correction-v
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1352-1355
+    file: Manhattan/Frozen/Estimates/OneSubSigmaMulCorrectionV.lean
+    export: Manhattan.Frozen.Estimates.one_sub_sigma_mul_correctionV
+    state: PROVED
+    frozen_sha256: ab9928bbeae1a397883d6dc653872530666689abb1de767b447783342afe4925
+    closure_sha256: 651169688f8b13dfdbe077b006d1e0a4780336bac3e4cc18728450e072d3c3bb
+    provider: Manhattan.Estimates.one_sub_sigma_mul_correctionV
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-raising-formula-finset
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1179-1191 (D-003/E-001)
+    file: Manhattan/Frozen/Estimates/RaisingFormulaFinset.lean
+    export: Manhattan.Frozen.Estimates.raising_formula_finset
+    state: PROVED
+    frozen_sha256: 4bbaed970cedfcf709455b49bab2c61e21c3f74b7f4335040ed4aeab644a2eff
+    closure_sha256: 95f45a4e547189a495e2806858aec6cae746f833e366c05d199ea1288aa875f8
+    provider: Manhattan.Estimates.raising_formula_finset
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-sin-ne-zero-on-support
+    version: 1
+    kind: theorem
+    source: manuscript.tex:907-958
+    file: Manhattan/Frozen/Estimates/SinNeZeroOnSupport.lean
+    export: Manhattan.Frozen.Estimates.sin_ne_zero_on_support
+    state: PROVED
+    frozen_sha256: 2ab222d4f908e8afde8f3badec1feecb0d6ce38417abaa647c03d8e3e03d134b
+    closure_sha256: 82a1bb7eb819ce0fdc5a8a5607a78da3ea451787d2c45ca30208cb56129c0291
+    provider: Manhattan.Estimates.sin_ne_zero_on_support
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-sine-sq-div-sqrt-le
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1257-1269
+    file: Manhattan/Frozen/Estimates/SineSqDivSqrtLe.lean
+    export: Manhattan.Frozen.Estimates.sine_sq_div_sqrt_le
+    state: PROVED
+    frozen_sha256: 8539c8b967fc97a163415cb7696c0408cc6a470ae2ee5a976953d9a8428d182f
+    closure_sha256: 43fb6100811734bf09903a342edb9632bb5dcea0dae0401b0c7ede9c8f93a9ec
+    provider: Manhattan.Estimates.sine_sq_div_sqrt_le
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-theta-nonneg
+    version: 1
+    kind: theorem
+    source: manuscript.tex:743-756
+    file: Manhattan/Frozen/Estimates/ThetaNonneg.lean
+    export: Manhattan.Frozen.Estimates.theta_nonneg
+    state: PROVED
+    frozen_sha256: 44342fb7f65a521b336e8e567d6f6493268b7271dafc8e703c8b4996e1a5f200
+    closure_sha256: 45fd716bc3ca6be662eb647faae847876f0315f75d9c794beee1b5850e982989
+    provider: Manhattan.Estimates.theta_nonneg
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-torus-integral-one
+    version: 1
+    kind: theorem
+    source: manuscript.tex:523-524
+    file: Manhattan/Frozen/Estimates/TorusIntegralOne.lean
+    export: Manhattan.Frozen.Estimates.torusIntegral_one
+    state: PROVED
+    frozen_sha256: f1d73ff681184d64a6c54b9a7835989259b55985c56ff6042f6cc814d239cc28
+    closure_sha256: 89b90ed66ff1697c87cbc08308c3ba16d93f25bec7093ebdc3b1ea68af109b25
+    provider: Manhattan.Estimates.torusIntegral_one
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: est-total-frequency-multiplier-apply
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1188-1190 (D-003/E-001)
+    file: Manhattan/Frozen/Estimates/TotalFrequencyMultiplierApply.lean
+    export: Manhattan.Frozen.Estimates.totalFrequencyMultiplier_apply
+    state: PROVED
+    frozen_sha256: 90e08ce1acaa177199a1305a4c09b8ccdbe9c124ef2e2475644b2a69aab217c8
+    closure_sha256: 98518a86d89ba404a3d5bb72670f0382b1c062f2f91139c830b3b1db8117ddb8
+    provider: Manhattan.Estimates.totalFrequencyMultiplier_apply
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: thm-main
+    version: 1
+    kind: theorem
+    source: manuscript.tex:192-198 (D-001)
+    file: Manhattan/Frozen/Main/Theorem11.lean
+    export: Manhattan.Frozen.Main.theorem_1_1
+    state: PROVED
+    frozen_sha256: 9bd1bc20ebeb723da711cf9022c910fbac0384012ebd86d77ce3b325a39a2b67
+    closure_sha256: ab207b87f802726de329caa4cb50d550b037969b31e992115e04fd1fcd70d868
+    provider: Manhattan.Glue.theorem_1_1_proved_of_exists
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: prop-generator
+    version: 1
+    kind: theorem
+    source: manuscript.tex:576-597 (D-002/D-005/D-014/D-018)
+    file: Manhattan/Frozen/Operator/PropositionGenerator.lean
+    export: Manhattan.Frozen.Operator.proposition_generator
+    state: PROVED
+    superseded_by: prop-generator-v2
+    frozen_sha256: 03a6a5c72b5590b39b5f4dac6aff08eef42534b6c1814ad6123fe3faf7fe32e6
+    closure_sha256: 0844d0bf7b910f5f098a8d96fa38cd8c5d7fdb39f034b21c9d5829b14ddddaa2
+    provider: Manhattan.Glue.proposition_generator
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: prop-generator-v2
+    version: 2
+    kind: theorem
+    source: manuscript.tex:555-607 (D-002/D-005/D-014/D-018/D-030/D-027)
+    file: Manhattan/Frozen/Operator/PropositionGeneratorV2.lean
+    export: Manhattan.Frozen.Operator.proposition_generator_v2
+    state: PROVED
+    frozen_sha256: ea938b93cee461f352dfc4d232f11ee1bedb42e444f957e7cb66224a7ea1e017
+    closure_sha256: 73545b352d98fc0e400d9409df8c1ad30d0b90803467d7748631bb3331c6e013
+    provider: Manhattan.Glue.proposition_generator_v2
+    draft_allowlist: []
+    approved: 2026-09-03
+  - id: prop-frequency
+    version: 2
+    kind: theorem
+    source: manuscript.tex:644-661 (D-003/D-004/D-014/D-017/D-020/E-007)
+    file: Manhattan/Frozen/Estimates/PropositionFrequency.lean
+    export: Manhattan.Frozen.Estimates.proposition_frequency
+    state: PROVED
+    frozen_sha256: 636d95d05926547c6ee6b2583e5cac61600314921b60ccabba2819fabdcb5197
+    closure_sha256: 425aeab0fe51ac5b4f1f852419abea34a6c921f91ddb018be0a6cdabbf29c8b4
+    provider: Manhattan.Glue.proposition_frequency_v2
+    draft_allowlist: []
+    approved: 2026-09-03
+  - id: thm-annealed
+    version: 1
+    kind: theorem
+    source: manuscript.tex:207-214 (D-001/D-002)
+    file: Manhattan/Frozen/Main/Theorem12.lean
+    export: Manhattan.Frozen.Main.theorem_1_2
+    state: PROVED
+    frozen_sha256: d70216c1f36294a6f788b7af91a347d88b1b56399184a53876d8e8de5241a70b
+    closure_sha256: 3875a13783f322eec5dcb0e3542f63e472e53f524c76f20ea384e946276cb8d9
+    provider: Manhattan.Glue.theorem_1_2_proved_of_exists
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: thm-annealed-model-interface
+    version: 1
+    kind: theorem
+    source: manuscript.tex:207-214 (D-001/D-002/D-013)
+    file: Manhattan/Model/Theorem12.lean
+    export: theorem_1_2
+    state: PROVED
+    frozen_sha256: fac2f2c070cc5f251717258450e6248afb0c24e107fbc4155d6f1cfe3b9ee587
+    closure_sha256: 3875a13783f322eec5dcb0e3542f63e472e53f524c76f20ea384e946276cb8d9
+    provider: Manhattan.Glue.theorem_1_2_proved_of_exists
+    draft_allowlist: []
+    approved: 2026-09-02
+  - id: lem-onecoin
+    version: 2
+    kind: theorem
+    source: manuscript.tex:907-917 (D-003/D-015/D-019/E-006)
+    file: Manhattan/Frozen/Estimates/LemmaOneCoin.lean
+    export: Manhattan.Frozen.Estimates.lemma_one_coin
+    state: PROVED
+    superseded_by: lem-onecoin-v3
+    frozen_sha256: a90b7fc9a4c5218198a79ab781e8f85f035311282f13656298d40353b0fc1616
+    closure_sha256: 9cab9faf568735f55962f075000ce54fa15f2caec6a245a57b269c58f93bc7cc
+    provider: Manhattan.Estimates.lemmaFourTwoSuccessorClaim_proved
+    draft_allowlist: []
+    approved: 2026-09-03
+  - id: lem-onecoin-v3
+    version: 3
+    kind: theorem
+    source: manuscript.tex:907-958 (D-003/D-019/D-029/E-006)
+    file: Manhattan/Frozen/Estimates/LemmaOneCoinV3.lean
+    export: Manhattan.Frozen.Estimates.lemma_one_coin_v3
+    state: PROVED
+    frozen_sha256: c5e1c0c93c65a5153400574442d78a55607433b73e8467845b15191d792b17a8
+    closure_sha256: c4725f3ad4846cc221f36f0361c1aa7aba85309b21494f25a9b5494e399f4237
+    provider: Manhattan.Estimates.lemmaFourTwoSuccessorV3Claim_proved
+    draft_allowlist: []
+    approved: 2026-09-03
+  - id: prop-key
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1007-1018 (D-003)
+    file: Manhattan/Frozen/Estimates/PropositionKey.lean
+    export: Manhattan.Frozen.Estimates.proposition_key
+    state: PROVED
+    frozen_sha256: 2f36d64aa2237472218fab2b2942227fa9cabb66a1694f363bd6fe22ede74c1d
+    closure_sha256: 5dc0dc97b7eadc7306cb45645ef5c53ac5decc32e16277051bbce8de1e5ff03b
+    provider: Manhattan.Estimates.propositionFiveTwoClaim_proved
+    draft_allowlist: []
+    approved: 2026-09-03
+  - id: lem-raise-concrete-raising
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1179-1191 (eq:raise = (45) at :1182; D-003)
+    file: Manhattan/Frozen/Glue/LemmaRaiseConcreteRaising.lean
+    export: Manhattan.Frozen.Glue.lemma_raise_concrete_raising
+    state: PROVED
+    frozen_sha256: 9237b78abe3aff8246eab12980b3900dcda4319e1b9bb43e86a0b4218fdac05f
+    closure_sha256: 0e3e3fb11d454b383ccbe08bc7375040bac1a02001a3486ad19cb124f0801c69
+    provider: Manhattan.Glue.inner_walshL2_walshRaiseDir
+    draft_allowlist: []
+    approved: 2026-09-04
+  - id: lem-raise-concrete-adjoint
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1179-1191 (D-003)
+    file: Manhattan/Frozen/Glue/LemmaRaiseConcreteAdjoint.lean
+    export: Manhattan.Frozen.Glue.lemma_raise_concrete_adjoint
+    state: PROVED
+    frozen_sha256: ce63dd1c5428c01efe5d1da01f76095566149e38d93263b8790022344ca41268
+    closure_sha256: 3132565f6e4844015c51f0417af67ee4b181e4f20b7b6337c58d75f104497a45
+    provider: Manhattan.Glue.loweringCoefficient_eq
+    draft_allowlist: []
+    approved: 2026-09-04
+  - id: eq-hsym-concrete
+    version: 1
+    kind: theorem
+    source: manuscript.tex:743-751 (eq:Hsym = (20) at :749; eq:P = (19) at :745)
+    file: Manhattan/Frozen/Glue/HsymConcrete.lean
+    export: Manhattan.Frozen.Glue.hsym_concrete
+    state: PROVED
+    frozen_sha256: 876b02b2fc8b7c5e7ad78b9ffb1fefb51bdedc27fc87e33fca005dfc1321f3ab
+    closure_sha256: fe43b1178f29a78cc174a125f5283c8d90ba28de4f71a20daa889b2224bdb2ae
+    provider: Manhattan.Glue.coeFn_freqH
+    draft_allowlist: []
+    approved: 2026-09-04
+  - id: lem-four-concrete-raising-energy
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1200-1207 (eq:four = (47) at :1203)
+    file: Manhattan/Frozen/Glue/LemmaFourConcreteRaisingEnergy.lean
+    export: Manhattan.Frozen.Glue.lemma_four_concrete_raising_energy
+    state: PROVED
+    frozen_sha256: d67d3666d2b75991586fb98b1cf77bf8a648c02d8fec010f828760bf6d591157
+    closure_sha256: efe646706d72f8cc2fd2c54c2dd1d6fe5ccae37d4ccfe40913a5fecd045b3dfc
+    provider: Manhattan.Glue.tsum_integral_inv_symbolWeight_degreeRaiseDir_le
+    draft_allowlist: []
+    approved: 2026-09-04
+  - id: lem-four-concrete-competitor
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1200-1207 (D-034/E-010)
+    file: Manhattan/Frozen/Glue/LemmaFourConcreteCompetitor.lean
+    export: Manhattan.Frozen.Glue.lemma_four_concrete_competitor
+    state: PROVED
+    frozen_sha256: 677a30a05f20a3e3f5f8e86432ee6d3862bdf684de0b823424e368c6b7c9a56c
+    closure_sha256: 36b19e56105f1fc578314c536774d979513399536bfb667bf0a0d58c9a5f00f1
+    provider: Manhattan.Glue.sectorDFourForm_shiftedCorrectionWalsh_le
+    draft_allowlist: []
+    approved: 2026-09-04
+  - id: lem-distinct-concrete-frequency
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1212-1221 (D-031; raw/frequency side only, AUD-2 action 2 open)
+    file: Manhattan/Frozen/Glue/LemmaDistinctConcreteFrequency.lean
+    export: Manhattan.Frozen.Glue.lemma_distinct_concrete_frequency
+    state: PROVED
+    frozen_sha256: ae9221d28058574c2c9f20c035c83b0e8f6dc240b44ccd695cd3552fbd4cc1a6
+    closure_sha256: d4f8d5003d125140195c191d4aad6052bf8b599b07464ce67f3744dbbcae8f7a
+    provider: Manhattan.Glue.lemma_distinct_correction
+    draft_allowlist: []
+    approved: 2026-09-04
+  - id: lem-correction-calculation-concrete
+    version: 1
+    kind: theorem
+    source: manuscript.tex:1305-1400
+    file: Manhattan/Frozen/Glue/LemmaCorrectionCalculationConcrete.lean
+    export: Manhattan.Frozen.Glue.lemma_correction_calculation_concrete
+    state: PROVED
+    frozen_sha256: 671f4be9fd90715535ba610136c6599736211d78284850559c8cd92e36ee49e2
+    closure_sha256: 2654132bdd7707257fdd36fdae96a43cca6c257da62e85ff5573c2bbff81d1e4
+    provider: Manhattan.Glue.mixedRawResidualHMinusSq_le_sqrtScale
+    draft_allowlist: []
+    approved: 2026-09-04
+  - id: eq-e-summand-one
+    version: 1
+    kind: theorem
+    source: manuscript.tex:765-772 (eq:E = (22))
+    file: Manhattan/Frozen/Glue/SummandOne.lean
+    export: Manhattan.Frozen.Glue.summand_one_bound
+    state: PROVED
+    frozen_sha256: 51bb5a6954535e5b80039971ba52d7bb149e0cb6721db934305393cb1efc8e13
+    closure_sha256: f437cbeb42b1eeb2d874c2bb4a5299f6d11c9a8ae120fc7aa5f8d7005aaa5212
+    provider: Manhattan.Glue.summandOneBound_proved
+    draft_allowlist: []
+    approved: 2026-09-04
+  - id: eq-e-summand-two
+    version: 1
+    kind: theorem
+    source: manuscript.tex:765-772 (eq:E = (22); D-033/E-009)
+    file: Manhattan/Frozen/Glue/SummandTwo.lean
+    export: Manhattan.Frozen.Glue.summand_two_bound
+    state: PROVED
+    frozen_sha256: 53c81ca6c2aa46fe07be75e713473776fb0754d0946aa9e8cd6142c0661a7467
+    closure_sha256: 2001a0d2d59eadce11d33220407e96938a856a2575ea4618b3f1782e58685e2d
+    provider: Manhattan.Glue.summandTwoBound_proved
+    draft_allowlist: []
+    approved: 2026-09-04
+  - id: eq-e-summand-three
+    version: 1
+    kind: theorem
+    source: manuscript.tex:765-772 (eq:E = (22); D-035/E-011)
+    file: Manhattan/Frozen/Glue/SummandThree.lean
+    export: Manhattan.Frozen.Glue.summand_three_bound
+    state: PROVED
+    frozen_sha256: 9f3e2e7511b0992c25c8763e7bb6dbc242f3301fdba3a3ca8331ca084539a0d8
+    closure_sha256: 64e639fce6d4aa607aec26cc393c3f99295897e90db24b0e8d299a89cead303b
+    provider: Manhattan.Glue.summandThreeBound_proved
+    draft_allowlist: []
+    approved: 2026-09-04
+  - id: eq-e-summand-four
+    version: 1
+    kind: theorem
+    source: manuscript.tex:765-772 (eq:E = (22))
+    file: Manhattan/Frozen/Glue/SummandFour.lean
+    export: Manhattan.Frozen.Glue.summand_four_bound
+    state: PROVED
+    frozen_sha256: 4b901c2baef176b6ef2910447d0327e87590a1581b1040a819ae559f5ae39093
+    closure_sha256: 83a2205ca1a158b94b065bc74cd123801e1016f009e64d92316a89ea8d1a2fd1
+    provider: Manhattan.Glue.summandFourBound_proved
+    draft_allowlist: []
+    approved: 2026-09-04
+  - id: eq-construction-sector-energy
+    version: 1
+    kind: theorem
+    source: manuscript.tex:785-790 (third display of eq:construction = (25))
+    file: Manhattan/Frozen/Glue/SectorEnergyBound.lean
+    export: Manhattan.Frozen.Glue.sector_energy_bound
+    state: PROVED
+    frozen_sha256: 5be20c4d0f03b311bab331a1ad2b0199c8b1c1f849044e8f1f506427d41d4629
+    closure_sha256: 1813a95ba4d3359c50a1fa78e8da952ca55810cb7c9adfaf0342229d65cc64b9
+    provider: Manhattan.Glue.exists_concreteSectorEnergyBound
+    draft_allowlist: []
+    approved: 2026-09-04

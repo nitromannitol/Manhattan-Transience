@@ -1,0 +1,228 @@
+version: "v0.3"
+
+project:
+  name: "Randomly oriented Manhattan lattice"
+  authors:
+    - "Ahmed Bou-Rabee"
+    - "Yuval Peres"
+  license: "TBD"
+
+sources:
+  - title: "The randomly oriented Manhattan lattice in 2D is transient"
+    authors:
+      - "Ahmed Bou-Rabee"
+      - "Yuval Peres"
+    id: ""
+    url: ""
+    type: "manuscript"
+    license: "all rights reserved"
+    author_contacted: "n/a"
+    prior_work: >-
+      The scaffold and audit discipline follow the authors' GMC formalization.
+      Reuse candidates and dependency decisions are surveyed in
+      ledger/reports/S-search.md.
+
+status:
+  scope: >-
+    The formalization is complete. It covers the discrete randomly oriented
+    Manhattan model, countable Fourier--Walsh coordinates, Fourier transform
+    in position, the fixed-frequency variational upper bound, the explicit
+    degree-one and degree-three estimates, the concrete competitor and the
+    four-sector objective, and both headline theorems. The manifest has 76
+    records, every one in state PROVED and none registered as a draft; three
+    proved predecessors are retired from the live import cone. Manhattan/
+    contains no sorry, and Theorem 1.1, Theorem 1.2 and Proposition 2.2 all
+    depend on exactly [propext, Classical.choice, Quot.sound]. The only sorry
+    in the repository is the deliberate Mathlib-only comparator placeholder at
+    Audit/Transience/Challenge.lean:115, which is a challenge statement and not
+    a proof. The independent second key required by the two-key rule of
+    Audit/README.md is still outstanding for the twelve concrete-lemma anchors
+    frozen on 2026-09-04 and for the headline cone.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+    - "propext"
+    - "Classical.choice"
+    - "Quot.sound"
+  main_results:
+    - declaration: "Manhattan.Frozen.Main.theorem_1_1"
+      file: "Manhattan/Frozen/Main/Theorem11.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Classical.choice"
+        - "Quot.sound"
+      comparator_config: "Audit/MainTransience/comparator.json"
+      literature_dependencies: []
+      note: >-
+        Theorem 1.1; proved by Manhattan.Glue.theorem_1_1_proved_of_exists from
+        Manhattan.Glue.exists_concreteSectorEnergyBound. Independent second key
+        of the headline cone not yet recorded.
+    - declaration: "Manhattan.Frozen.Main.theorem_1_2"
+      file: "Manhattan/Frozen/Main/Theorem12.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Classical.choice"
+        - "Quot.sound"
+      comparator_config: "Audit/AnnealedGreen/comparator.json"
+      literature_dependencies: []
+      note: >-
+        Theorem 1.2; proved by Manhattan.Glue.theorem_1_2_proved_of_exists.
+        Independent second key of the headline cone not yet recorded.
+
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "Codex agentic coding harness"
+      tool_setup: >-
+        Lake builds under Lean v4.26.0 with Mathlib v4.26.0 as the only Wave 1
+        dependency. Public declarations use a content-hashed frozen-statement
+        manifest and headline results require an independent Mathlib-only
+        comparator audit.
+      cost:
+        wall_time: ""
+        accounts: ""
+        spend_usd: ""
+        hardware: ""
+      prompting_notes: >-
+        Human-directed parallel lanes with statement-level decisions recorded
+        before integration.
+  spend_usd: ""
+  notes: >-
+    Invariants are no unregistered sorry, no sorry in definitions or support,
+    no custom axiom, and no warnings outside the exact registered draft set.
+
+fidelity:
+  divergences: >-
+    Encoding choices, ambiguities, and suspected source issues are recorded in
+    ledger/ERRATA.md and linked to numbered rulings in ledger/decisions.md; no
+    manuscript deviation is absorbed silently.
+
+review:
+  status: "in-progress"
+  reviewers:
+    - "Ahmed Bou-Rabee"
+    - "Yuval Peres"
+  notes: >-
+    All 76 PROVED manifest nodes and the audited Glue support have the standard
+    Mathlib axiom surface; no DRAFT_SORRY node remains and the
+    frequency-to-headline chain is closed. Six independent second keys have been
+    recorded (ledger/reports/AUD-*.md); the per-node second keys for the twelve
+    concrete-lemma anchors and for the headline cone are still outstanding.
+
+alignment:
+  namespace: "Manhattan"
+  statements:
+    - source: "Theorem 1.1 (almost-sure transience; thm-main)"
+      lean: "Manhattan.Frozen.Main.theorem_1_1"
+      module: "Manhattan.Frozen.Main.Theorem11"
+      status: "proved"
+      note: >-
+        Exact headline anchor fixed by D-001; proved, standard axioms only.
+        Independent second key pending.
+    - source: "Theorem 1.2 (annealed Green bound; thm-annealed)"
+      lean: "Manhattan.Frozen.Main.theorem_1_2"
+      module: "Manhattan.Frozen.Main.Theorem12"
+      status: "proved"
+      note: >-
+        Exact second anchor fixed by D-001; proved, standard axioms only.
+        Independent second key pending.
+    - source: "Proposition 2.1 (prop-generator)"
+      lean: "Manhattan.Frozen.Operator.proposition_generator_v2"
+      module: "Manhattan.Frozen.Operator.PropositionGeneratorV2"
+      status: "proved"
+      note: "D-030/D-027 pointwise-intertwining successor; second key D-028."
+    - source: "Formula (11), upper-bound direction (var-ineq)"
+      lean: "Manhattan.Frozen.Operator.resolventQuadratic_le"
+      module: "Manhattan.Frozen.Operator.ResolventQuadraticLe"
+      status: "proved"
+      note: "Scope fixed by D-004."
+    - source: "Proposition 2.2 (prop-frequency)"
+      lean: "Manhattan.Frozen.Estimates.proposition_frequency"
+      module: "Manhattan.Frozen.Estimates.PropositionFrequency"
+      status: "proved"
+      note: >-
+        Torus-restricted v2; provider Manhattan.Glue.proposition_frequency_v2.
+        Independent second key pending.
+    - source: "Lemma 4.1 (lem-onecoin-v3)"
+      lean: "Manhattan.Frozen.Estimates.lemma_one_coin_v3"
+      module: "Manhattan.Frozen.Estimates.LemmaOneCoinV3"
+      status: "proved"
+      note: "D-029 v3 adds explicit integral-finiteness certificates; second key D-026."
+    - source: "Proposition 4.2 (prop-key)"
+      lean: "Manhattan.Frozen.Estimates.proposition_key"
+      module: "Manhattan.Frozen.Estimates.PropositionKey"
+      status: "proved"
+      note: "Current scalar degree-three correction anchor."
+    - source: "Equation (Hsym) = (20) (eq-hsym-concrete)"
+      lean: "Manhattan.Frozen.Glue.hsym_concrete"
+      module: "Manhattan.Frozen.Glue.HsymConcrete"
+      status: "sealed"
+      note: "Concrete (Hsym). Independent second key pending."
+    - source: "Lemma 5.1, raising side (lem-raise-concrete-raising)"
+      lean: "Manhattan.Frozen.Glue.lemma_raise_concrete_raising"
+      module: "Manhattan.Frozen.Glue.LemmaRaiseConcreteRaising"
+      status: "sealed"
+      note: "Equation (45) in the concrete model. Independent second key pending."
+    - source: "Lemma 5.1, adjoint side (lem-raise-concrete-adjoint)"
+      lean: "Manhattan.Frozen.Glue.lemma_raise_concrete_adjoint"
+      module: "Manhattan.Frozen.Glue.LemmaRaiseConcreteAdjoint"
+      status: "sealed"
+      note: "Independent second key pending."
+    - source: "Lemma 5.2, operator half (lem-four-concrete-raising-energy)"
+      lean: "Manhattan.Frozen.Glue.lemma_four_concrete_raising_energy"
+      module: "Manhattan.Frozen.Glue.LemmaFourConcreteRaisingEnergy"
+      status: "sealed"
+      note: "Degree-four raising energy bound. Independent second key pending."
+    - source: "Lemma 5.2 at the competitor (lem-four-concrete-competitor)"
+      lean: "Manhattan.Frozen.Glue.lemma_four_concrete_competitor"
+      module: "Manhattan.Frozen.Glue.LemmaFourConcreteCompetitor"
+      status: "sealed"
+      note: "Independent second key pending."
+    - source: "Lemma 5.3, raw frequency side (lem-distinct-concrete-frequency)"
+      lean: "Manhattan.Frozen.Glue.lemma_distinct_concrete_frequency"
+      module: "Manhattan.Frozen.Glue.LemmaDistinctConcreteFrequency"
+      status: "sealed"
+      note: >-
+        RAW/FREQUENCY side only. The operator-level identification of
+        projectionErrorHMinusSq is AUD-2 action 2 and is open; this node does not
+        claim it. Independent second key pending.
+    - source: "Lemma 5.4 (lem-correction-calculation-concrete)"
+      lean: "Manhattan.Frozen.Glue.lemma_correction_calculation_concrete"
+      module: "Manhattan.Frozen.Glue.LemmaCorrectionCalculationConcrete"
+      status: "sealed"
+      note: "Raw mixed residual bound. Independent second key pending."
+    - source: "Objective (22), summand 1 (eq-e-summand-one)"
+      lean: "Manhattan.Frozen.Glue.summand_one_bound"
+      module: "Manhattan.Frozen.Glue.SummandOne"
+      status: "sealed"
+      note: "Independent second key pending."
+    - source: "Objective (22), summand 2 (eq-e-summand-two)"
+      lean: "Manhattan.Frozen.Glue.summand_two_bound"
+      module: "Manhattan.Frozen.Glue.SummandTwo"
+      status: "sealed"
+      note: "Independent second key pending."
+    - source: "Objective (22), summand 3 (eq-e-summand-three)"
+      lean: "Manhattan.Frozen.Glue.summand_three_bound"
+      module: "Manhattan.Frozen.Glue.SummandThree"
+      status: "sealed"
+      note: "Carries the sgn(sin p1) multiplier of D-035. Independent second key pending."
+    - source: "Objective (22), summand 4 (eq-e-summand-four)"
+      lean: "Manhattan.Frozen.Glue.summand_four_bound"
+      module: "Manhattan.Frozen.Glue.SummandFour"
+      status: "sealed"
+      note: "Independent second key pending."
+    - source: "Estimate E_p(f_p,k_p) <= C sqrt(L) (eq-construction-sector-energy)"
+      lean: "Manhattan.Frozen.Glue.sector_energy_bound"
+      module: "Manhattan.Frozen.Glue.SectorEnergyBound"
+      status: "sealed"
+      note: >-
+        Third display of eq:construction = (25), manuscript.tex:785-790; the
+        repository's shorthand "(23)". Independent second key pending.
+
+acknowledgements: >-
+  Built on Lean 4, Mathlib, Lake, and leanprover/comparator. Funding and tool
+  acknowledgements follow the source manuscript and will be finalized at
+  release.

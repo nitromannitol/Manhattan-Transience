@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Bump with each added or removed `#print axioms` sentinel.
+  EXPECTED_AXIOM_REPORTS: "116"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Lean and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          build: false
+          use-mathlib-cache: true
+
+      - name: Install manifest-checker dependency
+        run: python3 -m pip install --disable-pip-version-check pyyaml
+
+      - name: Check frozen statement manifest
+        run: python3 tools/check_manifest.py
+
+      - name: Build and enforce the registered warning multiset
+        run: python3 tools/check_warnings.py
+
+      - name: Check the certificate
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build Manhattan.Certificate 2>&1 | tee certificate.log
+          if grep -iE '^warning:|declaration uses .sorry' certificate.log; then
+            echo "The certificate build emitted a warning."
+            exit 1
+          fi
+          if grep -E '^info:' certificate.log \
+               | grep -vF 'depends on axioms: [propext, Classical.choice, Quot.sound]'; then
+            echo "A certificate declaration rests on something other than the three standard axioms."
+            exit 1
+          fi
+
+      - name: Audit proved declarations' axioms
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build Manhattan.Meta.AxiomsAudit 2>&1 | tee axioms-audit.log
+          if grep -iE '^warning:|declaration uses .sorry' axioms-audit.log; then
+            echo "Axiom audit build emitted a warning."
+            exit 1
+          fi
+          awk '/^(info:|warning:|error:|✔|✖|⚠|Build|Some)/ { if (m) print m; m = $0; next }
+               { sub(/^[ \t]+/, ""); m = m " " $0 }
+               END { if (m) print m }' axioms-audit.log > axioms-audit.unwrapped
+          if grep -iE '^info:' axioms-audit.unwrapped \
+               | grep -vF 'depends on axioms: [propext, Classical.choice, Quot.sound]'; then
+            echo "Axiom audit emitted unexpected output."
+            exit 1
+          fi
+          count=$(grep -cF 'depends on axioms: [propext, Classical.choice, Quot.sound]' \
+            axioms-audit.unwrapped || true)
+          if [ "$count" -ne "$EXPECTED_AXIOM_REPORTS" ]; then
+            echo "Expected exactly $EXPECTED_AXIOM_REPORTS standard-axiom reports, saw $count."
+            exit 1
+          fi

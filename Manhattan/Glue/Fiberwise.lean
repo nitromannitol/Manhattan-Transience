@@ -6,7 +6,7 @@ import Mathlib.MeasureTheory.Function.LpSeminorm.CompareExp
 # Pointwise concrete fibers on the vector-valued Fourier side
 
 The frequency space is represented as the Hilbert sum of scalar torus `L²`
-coordinates indexed by the complete Walsh basis. Multiplication by a torus
+coordinates indexed by the complete Walsh basis.  Multiplication by a torus
 character and permutation of Walsh coordinates therefore give the bounded
 direct-integral realization of `p ↦ G_p`.
 
@@ -123,7 +123,7 @@ private theorem frequencyPhaseMultiply_norm (x : Manhattan.Operator.Lattice)
   filter_upwards with t
   simp [frequencyCharacter, UnitAddTorus.mFourier]
 
-/-- The unitary positive-phase multiplier on scalar torus `L²`. Unlike a
+/-- The unitary positive-phase multiplier on scalar torus `L²`.  Unlike a
 definition by Fourier conjugation, this is constructed from pointwise
 multiplication, so the later fiberization equality is not circular. -/
 def frequencyPhaseMultiplier (x : Manhattan.Operator.Lattice) :
@@ -245,7 +245,7 @@ noncomputable def fiberwiseSkewTerm (i : Fin 2) :
       (fiberwiseTranslatedStep (-Manhattan.Operator.axisVector i)).toLinearIsometry.toContinuousLinearMap)
 
 /-- The bounded direct-integral realization of
-`p ↦ concreteFiberEnvironment.fiberGenerator p`. Its Walsh coordinates
+`p ↦ concreteFiberEnvironment.fiberGenerator p`.  Its Walsh coordinates
 are mixed by translations and origin-sign toggles, while each scalar torus
 coordinate is multiplied pointwise by the corresponding character. -/
 noncomputable def concreteFiberDirectIntegral :
@@ -293,7 +293,7 @@ theorem exp_neg_torusFrequency_eq_frequencyCharacter
   simp
 
 /-- The concrete fiber generator written intrinsically at a point of
-Mathlib's normalized torus. This is the same finite operator formula as
+Mathlib's normalized torus.  This is the same finite operator formula as
 `concreteFiberEnvironment.fiberGenerator`, with its exponential phases
 represented by torus characters. -/
 noncomputable def torusFiberGenerator (t : UnitAddTorus (Fin 2)) :
@@ -344,7 +344,7 @@ theorem torusFiberGenerator_eq_concreteFiberGenerator_torusFrequency
     (exp_torusFrequency_eq_frequencyCharacter t)
     (exp_neg_torusFrequency_eq_frequencyCharacter t)
 
-/-- Exact Walsh-coordinate formula for the direct integral. Together with
+/-- Exact Walsh-coordinate formula for the direct integral.  Together with
 `frequencyPhaseMultiply_apply_ae`, this states pointwise (almost
 everywhere) application of `torusFiberGenerator`. -/
 theorem concreteFiberDirectIntegral_coordinate
@@ -489,7 +489,7 @@ theorem fiberGenerator_eq_concrete_of_shift_omega
     hshift, homega]
   rfl
 
-/-- Frozen-block-ready version 2 of Proposition 2.1. In addition to the
+/-- Frozen-block-ready version 2 of Proposition 2.1.  In addition to the
 original generator and Green identity, it exposes the actual pointwise
 torus fibers and identifies their direct integral with the conjugated joint
 generator. -/

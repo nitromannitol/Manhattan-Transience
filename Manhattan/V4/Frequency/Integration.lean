@@ -5,7 +5,7 @@ import Manhattan.V4.Frequency.FixedFrequency
 
 The Version 4 fixed-frequency bound is
 
-  `r_λ(p) ≤ C / (λ + a(p)² (1 + log₊(1/(√λ + a(p))))^{3/2})`, `a(p) = max(|p₁|,|p₂|)`.
+  `r_λ(p) ≤ C / (λ + a(p)² (1 + log₊(1/(√λ + a(p))))^{3/2})`,   `a(p) = max(|p₁|,|p₂|)`.
 
 This file shows it is integrable over the torus uniformly in `λ ∈ (0,1]`, in two steps.
 

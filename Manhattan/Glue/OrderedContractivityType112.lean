@@ -10,11 +10,11 @@ Paper: `manuscript.tex:1193-1198` (equation (46), `eq:contract`),
 `Manhattan.type112DiagonalProjection` reads a raw coefficient indexed by
 `RawType112Index = Fin 3 -> Z` (two row frequencies and one column frequency,
 possibly coincident) at the strictly increasing representative of each Finset
-type-`(1,1,2)` index, through `Manhattan.orderedType112Equiv`. Only the
+type-`(1,1,2)` index, through `Manhattan.orderedType112Equiv`.  Only the
 *unweighted* contractivity of that passage was available
 (`Manhattan.norm_type112DiagonalProjection_le`).
 
-This file supplies the weighted statement. The passage is realised by the
+This file supplies the weighted statement.  The passage is realised by the
 orthogonal projection onto the coordinates with `n 0 < n 1`
 (`Manhattan.Glue.rawOrderedProjection`), it is norm-preserving on that range,
 and a multiplier in the total frequency `P` commutes with it because such a
@@ -34,7 +34,7 @@ def rawOrderedSet : Set RawType112Index := {n : RawType112Index | n 0 < n 1}
 @[simp] theorem mem_rawOrderedSet (n : RawType112Index) :
     n ∈ rawOrderedSet ↔ n 0 < n 1 := Iff.rfl
 
-/-- The orthogonal projection onto the ordered off-diagonal coordinates. This
+/-- The orthogonal projection onto the ordered off-diagonal coordinates.  This
 is the frequency-free form of the paper's `Pi_3` together with the choice of
 ordered representative. -/
 def rawOrderedProjection : ℓ²(RawType112Index, ℂ) →L[ℂ] ℓ²(RawType112Index, ℂ) :=
@@ -60,7 +60,7 @@ theorem type112RawIndex_orderedType112Equiv (m : OrderedType112Index) :
 
 /-- The passage to the ordered representative is norm-preserving on the range
 of the projection: it loses exactly the coordinates the projection kills, and
-nothing else. This refines `Manhattan.norm_type112DiagonalProjection_le` from
+nothing else.  This refines `Manhattan.norm_type112DiagonalProjection_le` from
 an inequality to an identity. -/
 theorem norm_type112DiagonalProjection_eq (c : ℓ²(RawType112Index, ℂ)) :
     ‖type112DiagonalProjection c‖ = ‖rawOrderedProjection c‖ := by
@@ -95,10 +95,10 @@ theorem norm_type112DiagonalProjection_eq (c : ℓ²(RawType112Index, ℂ)) :
 
 `Manhattan.Glue.lineShiftVector_axisVector` computes the shift a
 lattice translation induces on the line frequencies: every horizontal line is
-shifted by the same integer and every vertical line by the same integer. In
+shifted by the same integer and every vertical line by the same integer.  In
 the coordinates `RawType112Index` of two rows and one column, a simultaneous
 translation is therefore a shift by a vector `v` with `v 0 = v 1`, and such a
-shift preserves the strict order of the two row indices. This is the paper's
+shift preserves the strict order of the two row indices.  This is the paper's
 "a multiplier in `P` is a combination of simultaneous translations of all line
 indices, which preserve distinctness" (`manuscript.tex:1233-1235`), sharpened
 from distinctness to the choice of ordered representative. -/
@@ -120,7 +120,7 @@ theorem rawType112Shift_mem_rawOrderedSet {v : RawType112Index} (hv : v 0 = v 1)
   omega
 
 /-- Simultaneous shifts commute with the projection onto the ordered
-representatives. Every multiplier in the total frequency `P` is assembled from
+representatives.  Every multiplier in the total frequency `P` is assembled from
 such shifts, so every such multiplier satisfies the commutation hypothesis of
 `Manhattan.Glue.re_inner_rawOrderedProjection_le`. -/
 theorem rawOrderedProjection_comm_shift {v : RawType112Index} (hv : v 0 = v 1)
@@ -132,9 +132,9 @@ theorem rawOrderedProjection_comm_shift {v : RawType112Index} (hv : v 0 = v 1)
 
 /-! ### Equation (46) for the type-`(1,1,2)` ordered representative -/
 
-/-- **The weighted contractivity (46) in the raw type-`(1,1,2)` picture.** Any
+/-- **The weighted contractivity (46) in the raw type-`(1,1,2)` picture.**  Any
 nonnegative operator commuting with the ordered-representative projection has
-smaller energy after the passage to the ordered representative. With
+smaller energy after the passage to the ordered representative.  With
 `Manhattan.Glue.rawOrderedProjection_comm_shift` this applies to every
 multiplier in the total frequency `P`, which is the weighted analogue of
 `Manhattan.norm_type112DiagonalProjection_le`. -/

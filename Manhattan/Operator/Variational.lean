@@ -5,7 +5,7 @@ import Mathlib.Analysis.InnerProductSpace.Adjoint
 # Coercive resolvents and the one-sided variational formula
 
 This file formalizes the part of Section 2.2 used by the paper. In accordance
-with this convention, it proves the competitor upper bound and does not expose an
+with, it proves the competitor upper bound and does not expose an
 unneeded equality with an infimum. All quadratic quantities are real parts of
 complex inner products.
 
@@ -228,8 +228,8 @@ private theorem young_H {lambda : ℝ} (hlambda : 0 < lambda) (q d : E) :
     (P.re_inner_H_symm lambda d y).trans (inner_re_symm d (P.H lambda y))
   linarith
 
-/-- The resolvent quadratic form is nonnegative. This is the left half of the
-inequality `0 ≤ r_lambda(p) ≤...` in the paper's variational lemma: writing
+/-- The resolvent quadratic form is nonnegative.  This is the left half of the
+inequality `0 ≤ r_lambda(p) ≤ ...` in the paper's variational lemma: writing
 `z` for the exact resolvent vector, skew-adjointness of `A` turns the form into
 the energy of `z`. -/
 theorem resolventQuadratic_nonneg {lambda : ℝ} (hlambda : 0 < lambda) (V : E) :
@@ -280,7 +280,7 @@ theorem resolventQuadratic_le {lambda : ℝ} (hlambda : 0 < lambda) (V g : E) :
   simpa only [q, add_comm] using
     add_le_add_left (P.young_H hlambda q d) (P.hEnergy lambda g)
 
-/-- **The paper's `lem:variational-bound`, verbatim.** For every `lambda > 0`,
+/-- **The paper's `lem:variational-bound`, verbatim.**  For every `lambda > 0`,
 every `p`, and every `g` in the Hilbert space,
 
   `0 ≤ r_lambda(p) ≤ ‖g‖₊² + ‖V - A g‖₋²`.

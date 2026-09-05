@@ -4,7 +4,7 @@ import Manhattan.Estimates.TargetStatements
 # Rank-one quadratic minimization
 
 This module proves (26)--(27) for the explicit admissible class in the
-statement candidate. The proof uses weighted Young's inequality for the
+statement candidate.  The proof uses weighted Young's inequality for the
 universal lower bound and checks both integrability conditions for the
 displayed minimizer.
 

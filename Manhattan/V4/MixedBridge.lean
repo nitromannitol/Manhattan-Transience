@@ -7,7 +7,7 @@ import Manhattan.Glue.SummandThreeMixedFourier
 
 `Manhattan.Glue.mixedFourierCoefficient_correction` identifies the raw mixed
 lowering symbol with the genuine mixed Walsh coefficient of `D₂*`, but only for
-the OLD competitor `Manhattan.Estimates.correctionCoefficient`. This file
+the OLD competitor `Manhattan.Estimates.correctionCoefficient`.  This file
 supplies the general raw-to-Walsh bridge and instantiates it at the Version 4
 parity kernel `Manhattan.V4.parityKernel`.
 
@@ -16,22 +16,22 @@ The chain is
 * `mFourierCoeff_rawL2` -- the missing `L²` Fourier bridge: the abstract
   `UnitAddTorus.mFourierCoeff` of `Manhattan.V4.rawL2` is the iterated
   normalized torus integral `Manhattan.Glue.rawFourierCoefficient` of the
-  formula. This is the general form of
+  formula.  This is the general form of
   `Manhattan.Glue.mFourierCoeff_rawCorrection`, whose proof is the template.
 * `type112CoefficientAt_rawShiftTwist_pinned` -- the index bookkeeping at a
-  pinned mixed triple `(m, 0, j)`. At `m = 0` that Finset has two elements, is
+  pinned mixed triple `(m, 0, j)`.  At `m = 0` that Finset has two elements, is
   not a type-`112` index, and the concrete `D₂*` reads it as zero; off `m = 0`
   the competitor stores the raw coefficient at the ordered representative
   `![min m 0, max m 0, j]`, which is why the **symmetry** hypothesis `hsymm` is
   needed (the correction had it from
   `Manhattan.Estimates.correctionCoefficient_swap`; the parity kernel has it
   from `Manhattan.V4.parityKernelReal_swap`).
-* `mixedFourierCoefficient_rawOffDiagonalPart` -- **the bridge.** Both sides
+* `mixedFourierCoefficient_rawOffDiagonalPart` -- **the bridge.**  Both sides
   drop the coincident-row term at `m = 0`: the concrete side because
   `Manhattan.Glue.type112DStarMixed_eq` reads its input at
   `tripleToFinset (m, 0, n ± 1)`, the raw side because
   `Manhattan.Glue.rawFourierCoefficient_rawOffDiagonalPart` kills the
-  coincident-row Fourier coefficients of `Π₃`. Off the diagonal the two sides
+  coincident-row Fourier coefficients of `Π₃`.  Off the diagonal the two sides
   agree up to the unimodular `(shift)` phase
   `e^{-i(m p₂ + n p₁)}`, and by nothing else.
 * `mixedFourierCoefficient_parityKernel`, `type112DStarMixed_parityKernel` --
@@ -43,17 +43,17 @@ The chain is
 ## The normalization, stated explicitly
 
 `Manhattan.Glue.rawD2StarMixed` is `-i sin β ∫ k dm(r')`, with **no** `√2`;
-the manuscript's (D2b) carries one. the formalization followed
-the Version 4 argument literally and put the `(√2)⁻¹` **into the
-kernel**: `Manhattan.V4.parityKernel = i sin β (v + v')/(√2 M)`. This file
+the manuscript's (D2b) carries one.  The formalization follows
+the Version 4 argument literally and puts the `(√2)⁻¹` **into the
+kernel**: `Manhattan.V4.parityKernel = i sin β (v + v')/(√2 M)`.  This file
 keeps that convention, so
 
-    (D₂* Π₃ K)₁₂ = (√2)⁻¹ σ v (`Manhattan.V4.rawD2StarMixed_offDiagonalPart`)
-    ∫ M |K|² = ∫ σ v² (`Manhattan.V4.evenMajorantEnergy_parityKernel`)
+    (D₂* Π₃ K)₁₂ = (√2)⁻¹ σ v     (`Manhattan.V4.rawD2StarMixed_offDiagonalPart`)
+    ∫ M |K|²     = ∫ σ v²         (`Manhattan.V4.evenMajorantEnergy_parityKernel`)
 
 and the mixed symbol carried by `Manhattan.V4.parityMixedSymbol` is
-`(√2)⁻¹ σ v`, **not** `σ v`. The square of that constant is the `2⁻¹` in
-`hMinusEnergy_parityMixed_density`. Both factors are exhibited as strict
+`(√2)⁻¹ σ v`, **not** `σ v`.  The square of that constant is the `2⁻¹` in
+`hMinusEnergy_parityMixed_density`.  Both factors are exhibited as strict
 inequalities in `Manhattan/V4/MixedBridgeWitnesses.lean`, so neither can be a
 silently doubled or halved constant.
 
@@ -81,10 +81,10 @@ local instance : IsProbabilityMeasure (volume : Measure UnitAddCircle) :=
 
 /-! ## The `L²` Fourier bridge for a general raw kernel -/
 
-/-- **The Fourier bridge.** The three-dimensional Fourier coefficients of a
+/-- **The Fourier bridge.**  The three-dimensional Fourier coefficients of a
 bounded measurable raw kernel, taken on the abstract frequency torus where the
 competitor's `ℓ²` coefficient lives, are the iterated normalized torus
-integrals of the formula. This is
+integrals of the formula.  This is
 `Manhattan.Glue.mFourierCoeff_rawCorrection` with the explicit correction
 replaced by an arbitrary `Manhattan.Glue.TorusBoundedThree` kernel. -/
 theorem mFourierCoeff_rawL2 {k : ℝ → ℝ → ℝ → ℂ} (hk : Glue.TorusBoundedThree k)
@@ -119,7 +119,6 @@ theorem mFourierCoeff_rawL2 {k : ℝ → ℝ → ℝ → ℂ} (hk : Glue.TorusBo
   rw [hcoeff, Glue.integral_unitTorus_three_complex hFB]
   rfl
 
-
 /-! ## The competitor coefficient at a pinned mixed index -/
 
 /-- The projected raw coefficient at a Finset index: `Π₃` reads the raw Fourier
@@ -131,10 +130,10 @@ theorem rawType112Coefficients_apply {k : ℝ → ℝ → ℝ → ℂ} (hk : Glu
         (Manhattan.type112RawIndex S) := by
   simp [rawType112Coefficients, UnitAddTorus.mFourierBasis_repr]
 
-/-- **The competitor's degree-three coefficient at a pinned mixed index.** Off
+/-- **The competitor's degree-three coefficient at a pinned mixed index.**  Off
 the coincident-row diagonal it is the raw Fourier coefficient carrying the
 `(shift)` phase; on the diagonal `m = 0` the Finset index is not of type `112`
-and the coefficient is read as zero. The symmetry hypothesis is what lets the
+and the coefficient is read as zero.  The symmetry hypothesis is what lets the
 ordered representative `![min m 0, max m 0, j]` be replaced by `![m, 0, j]`;
 without it the two sides genuinely differ for `m > 0`. -/
 theorem type112CoefficientAt_rawShiftTwist_pinned {k : ℝ → ℝ → ℝ → ℂ}
@@ -170,13 +169,12 @@ theorem type112CoefficientAt_rawShiftTwist_pinned {k : ℝ → ℝ → ℝ → �
         exact Glue.rawFourierCoefficient_swap hk hsymm 0 m j
     rw [hcoeff, hphase]
 
-
 /-! ## The bridge -/
 
-/-- **The raw-to-Walsh mixed Fourier bridge.** The `(m,n)` Fourier coefficient
+/-- **The raw-to-Walsh mixed Fourier bridge.**  The `(m,n)` Fourier coefficient
 of the raw mixed lowering symbol of `Π₃ k` is the genuine mixed Walsh
 coefficient of `D₂* k_p`, read with the `(shift)` phase of
-`manuscript.tex:791-800`. This is
+`manuscript.tex:791-800`.  This is
 `Manhattan.Glue.mixedFourierCoefficient_correction` for an arbitrary bounded,
 row-periodic, row-symmetric raw kernel, with
 `Manhattan.shiftedCorrectionType112Coefficients` replaced by
@@ -254,7 +252,6 @@ theorem mixedFourierCoefficient_rawOffDiagonalPart {k : ℝ → ℝ → ℝ → 
       simp
     linear_combination (-(2 : ℂ)⁻¹ * A) * hp1 + ((2 : ℂ)⁻¹ * B) * hp2
 
-
 /-! ## The V4 parity kernel -/
 
 variable {kappa delta : ℝ}
@@ -318,7 +315,6 @@ theorem type112DStarMixed_parityKernel (hkappa : 0 < kappa) (hdelta : 0 < delta)
           ((Glue.intCharacter n (p 0) * Glue.intCharacter (-n) (p 0)) * X) := by ring
       _ = X := by rw [h1, h2, one_mul, one_mul]
   exact hcollapse.symm
-
 
 /-! ## Passing to the shifted frequencies of `(shift)` -/
 
@@ -452,7 +448,6 @@ theorem mixedFourierCoefficient_shift {F : ℝ → ℝ → ℂ}
           ring
         simp only [hbody]
 
-
 /-! ## The degree-two dual form at the parity kernel -/
 
 theorem parityJ_periodic_col (kappa delta r : ℝ) :
@@ -537,7 +532,6 @@ theorem torusBounded₂_parityMixedSymbol (hkappa : 0 < kappa) (hdelta : 0 < del
       linarith
     exact mul_le_mul_of_nonneg_left hstep (by positivity)
 
-
 /-- The shifted mixed symbol of the Version 4 competitor, as a bounded
 two-variable carrier. -/
 theorem torusBounded₂_parityShiftedSymbol (hkappa : 0 < kappa) (hdelta : 0 < delta)
@@ -592,7 +586,6 @@ theorem hMinusEnergy_parityMixed {q : Estimates.Parameters} (hlam : 0 < q.lambda
   rw [type12FreqFun_parityMixed hkappa hdelta v hvcol p]
   exact Glue.coeFn_mixedAngleL2 (torusBounded₂_parityShiftedSymbol hkappa hdelta v p)
 
-
 /-- The double translation of an iterated torus integral of a doubly periodic
 real integrand. -/
 theorem torusIntegral₂_shift {W : ℝ → ℝ → ℝ}
@@ -619,7 +612,7 @@ theorem torusIntegral₂_shift {W : ℝ → ℝ → ℝ}
   exact Glue.torusIntegral_translate_periodic houter c1
 
 /-- **The degree-two dual form at the Version 4 parity kernel, as a density in
-the unshifted frequencies.** The dual energy of the mixed lowering vector is
+the unshifted frequencies.**  The dual energy of the mixed lowering vector is
 exactly half of `∫∫ (sigma v)^2 / B`; the factor `1/2` is the square of the
 `(sqrt 2)⁻¹` carried by `Manhattan.V4.parityKernel`. -/
 theorem hMinusEnergy_parityMixed_density {q : Estimates.Parameters}
@@ -693,7 +686,6 @@ theorem hMinusEnergy_parityMixed_density {q : Estimates.Parameters}
   simp only [hpull]
   exact torusIntegral_real_smul 2⁻¹ _
 
-
 /-! ## The weighted scalar completion the bridge forces
 
 `Manhattan.V4.scalarCompletion_le` is stated with coefficient one on both the
@@ -703,8 +695,8 @@ The bridge above shows that at the Version 4 kernel the mixed symbol is
 `Manhattan.V4.evenMajorantEnergy_parityKernel` gives `∫ M |K|^2 = ∫ sigma v^2`.
 Writing `u = (sqrt 2)⁻¹ v` puts the residual in the shape `(w - sigma u)^2/B`
 and turns the degree-three cost `C₃ ∫ M |K|^2` into `2 C₃ ∫ sigma u^2`: the
-normalization cancels, but the **weight** `C = 2 C₃` does not. These three
-lemmas are the completion of the square at that weight. With `C₃ = 9` of
+normalization cancels, but the **weight** `C = 2 C₃` does not.  These three
+lemmas are the completion of the square at that weight.  With `C₃ = 9` of
 `Manhattan.V4.operatorEstimate` the weight is `C = 18`. -/
 
 /-- The exact algebraic identity behind the weighted scalar completion. -/
@@ -747,7 +739,7 @@ theorem weightedCompletion_eq {B sigma w C : ℝ} (hB : 0 < B) (hsigma : 0 ≤ s
   linarith
 
 /-- At any weight `C ≥ 1` the weighted minimum is still controlled by the Move 1
-density `w²/(B + sigma)`, at the cost of the factor `C`. This is the only place
+density `w²/(B + sigma)`, at the cost of the factor `C`.  This is the only place
 the weight leaves the argument, and it leaves it as an absolute constant. -/
 theorem weightedCompletion_le_density {B sigma w C : ℝ} (hB : 0 < B)
     (hsigma : 0 ≤ sigma) (hC : 1 ≤ C) :

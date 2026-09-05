@@ -6,7 +6,7 @@ import Manhattan.Paper.Ergodic.Alternating
 This file builds the law of the remark and proves parts (ii), (iii) and (iv):
 it is a probability measure carried by exactly four environments of mass `1/4`
 each, it is stationary under the whole translation action, it is ergodic for
-that action, and each one-point marginal is a fair sign. The last theorem of
+that action, and each one-point marginal is a fair sign.  The last theorem of
 the file records the paper's closing observation that ergodicity fails for the
 even sublattice.
 
@@ -147,7 +147,7 @@ theorem ergodicLaw_map_eval (l : LineIndex) :
 
 /-! ### (iii) Ergodicity for the full action -/
 
-/-- Part (iii): every almost invariant set is null or conull. The proof uses
+/-- Part (iii): every almost invariant set is null or conull.  The proof uses
 transitivity of the action on the four atoms. -/
 theorem ergodicLaw_eq_zero_or_one_of_ae_invariant (s : Set Environment)
     (hinv : ∀ x : Site, ergodicLaw (s ∆ (translateEnvironment x ⁻¹' s)) = 0) :
@@ -204,7 +204,7 @@ theorem preimage_singleton_translate_even (a b : ℤ) (uv : Orientation × Orien
     exact translate_even a b uv
 
 /-- The paper's closing remark: translations in `2ℤ²` fix every realization, so
-the law is not ergodic for the even sublattice. The witness has mass `1/2`. -/
+the law is not ergodic for the even sublattice.  The witness has mass `1/2`. -/
 theorem not_ergodic_even_sublattice :
     ∃ s : Set Environment, MeasurableSet s ∧
       (∀ a b : ℤ, translateEnvironment (2 * a, 2 * b) ⁻¹' s = s) ∧

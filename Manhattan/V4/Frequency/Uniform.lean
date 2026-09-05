@@ -6,14 +6,14 @@ import Manhattan.Glue.LowLog
 /-!
 # Version 4, Move 3: the complementary region, and the route to Theorem 1.2
 
-the formalization proved Move 3 (`Manhattan.V4.Frequency.move3_bound`) on the
+Move 3 (`Manhattan.V4.Frequency.move3_bound`) is proved on the
 improvement region `√λ + a(p) ≤ r₀⁴`, and the frequency integration
 (`regionalIntegralBoundsOfV4Bound`, `uniform_green_bound_of_v4Bound`) for a
-density dominated everywhere by the Version 4 majorant. It left one case split
-open: the complementary region. This file closes it and then composes the whole
+density dominated everywhere by the Version 4 majorant.  It left one case split
+open: the complementary region.  This file closes it and then composes the whole
 Version 4 chain.
 
-* `driftlessMajorant_le_v4Majorant` is the missing case. On
+* `driftlessMajorant_le_v4Majorant` is the missing case.  On
   `√λ + a(p) > r₀⁴` the Version 4 logarithmic scale is bounded,
   `Λ ≤ 1 + 4 log(1/r₀)` (`v4LogScale_le_of_big`), and on the torus
   `θ(p) ≥ 2 a(p)²/π²` (`Manhattan.Estimates.dispersion_quadratic_bounds`), so the
@@ -23,16 +23,16 @@ Version 4 chain.
 
 * `V4FrequencyBound` is the Version 4 analogue of Proposition 2.2 for the
   concrete model, and `v4FrequencyBound_of_move2Supply` assembles it from the
-  two regions. The existential over `s` in `V4Move2Supply` is what absorbs the
+  two regions.  The existential over `s` in `V4Move2Supply` is what absorbs the
   axis swap.
 
 * `annealedGreenBound_of_v4FrequencyBound` and `theorem_1_1_of_v4FrequencyBound`
-  are the Version 4 route to the two frozen statements. They go through
+  are the Version 4 route to the two frozen statements.  They go through
   `Manhattan.Glue.concreteGreenDensity_eq_resolventQuadratic`,
   `regionalIntegralBoundsOfV4Bound` and
   `Manhattan.Glue.annealedGreenBound_of_regional_identity`, so the competitor
   existential of `Manhattan.Operator.CompetitorBoundClaimV2` never appears: the
-  Version 4 route bounds the resolvent quadratic form directly. The frozen
+  Version 4 route bounds the resolvent quadratic form directly.  The frozen
   declarations are untouched and still proved by the existing development.
 -/
 
@@ -85,9 +85,9 @@ theorem v4LogScale_le_of_big {r0 lambda : ℝ} {p : Fin 2 → ℝ}
   unfold v4LogScale
   linarith
 
-/-- **The `g = 0` branch of the case split V4-B left open.** On the region
+/-- **The `g = 0` branch of the case split V4-B left open.**  On the region
 `√λ + a(p) > r₀⁴` the driftless bound `1/(λ + θ(p))` already implies the
-Version 4 majorant, with a constant depending only on `r₀`. The two inputs are
+Version 4 majorant, with a constant depending only on `r₀`.  The two inputs are
 the boundedness of the logarithmic scale there and `θ(p) ≥ 2 a(p)²/π²`. -/
 theorem driftlessMajorant_le_v4Majorant {r0 lambda : ℝ} {p : Fin 2 → ℝ}
     (hr0 : 0 < r0) (hr01 : r0 ≤ 1 / 4) (hlambda : 0 < lambda)
@@ -162,10 +162,9 @@ theorem driftlessMajorant_le_v4Majorant {r0 lambda : ℝ} {p : Fin 2 → ℝ}
   rw [mul_one_div, div_le_div_iff₀ hDpos hEpos]
   linarith [hkey]
 
-
 /-! ## The Version 4 fixed-frequency bound, and the route to Theorem 1.2 -/
 
-/-- **The Version 4 fixed-frequency bound for the concrete model.** This is the
+/-- **The Version 4 fixed-frequency bound for the concrete model.**  This is the
 Version 4 analogue of the manuscript's Proposition 2.2: the resolvent quadratic
 form at the constant Walsh vector is dominated by `C` times the Version 4
 majorant `1/(λ + a(p)²(1 + log₊(1/(√λ + a(p))))^{3/2})`, at every torus
@@ -176,7 +175,7 @@ def V4FrequencyBound (C : ℝ) : Prop :=
     (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).resolventQuadratic
         hlambda (Manhattan.walshL2 ∅) ≤ C * v4Majorant lambda p
 
-/-- **The output of Move 2 in the improvement region.** For each frequency with
+/-- **The output of Move 2 in the improvement region.**  For each frequency with
 `√λ + a(p) ≤ r₀⁴` the competitor construction supplies the closed form
 `1/(h₀ + s² Z_δ/C)` for some `s` obeying Jordan's inequality `(2/π)² a(p)² ≤ s²`.
 The existential over `s` is what absorbs the axis swap: on the horizontal branch
@@ -191,8 +190,8 @@ def V4Move2Supply (r0 C : ℝ) : Prop :=
         ≤ 1 / (lambda + Operator.theta p
             + s ^ 2 * Zdelta r0 (Real.sqrt lambda + Operator.maxFrequency p) / C)
 
-/-- **The case split V4-B left open, closed.** Move 3 covers the improvement
-region `√λ + a(p) ≤ r₀⁴`; the `g = 0` bound covers its complement. The composed
+/-- **The case split V4-B left open, closed.**  Move 3 covers the improvement
+region `√λ + a(p) ≤ r₀⁴`; the `g = 0` bound covers its complement.  The composed
 constant is the maximum of the two. -/
 theorem v4FrequencyBound_of_move2Supply {r0 C : ℝ}
     (hr0 : 0 < r0) (hr01 : r0 ≤ 1 / 4) (hC : 0 < C)
@@ -212,9 +211,9 @@ theorem v4FrequencyBound_of_move2Supply {r0 C : ℝ}
     refine (hdrift.trans houter).trans (mul_le_mul_of_nonneg_right ?_ hmpos)
     exact le_max_right _ _
 
-/-- **The complementary region, verified for the concrete model.** Outside the
+/-- **The complementary region, verified for the concrete model.**  Outside the
 improvement region the Version 4 fixed-frequency bound holds unconditionally,
-with the constant `outerRegionConstant r₀`. This is the half of
+with the constant `outerRegionConstant r₀`.  This is the half of
 `V4FrequencyBound` that needs no competitor. -/
 theorem resolventQuadratic_le_v4Majorant_outer {r0 lambda : ℝ} {p : Fin 2 → ℝ}
     (hr0 : 0 < r0) (hr01 : r0 ≤ 1 / 4) (hlambda : 0 < lambda)
@@ -227,7 +226,7 @@ theorem resolventQuadratic_le_v4Majorant_outer {r0 lambda : ℝ} {p : Fin 2 → 
     (driftlessMajorant_le_v4Majorant hr0 hr01 hlambda
       (abs_le.2 ⟨hp0.1.le, hp0.2⟩) (abs_le.2 ⟨hp1.1.le, hp1.2⟩) hbig)
 
-/-- **The Version 4 uniform Green bound.** The right-hand side does not depend
+/-- **The Version 4 uniform Green bound.**  The right-hand side does not depend
 on `λ`; this is Move 3's frequency integration applied to the concrete Green
 density. -/
 theorem uniform_green_bound_of_v4FrequencyBound {C : ℝ} (hC : 0 ≤ C)
@@ -247,7 +246,7 @@ theorem uniform_green_bound_of_v4FrequencyBound {C : ℝ} (hC : 0 ≤ C)
       exact h l hl hl1 (Manhattan.Glue.concreteFrequency z) hz1 hz2)
     hlambda hlambda1
 
-/-- **The Version 4 route to Theorem 1.2.** A fixed-frequency bound by the
+/-- **The Version 4 route to Theorem 1.2.**  A fixed-frequency bound by the
 Version 4 majorant is by itself enough for the annealed Green bound: the
 three-region integration of `Manhattan/Estimates/Regional.lean` applies through
 `v4Majorant_le_frequencyMajorant`, and `Manhattan.Glue.concreteGreenIdentity` is
@@ -269,9 +268,9 @@ theorem annealedGreenBound_of_v4FrequencyBound {C : ℝ} (hC : 0 ≤ C)
         exact h l hl hl1 (Manhattan.Glue.concreteFrequency z) hz1 hz2))
     Manhattan.Glue.concreteGreenIdentity
 
-/-- **The Version 4 route to the statement of Theorem 1.1.** Quenched
+/-- **The Version 4 route to the statement of Theorem 1.1.**  Quenched
 finiteness of the Green series, obtained from the Version 4 fixed-frequency
-bound through the annealed bound and the model layer's subordination argument. -/
+bound through the annealed bound and the Model part's subordination argument. -/
 theorem theorem_1_1_of_v4FrequencyBound {C : ℝ} (hC : 0 ≤ C)
     (h : V4FrequencyBound C) :
     ∀ᵐ omega ∂Manhattan.environmentLaw,

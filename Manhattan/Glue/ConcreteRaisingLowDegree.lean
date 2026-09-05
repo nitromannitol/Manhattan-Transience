@@ -4,11 +4,11 @@ import Manhattan.Glue.ConcreteRaisingFourier
 # The low-degree instances of Lemma 5.1
 
 The identities (D1), (D2a) and (D2b) of `manuscript.tex:793-822` are the
-degree `0 -> 1` and `1 -> 2` cases of equation (45). They are derived here from
+degree `0 -> 1` and `1 -> 2` cases of equation (45).  They are derived here from
 the general formulas of `Manhattan/Glue/ConcreteRaising.lean`, for the actual
 operator `concreteFiberA`.
 
-In the Finset convention the manuscript's normalizing factors
+In the Finset convention of the manuscript's normalizing factors
 `sqrt 2` and `2` on the coefficients of types `11` and `12` do not appear: the
 Finset synthesis maps are literal isometries, and the symmetrization which
 produces `f(r) + f(r')` in (D2a) is replaced by the single term whose omitted
@@ -61,7 +61,7 @@ theorem translateWalshIndex_singleton_neg (i : Fin 2) (a : Axis) (k : ℤ) :
   simp only [translateWalshIndex_empty, map_sub, map_smul, originLower_walshL2,
     Finset.notMem_empty, if_false, smul_zero, sub_self, neg_zero]
 
-/-- **(D1), raising half.** The degree-zero to degree-one action of the actual
+/-- **(D1), raising half.**  The degree-zero to degree-one action of the actual
 skew fiber is `i sin(p_i)` on each of the two origin lines. -/
 theorem walshRaise_walshL2_empty (p : Fin 2 → ℝ) :
     walshRaise p (walshL2 ∅) =
@@ -90,7 +90,7 @@ theorem inner_empty_walshLower (p : Fin 2 → ℝ) (x : WalshL2) :
     ContinuousLinearMap.sub_apply, inner_sub_right, inner_empty_walshRaise]
   ring
 
-/-- **(D1), lowering half.** `D_0^* f = -i sin(p_1) * (zero frequency of f)`,
+/-- **(D1), lowering half.**  `D_0^* f = -i sin(p_1) * (zero frequency of f)`,
 in the manuscript's indexing where the row axis is the first coordinate. -/
 theorem inner_empty_walshLower_axisDegreeOne (p : Fin 2 → ℝ)
     (c : RowLineCoefficient) :
@@ -111,7 +111,7 @@ private theorem axisShift_one_horizontal : axisShift 1 Axis.horizontal = 1 := by
 
 private theorem originLine_one : originLine 1 = (Axis.vertical, 0) := rfl
 
-/-- **(D2a), raising half.** Appending the origin *row* to a row coefficient
+/-- **(D2a), raising half.**  Appending the origin *row* to a row coefficient
 multiplies it by `i sin(p_1)` in the manuscript's indexing; the total frequency
 of the two-row output has first coordinate `p_1`, because rows carry no
 frequency in that direction. -/
@@ -137,7 +137,7 @@ theorem inner_twoRow_walshRaise_axisDegreeOne (p : Fin 2 → ℝ)
   have hsin := half_exp_I_sub_exp_neg_I (p 0)
   linear_combination (c y) * hsin
 
-/-- **(D2b), raising half.** Appending the origin *column* to a row
+/-- **(D2b), raising half.**  Appending the origin *column* to a row
 coefficient gives the phase difference whose symbol is `i sin(r)`, where `r` is
 the shifted row frequency; see `raisingSymbol_apply`. -/
 theorem inner_mixed_walshRaiseDir_axisDegreeOne (p : Fin 2 → ℝ)
@@ -213,7 +213,7 @@ theorem raisingSymbol_column_horizontal (p : Fin 2 → ℝ) (θ : ℝ) :
   rw [raisingSymbol_apply p 1 (fun _ : Unit => Axis.horizontal) fun _ => θ]
   simp [axisShift_one_horizontal]
 
-/-- **(D2b) in frequency form.** If the row coefficient of `x` is the Fourier
+/-- **(D2b) in frequency form.**  If the row coefficient of `x` is the Fourier
 coefficient sequence of `F`, then the mixed coefficient of `D x` is the Fourier
 coefficient sequence of `i sin(r) F`. -/
 theorem inner_mixed_walshRaiseDir_mFourierCoeff (p : Fin 2 → ℝ) (x : WalshL2)

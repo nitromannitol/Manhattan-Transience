@@ -6,7 +6,7 @@ import Mathlib.MeasureTheory.Integral.Prod
 # Three-region frequency integration
 
 This file implements the small-square, square-annulus, and outer-region
-estimates in `manuscript.tex:668-681` separately. Their assembly constructs
+estimates in `manuscript.tex:668-681` separately.  Their assembly constructs
 `Operator.RegionalIntegralBounds` from the actual regional integrals.
 -/
 
@@ -1141,7 +1141,7 @@ private theorem frequencyDensity_integrable {f : ℝ × ℝ → ℝ}
   simpa only [Real.norm_eq_abs, abs_of_nonneg (hfNonneg z),
     abs_of_nonneg (div_nonneg hC hlambda.le)] using hle
 
-/-- Non-circular constructor for `RegionalIntegralBounds`. Its three fields
+/-- Non-circular constructor for `RegionalIntegralBounds`.  Its three fields
 are consequences of the separately proved small-square, square-annulus, and
 outer-region integral estimates. -/
 def regionalIntegralBoundsOfFrequencyBound

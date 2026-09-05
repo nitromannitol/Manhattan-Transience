@@ -9,16 +9,16 @@ import Mathlib.Tactic
 
 This file proves the discrete Nash inequality
 
-  `(∑ f²)² ≤ ½ (∑ f)² E(f)`, `E(f) = ∑ (f(z+e₁) - f z)² + ∑ (f(z+e₂) - f z)²`,
+  `(∑ f²)² ≤ ½ (∑ f)² E(f)`,   `E(f) = ∑ (f(z+e₁) - f z)² + ∑ (f(z+e₂) - f z)²`,
 
-for every nonnegative summable `f : ℤ² → ℝ`. `E` is the Dirichlet form of the
+for every nonnegative summable `f : ℤ² → ℝ`.  `E` is the Dirichlet form of the
 rate-two simple-random-walk generator, which is the symmetric part of the
 Manhattan generator, so this is the energy inequality behind the `2/(t+2)`
 heat-kernel bound of `manuscript.tex:1433-1500` (`prop:time`).
 
 The proof is the elementary route: an `L¹` Sobolev inequality on `ℤ²` obtained
 from the two one-dimensional total-variation bounds, applied to `f²`, and then
-two Cauchy-Schwarz interpolations. It gives the constant `1/2`, which is the
+two Cauchy-Schwarz interpolations.  It gives the constant `1/2`, which is the
 constant `‖h‖₂⁴ ≤ 2 ‖h‖₁² ⟨h, -S h⟩` used in the manuscript's Nash argument
 (there `⟨h, -S h⟩ = E(h)/2`).
 -/

@@ -9,7 +9,7 @@ import Manhattan.Operator.Frequency
 # Abstract assembly handoffs
 
 These sorry-free implications are the part of the final assembly already
-justified by the operator layer. Concrete providers must still connect the
+justified by the operator part. Concrete providers must still connect the
 annealed kernel to the fixed-frequency resolvent and construct the regional
 bounds.
 
@@ -42,7 +42,7 @@ theorem uniform_green_bound {green : ℝ → ℝ} (B : RegionalIntegralBounds gr
   intro lambda hlambda hlambda1
   exact uniform_green_bound_of_regional_bounds B hlambda hlambda1
 
-/-- Once the annealed Theorem 1.2 assertion is available, the model layer's
+/-- Once the annealed Theorem 1.2 assertion is available, the Model part's
 Tonelli, Poisson-subordination, and translation argument gives Theorem 1.1. -/
 theorem theorem_1_1_of_annealed (h : Manhattan.AnnealedGreenBound) :
     ∀ᵐ omega ∂Manhattan.environmentLaw,
@@ -50,7 +50,7 @@ theorem theorem_1_1_of_annealed (h : Manhattan.AnnealedGreenBound) :
   Manhattan.theorem_1_1 h
 
 /-- Exact assembly of Theorem 1.2 from the version-2 Proposition 2.2
-statement. The hypothesis is discharged by W6A's provider, without importing
+statement.  The hypothesis is discharged by W6A's provider, without importing
 the draft frozen anchor. -/
 theorem theorem_1_2_of_proposition_frequency
     (h : PropositionFrequencyClaim) : Manhattan.AnnealedGreenBound := by
@@ -59,7 +59,7 @@ theorem theorem_1_2_of_proposition_frequency
     (fun lambda ↦ Manhattan.Estimates.normalizedFrequencyIntegral
       (concreteGreenDensity lambda)) B concreteGreenIdentity
 
-/-- The complete headline conclusion, conditional only on the exact
+/-- The complete conclusion, conditional only on the exact
 Proposition 2.2 statement. -/
 theorem theorem_1_1_of_proposition_frequency
     (h : PropositionFrequencyClaim) :

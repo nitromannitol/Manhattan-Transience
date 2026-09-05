@@ -5,7 +5,7 @@ import Manhattan.Paper.Ergodic.Recurrence
 # The remark: stationary, ergodic and fair does not imply transient
 
 This file assembles the remark of the manuscript preceding
-`\begin{problem}[Which orientations are transient]`. The law `ergodicLaw` is
+`\begin{problem}[Which orientations are transient]`.  The law `ergodicLaw` is
 stationary for the whole `ℤ²` translation action, ergodic for it, and has fair
 one-point marginals, and yet almost every realization has a divergent Green
 series, that is, is recurrent.
@@ -126,7 +126,7 @@ theorem ergodicLaw_ne_environmentLaw : ergodicLaw ≠ environmentLaw := by
 
 /-! ### The remark -/
 
-/-- **The remark of the manuscript.** Stationarity under the full `ℤ²`
+/-- **The remark of the manuscript.**  Stationarity under the full `ℤ²`
 translation action, ergodicity for that action and fair one-point marginals do
 not imply transience: the uniform law on the four alternating environments has
 all three properties, and almost every realization has a divergent Green series.

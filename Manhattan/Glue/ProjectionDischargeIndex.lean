@@ -7,7 +7,7 @@ import Manhattan.Walsh.LowDegreeSectors
 The degree-two projection `Pi_2` of the paper is the passage from an ordered
 pair of row frequencies to such a Finset, so the Fourier coefficient of a
 two-row frequency function has to be read at the canonical increasing
-representative. This file supplies that representative, mirroring
+representative.  This file supplies that representative, mirroring
 `Manhattan.orderedType112Equiv` one degree lower.
 
 Paper: `manuscript.tex:736-740` and `manuscript.tex:1274-1283`.

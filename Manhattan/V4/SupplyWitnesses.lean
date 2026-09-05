@@ -1,21 +1,21 @@
 import Manhattan.V4.Move2Supply
 
 /-!
-# Version 4, the formalization: the non-degeneracy record
+# Version 4, : the non-degeneracy record
 
 The three failure modes this repository has shipped before -- `X ≤ X` after
 unfolding, a hypothesis forcing the bounded quantity to vanish, and a clause
 discharged because the datum passed in *was* the thing being characterised --
-are checked individually for the four residues closed by this file.
+are checked individually for the four residues closed by this part.
 
-**The witness data.** `r₀ = 1/4`, `λ = 10⁻⁶`, `p = (10⁻³, 0)`. Then
+**The witness data.**  `r₀ = 1/4`, `λ = 10⁻⁶`, `p = (10⁻³, 0)`.  Then
 `√λ + a(p) = 1/500 ≤ (1/4)⁴ = 1/256`, so the witness frequency lies in the
 improvement region where `V4Move2Supply` has content, and `sin p₁ ≠ 0`, so the
 competitor is not the trivial one.
 
 **The check that matters most** is `strict_v4Move2Supply_improves`: at the
 witness frequency the Move 2 closed form is **strictly** below the driftless
-bound `1/(λ + θ(p))`. A chain that had collapsed to `X ≤ X` anywhere would
+bound `1/(λ + θ(p))`.  A chain that had collapsed to `X ≤ X` anywhere would
 deliver only the driftless bound, so this single strict inequality rules out the
 first failure mode for the whole composed chain.
 
@@ -25,7 +25,7 @@ not `0 = 0`; `(B-2)`'s `α`-average is strictly better than the pointwise weight
 `1/μ` (`strict_twoRowWeightAverage_lt`); `(B-3)`'s exact additivity is strictly
 stronger than the parallelogram bound it replaces
 (`strict_hMinusEnergy_empty_add_lt_parallelogram`), which is exactly why
-`V4Move2Supply` can carry the coefficient one on `λ + θ(p)`; and the formalizations
+`V4Move2Supply` can carry the coefficient one on `λ + θ(p)`; and 's
 recorded `effectiveWeight 0 = 0` hazard is harmless because the competitor
 profile also vanishes at the origin (`perProfile_zero_at_origin`), while the
 majorant as a whole is not zero (`strict_profileMass_pos`).
@@ -37,7 +37,6 @@ open MeasureTheory Set
 namespace Manhattan.V4
 
 open Manhattan.Glue Manhattan.Operator
-
 
 /-! ## Explicit admissible data -/
 
@@ -96,7 +95,7 @@ theorem witness_improvement :
 
 /-! ## The Move 2 supply, instantiated -/
 
-/-- **`v4Move2Supply_proved` at explicit admissible data.** The hypothesis set
+/-- **`v4Move2Supply_proved` at explicit admissible data.**  The hypothesis set
 of `Manhattan.V4.Frequency.V4Move2Supply` is satisfiable, so the theorem is a
 statement about a concrete instance. -/
 theorem nonvacuity_v4Move2Supply :
@@ -116,7 +115,7 @@ theorem theta_witnessP_nonneg : 0 ≤ Operator.theta witnessP := by
   rw [Manhattan.Estimates.operator_theta_eq]
   exact Manhattan.Estimates.theta_nonneg witnessP
 
-/-- **The Version 4 competitor does real work.** At the witness frequency the
+/-- **The Version 4 competitor does real work.**  At the witness frequency the
 Move 2 closed form is **strictly** smaller than the driftless bound
 `1/(λ + θ(p))`, so no link of the chain is an equality in disguise: a chain that
 collapsed to `X ≤ X` would deliver only the driftless bound. -/
@@ -200,7 +199,7 @@ theorem fourier_unitProfile (k : ℤ) :
     norm_num
   · rw [if_neg hk, if_neg (by omega : ¬ (-k = 0))]
 
-/-- **(B-1b) is not `0 = 0`.** At the constant row profile and the zero
+/-- **(B-1b) is not `0 = 0`.**  At the constant row profile and the zero
 frequency the common value of the two sides of
 `Manhattan.V4.mixedFourierCoefficient_raising` is `2⁻¹`. -/
 theorem strict_mixedFourierCoefficient_raising :
@@ -257,7 +256,7 @@ theorem strict_hMinusEnergy_empty_add_lt_parallelogram :
 /-- The line resolvent `J(μ) = 1/√(μ(μ+2))` is **strictly** smaller than the
 pointwise weight bound `1/μ` that the sealed docstring of
 `Manhattan.Glue.hMinusEnergy_twoRowRaiseCoeff_le` says "cannot give" the
-estimate. So `twoRowWeightAverage_eq` is not a restatement of the trivial
+estimate.  So `twoRowWeightAverage_eq` is not a restatement of the trivial
 bound. -/
 theorem strict_twoRowWeightAverage_lt :
     twoRowWeightAverage ⟨1, 20, Real.pi / 20⟩ 0
@@ -389,7 +388,7 @@ theorem nonvacuity_hMinusEnergy_v4Mixed_density :
     (by norm_num) (by norm_num) witnessV (fun _ _ => rfl) measurable_const
     unitProfile_norm_le unitProfile_periodic unitProfile_memLp witnessP
 
-/-- **The mixed symbol is not the zero function.** At `(r,β) = (π/2, 0)` the
+/-- **The mixed symbol is not the zero function.**  At `(r,β) = (π/2, 0)` the
 lowering half vanishes (`σ(r,0) = sin²(0) J = 0`) and the raising half is `i`, so
 the density integrated by `hMinusEnergy_v4Mixed_density` is not identically
 zero. -/
@@ -459,7 +458,7 @@ theorem nonvacuity_hMinusEnergy_twoRow_le :
           * Manhattan.Estimates.torusIntegral (fun r => ‖unitProfile r‖ ^ 2) :=
   hMinusEnergy_twoRow_le witnessQ_lambda_pos witnessP unitProfile unitProfile_memLp
 
-/-- **The two-row bound does not force the sector energy to vanish.** Its
+/-- **The two-row bound does not force the sector energy to vanish.**  Its
 right-hand side is strictly positive at the witness data, so
 `hMinusEnergy_twoRow_le` is not a disguised `X ≤ 0`. -/
 theorem strict_twoRow_bound_pos :

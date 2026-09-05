@@ -4,7 +4,7 @@ import Manhattan.Glue.ScalarIdentification
 # Degree-three multiplier energy
 
 This file integrates the pointwise scalar core of Lemma 5.2 against the
-honest raw correction constructed in `Walsh.Correction`. It also records the
+honest raw correction constructed in `Walsh.Correction`.  It also records the
 precise interface needed to transport that estimate through the off-diagonal
 Fourier projection to the synthesized Walsh vector.
 
@@ -89,9 +89,6 @@ private theorem rawCubicMultiplierIntegrand_measurable
   exact hmult.mul
     ((rawCorrectionFunction_measurable 40 q a p₂).norm.pow_const 2)
 
-
---; do not present it as
--- load-bearing when sealing.
 private theorem rawCubicCoreIntegrand_measurable
     (q : Estimates.Parameters) (a p₂ : ℝ) :
     Measurable (fun x : UnitAddTorus (Fin 3) =>
@@ -182,32 +179,32 @@ theorem rawCubicCoreEnergy_le_multiplier {q : Estimates.Parameters}
           (rawCorrectionTotalFrequency p₂ x))
         (sq_nonneg _))
 
-/-- `-- PARTIALLY discharged`: the complete Fourier--Walsh raising
-calculation. It asserts that the concrete degree-three and degree-four
+/-- `-- PARTIALLY DISCHARGED`: the complete Fourier--Walsh raising
+calculation.  It asserts that the concrete degree-three and degree-four
 energies of the projected Walsh correction are dominated by the integrated raw
 scalar core, and that off-diagonal projection is contractive for the
 multiplier form.
 
-The three forms are parameters so the assembly module can instantiate them
+The three forms are parameters so the assembly part can instantiate them
 with its concrete degree-sector decomposition without creating an import
-cycle. Status:
+cycle.  Status:
 
 * the `multiplierForm` conjunct is `le_rfl` for the canonical form;
 * the scalar core of the two sector bounds is
   `Manhattan.Glue.shiftedCorrectionWalsh_cubicCoreEnergy_le_of_sectors`
-  (`Manhattan/Glue/CubicDischarge.lean`, the formalization);
+  (`Manhattan/Glue/CubicDischarge.lean`);
 * `ConcreteHThreeQuadraticBound` is proved at the momentum `(p₁,p₂)` by
   `Manhattan.Glue.concreteHThreeQuadraticBound`
-  (`Manhattan/Glue/TransportDischarge.lean`, the formalization), using the ordered
+  (`Manhattan/Glue/TransportDischarge.lean`), using the ordered
   contractivity of `Manhattan/Glue/OrderedContractivity.lean`
   together with the `(shift)` phase of `Manhattan.type112ShiftTwist`;
 * `ConcreteDThreeRaisingBound` is still unproved, but it is **no longer on the
-  route to (23)**: the formalization proved summand 4 outright
+  route to (23)**:  proved summand 4 outright
   (`Manhattan.Glue.summandFourBound_proved`) and with it the grouped pair
   (`Manhattan.Glue.exists_summandTwoFourBound`), both in
   `Manhattan/Glue/SummandFourAssembly.lean`, so the live route is
   `summandTwoFourBound_of_summands` rather than
-  `summandTwoFourBound_of_cubicSectors`. The only remaining input to (23) is
+  `summandTwoFourBound_of_cubicSectors`.  The only remaining input to (23) is
   `Manhattan.Glue.SummandThreeBound`; see the module docstring of
   `Manhattan/Glue/FinalDischarge.lean`. -/
 def CubicWalshIntertwining (q : Estimates.Parameters)
@@ -219,7 +216,7 @@ def CubicWalshIntertwining (q : Estimates.Parameters)
     rawCubicMultiplierEnergy q a p₂ ≤ multiplierForm k
 
 /-- Lemma 5.2 in Walsh space, conditional only on the explicit
-Fourier--Walsh intertwining interface above. Its analytic content is the
+Fourier--Walsh intertwining interface above.  Its analytic content is the
 proved scalar theorem `rawCubicCoreEnergy_le_multiplier`. -/
 theorem correctionWalsh_cubicEnergy_le_multiplier
     {q : Estimates.Parameters} (hlambda : 0 < q.lambda) (a p₂ : ℝ)
@@ -233,7 +230,7 @@ theorem correctionWalsh_cubicEnergy_le_multiplier
     (rawCubicCoreEnergy_le_multiplier hlambda a p₂).trans
       hintertwining.2
 
-/-- Discharged: identification of
+/-- `-- DISCHARGED`: identification of
 the Walsh multiplier quadratic form with the scalar `σ |v|²` term of (32).
 The factor `2` is not slack: it is exactly the two disjoint summands of the
 symmetrized coefficient, and equation (30) holds with it as an *identity*
@@ -242,7 +239,7 @@ Supplied for the canonical multiplier form by
 `Manhattan.Glue.cubicMultiplierScalarIdentification_rawForm`
 (`Manhattan/Glue/CubicDischarge.lean`), and for the concrete competitor by
 `Manhattan.Glue.correctedCompetitor_cubicMultiplierScalarIdentification`
-(`Manhattan/Glue/CubicDischargeProjection.lean`). Both are unconditional. -/
+(`Manhattan/Glue/CubicDischargeProjection.lean`).  Both are unconditional. -/
 def CubicMultiplierScalarIdentification (q : Estimates.Parameters)
     (hlambda : 0 < q.lambda) (a p₂ : ℝ)
     (multiplierForm : WalshL2 → ℝ) : Prop :=
@@ -269,7 +266,7 @@ theorem correctionWalsh_multiplierEnergy_le_sqrtScale
       exact correctionSigmaEnergy_le_sqrtScale hlambda hfive
     _ = 2 * C * Real.sqrt (q.scaleLog a) := by ring
 
-/-- Combined W7B handoff: Lemma 5.2 plus scalar identification bounds the
+/-- Combined handoff: Lemma 5.2 plus scalar identification bounds the
 actual cubic energy by `2 C √L`. -/
 theorem correctionWalsh_cubicEnergy_le_sqrtScale
     {q : Estimates.Parameters} (hlambda : 0 < q.lambda) {C a p₂ : ℝ}
@@ -286,9 +283,10 @@ theorem correctionWalsh_cubicEnergy_le_sqrtScale
       (correctionWalsh_multiplierEnergy_le_sqrtScale hlambda
         multiplierForm hidentify hfive)
 
-/-- Complete W7B scalar handoff: after the raising and lowering modules supply
+/-- Complete scalar handoff: after the raising and lowering parts supply
 the two named intertwining interfaces, the cubic and mixed-residual energies
-are bounded together by `4 C √L`. -/
+are bounded together by `4 C √L`.
+-/
 theorem correctionWalsh_cubicAndMixedEnergy_le_sqrtScale
     {q : Estimates.Parameters} (hlambda : 0 < q.lambda)
     {C a p₂ mixedResidualEnergy : ℝ}

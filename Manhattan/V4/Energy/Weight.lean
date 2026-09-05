@@ -5,9 +5,9 @@ import Manhattan.Estimates.KernelBound
 # Version 4, Move 1: the logarithmic scale and the effective weight
 
 This file collects the elementary one-variable estimates behind ingredient (e)
-of Move 1 of the Version 4 argument:
+of Move 1:
 
-    `sin² r ≤ r²` and `δ + r² ≤ 2 r² ≤ q(r)` on `Γ_δ = {√δ ≤ |r| ≤ r₀}`,
+    `sin² r ≤ r²`  and  `δ + r² ≤ 2 r² ≤ q(r)`  on  `Γ_δ = {√δ ≤ |r| ≤ r₀}`,
 
 where the **effective weight** is `q(r) = |r| / √(log(1/|r|))` and `r₀ = 1/4`.
 The last inequality is the statement that `|r| √(log(1/|r|))` is bounded on
@@ -15,7 +15,7 @@ The last inequality is the statement that `|r| √(log(1/|r|))` is bounded on
 in `δ + r² ≤ q(r)` equal to one.
 
 Everything rests on one elementary comparison, `log(1/r) ≤ 2/√r`, obtained from
-`log x ≤ x - 1` at `x = 1/√r`. It also gives `r log(1/r) ≤ 1`, which is what
+`log x ≤ x - 1` at `x = 1/√r`.  It also gives `r log(1/r) ≤ 1`, which is what
 lets the outer part of the `β` integral of `Manhattan/V4/Energy/BetaIntegral.lean`
 be absorbed into the main term.
 -/
@@ -24,7 +24,7 @@ namespace Manhattan.V4.Energy
 
 /-! ## The logarithmic scale on `(0, 1/4]` -/
 
-/-- `log(1/r) ≤ 2/√r`. This is `log x ≤ x - 1` at `x = 1/√r`. -/
+/-- `log(1/r) ≤ 2/√r`.  This is `log x ≤ x - 1` at `x = 1/√r`. -/
 theorem log_inv_le_two_div_sqrt {r : ℝ} (hr : 0 < r) :
     Real.log (1 / r) ≤ 2 / Real.sqrt r := by
   set u := Real.sqrt r
@@ -83,7 +83,7 @@ theorem log_inv_pos {r : ℝ} (hr : 0 < r) (hr1 : r ≤ 1 / 4) :
   have h_one_div : 1 < 1 / r := by rw [one_lt_div hr]; linarith
   exact Real.log_pos h_one_div
 
-/-- `1 < log(1/r)` on `(0, 1/4]`, because `1/r ≥ 4 > e`. This is the reason
+/-- `1 < log(1/r)` on `(0, 1/4]`, because `1/r ≥ 4 > e`.  This is the reason
 `√(log(1/ρ)) > 1`, used to place the inner threshold `ρ/√(log(1/ρ))` below `√ρ`. -/
 theorem one_lt_log_inv {r : ℝ} (hr : 0 < r) (hr1 : r ≤ 1 / 4) :
     1 < Real.log (1 / r) := by
@@ -116,7 +116,7 @@ theorem mul_sqrt_log_inv_le_half {r : ℝ} (hr : 0 < r) (hr1 : r ≤ 1 / 4) :
 /-! ## The effective weight -/
 
 /-- The **effective weight** `q(r) = |r| / √(log(1/|r|))` of Move 1 (1) of
-Version 4. Off `(0,1)` this is a junk value (`q(0) = 0`); every statement below
+Version 4.  Off `(0,1)` this is a junk value (`q(0) = 0`); every statement below
 constrains `r` to `Γ_δ ⊆ (0, 1/4]` in absolute value. -/
 noncomputable def effectiveWeight (r : ℝ) : ℝ :=
   |r| / Real.sqrt (Real.log (1 / |r|))
@@ -157,7 +157,7 @@ theorem two_mul_sq_le_effectiveWeight {r : ℝ} (hr : 0 < |r|) (hr1 : |r| ≤ 1 
   nlinarith [mul_sqrt_log_inv_le_half hr hr1, abs_nonneg r,
     Real.sqrt_nonneg (Real.log (1 / |r|)), hr]
 
-/-- **Ingredient (e) of Move 1.** On `Γ_δ = {√δ ≤ |r| ≤ 1/4}` the degree-one
+/-- **Ingredient (e) of Move 1.**  On `Γ_δ = {√δ ≤ |r| ≤ 1/4}` the degree-one
 profile `δ + r²` is dominated by the effective weight, with constant one. -/
 theorem add_sq_le_effectiveWeight {delta r : ℝ} (hd : 0 ≤ delta)
     (hdr : Real.sqrt delta ≤ |r|) (hr : 0 < |r|) (hr1 : |r| ≤ 1 / 4) :

@@ -3,13 +3,13 @@ import Manhattan.Glue.OrderedInverse
 /-!
 # The ordered raising map and its frequency form
 
-Steps 3 and 4 of the plan, for a
-general degree-three coefficient.
+Steps 3 and 4 of the degree-four raising sector, for a general degree-three
+coefficient.
 
 ## Obstruction (b): the appended line is not last
 
 `lineIndexFourier` reads a degree-four coefficient through `degreeEnum`, which
-*sorts* the four lines. The appended line is the origin line `(finAxis i, 0)`,
+*sorts* the four lines.  The appended line is the origin line `(finAxis i, 0)`,
 and its slot in the sorted enumeration depends on the signs of the transverse
 coordinates already present: it is last only when all of those are negative.
 This file defines that slot explicitly as `insertRank`, the number of existing
@@ -22,7 +22,7 @@ The axis *pattern* is nevertheless constant, because `horizontal_lt_vertical`
 puts every horizontal line before every vertical one: `insertRank` is at most
 the vertical slot when the appended line is horizontal, and at least it when the
 appended line is vertical, so `tuplePattern_degreeEnum_raiseIndex` gives the
-single pattern `raisedPattern i`. The appended line's transverse coordinate is
+single pattern `raisedPattern i`.  The appended line's transverse coordinate is
 `0` whatever the slot, so `mFourier_tupleCoord_degreeEnum_raiseIndex` shows the
 enlarged character is the degree-three character of the remaining variables:
 constant in the new line's torus variable.
@@ -32,7 +32,7 @@ constant in the new line's torus variable.
 `orderedRaise p i` is the composition of the ordered representative
 `orderedRestrict 3`, the Finset-picture raising map `degreeRaiseDir p i` (the
 Fourier symbol of `manuscript.tex:1181-1188` followed by the appending of the
-origin line), and the sorted enumeration `walshOrdered 4`. It is bounded by
+origin line), and the sorted enumeration `walshOrdered 4`.  It is bounded by
 `1`, and it realizes `walshRaiseDir p i` (`degreeRaiseDir_apply`,
 `orderedRaise_apply_degreeEnum`).
 
@@ -42,15 +42,15 @@ The two declarations at the end of this section that were once advertised as the
 intertwining hypothesis and as equation (46) for the ordered raising map,
 `orderedRaise_orderedRepresentativeProjection` and
 `re_inner_orderedHInv_orderedRaise_le`, are for that reason trivial: after
-unfolding they read `X = X` and `X ≤ X`. They are kept, with corrected
-docstrings, and is not load-bearing.
+unfolding they read `X = X` and `X ≤ X`.  They are kept, with corrected
+docstrings, and MUST NOT BE SEALED.
 
 ## The frequency form
 
 `degreeRaiseDir_raiseIndex_type112` and `orderedRaise_insertNth_type112`: for a
 general type-`(1,1,2)` coefficient the degree-four entry at the enlarged index
 is the Fourier coefficient of `raisingSymbol p i` times the *symmetrized*
-degree-three frequency function of the formalization, at the original three frequencies.
+degree-three frequency function, at the original three frequencies.
 The symmetrized representative is the admissible one; `type112FreqFun` provably
 is not (`patternLines_type112Pattern_rawSwap`).
 
@@ -137,9 +137,7 @@ theorem exists_raiseIndex (i : Fin 2) (T : WalshDegreeIndex 4)
   · apply Subtype.ext
     exact Finset.insert_erase hT
 
-
 /-! ### The degree-three symbol and the extension -/
-
 
 
 theorem inner_walshL2_homogeneousWalshSynthesis (n : ℕ) (c : DegreeCoefficient n)
@@ -206,7 +204,6 @@ theorem norm_degreeRaiseSymbol_le (p : Fin 2 → ℝ) (i : Fin 2) (c : DegreeCoe
           (pullTranslate 3 (Operator.axisVector i)).norm_map]
     _ = ‖c‖ := by ring
 
-
 /-! ### The degree-four raising map on Finset coefficients -/
 
 /-- Extension by zero of a degree-three coefficient to the degree-four indices
@@ -242,7 +239,7 @@ theorem norm_degreeRaiseDir_le (p : Fin 2 → ℝ) (i : Fin 2) (c : DegreeCoeffi
     ‖degreeRaiseDir p i c‖ ≤ ‖c‖ :=
   le_trans (norm_degreeRaise_le i _) (norm_degreeRaiseSymbol_le p i c)
 
-/-- **The raising map realizes `walshRaiseDir`.** For a degree-three
+/-- **The raising map realizes `walshRaiseDir`.**  For a degree-three
 coefficient `c`, every degree-four Walsh coefficient of the raised vector
 `walshRaiseDir p i (synthesis c)` is the corresponding entry of
 `degreeRaiseDir p i c`. -/
@@ -285,7 +282,7 @@ theorem orderedRepresentativeProjection_walshOrdered (n : ℕ) (d : DegreeCoeffi
     orderedRepresentativeProjection n (walshOrdered n d) = walshOrdered n d := by
   rw [← walshOrdered_orderedRestrict, orderedRestrict_walshOrdered]
 
-/-- **The ordered raising map.** Reading a degree-three ordered coefficient at
+/-- **The ordered raising map.**  Reading a degree-three ordered coefficient at
 its sorted representatives, raising, and reading the result back as an ordered
 degree-four coefficient. -/
 def orderedRaise (p : Fin 2 → ℝ) (i : Fin 2) :
@@ -299,9 +296,6 @@ theorem orderedRaise_walshOrdered (p : Fin 2 → ℝ) (i : Fin 2) (d : DegreeCoe
     orderedRaise p i (walshOrdered 3 d) = walshOrdered 4 (degreeRaiseDir p i d) := by
   rw [orderedRaise_apply, orderedRestrict_walshOrdered]
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem norm_orderedRaise_le (p : Fin 2 → ℝ) (i : Fin 2) (c : OrderedCoefficient 3) :
     ‖orderedRaise p i c‖ ≤ ‖c‖ := by
   rw [orderedRaise_apply, (walshOrdered 4).norm_map]
@@ -309,17 +303,18 @@ theorem norm_orderedRaise_le (p : Fin 2 → ℝ) (i : Fin 2) (c : OrderedCoeffic
   rw [norm_orderedRestrict]
   exact norm_orderedRepresentativeProjection_le 3 c
 
-/-- **A trivial identity. NOT the intertwining hypothesis it was once
-advertised as.** Both sides are the same term as `orderedRaise p i c`:
+/-- **A trivial identity.  NOT the intertwining hypothesis it was once
+advertised as.**  Both sides are the same term as `orderedRaise p i c`:
 `orderedRaise` starts with `orderedRestrict 3`, so
 `orderedRestrict_orderedRepresentativeProjection` erases the inner projection,
 and it ends with `walshOrdered 4`, so `orderedRepresentativeProjection_walshOrdered`
-erases the outer one. The passage to the ordered representative already happens
+erases the outer one.  The passage to the ordered representative already happens
 inside `orderedRaise`; after unfolding this statement reads `X = X` and carries
 no mathematical content.
 
+MUST NOT SEAL: vacuous.
 Never cite it as equation (46) (`eq:contract`, `manuscript.tex:1193-1198`) or as
-any other paper statement. It is used only to instantiate
+any other paper statement.  It is used only to instantiate
 `re_inner_image_orderedRestrict_orderedHInv_le` below, which is itself unused. -/
 theorem orderedRaise_orderedRepresentativeProjection (p : Fin 2 → ℝ) (i : Fin 2)
     (c : OrderedCoefficient 3) :
@@ -329,9 +324,10 @@ theorem orderedRaise_orderedRepresentativeProjection (p : Fin 2 → ℝ) (i : Fi
     orderedRestrict_orderedRepresentativeProjection,
     orderedRepresentativeProjection_walshOrdered]
 
-/-- **The ordered raising map realizes `walshRaiseDir`.** Read at the sorted
+/-- **The ordered raising map realizes `walshRaiseDir`.**  Read at the sorted
 enumeration of a degree-four Walsh index, the ordered raising map returns the
-degree-four Walsh coefficient of the raised vector. -/
+degree-four Walsh coefficient of the raised vector.
+-/
 theorem orderedRaise_apply_degreeEnum (p : Fin 2 → ℝ) (i : Fin 2)
     (d : DegreeCoefficient 3) (T : WalshDegreeIndex 4) :
     orderedRaise p i (walshOrdered 3 d) (degreeEnum T) =
@@ -339,17 +335,19 @@ theorem orderedRaise_apply_degreeEnum (p : Fin 2 → ℝ) (i : Fin 2)
         (walshRaiseDir p i (homogeneousWalshSynthesis 3 d)) := by
   rw [orderedRaise_walshOrdered, walshOrdered_apply_degreeEnum, degreeRaiseDir_apply]
 
-/-- **A trivial inequality. NOT equation (46) for the ordered raising map.**
+/-- **A trivial inequality.  NOT equation (46) for the ordered raising map.**
 Its two sides are the same term, because
 `orderedRaise p i (orderedRepresentativeProjection 3 c) = orderedRaise p i c`
 by `orderedRaise_orderedRepresentativeProjection`, which is itself `X = X`.
-After unfolding this statement therefore reads `X ≤ X`. The genuine ordered
+After unfolding this statement therefore reads `X ≤ X`.  The genuine ordered
 form of equation (46) is
 `re_inner_orderedHInv_orderedRepresentativeProjection_le`
 (`Manhattan/Glue/OrderedInverse.lean`), which compares a real projection against
 the raw coefficient.
 
-Never cite it as equation (46) (`eq:contract`, `manuscript.tex:1193-1198`). -/
+MUST NOT SEAL: vacuous.
+Never cite it as equation (46) (`eq:contract`, `manuscript.tex:1193-1198`).
+-/
 theorem re_inner_orderedHInv_orderedRaise_le {lam : ℝ} (hlam : 0 < lam) (p : Fin 2 → ℝ)
     (i : Fin 2) (c : OrderedCoefficient 3) :
     RCLike.re (inner ℂ (orderedHInv 4 hlam p
@@ -363,7 +361,7 @@ theorem re_inner_orderedHInv_orderedRaise_le {lam : ℝ} (hlam : 0 < lam) (p : F
 
 The appended origin line is *not* last in the sorted enumeration of the enlarged
 Walsh index: its slot is the rank of its transverse coordinate among the
-existing lines of the same axis. That rank is defined here, and the sorted
+existing lines of the same axis.  That rank is defined here, and the sorted
 enumeration of the enlarged index is the sorted enumeration of the original one
 with the new line inserted at that slot. -/
 
@@ -430,7 +428,7 @@ theorem lt_of_insertRank_le {n : ℕ} {a : LineIndex} {t : Fin n → LineIndex}
 theorem strictMono_degreeEnum {n : ℕ} (S : WalshDegreeIndex n) :
     StrictMono (degreeEnum S) := (S.1.orderEmbOfFin S.2).strictMono
 
-/-- **The permutation of obstruction (b).** The sorted enumeration of a Walsh
+/-- **The permutation of obstruction (b).**  The sorted enumeration of a Walsh
 index enlarged by one new line is the sorted enumeration of the original index
 with the new line inserted at its rank, not appended at the end. -/
 theorem degreeEnum_eq_insertNth {n : ℕ} (a : LineIndex) (S : WalshDegreeIndex n)
@@ -562,7 +560,7 @@ theorem two_le_insertRank_vertical (T : Manhattan.Type112Index) :
   simp only [Fin.val_one] at h
   omega
 
-/-- **The axis pattern is constant.** Enlarging a type-`(1,1,2)` index by the
+/-- **The axis pattern is constant.**  Enlarging a type-`(1,1,2)` index by the
 origin line of type `i` gives a sorted enumeration whose axis pattern is
 `raisedPattern i`, whatever the transverse coordinates. -/
 theorem tuplePattern_degreeEnum_raiseIndex (i : Fin 2) (T : Manhattan.Type112Index)
@@ -577,7 +575,7 @@ theorem tuplePattern_degreeEnum_raiseIndex (i : Fin 2) (T : Manhattan.Type112Ind
     rw [h]
     exact insertNth_type112Pattern_vertical (two_le_insertRank_vertical T)
 
-/-- **The appended line carries transverse coordinate zero.** Its slot is the
+/-- **The appended line carries transverse coordinate zero.**  Its slot is the
 insertion rank, and its Fourier factor is therefore `1`. -/
 theorem tupleCoord_degreeEnum_raiseIndex (i : Fin 2) (T : Manhattan.Type112Index)
     (hT : Manhattan.originLine i ∉ T.1) :
@@ -606,7 +604,7 @@ attribute [local instance] orderedInverseUnitAddCircleIsProbabilityMeasure
 
 open UnitAddTorus
 
-/-- **The appended line's Fourier factor is `1`.** A character whose frequency
+/-- **The appended line's Fourier factor is `1`.**  A character whose frequency
 is `0` in one slot does not depend on the torus variable of that slot. -/
 theorem mFourier_insertNth_zero {n : ℕ} (r : Fin (n + 1)) (k : Fin n → ℤ)
     (t : UnitAddTorus (Fin (n + 1))) :
@@ -618,7 +616,7 @@ theorem mFourier_insertNth_zero {n : ℕ} (r : Fin (n + 1)) (k : Fin n → ℤ)
   rw [Fin.prod_univ_succAbove _ r]
   simp
 
-/-- **The degree-four coefficient of the raising map, in frequency form.** For
+/-- **The degree-four coefficient of the raising map, in frequency form.**  For
 a general type-`(1,1,2)` coefficient `c`, the entry of `degreeRaiseDir p i` at
 the index obtained by appending the origin line of type `i` is the Fourier
 coefficient of `raisingSymbol p i` times the symmetrized degree-three frequency
@@ -645,11 +643,12 @@ theorem degreeRaiseDir_raiseIndex_type112 (c : ℓ²(Manhattan.Type112Index, ℂ
   rw [hlines]
   exact hT
 
-/-- **The ordered raising map in frequency form.** Read at the sorted
+/-- **The ordered raising map in frequency form.**  Read at the sorted
 enumeration of the enlarged index, that is, at the degree-three sorted tuple
 with the origin line inserted at its rank, the ordered raising map returns the
 Fourier coefficient of `raisingSymbol p i` times the degree-three frequency
-function. -/
+function.
+-/
 theorem orderedRaise_insertNth_type112 (c : ℓ²(Manhattan.Type112Index, ℂ))
     (p : Fin 2 → ℝ) (i : Fin 2) (T : Manhattan.Type112Index)
     (hT : Manhattan.originLine i ∉ T.1) :
@@ -665,7 +664,8 @@ theorem orderedRaise_insertNth_type112 (c : ℓ²(Manhattan.Type112Index, ℂ))
   exact degreeRaiseDir_raiseIndex_type112 c p i T hT
 
 /-- The elementary frequency vector of the enlarged index: one axis pattern,
-and the degree-three frequencies with a `0` inserted at the new slot. -/
+and the degree-three frequencies with a `0` inserted at the new slot.
+-/
 theorem orderedFreqFamily_degreeEnum_raiseIndex (i : Fin 2) (T : Manhattan.Type112Index)
     (hT : Manhattan.originLine i ∉ T.1) :
     orderedFreqFamily 4 (degreeEnum (raiseIndex i ⟨type112Degree T, hT⟩))
@@ -676,9 +676,10 @@ theorem orderedFreqFamily_degreeEnum_raiseIndex (i : Fin 2) (T : Manhattan.Type1
   rw [orderedFreqFamily, tuplePattern_degreeEnum_raiseIndex,
     tupleCoord_degreeEnum_raiseIndex]
 
-/-- **Constant in the new line's torus variable.** The degree-four character of
+/-- **Constant in the new line's torus variable.**  The degree-four character of
 the enlarged index is the degree-three character of the original frequencies,
-evaluated after deleting the new slot. -/
+evaluated after deleting the new slot.
+-/
 theorem mFourier_tupleCoord_degreeEnum_raiseIndex (i : Fin 2) (T : Manhattan.Type112Index)
     (hT : Manhattan.originLine i ∉ T.1) (t : UnitAddTorus (Fin 4)) :
     mFourier (tupleCoord (degreeEnum (raiseIndex i ⟨type112Degree T, hT⟩))) t

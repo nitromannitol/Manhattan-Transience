@@ -138,8 +138,7 @@ noncomputable def centeredDriftGenerator (ω : Environment) (h : Site → ℝ) (
       (ω (lineAt z i)).sign * (h (z + basisStep i) - h (z - basisStep i))
 
 /-- The generator of the Poisson-subordinated kernel is equation (2).
-
-This is the elementary algebraic identification required here;
+This is the elementary algebraic identification required by;
 no continuous-time Markov-process theory enters the definition.
 -/
 theorem jumpGenerator_eq_centeredDriftGenerator

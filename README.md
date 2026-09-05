@@ -24,8 +24,8 @@ erase the projection or Lemma 5.3 obligations.
 Two files answer the two questions a reader has.
 
 * [`Manhattan/Certificate.lean`](Manhattan/Certificate.lean) — **what is
-  proved.** It restates the headline results in self-contained form and prints
-  the axioms each rests on. Building it checks every claim it makes:
+  proved.**  It restates the main results in self-contained form and prints
+  the axioms each rests on.  Building it checks every claim it makes:
 
       lake build Manhattan.Certificate
 
@@ -33,17 +33,17 @@ Two files answer the two questions a reader has.
   `[propext, Classical.choice, Quot.sound]`.
 
 * [`VERIFICATION.md`](VERIFICATION.md) — **whether the Lean says what the paper
-  says.** Statement by statement, marked EXACT, EQUIVALENT or WEAKER, with the
+  says.**  Statement by statement, marked EXACT, EQUIVALENT or WEAKER, with the
   definition chain spelled out where the correspondence is not immediate.
 
 One caveat belongs up front, because it is the place where a reader could
-over-read this development. The paper's *explicit numerical constants are not
-certified*. Lemma 4.2 prints the constant `16` and the proof of Proposition
-5.1 states that `C = 2048` suffices; the formalization proves those inequalities
-with a symbolic constant instead, and in fact proves that its own chain
-produces a constant larger than `2048 · 10⁵`
-(`Manhattan.Paper.Constant.green_constant_gt_paper`). The qualitative theorems
-are machine-checked; the sharp constant bookkeeping is not.
+over-read this development.  The paper's *displayed numerical constants are
+proved with larger explicit values*.  Lemma 4.2 prints the constant `16`;
+`Manhattan.V4.v4ConstantSplit_lt` certifies the formalized version of that
+lemma below `670`.  The proof of Proposition 5.1 states that `C = 2048`
+suffices; the statement there is existential and is certified, but the value is
+not.  Every statement is machine-checked; the sharp constant bookkeeping is
+not.  `VERIFICATION.md` says exactly where the remaining factor lives.
 
 ## Status
 
@@ -62,14 +62,15 @@ the raw frequency side, Lemma 5.4, the four summands of the objective (22), and
 the paper's estimate `E_p(f_p,k_p) ≤ C √L`.
 
 A theorem is not advertised as proved merely because a working support lemma or
-abstract implication exists. Under the project's double-check rule the twelve
-concrete anchors and the headline cone each need an an independent check;
+abstract implication exists. Under the project's two-key rule the twelve
+concrete anchors and the cone of the main theorems each need an independent
+second key;
 until a second verdict is recorded, [`CORRESPONDENCE.md`](CORRESPONDENCE.md)
 lists those rows as `sealed` rather than `proved`.
 
 ## Imports and toolchain
 
-The project is pinned to Lean 4 v4.26.0 and Mathlib v4.26.0. an earlier stage has no
+The project is pinned to Lean 4 v4.26.0 and Mathlib v4.26.0. It has no
 dependency beyond Mathlib: Lean modules import `Mathlib` or narrower Mathlib
 modules and project modules beneath the `Manhattan` namespace. Reuse candidates were surveyed and none were adopted; the development depends
 on Mathlib alone.
@@ -95,23 +96,10 @@ on Mathlib alone.
 | `eq-e-summand-one` … `-four` | the four summands of the objective (22) | `manuscript.tex:765-772` |
 | `eq-construction-sector-energy` | `E_p(f_p,k_p) ≤ C √L`, third display of (25) | `manuscript.tex:785-790` |
 
-## an earlier stage ownership
-
-| Layer | Files | Scope |
-|---|---|---|
-| A — model and Walsh | `Manhattan/Model/`, `Manhattan/Walsh/` | Discrete model, subordination, product environment, finite-set Walsh coordinates, and the ordered-to-Finset correction projection |
-| B — operators | `Manhattan/Operator/` | Position Fourier transform, semigroup algebra, complex variational upper bound |
-| C — estimates | `Manhattan/Estimates/` | One-coin, rank-one, degree-one/three, and target estimates |
-| S — search and scaffold | Root documentation, ledger scaffold, audit scaffold, `tools/check_manifest.py` | Reuse audit and repository discipline; no `Manhattan/` ownership |
-
-Cross-module needs are declared in the owning module as sorry-free definitions
-marked `-- INTERFACE`, or as manifest-registered `DRAFT_SORRY` theorems.
-
 ## Verification discipline
 
 - The paper is the specification. Statement-level interpretations and
-  corrections are recorded in [`ledger/ERRATA.md`](ledger/ERRATA.md)
-  and [`ledger/ERRATA.md`](ledger/ERRATA.md).
+  corrections are recorded in [`ledger/ERRATA.md`](ledger/ERRATA.md).
 - Every public definition or theorem has one row in
   [`CORRESPONDENCE.md`](CORRESPONDENCE.md) and one node in
   [`ledger/manifest.yaml`](ledger/manifest.yaml).
@@ -122,7 +110,7 @@ marked `-- INTERFACE`, or as manifest-registered `DRAFT_SORRY` theorems.
   permitted only as the single proof body of a manifest-registered theorem in
   state `DRAFT_SORRY`.
 - A theorem reaches `PROVED` only after its exact frozen statement, provider,
-  axiom surface, and independent audit have been checked. Headline theorems
+  axiom surface, and independent audit have been checked. The main theorems
 - Builds are warning-clean except for the exact manifest-registered draft
   warning multiset.
 
@@ -148,13 +136,12 @@ The manifest checker requires Python 3.8 or newer and PyYAML.
 ## Layout
 
 ```text
-Manhattan/Certificate.lean   what is proved, with its axiom audit
-VERIFICATION.md              statement-by-statement check against the paper
-CORRESPONDENCE.md            complete paper-to-Lean public-statement map
-Manhattan/                   Lean sources
-paper/                       pinned manuscript and source checksum
-ledger/                      the frozen-statement manifest and the errata
-tools/                       manifest and warning gates
+Manhattan/             Lean sources
+paper/                 pinned manuscript and source checksum
+ledger/                manifest and errata
+tools/                 manifest and warning gates
+CORRESPONDENCE.md      complete paper-to-Lean public-statement map
+ROADMAP.md             dependency-ordered formalization phases
 ```
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing statements or proofs.

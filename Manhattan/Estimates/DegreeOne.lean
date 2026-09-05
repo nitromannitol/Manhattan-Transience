@@ -32,20 +32,19 @@ noncomputable def degreeOneNormalization (q : Parameters) (p₁ : ℝ) : ℝ :=
     exact |Real.sin p₁| * torusIntegral (fun r : ℝ =>
       if r ∈ q.supportInterval |p₁| then (Real.sin r)⁻¹ else 0)
 
-/-- **Guard lemma**, against the hazard
-the audit recorded on E-011 (`ledger/ERRATA.md`). The manuscript's `k_p` carries the
+/-- **Guard lemma for**, against the hazard
+Erratum E-011.  The manuscript's `k_p` carries the
 multiplier `sgn(sin p₁)` (`manuscript.tex:1138-1141`), and `Real.sign 0 = 0`, so
 a caller who dropped the hypothesis `hnormalization` could silently zero the
 whole degree-three part of the competitor while every energy bound on it stayed
-trivially true. That cannot happen: `degreeOneNormalization` has `|sin p₁|` as a
+trivially true.  That cannot happen: `degreeOneNormalization` has `|sin p₁|` as a
 factor, so `degreeOneNormalization q p₁ ≠ 0` already forces `sin p₁ ≠ 0`. -/
 theorem sin_ne_zero_of_degreeOneNormalization_ne_zero {q : Parameters} {p₁ : ℝ}
     (hnormalization : degreeOneNormalization q p₁ ≠ 0) : Real.sin p₁ ≠ 0 := by
   intro hsin
   exact hnormalization (by simp [degreeOneNormalization, hsin])
 
-/-- The `sgn(sin p₁)` multiplier is nonzero wherever the normalization is.
- -/
+/-- The `sgn(sin p₁)` multiplier is nonzero wherever the normalization is. -/
 theorem sign_sin_ne_zero_of_degreeOneNormalization_ne_zero {q : Parameters} {p₁ : ℝ}
     (hnormalization : degreeOneNormalization q p₁ ≠ 0) :
     Real.sign (Real.sin p₁) ≠ 0 := by
@@ -94,9 +93,8 @@ noncomputable def mixedResidualHMinusSq (q : Parameters) (p₁ : ℝ) : ℝ :=
     mixedHMinusWeight q r beta * ‖mixedResidual q p₁ r‖ ^ 2))
 
 /-- The explicit squared two-row `H⁻¹` norm in Lemma 4.1(d).
-
 The coefficient is passed explicitly so the definition does not smuggle any
-probability-model or tuple-normalization convention into this file.
+probability-model or tuple-normalization convention into this part.
 -/
 noncomputable def twoRowResidualHMinusSq (q : Parameters) (p₁ p₂ : ℝ)
     (f : ℝ → ℂ) : ℝ :=

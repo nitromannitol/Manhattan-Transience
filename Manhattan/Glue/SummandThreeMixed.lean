@@ -10,7 +10,7 @@ The mixed `(h,v)` half of summand 3 of (22) is the `H⁻¹` energy of
 whose Walsh coefficients are computed by
 `Manhattan.Glue.type12WalshAnalysis_sub_type112DStarMixed_apply` (the raising
 half) and `Manhattan.Glue.mixedFourierCoefficient_correction` (the lowering
-half). Transporting that vector to the frequency side with
+half).  Transporting that vector to the frequency side with
 `Manhattan.Glue.type12FreqFun_eq_of_mFourierCoeff` and
 `Manhattan.Glue.hMinusEnergy_type12WalshSynthesis_torusIntegral` turns the
 sector energy into the scalar integral bounded by
@@ -19,13 +19,13 @@ frequency function of the sector is the scalar residual
 `Manhattan.Glue.mixedRawResidual`.
 
 This file records the scalar half of that identification, and in particular
-the one place where the two sides do not line up. The raising half of the
+the one place where the two sides do not line up.  The raising half of the
 mixed sector is the paper's `w(r,β) = i sin(r) f_p(r)`, which is
 `Manhattan.Estimates.mixedResidual` and hence, by
 `Manhattan.Estimates.mixedResidual_eq_indicator`, the **signed** indicator
-`sgn(sin p₁)1_I(r)`. The scalar residual `Manhattan.Glue.mixedRawResidual`
+`sgn(sin p₁)1_I(r)`.  The scalar residual `Manhattan.Glue.mixedRawResidual`
 subtracts `D̃₂*k̃` from the **unsigned** indicator
-`Manhattan.Glue.rawMixedTarget`. The manuscript reconciles the two by
+`Manhattan.Glue.rawMixedTarget`.  The manuscript reconciles the two by
 multiplying the coefficient of Proposition 4.2 by `sgn(sin p₁)` before calling
 it `k_p` (`manuscript.tex:1138-1141`).
 
@@ -71,7 +71,7 @@ theorem signedSupportIndicator_eq_sign_mul_rawMixedTarget
   · simp [signedSupportIndicator, rawMixedTarget, hr]
   · simp [signedSupportIndicator, rawMixedTarget, hr]
 
-/-- **The mixed component of `D₁f_p`.** The paper's `w(r,β) = i sin(r)f_p(r)`
+/-- **The mixed component of `D₁f_p`.**  The paper's `w(r,β) = i sin(r)f_p(r)`
 does not depend on `β` and equals `sgn(sin p₁)1_I(r)`. -/
 theorem mixedResidual_eq_sign_mul_rawMixedTarget {q : Parameters} {p₁ : ℝ}
     (hleft : 0 < q.K * q.delta |p₁|) (hright : q.r0 < Real.pi) (r : ℝ) :
@@ -83,7 +83,7 @@ theorem mixedResidual_eq_sign_mul_rawMixedTarget {q : Parameters} {p₁ : ℝ}
 /-! ## `D̃₂*` is linear in the raw coefficient -/
 
 /-- Scaling the raw degree-three coefficient scales its mixed `(D2b)`
-component. This is what lets the manuscript's `sgn(sin p₁)` multiplier be
+component.  This is what lets the manuscript's `sgn(sin p₁)` multiplier be
 carried through the lowering operator. -/
 theorem rawD2StarMixed_const_mul (z : ℂ) (k : ℝ → ℝ → ℝ → ℂ) (r beta : ℝ) :
     rawD2StarMixed (fun x y b => z * k x y b) r beta =
@@ -124,7 +124,7 @@ theorem norm_mixedResidual_sub_signedCorrection {q : Parameters} {p₁ p₂ : �
       simp [hs]
   rw [hone, one_mul]
 
-/-- **The mixed scalar energy of the signed competitor.** With the
+/-- **The mixed scalar energy of the signed competitor.**  With the
 `sgn(sin p₁)` multiplier the mixed `H⁻¹` energy of `D₁f_p - D₂*k_p` is the
 scalar quantity of Lemma 5.4. -/
 theorem signedMixedResidualHMinusSq_eq {q : Parameters} {p₁ p₂ : ℝ}
@@ -143,8 +143,9 @@ theorem signedMixedResidualHMinusSq_eq {q : Parameters} {p₁ p₂ : ℝ}
   funext r
   rw [norm_mixedResidual_sub_signedCorrection hleft hright hsin]
 
-/-- **Lemma 5.4 for the signed competitor.** Proposition 4.2 bounds the mixed
-scalar energy of `D₁f_p - D₂*k_p` by `C√L`. -/
+/-- **Lemma 5.4 for the signed competitor.**  Proposition 4.2 bounds the mixed
+scalar energy of `D₁f_p - D₂*k_p` by `C√L`.
+-/
 theorem signedMixedResidualHMinusSq_le_sqrtScale {q : Parameters}
     (hq : q.Admissible) {C p₁ p₂ : ℝ}
     (hleft : 0 < q.K * q.delta |p₁|) (hright : q.r0 < Real.pi)
@@ -161,7 +162,7 @@ theorem signedMixedResidualHMinusSq_le_sqrtScale {q : Parameters}
 
 /-! ## Without the multiplier the two mixed components add -/
 
-/-- **The unsigned competitor at a negative `sin p₁`.** The mixed component of
+/-- **The unsigned competitor at a negative `sin p₁`.**  The mixed component of
 `D₁f_p` is then `-1_I`, while `D̃₂*k̃` is a nonnegative real, so the two add
 instead of cancelling. -/
 theorem mixedResidual_sub_correction_of_sin_neg {q : Parameters} {p₁ p₂ : ℝ}
@@ -175,9 +176,10 @@ theorem mixedResidual_sub_correction_of_sin_neg {q : Parameters} {p₁ p₂ : �
   push_cast
   ring
 
-/-- **The unsigned competitor cannot help at a negative `sin p₁`.** The mixed
+/-- **The unsigned competitor cannot help at a negative `sin p₁`.**  The mixed
 residual of `D₁f_p - D₂*k_p` is pointwise at least the uncorrected mixed
-residual of Lemma 4.1(c), whose `H⁻¹` energy is of order `L`. -/
+residual of Lemma 4.1(c), whose `H⁻¹` energy is of order `L`.
+-/
 theorem norm_mixedResidual_le_norm_sub_correction_of_sin_neg {q : Parameters}
     (hq : q.Admissible) {p₁ p₂ : ℝ} (hp₂ : |p₂| ≤ |p₁|)
     (hleft : 0 < q.K * q.delta |p₁|) (hright : q.r0 < Real.pi)

@@ -4,7 +4,7 @@ import Manhattan.Glue.SummandThree
 # The two-row `(h,h)` sector of summand 3 of (22)
 
 `Manhattan.Glue.summandThreeBound_of_sector_bounds` reduces summand 3 of (22)
-to one bound per degree-two sector. This file proves the two-row half,
+to one bound per degree-two sector.  This file proves the two-row half,
 `Manhattan.Glue.summandThreeTwoRowSectorBound`, with the explicit constant
 `Manhattan.Glue.twoRowSummandConstant`.
 
@@ -17,14 +17,14 @@ integral of `Manhattan.Estimates.twoRowHMinusWeight q p₁ (p₂+s+s')` against
 the squared modulus of `Manhattan.Glue.type11FreqFun` of those coefficients.
 Bounding the weight pointwise by `(λ+d(p₁))⁻¹` and using that
 `type11FreqFun` is an isometry gives `≍ |p₁|²/(Kδ(|p₁|)³)`, which is
-unbounded. The gain has to come from the `α`-average of the weight, which is
+unbounded.  The gain has to come from the `α`-average of the weight, which is
 what Lemma 4.1(d) supplies.
 
 ## How it is extracted
 
 `Manhattan.Glue.type11RawIndex` is the *sorted* pair, so the coefficient
 `(D₁f_p)₁₁` at the raw index `(m,m')`, `m<m'`, vanishes unless one of the two
-row indices is the origin row. Hence the raw coefficients split along the
+row indices is the origin row.  Hence the raw coefficients split along the
 two one-variable slices `Manhattan.Glue.sliceOne` and
 `Manhattan.Glue.sliceZero` of `ℤ²`
 (`Manhattan.Glue.type11RawExtend_twoRowRaiseCoeff`), and the frequency
@@ -34,7 +34,7 @@ function is the sum of two pullbacks of one-variable `L²` functions
 On a one-variable slice the two-row weight decouples: the missing angle is a
 full period of a `2π`-periodic function, so its integral is the `α`-average
 `Manhattan.Glue.twoRowWeightAverage` whatever the other angle is
-(`Manhattan.Glue.integral_angleWeight_slice`). Fubini then gives
+(`Manhattan.Glue.integral_angleWeight_slice`).  Fubini then gives
 `Manhattan.Glue.integral_twoRowAngleWeight_rowLiftOne` and its mirror: the
 weighted energy of a pullback is the average times the squared `L²` norm.
 This is the block diagonality in `m-m'`, in the only form the bound needs.
@@ -279,7 +279,7 @@ theorem freqSliceZero (a : ℓ²(ℤ, ℂ)) :
 
 /-! ## The block-diagonal gain: the weight decouples on a one-variable slice -/
 
-/-- **The `α`-average is the whole gain.** On the slice carried by the second
+/-- **The `α`-average is the whole gain.**  On the slice carried by the second
 line angle the two-row weight integrates out to its `α`-average, so the
 weighted energy of a pullback is the average times the squared `L²` norm. -/
 theorem integral_twoRowAngleWeight_rowLiftOne {q : Estimates.Parameters}
@@ -510,7 +510,7 @@ def sliceZeroCoeff (p : Fin 2 → ℝ) (c : Manhattan.RowLineCoefficient) : ℓ�
     (k : ℤ) :
     sliceZeroCoeff p c k = if k < 0 then Complex.I * (Real.sin (p 0) : ℂ) * c k else 0 := rfl
 
-/-- **The two-row sector splits along the two one-variable slices.** The raw
+/-- **The two-row sector splits along the two one-variable slices.**  The raw
 two-row coefficients of `D₁f_p` are carried by the two lines through the
 origin row, and the sorted convention puts the two halves on the two
 slices. -/
@@ -627,9 +627,9 @@ theorem integrable_twoRowAngleWeight_mul_sq {q : Estimates.Parameters}
 
 /-! ## The two-row sector bound -/
 
-/-- **The two-row (`h,h`) sector energy of `D₁f_p`.** Both slices see the
+/-- **The two-row (`h,h`) sector energy of `D₁f_p`.**  Both slices see the
 same `α`-average of the weight, so the energy is at most four times that
-average against the squared degree-one mass. This is the estimate that the
+average against the squared degree-one mass.  This is the estimate that the
 pointwise weight bound `(λ+d(p₁))⁻¹` cannot give. -/
 theorem hMinusEnergy_twoRowRaiseCoeff_le {q : Estimates.Parameters}
     (hlam : 0 < q.lambda) (p : Fin 2 → ℝ) (c : Manhattan.RowLineCoefficient) :
@@ -765,7 +765,7 @@ theorem sin_pos_on_support {q : Estimates.Parameters} {p₁ r : ℝ}
   exact Real.sin_pos_of_pos_of_lt_pi (lt_of_lt_of_le hleft h1)
     (lt_of_le_of_lt h2 hright)
 
-/-- **The degree-one coefficient has a fixed phase on its support.** This is
+/-- **The degree-one coefficient has a fixed phase on its support.**  This is
 what makes the symmetrized two-row residual dominate each of its halves. -/
 theorem degreeOneCoefficient_inner_nonneg {q : Estimates.Parameters} {p₁ : ℝ}
     (hleft : 0 < q.K * q.delta |p₁|) (hright : q.r0 < Real.pi) (r r' : ℝ) :

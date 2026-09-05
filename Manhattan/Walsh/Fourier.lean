@@ -5,8 +5,8 @@ import Mathlib.Analysis.Fourier.AddCircle
 # Fourier series in a single line index
 
 Equation (20) takes Fourier series in the transverse integer coordinate of
-each directed line. With Finset-indexed higher chaoses there is no canonical
-ordering of several frequencies. This module therefore records the clean,
+each directed line.  With Finset-indexed higher chaoses there is no canonical
+ordering of several frequencies.  This module therefore records the clean,
 ordering-free degree-one transform and the embedding of one line frequency
 into the two-dimensional torus; higher-degree sector transforms are left to
 the explicit low-degree modules that choose an axis pattern.
@@ -30,7 +30,7 @@ abbrev LineFrequency := Axis × AddCircle torusPeriod
 /-- A two-dimensional torus frequency, with coordinates labelled by axes. -/
 abbrev TorusFrequency := Axis → AddCircle torusPeriod
 
-/-- Embed a line frequency into the two-dimensional frequency space. A
+/-- Embed a line frequency into the two-dimensional frequency space.  A
 horizontal line is indexed by its vertical coordinate and conversely. -/
 def embedLineFrequency (q : LineFrequency) : TorusFrequency := fun i =>
   match q.1, i with

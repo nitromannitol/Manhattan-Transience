@@ -3,15 +3,15 @@ import Manhattan.V4.LogScale
 /-!
 # Version 4, Move 2: the substitution `phi(r) = t √(log(1/|r|))/|r|`
 
-Move 1 of Version 4 (the Version 4 argument) supplies, for every real even
+Move 1 of Version 4 supplies, for every real even
 `phi` supported on the annulus `Γ_δ = {√δ ≤ |r| ≤ r₀}`, the effective-energy bound
 
-  `r_λ(p) ≤ (1 - s ∫ phi dm)² / h₀ + C ∫_{Γ_δ} q phi² dm`, `q(r) = |r|/√(log(1/|r|))`.
+  `r_λ(p) ≤ (1 - s ∫ phi dm)² / h₀ + C ∫_{Γ_δ} q phi² dm`,   `q(r) = |r|/√(log(1/|r|))`.
 
 Move 2 substitutes the profile `phi(r) = t √(log(1/|r|))/|r|`. This file performs the
 two computations that make the one-variable minimization applicable:
 
-  `∫ phi dm = t Z_δ` and `∫ q phi² dm = t² Z_δ`,
+  `∫ phi dm = t Z_δ`   and   `∫ q phi² dm = t² Z_δ`,
 
 with the single number `Z_δ = ∫_{Γ_δ} √(log(1/|r|))/|r| dm(r)` of
 `Manhattan/V4/LogScale.lean`. Both are consequences of the pointwise identity
@@ -23,7 +23,7 @@ minimization. That is the whole content of the substitution.
 
 The file also records the two facts a consumer needs about the profile: it is even,
 and it is bounded on the torus (`profile_abs_le`), which is the concrete discharge of
-the `phi ∈ L²` gap left open -- for fixed `δ > 0` the profile is a bounded
+the `phi ∈ L²` gap left open  -- for fixed `δ > 0` the profile is a bounded
 function supported in a set of finite measure. The bound degrades as `δ → 0`, which is
 harmless because `λ > 0` is fixed throughout.
 -/

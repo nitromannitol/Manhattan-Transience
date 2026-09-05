@@ -10,7 +10,7 @@ that the summand estimates need, together with the two dispersion
 inequalities used to move a frequency shift through `d(s)=1-\cos s`.
 
 The change of variables `∫ · d(haar) = torusIntegral ·` is the fact named
-as missing, item 1, in the degree-one
+in the degree-one
 case (period `2π`, no rescaling of the frequency variable).
 
 Paper: `manuscript.tex:743-758` and `manuscript.tex:791-800`.
@@ -94,7 +94,7 @@ theorem inner_fourierMul_self (n : ℤ) (F : Lp ℂ 2 haarTorus) :
   rfl
 
 /-- The `L²` norm of an `Lp` vector as an integral of the squared pointwise
-norm. Stated for a general measure; used on the frequency torus of every
+norm.  Stated for a general measure; used on the frequency torus of every
 degree. -/
 theorem integral_norm_sq_lp {α : Type*} [MeasurableSpace α] {mu : Measure α}
     (F : Lp ℂ 2 mu) : ∫ x, ‖(F : α → ℂ) x‖ ^ 2 ∂mu = ‖F‖ ^ 2 := by

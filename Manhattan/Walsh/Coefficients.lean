@@ -6,7 +6,7 @@ import Mathlib.LinearAlgebra.Finsupp.LinearCombination
 # Finset-indexed Walsh coefficients and the raising/lowering split
 
 The coefficient carrier is indexed directly by finite sets of line indices.
-This is the factorial-free version of equations (17) and (18).
+This is's factorial-free version of equations (17) and (18).
 
 Paper: `manuscript.tex:719-740`.
 -/
@@ -261,7 +261,7 @@ theorem coordinate_mul_walshCharacter (l : LineIndex) (S : Finset LineIndex)
     rw [if_neg hl, ← hdiff, ← walshCharacter_mul]
     simp [walshCharacter]
 
-/-- The raising/lowering split on a single Walsh monomial. Linearity then
+/-- The raising/lowering split on a single Walsh monomial.  Linearity then
 gives the split on every finite Walsh polynomial. -/
 theorem coordinate_mul_single_walshPolynomial (l : LineIndex) (S : Finset LineIndex)
     (a : ℂ) (ω : Environment) :

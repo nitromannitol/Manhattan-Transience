@@ -2,7 +2,7 @@
 Pólya's theorem in two dimensions, and the unconditional counterexample.
 
 `Recurrence.lean` carried `SimpleRandomWalkRecurrent` as the one named input it
-did not prove, because Mathlib has no recurrence theorem for random walks. It
+did not prove, because Mathlib has no recurrence theorem for random walks.  It
 is discharged here, so the counterexample of the closing remark of the paper's
 open-questions section rests on nothing but the standard axioms.
 -/

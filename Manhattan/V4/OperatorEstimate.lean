@@ -8,9 +8,9 @@ import Manhattan.Glue.FinalDischarge
 This file proves the operator estimate (OP) of the Version 4 argument
 for an arbitrary bounded measurable raw type-`112` kernel `K`:
 
-  `‖Π K‖₊² + ‖D₃ (Π K)‖₋² ≤ 9 ∫ M |K|²`, `M(r,r',β) = κ(δ + |r| + |r'| + |β|)`.
+  `‖Π K‖₊² + ‖D₃ (Π K)‖₋² ≤ 9 ∫ M |K|²`,   `M(r,r',β) = κ(δ + |r| + |r'| + |β|)`.
 
-**Nothing analytic is reproved here.** The hard content is the existing
+**Nothing analytic is reproved here.**  The hard content is the existing
 development's:
 
 * `Manhattan.Glue.tsum_integral_inv_symbolWeight_degreeRaiseDir_le`, the
@@ -30,12 +30,12 @@ The only new ingredient is **majorization**: the pointwise inequality
 `Estimates.multiplier 40 q (β, r+r'-p₂) ≤ evenMajorant 120 δ r r' β` of
 `Manhattan/V4/EvenMajorant.lean`, applied under the integral at the very end.
 
-**The order of operations is the point.** The projection contraction is
+**The order of operations is the point.**  The projection contraction is
 applied with the TRUE total-frequency multiplier, and only THEN is the weight
-enlarged to `M`. No commutation of `Π` with `M` is needed anywhere -- which
+enlarged to `M`.  No commutation of `Π` with `M` is needed anywhere -- which
 matters, because `M` depends on `r` and `r'` separately and therefore is *not*
-a multiplier in the total frequency, so it does not commute with `Π`. Compare
-ERRATA E-010: the manuscript's stated justification of Lemma 5.1
+a multiplier in the total frequency, so it does not commute with `Π`.  Compare
+ERRATA E-010 /: the manuscript's stated justification of Lemma 5.1
 is false for the multiplier of (35); here the question does not arise.
 
 Paper: `manuscript.tex:1196-1205` (Lemma 5.2), `manuscript.tex:1193-1198`
@@ -64,7 +64,7 @@ local instance : IsProbabilityMeasure (volume : Measure UnitAddCircle) :=
 /-! ## Reordering the iterated torus integral -/
 
 /-- The cyclic reordering `(r,r',β) ↦ (β,r,r')` of the iterated normalized
-torus integral, for bounded measurable integrands. It converts the output of
+torus integral, for bounded measurable integrands.  It converts the output of
 `Manhattan.Glue.integral_unitTorus_three` into the iteration order of
 `Manhattan.Glue.rawMultiplierEnergy`. -/
 theorem torusIntegral₃_rotate {F : ℝ → ℝ → ℝ → ℝ}
@@ -189,6 +189,21 @@ theorem multiplier_integral_rawL2 {q : Estimates.Parameters} (hlam : 0 ≤ q.lam
 
 /-! ## The two halves of the operator estimate -/
 
+/-- **The sharp symbol-weight bound.**  `symbolWeight = λ + θ(P)` and the
+multiplier is `κ(λ + θ(P) + 2|sin(P₀/2)| + 2|sin(P₁/2)|)`, so the inequality
+needs only nonnegativity of the two sine terms: `κ = 1` suffices, and the `40`
+carried by `symbolWeight_le_multiplier` below is slack inherited from the
+normalization of the projection-contraction chain. -/
+theorem symbolWeight_le_multiplier_one {q : Estimates.Parameters}
+    (p : Fin 2 → ℝ) (σ : Fin 3 → Axis) (t : UnitAddTorus (Fin 3)) :
+    Glue.symbolWeight 3 q.lambda p σ t
+      ≤ Estimates.multiplier 1 q (Glue.totalFrequency 3 p σ t) := by
+  have hθ := Estimates.theta_nonneg (Glue.totalFrequency 3 p σ t)
+  have hs0 := abs_nonneg (Real.sin (Glue.totalFrequency 3 p σ t 0 / 2))
+  have hs1 := abs_nonneg (Real.sin (Glue.totalFrequency 3 p σ t 1 / 2))
+  simp only [Glue.symbolWeight, Estimates.multiplier]
+  linarith
+
 theorem symbolWeight_le_multiplier {q : Estimates.Parameters} (hlam : 0 ≤ q.lambda)
     (p : Fin 2 → ℝ) (σ : Fin 3 → Axis) (t : UnitAddTorus (Fin 3)) :
     Glue.symbolWeight 3 q.lambda p σ t
@@ -199,7 +214,7 @@ theorem symbolWeight_le_multiplier {q : Estimates.Parameters} (hlam : 0 ≤ q.la
   rw [Glue.symbolWeight_def, Estimates.multiplier]
   linarith
 
-/-- The `H₃` half. The projection contraction is
+/-- The `H₃` half.  The projection contraction is
 `Manhattan.Glue.symbolWeight_integral_type112DiagonalProjection_le`. -/
 theorem hThreeForm_rawWalsh_le {q : Estimates.Parameters} (hlambda : 0 < q.lambda)
     (p : Fin 2 → ℝ) {k : ℝ → ℝ → ℝ → ℂ} (hk : Glue.TorusBoundedThree k) :
@@ -226,7 +241,7 @@ theorem hThreeForm_rawWalsh_le {q : Estimates.Parameters} (hlambda : 0 < q.lambd
       exact mul_nonneg (by
         have := Estimates.theta_nonneg (Glue.totalFrequency 3 p Glue.type112Pattern t)
         rw [Glue.symbolWeight_def]; linarith) (sq_nonneg _)
-    · exact Glue.integrable_multiplier_norm_sq hlambda.le 3 p Glue.type112Pattern _
+    · exact Glue.integrable_multiplier_norm_sq (by norm_num : (0:ℝ) ≤ 40) hlambda.le 3 p Glue.type112Pattern _
     · filter_upwards with t
       exact mul_le_mul_of_nonneg_right
         (symbolWeight_le_multiplier hlambda.le p Glue.type112Pattern t) (sq_nonneg _)
@@ -240,14 +255,15 @@ theorem hThreeForm_rawWalsh_le {q : Estimates.Parameters} (hlambda : 0 < q.lambd
   filter_upwards with t
   rw [Glue.multiplier_totalFrequency_type112Pattern]
 
-/-- The `D₃` half. The raising bound is
+/-- The `D₃` half.  The raising bound is
 `Manhattan.Glue.tsum_integral_inv_symbolWeight_degreeRaiseDir_le`, with
 constant `2` per direction, and the projection contraction is
 `Manhattan.Glue.multiplier_integral_type112DiagonalProjection_le`. -/
-theorem sectorDFourForm_rawWalsh_le {q : Estimates.Parameters} (hlambda : 0 < q.lambda)
+theorem sectorDFourForm_rawWalsh_le {q : Estimates.Parameters} {kappa : ℝ}
+    (hkappa : 12 ≤ kappa) (hlambda : 0 < q.lambda)
     (p : Fin 2 → ℝ) {k : ℝ → ℝ → ℝ → ℂ} (hk : Glue.TorusBoundedThree k) :
     Glue.sectorDFourForm hlambda p (rawWalsh p hk)
-      ≤ 8 * Glue.rawMultiplierEnergy 40 q (p 1) k := by
+      ≤ 8 * Glue.rawMultiplierEnergy kappa q (p 1) k := by
   set d := UnitAddTorus.mFourierBasis.repr (rawL2 hk) with hd
   set ct := Manhattan.type112ShiftTwist (p 0) (p 1)
     (Manhattan.type112DiagonalProjection d) with hct
@@ -261,7 +277,7 @@ theorem sectorDFourForm_rawWalsh_le {q : Estimates.Parameters} (hlambda : 0 < q.
     (fun i => Glue.degreeRaiseDir p i g)
     (fun i => Glue.homogeneousWalshSynthesis_degreeRaiseDir p i g)
   simp only at hsplit
-  have hM : (∑' σ : Fin 3 → Axis, ∫ t,
+  have hM40 : (∑' σ : Fin 3 → Axis, ∫ t,
       Estimates.multiplier 40 q (Glue.totalFrequency 3 p σ t) *
         ‖((Glue.lineIndexFourier 3 g) σ : UnitAddTorus (Fin 3) → ℂ) t‖ ^ 2
         ∂(Glue.LineTorusMeasure 3))
@@ -275,21 +291,39 @@ theorem sectorDFourForm_rawWalsh_le {q : Estimates.Parameters} (hlambda : 0 < q.
     refine le_of_eq (integral_congr_ae ?_)
     filter_upwards with t
     rw [Glue.multiplier_totalFrequency_type112Pattern]
-  have h0 := Glue.tsum_integral_inv_symbolWeight_degreeRaiseDir_le hlambda p 0 g
-  have h1 := Glue.tsum_integral_inv_symbolWeight_degreeRaiseDir_le hlambda p 1 g
+  have hM : (∑' σ : Fin 3 → Axis, ∫ t,
+      Estimates.multiplier kappa q (Glue.totalFrequency 3 p σ t) *
+        ‖((Glue.lineIndexFourier 3 g) σ : UnitAddTorus (Fin 3) → ℂ) t‖ ^ 2
+        ∂(Glue.LineTorusMeasure 3))
+      ≤ Glue.rawMultiplierEnergy kappa q (p 1) k := by
+    have e40 := Glue.tsum_integral_multiplier_eq_smul (40 : ℝ) q
+      (Glue.LineTorusMeasure 3) (fun σ t => Glue.totalFrequency 3 p σ t)
+      (fun σ t => ‖((Glue.lineIndexFourier 3 g) σ : UnitAddTorus (Fin 3) → ℂ) t‖ ^ 2)
+    have ek := Glue.tsum_integral_multiplier_eq_smul kappa q
+      (Glue.LineTorusMeasure 3) (fun σ t => Glue.totalFrequency 3 p σ t)
+      (fun σ t => ‖((Glue.lineIndexFourier 3 g) σ : UnitAddTorus (Fin 3) → ℂ) t‖ ^ 2)
+    have r40 := Glue.rawMultiplierEnergy_eq_smul (40 : ℝ) q (p 1) k
+    have rk := Glue.rawMultiplierEnergy_eq_smul kappa q (p 1) k
+    rw [e40, r40] at hM40
+    rw [ek, rk]
+    have h40 : (0:ℝ) < 40 := by norm_num
+    have hk0 : (0:ℝ) ≤ kappa := by linarith
+    nlinarith [hM40, hk0, h40]
+  have h0 := Glue.tsum_integral_inv_symbolWeight_degreeRaiseDir_le hkappa hlambda p 0 g
+  have h1 := Glue.tsum_integral_inv_symbolWeight_degreeRaiseDir_le hkappa hlambda p 1 g
   linarith
 
 /-! ## The operator estimate (OP) -/
 
-/-- **The operator estimate (OP).** For every bounded measurable raw
+/-- **The operator estimate (OP).**  For every bounded measurable raw
 type-`112` kernel `K`, at every momentum `p`, with `δ ≥ λ` and `|p₂| ≤ δ`,
 
-  `‖Π K‖₊² + ‖D₃ (Π K)‖₋² ≤ 9 ∫ M |K|²`, `M = evenMajorant 120 δ`.
+  `‖Π K‖₊² + ‖D₃ (Π K)‖₋² ≤ 9 ∫ M |K|²`,   `M = evenMajorant 120 δ`.
 
 Projection contraction is applied with the true total-frequency multiplier
 (inside `hThreeForm_rawWalsh_le` and `sectorDFourForm_rawWalsh_le`), and the
 enlargement to `M` happens only afterwards, in
-`Manhattan.V4.rawMultiplierEnergy_le_evenMajorantEnergy`. `Π` is never
+`Manhattan.V4.rawMultiplierEnergy_le_evenMajorantEnergy`.  `Π` is never
 commuted with `M`. -/
 theorem operatorEstimate {q : Estimates.Parameters} (hlambda : 0 < q.lambda)
     {delta : ℝ} (hdelta : q.lambda ≤ delta) (p : Fin 2 → ℝ)
@@ -298,14 +332,14 @@ theorem operatorEstimate {q : Estimates.Parameters} (hlambda : 0 < q.lambda)
         + Glue.sectorDFourForm hlambda p (rawWalsh p hk)
       ≤ 9 * evenMajorantEnergy 120 delta k := by
   have h1 := hThreeForm_rawWalsh_le hlambda p hk
-  have h2 := sectorDFourForm_rawWalsh_le hlambda p hk
+  have h2 := sectorDFourForm_rawWalsh_le (by norm_num : (12:ℝ) ≤ 40) hlambda p hk
   have h3 := rawMultiplierEnergy_le_evenMajorantEnergy (q := q) (delta := delta)
     (p₂ := p 1) (k := k) hlambda.le hdelta hp₂ hk
   linarith
 
-/-- **(OP) at the parity competitor.** Combining the operator estimate with
+/-- **(OP) at the parity competitor.**  Combining the operator estimate with
 the energy identity (P4), the whole degree-three cost of `k = Π K` is the
-scalar integral `∫ σ |v|²`. Together with `rawD2StarMixed_offDiagonalPart`
+scalar integral `∫ σ |v|²`.  Together with `rawD2StarMixed_offDiagonalPart`
 (`(D₂* k)₁₂ = (√2)⁻¹ σ v`) and `rawD2StarTwoRow_offDiagonalPart`
 (`(D₂* k)₁₁ = 0`) this is the whole of Steps 2--3 of the note. -/
 theorem operatorEstimate_parityKernel {q : Estimates.Parameters} (hlambda : 0 < q.lambda)

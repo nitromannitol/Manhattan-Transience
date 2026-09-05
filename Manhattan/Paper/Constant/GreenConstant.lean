@@ -6,33 +6,33 @@ import Manhattan.Glue.Annealed
 
 `results/01-transience/manuscript.tex`, `eq:green-explicit`, asserts
 
-    ∫₀^∞ p̄_t(0,0) dt ≤ 2048.
+    ∫₀^∞ p̄_t(0,0) dt ≤ 2048 .
 
 That number is correct on the manuscript's own terms; see
- for the re-derivation. This file records, as a
+for the re-derivation.  This file records, as a
 machine-checked numeral rather than as prose, what the Version 4 Lean chain
 actually delivers for the same integral.
 
 Three constants compose.
 
 * `Manhattan.V4.v4Constant = 60 + 40(π² + 60π³) ≈ 7.4870 · 10⁴` is Move 1's
-  effective-energy coefficient. The manuscript's `eq:effective-energy` has
-  `16` in the same slot. This module cannot change it: it is proved inside
-  `Manhattan/V4/`, which is frozen for this file.
+  effective-energy coefficient.  The manuscript's `eq:effective-energy` has
+  `16` in the same slot.  This part cannot change it: it is proved inside
+  `Manhattan/V4/`, which is frozen for this part.
 
 * `frequencyConstant = max (max 1 (10π² · v4Constant)) (outerRegionConstant (1/4))`
   is the fixed-frequency constant, `Manhattan.Paper.Constant.v4FrequencyBound_tight`
-  at `r₀ = 1/4`. It is pinned between `7389000` and `7400000` below. The
+  at `r₀ = 1/4`.  It is pinned between `7389000` and `7400000` below.  The
   manuscript's counterpart is `C = 2048` in `prop:frequency`.
 
 * The three-region frequency integration multiplies by `17 + 2π²/r₀²`, with
-  `r₀` the region-splitting radius, free in `(0,1)`. `Manhattan/V4/` runs it
+  `r₀` the region-splitting radius, free in `(0,1)`.  `Manhattan/V4/` runs it
   at `r₀ = 1/2`, giving `17 + 8π² ≈ 95.96`; at `r₀ = 99/100` it is
-  `≈ 37.14`. The manuscript's counterpart is `2^{7/2}/(π²√(1+log 4)) ≈ 0.742`
+  `≈ 37.14`.  The manuscript's counterpart is `2^{7/2}/(π²√(1+log 4)) ≈ 0.742`
   together with the additive `1/π² + log(4π) ≈ 2.63`.
 
 The composed numeral is `2.75 · 10⁸`, about `1.34 · 10⁵` times the paper's
-`2048`. `Manhattan/Paper/Constant/Witnesses.lean` records that gap as a strict
+`2048`.  `Manhattan/Paper/Constant/Witnesses.lean` records that gap as a strict
 machine-checked inequality.
 -/
 
@@ -46,7 +46,7 @@ namespace Manhattan.Paper.Constant
 open Manhattan.V4 Manhattan.V4.Frequency
 
 /-- The tightened fixed-frequency constant of the Version 4 chain at
-`r₀ = 1/4`. `Manhattan.V4.v4FrequencyBound_proved` uses
+`r₀ = 1/4`.  `Manhattan.V4.v4FrequencyBound_proved` uses
 `max (max 1 (8π³ · v4Constant)) (outerRegionConstant (1/4))` instead. -/
 def frequencyConstant : ℝ :=
   max (max 1 (10 * Real.pi ^ 2 * v4Constant)) (outerRegionConstant (1 / 4))
@@ -113,7 +113,7 @@ theorem frequencyConstant_le : frequencyConstant ≤ 7400000 := by
     (outerRegionConstant_quarter_le.trans (by norm_num))
   nlinarith [v4Constant_le, v4Constant_pos, pi_sq_le]
 
-/--... and pinned below, so it is a genuine number and not a junk value. -/
+/-- ... and pinned below, so it is a genuine number and not a junk value. -/
 theorem frequencyConstant_ge : (7389000 : ℝ) ≤ frequencyConstant := by
   refine le_trans ?_ ((le_max_right 1 _).trans (le_max_left _ _))
   nlinarith [pi_sq_ge, v4Constant_ge, v4Constant_pos]
@@ -121,7 +121,7 @@ theorem frequencyConstant_ge : (7389000 : ℝ) ≤ frequencyConstant := by
 /-! ### The frequency integral -/
 
 /-- The frequency integral of the concrete Green density, uniformly in
-`λ ∈ (0,1]`, with the three regions split at `r₀ = 99/100`. `Manhattan/V4/`
+`λ ∈ (0,1]`, with the three regions split at `r₀ = 99/100`.  `Manhattan/V4/`
 runs the same integration at `r₀ = 1/2`, where the outer region alone costs
 `8π² ≈ 78.96` instead of `≈ 20.14`. -/
 theorem uniform_green_tight {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : lambda ≤ 1) :
@@ -143,7 +143,7 @@ theorem uniform_green_tight {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : la
     hlambda hlambda1
 
 /-- The manuscript's `∫_{T²} r_λ(p) dm(p)`, as an explicit numeral, uniformly
-in `λ ∈ (0,1]`. The manuscript's own bound on the same quantity is `2048`
+in `λ ∈ (0,1]`.  The manuscript's own bound on the same quantity is `2048`
 (`thm:annealed`, whose proof in fact gives `< 1825`). -/
 theorem uniform_green_numeral {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : lambda ≤ 1) :
     Manhattan.Estimates.normalizedFrequencyIntegral
@@ -160,7 +160,7 @@ theorem uniform_green_numeral {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : 
 /-- For comparison, the numeral the **untightened** Version 4 route composes:
 `Manhattan.V4.v4FrequencyBound_proved` through
 `Manhattan.V4.Frequency.uniform_green_bound_of_v4FrequencyBound`, whose region
-split is at `r₀ = 1/2`. The two tightenings of this file are worth a factor
+split is at `r₀ = 1/2`.  The two tightenings of this part are worth a factor
 `6.49`. -/
 theorem uniform_green_numeral_v4 {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : lambda ≤ 1) :
     Manhattan.Estimates.normalizedFrequencyIntegral
@@ -186,7 +186,7 @@ theorem uniform_green_numeral_v4 {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1
 
 /-! ### Removing the damping -/
 
-/-- The undamped bound with the constant kept explicit. This is the Fatou calc
+/-- The undamped bound with the constant kept explicit.  This is the Fatou calc
 of `Manhattan.Glue.annealedGreenBound_of_uniform_damped` with the existential
 over the constant dropped, so that the number survives to the conclusion. -/
 theorem undamped_le_of_uniform_damped (C : ℝ≥0∞)

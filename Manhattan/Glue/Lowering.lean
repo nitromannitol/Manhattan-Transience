@@ -5,12 +5,11 @@ import Manhattan.Walsh.LowDegreeSectors
 # Exact lowering components of the corrected type-112 vector
 
 These declarations specialize the complete Finset lowering maps to the
-explicit projected correction `k_p`. Both components are extracted from the
-actual concrete skew fiber. The displayed coefficient formulas are the
+explicit projected correction `k_p`.  Both components are extracted from the
+actual concrete skew fiber.  The displayed coefficient formulas are the
 factorial-free versions of (D2a) and (D2b).
 
 Paper: `manuscript.tex:827-840` and `manuscript.tex:1238-1255`.
-.
 -/
 
 namespace Manhattan.Glue
@@ -51,7 +50,7 @@ theorem correctedD2StarTwoRow_apply_finset {q : Estimates.Parameters}
             hlambda a (p 1)) S := by
   exact type112DStarTwoRow_apply_finset p _ T
 
-/-- (D2b), with coefficient one in the Finset isometry. The tuple-space
+/-- (D2b), with coefficient one in the Finset isometry.  The tuple-space
 `sqrt 2` from the manuscript is exactly absent, while
 `correctionCoefficient` carries `i * sin beta` rather than
 `i * sin beta / sqrt 2`. -/

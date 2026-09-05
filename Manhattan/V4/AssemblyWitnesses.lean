@@ -3,33 +3,33 @@ import Manhattan.V4.Frequency.Uniform
 import Manhattan.V4.Energy.Witnesses
 
 /-!
-# The formalization: the non-degeneracy certificates
+# The non-degeneracy certificates
 
-Every composed statement of the formalization gets a witness here: explicit parameters
+Every composed statement of  gets a witness here: explicit parameters
 satisfying all of its hypotheses simultaneously, and, wherever it is an
 inequality, a proof that the inequality is **strict** at explicit data, so that
 no link of the chain can be `X ≤ X` after unfolding.
 
-* OPEN-A. `parityJ_pos` rules out the Bochner junk value; `strict_parityJ_ge`
+* The fibre integral.  `parityJ_pos` rules out the Bochner junk value; `strict_parityJ_ge`
   proves `parityJ_ge` strict at `r = 3π`, where the torus distance `|r|_𝕋 = π`
   is strictly below `|r| = 3π`; `nonvacuity_parity_betaIntegral_le` and
   `strict_paritySigma_inner_lower` exhibit `κ = 120`, `δ = 1/100`, `r = 1/5`,
   `λ = 1/2`, `β = 1/10` satisfying every hypothesis with both sides strictly
   positive.
-* The degree-one summand. `strict_degreeOne_symbol_le`,
+* The degree-one summand.  `strict_degreeOne_symbol_le`,
   `nonvacuity_degreeOne_symbol_le`.
 * The scalar completion at the parity minimizer.
   `strict_paritySigmaEnergy_pointwise`: the degree-three density is
   **strictly** below the Move 1 density whenever the row profile does not
   vanish, the gap being exactly the degree-two residual `B v²`.
-* The complementary region. `strict_driftlessMajorant_le_v4Majorant` at
+* The complementary region.  `strict_driftlessMajorant_le_v4Majorant` at
   `λ = 1`, `r₀ = 1/4`, `p = (π, π)`, where the two sides are `1/5` and
   `outerRegionConstant(1/4)/(1 + π²) ≥ (π²/2)/(1 + π²)`.
-* The composed competitor cost. `nonvacuity_v4_competitor_cost_le` instantiates
+* The composed competitor cost.  `nonvacuity_v4_competitor_cost_le` instantiates
   `v4_competitor_cost_le` at `κ = 120`, `δ = 1/100`, `r₀ = 1/4`, `λ = 1/2`,
   `C₁ = 6`, `C₃ = 9` and indicator `testPhi`, which
   `testPhi_nondegenerate` shows is **not** the zero function.
-* The fixed-frequency bound. `v4FrequencyBound_outer_verified` proves the
+* The fixed-frequency bound.  `v4FrequencyBound_outer_verified` proves the
   target inequality of `V4FrequencyBound` unconditionally on the whole
   complementary region, and `v4Majorant_nondegenerate` shows the majorant is a
   genuine positive real everywhere.
@@ -41,7 +41,7 @@ open MeasureTheory
 
 namespace Manhattan.V4
 
-/-! ### OPEN-A -/
+/-! ### The fibre integral -/
 
 /-- `J` is strictly positive: the closed form is a logarithm of something
 strictly bigger than one, so `parityJ` is never the Bochner junk value. -/
@@ -118,7 +118,6 @@ theorem strict_paritySigma_inner_lower :
         rw [show (1 / 25 : ℝ) = (1 / 5) ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]
       rw [h25] at h
       linarith
-
 
 /-! ### The degree-one summand -/
 
@@ -247,11 +246,10 @@ theorem nonvacuity_driftlessMajorant_le_v4Majorant :
   · rw [maxFrequency_pi_pi, Real.sqrt_one]
     nlinarith [Real.two_le_pi]
 
-
 /-! ### The composed competitor cost -/
 
-/-- The test profile of the formalization is not the zero function: it is `1` at
-`r = 1/5 ∈ Γ_{1/100}`, where the effective weight is strictly positive. So the
+/-- The test profile of  is not the zero function: it is `1` at
+`r = 1/5 ∈ Γ_{1/100}`, where the effective weight is strictly positive.  So the
 right-hand side of `v4_competitor_cost_le` is not forced to vanish. -/
 theorem testPhi_nondegenerate :
     Energy.testPhi (1 / 100 : ℝ) (1 / 4 : ℝ) (1 / 5) = 1

@@ -7,7 +7,7 @@ import Manhattan.Estimates.PropositionFiveTwo
 # Concrete corrected low-degree data
 
 This module packages the scalar functions of Sections 4--5 as honest
-degree-one and type-`(1,1,2)` vectors in the concrete Walsh fiber. The
+degree-one and type-`(1,1,2)` vectors in the concrete Walsh fiber.  The
 constant component is computed against the actual `concreteFiberA`; no
 coefficient-level cancellation is assumed.
 
@@ -194,9 +194,9 @@ theorem degreeOneCoefficient_memLp_of_integralCertificate
 
 The manuscript's degree-one coefficient is a function of the *shifted* row
 frequency `r=p₂+s` of `manuscript.tex:791-800`, where `s` is the Walsh line
-frequency. On line coefficients that substitution is multiplication by
+frequency.  On line coefficients that substitution is multiplication by
 `e^{imp₂}`, i.e. translation of the frequency torus by `p₂`; the declarations
-below install it. Translation is measure preserving, so no coefficient
+below install it.  Translation is measure preserving, so no coefficient
 modulus and no `L²` norm moves.
 -/
 
@@ -236,7 +236,7 @@ theorem fourierBasis_repr_rowTorusShift_zero (s : ℝ)
   rw [hzero, hzero, integral_congr_ae (coeFn_rowTorusShift s F)]
   exact integral_add_right_eq_self (fun x => (F : AddCircle torusPeriod → ℂ) x) _
 
-/-- **The competitor's degree-one frequency function `f_p`.** The paper's
+/-- **The competitor's degree-one frequency function `f_p`.**  The paper's
 coefficient, read at the shifted row frequency `r=p₂+s` of (shift). -/
 noncomputable def correctedRowFrequency {q : Estimates.Parameters}
     {p₁ p₂ : ℝ} (hlambda : 0 < q.lambda)
@@ -250,7 +250,7 @@ noncomputable def correctedRowFrequency {q : Estimates.Parameters}
 certificates apply.
 
 `mixedCoefficient` carries the manuscript's multiplier `sgn(sin p₁)`
-(`manuscript.tex:1138-1141`, E-011). `Real.sign 0 = 0`, so that
+(`manuscript.tex:1138-1141`, E-011).  `Real.sign 0 = 0`, so that
 factor would empty the whole degree-three part at `sin (p 0) = 0`; the guard
 `Manhattan.Estimates.sin_ne_zero_of_degreeOneNormalization_ne_zero` shows the
 hypothesis `hnormalization` already excludes that point, and
@@ -292,12 +292,12 @@ theorem correctedLowDegreeData_mixedCoefficient_eq {q : Estimates.Parameters}
         shiftedCorrectionType112Coefficients (kappa := 40) (by norm_num) hlambda
           |p 0| (p 0) (p 1) := rfl
 
-/-- **The guard, at the competitor.** The `sgn(sin p₁)` multiplier
+/-- **The sign guard, at the competitor.**  The `sgn(sin p₁)` multiplier
 prescribed by `manuscript.tex:1138-1141` cannot empty the degree-three part:
 under `hnormalization` the factor `Real.sign (Real.sin (p 0))` is a nonzero
 real, so the packaged `mixedCoefficient` vanishes exactly when the underlying
-shifted correction does. Without `hnormalization` this fails, because
-`Real.sign 0 = 0` (E-011). -/
+shifted correction does.  Without `hnormalization` this fails, because
+`Real.sign 0 = 0`. -/
 theorem correctedLowDegreeData_mixedCoefficient_eq_zero_iff {q : Estimates.Parameters}
     (hlambda : 0 < q.lambda) (p : Fin 2 → ℝ)
     (hcert : Estimates.LemmaFourTwoIntegralCertificate q (p 0) (p 1))

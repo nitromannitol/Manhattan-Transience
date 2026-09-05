@@ -6,11 +6,11 @@ change.
 
 ## Before editing
 
-1. Read [`paper/manuscript.tex`](paper/manuscript.tex),
-   the relevant entries in
-   [`ledger/ERRATA.md`](ledger/ERRATA.md).
+1. Read [`paper/manuscript.tex`](paper/manuscript.tex) and the relevant
+   entries in [`ledger/ERRATA.md`](ledger/ERRATA.md).
 2. Check [`CORRESPONDENCE.md`](CORRESPONDENCE.md) and
    [`ledger/manifest.yaml`](ledger/manifest.yaml) for an existing owner.
+3. Work in dependency order from [`ROADMAP.md`](ROADMAP.md). Do not silently
    strengthen, weaken, normalize, or repair the manuscript.
 
 ## Statement-first workflow
@@ -49,7 +49,7 @@ Keep reusable support outside frozen files. Once a provider proof builds:
 3. inspect `#print axioms` for only `propext`, `Classical.choice`, and
    `Quot.sound` as applicable;
 4. obtain an independent hostile statement/proof audit;
-5. for headline statements, pass a Mathlib-only comparator challenge under
+5. for the main statements, pass a Mathlib-only comparator challenge;
 6. record the audit and change the manifest state only after all gates pass.
 
 Comparator `Challenge.lean` and `SolutionBasic.lean` vocabulary must be
@@ -70,5 +70,5 @@ python3 tools/check_warnings.py
 Lean options are strict: `autoImplicit` is off and unused-variable linters are
 on. Do not suppress a warning to land code. Do not run `lake clean`.
 
-why, module interfaces, Mathlib gaps, and manuscript issues. Put manuscript
+why, cross-file interfaces, Mathlib gaps, and manuscript issues. Put manuscript
 issues in `ledger/ERRATA.md` with `manuscript.tex:<line>` citations.

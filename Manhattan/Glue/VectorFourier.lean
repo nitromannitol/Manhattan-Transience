@@ -4,9 +4,9 @@ import Manhattan.Model.LowDegree
 /-!
 # The negative-phase vector-valued position Fourier transform
 
-The paper uses `sum_z exp(-i p·z) F(z)`. Mathlib's multivariate Fourier
+The paper uses `sum_z exp(-i p·z) F(z)`.  Mathlib's multivariate Fourier
 basis has the positive phase, so we construct the reindexed negative-phase
-basis explicitly. Applying it in every Walsh coordinate gives an honest
+basis explicitly.  Applying it in every Walsh coordinate gives an honest
 unitary transform, not a scalar proxy.
 
 Paper: `manuscript.tex:555-583`.
@@ -50,7 +50,7 @@ noncomputable def negativePositionFourier :
     ‖negativePositionFourier f‖ = ‖f‖ :=
   negativePositionFourier.norm_map f
 
-/-- A lattice delta transforms to the negative exponential monomial. This
+/-- A lattice delta transforms to the negative exponential monomial.  This
 fixes the `p=-2πt` ambiguity identified in the cone audit. -/
 @[simp] theorem negativePositionFourier_single (z : Operator.Lattice) :
     negativePositionFourier (lp.single 2 z (1 : ℂ)) = mFourierLp 2 (-z) := by
@@ -158,7 +158,7 @@ noncomputable def jointPositionFourier :
   jointPositionFourier.norm_map F
 
 /-- The transform of the elementary vector at Walsh index `S` and position
-`z`; this is the explicit vector-valued phase convention required here. -/
+`z`; this is the explicit vector-valued phase convention used here. -/
 @[simp] theorem jointPositionFourier_single (S : Finset LineIndex)
     (z : Operator.Lattice) :
     jointPositionFourier

@@ -5,7 +5,7 @@ import Manhattan.Operator.Fourier
 # The concrete environment fiber
 
 This module instantiates the abstract `Operator.FiberEnvironment` on the
-fair-coin environment `WalshL2`. Environment translations and multiplication
+fair-coin environment `WalshL2`.  Environment translations and multiplication
 by the two signs at the origin are constructed as unitary permutations of the
 complete Walsh basis.
 
@@ -19,7 +19,7 @@ open scoped BigOperators ComplexConjugate InnerProduct symmDiff
 
 namespace Manhattan
 
-/-- Identify the operator layer's functional lattice with concrete sites. -/
+/-- Identify the operator part's functional lattice with concrete sites. -/
 def latticeToSite (x : Operator.Lattice) : Site := (x 0, x 1)
 
 @[simp] theorem latticeToSite_zero : latticeToSite 0 = 0 := by
@@ -539,7 +539,7 @@ theorem concreteFiberA_norm_le (p : Fin 2 → ℝ) : ‖concreteFiberA p‖ ≤ 
       exact fiberAntisymmetricSummand_norm_le p i
     _ = 2 := by norm_num [Fin.sum_univ_two]
 
-/-- The concrete fair-coin instance of the operator layer's fiber interface. -/
+/-- The concrete fair-coin instance of the operator part's fiber interface. -/
 noncomputable def concreteFiberEnvironment : Operator.FiberEnvironment WalshL2 where
   shift := environmentShift
   omega := originSignMultiplier

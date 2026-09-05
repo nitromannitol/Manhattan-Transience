@@ -3,7 +3,7 @@ The planar return count is a square.
 
 Rotating by 45 degrees turns a word of `n` lattice steps into a PAIR of
 independent sign words, and the walk returns to the origin exactly when both
-sign words do. Counting is then multiplicative.
+sign words do.  Counting is then multiplicative.
 -/
 import Manhattan.Paper.Ergodic.Rotation
 

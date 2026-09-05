@@ -610,6 +610,36 @@ Section~\ref{sec:effective-energy} computes its cost.
 Section~\ref{sec:fixed-frequency} minimizes the quadratic and proves the two
 main theorems.
 
+\subsection{Formalization}\label{ssec:formalization}
+
+Every theorem, lemma and proposition of this paper has been formalized in
+Lean~4 and proved from Mathlib, together with the recurrence assertion in
+Problem~\ref{prob:which}.  No proof uses an axiom beyond the three of Lean's
+own logic, and no proof contains an incomplete step.  The development is at
+\url{https://github.com/nitromannitol/Manhattan-Transience}.
+
+The bytes of each formalized statement are pinned by a cryptographic hash
+against the label of the result it transcribes, so a statement cannot be
+weakened once it is proved, and a check confirms that every numbered result
+here is covered.  Theorem~\ref{thm:main} is proved twice, once through the
+competitor of Section~\ref{sec:evaluation} and once through a second competitor
+that shares with it only Lemma~\ref{lem:variational-bound}.  P\'olya's theorem
+in two dimensions is not available in Mathlib, so the recurrence in
+Problem~\ref{prob:which} is proved there from the factorization of the walk
+into two independent one-dimensional walks rather than quoted.
+
+One point affects what the formalization asserts.  The two displayed numerical
+constants are proved with larger explicit values.  The formalized
+Lemma~\ref{lem:effective-energy} carries a constant certified below $670$ in
+place of $16$, and the constant of Proposition~\ref{prop:frequency} is
+correspondingly larger than $2048$.  Every statement is formalized as
+displayed, and the constant of Proposition~\ref{prop:frequency} is existential
+there, so no formalized statement claims a numerical value it does not prove.
+The loss is in the passage from Lemma~\ref{lem:parity} to
+\eqref{eq:energy-reduction}, where the formalization splits the residual by
+Cauchy--Schwarz and bounds the degree-three form by a majorant instead of
+minimizing it exactly.
+
 \subsection{Notation and conventions}\label{ssec:notation}
 
 \begin{itemize}

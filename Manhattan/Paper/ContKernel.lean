@@ -5,7 +5,7 @@ import Manhattan.Paper.Poisson
 # The continuous-time quenched kernel
 
 `ck ω t x y = p_t^ω(x,y)` is the rate-two Poisson subordination of the jump
-chain, as in `manuscript.tex:200-226`. This file proves it is a doubly
+chain, as in `manuscript.tex:200-226`.  This file proves it is a doubly
 stochastic kernel and satisfies the Chapman-Kolmogorov identity, the two
 ingredients of the semigroup splitting in the proof of `prop:time`.
 -/

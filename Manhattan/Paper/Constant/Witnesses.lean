@@ -3,7 +3,7 @@ import Manhattan.Paper.Constant.GreenConstant
 /-!
 # The paper's constant, part 3: non-degeneracy
 
-Anti-vacuity for the formalization, in the shape the sibling files use.
+Anti-vacuity for the constants, in the shape the sibling files use.
 
 * `frequencyConstant_gt` / `frequencyConstant_lt` pin the composed
   fixed-frequency constant strictly between two numerals, so it is a genuine
@@ -11,8 +11,8 @@ Anti-vacuity for the formalization, in the shape the sibling files use.
   vacuously about `⊤` or `0`.
 
 * `tightened_lt_v4` and `move3_rhs_strict` are **strict**: the constant this
-  module composes is strictly smaller than the one `Manhattan/V4/` composes, at
-  every frequency. No link in this file is an `X ≤ X`.
+  file composes is strictly smaller than the one `Manhattan/V4/` composes, at
+  every frequency.  No link in this file is an `X ≤ X`.
 
 * `green_constant_gt_paper` is the honest statement of the residual gap: what
   the Version 4 chain proves for `∫₀^∞ p̄_t(0,0) dt` exceeds the manuscript's
@@ -21,7 +21,7 @@ Anti-vacuity for the formalization, in the shape the sibling files use.
 * `greenDensity_integrable`, `annulusWedgeX_integrable`,
   `annulusWedgeY_integrable`, `logSqrt_intervalIntegrable` and
   `logarithmicTail_eq_two` record that every Bochner or interval integral in
-  the composed chain carries an integrability certificate. The remaining
+  the composed chain carries an integrability certificate.  The remaining
   integrals of the chain are `ℝ≥0∞`-valued (`∫⁻`), always defined, and their
   monotone-limit step uses the measurability hypothesis of
   `MeasureTheory.lintegral_liminf_le`.
@@ -60,8 +60,8 @@ theorem tightened_lt_v4 :
     nlinarith [mul_pos (pow_pos Real.pi_pos 2) (by linarith : (0:ℝ) < 8 * Real.pi - 10)]
   exact mul_lt_mul_of_pos_right hkey v4Constant_pos
 
-/--... and therefore so is the whole right-hand side of Move 3, at every
-frequency and every `λ > 0`. Strict, so this file's chain contains no
+/-- ... and therefore so is the whole right-hand side of Move 3, at every
+frequency and every `λ > 0`.  Strict, so this chain contains no
 `X ≤ X`. -/
 theorem move3_rhs_strict {lambda : ℝ} (hlambda : 0 < lambda) (p : Fin 2 → ℝ) :
     max 1 (10 * Real.pi ^ 2 * v4Constant) * v4Majorant lambda p
@@ -75,8 +75,8 @@ theorem move3_rhs_strict {lambda : ℝ} (hlambda : 0 < lambda) (p : Fin 2 → �
 
 /-! ### The residual gap against the manuscript -/
 
-/-- **The gap, machine-checked.** The manuscript's `eq:green-explicit` asserts
-`∫₀^∞ p̄_t(0,0) dt ≤ 2048`. The constant the Version 4 chain composes for the
+/-- **The gap, machine-checked.**  The manuscript's `eq:green-explicit` asserts
+`∫₀^∞ p̄_t(0,0) dt ≤ 2048`.  The constant the Version 4 chain composes for the
 same integral is more than `10⁵` times larger. -/
 theorem green_constant_gt_paper :
     (2048 : ℝ) * 100000

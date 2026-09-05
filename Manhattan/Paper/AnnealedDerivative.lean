@@ -3,7 +3,7 @@ The annealed form of `eq:time-derivative`.
 
 `prop:time` states its second bound for `f(t) = p̄_t(0,0)`, the annealed return
 probability, so the quenched bound has to be carried through the environment
-average. The quenched derivative is bounded uniformly in the environment, and
+average.  The quenched derivative is bounded uniformly in the environment, and
 the environment law is a probability measure, so differentiation under the
 integral applies and the same bound survives averaging.
 -/

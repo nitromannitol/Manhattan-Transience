@@ -6,7 +6,7 @@ import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
 
 This module proves the denominator estimate (33), the beta integral estimate
 (34), and packages them as the provider for the frozen Proposition 4.2
-anchor. Constants are deliberately explicit and uniform in `lambda` and the
+anchor.  Constants are deliberately explicit and uniform in `lambda` and the
 frequency scale `a`.
 
 Paper: `manuscript.tex:1068-1127`.
@@ -631,7 +631,7 @@ theorem betaIntegralBound_proved {q : Parameters} (hq : q.Admissible)
       nlinarith [Real.pi_le_four, Real.pi_pos]
   · exact (hg hgProved).elim
 
-/-- Complete provider for Proposition 4.2. This is the declaration to seal as
+/-- Complete provider for Proposition 4.2.  This is the declaration to seal as
 `Manhattan.Frozen.Estimates.proposition_key`. -/
 theorem propositionFiveTwoClaim_proved (K rho : ℝ) :
     PropositionFiveTwoClaim K rho := by

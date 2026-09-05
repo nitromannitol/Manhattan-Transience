@@ -20,7 +20,7 @@ Writing `‖u‖₊² = re ⟪H u, u⟫ = hEnergy` and `‖u‖₋² = re ⟪u, 
 hMinusEnergy`, and `r_lambda(V) = re ⟪V, (H - A)⁻¹ V⟫ = resolventQuadratic`,
 the statement is
 
-  `r_lambda(V) ≤ ‖g‖₊² + ‖V - A g‖₋²` for every `g` with `re ⟪V, g⟫ = 0`.
+  `r_lambda(V) ≤ ‖g‖₊² + ‖V - A g‖₋²`   for every `g` with `re ⟪V, g⟫ = 0`.
 
 The proof is:
 
@@ -34,8 +34,8 @@ The proof is:
   re ⟪V, g⟫ - re ⟪A g, g⟫ = 0`.
 
 The hypothesis that the competitor lies in the Hilbert space (the `phi ∈ L²`
-gap flagged by the audit of the Version 4 argument) is carried here by the typing
-`g : E`: no unbounded or merely formal competitor is allowed. A concrete module
+gap in the Version 4 argument) is carried here by the typing
+`g : E`: no unbounded or merely formal competitor is allowed. A concrete part
 instantiating `g` must therefore supply an honest membership proof.
 -/
 

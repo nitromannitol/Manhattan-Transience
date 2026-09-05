@@ -128,7 +128,6 @@ noncomputable def walshClosedSpan : Submodule ℂ WalshL2 :=
   Submodule.topologicalClosure (Submodule.span ℂ (Set.range walshL2))
 
 /-- The finite Walsh characters are complete in the product `L²` space.
-
 The intended proof expands every finite cylinder indicator into characters,
 uses `Measure.MeasureDense.of_generateFrom_isSetAlgebra_finite` for measurable
 cylinders, and finishes by `Lp.induction`.

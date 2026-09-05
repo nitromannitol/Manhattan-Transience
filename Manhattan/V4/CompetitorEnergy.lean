@@ -6,36 +6,33 @@ import Manhattan.Glue.Correction
 import Manhattan.V4.ParityIntegral
 import Manhattan.V4.Energy.Move1
 
-
 /-!
-# Version 4, Move 1: the two reachable halves of the competitor cost (OPEN-B)
+# Version 4, Move 1: the two reachable halves of the competitor cost
 
 `Manhattan.V4.Energy.effectiveEnergy_le` carries the competitor
-bound itself as the hypothesis `hcompetitor`, 
-records supplying it as **OPEN-B**. Discharging `hcompetitor` end to end needs
+bound itself as the hypothesis `hcompetitor`.  Discharging it end to end needs
 four concrete operator identifications: the degree-one energy, the degree-zero
 residual, the degree-two dual form at the parity kernel, and the sector
-splitting. Three of the four are reachable from what the sealed development and the
-concurrent V4 modules already prove, and those three are what this file lands; the
+splitting.  Three of the four are reachable from what the sealed development already
+proves, and those three are what this file lands; the
 fourth, the degree-two dual form at the parity kernel, needs a raw-to-Walsh
 bridge that does not exist yet.
 
-* **The degree-one summand.** `hEnergy_degreeOne_le`. The sealed
+* **The degree-one summand.**  `hEnergy_degreeOne_le`.  The sealed
   `Manhattan.Glue.hEnergy_degreeOneRowShift` evaluates the degree-one energy of
   the shifted row synthesis exactly, as `∫ (λ + d(p₁) + d(r)) ‖f(r)‖² dm`, and
-  estimate (4) of the Version 4 argument (the formalizations
-  `Manhattan.V4.Energy.degreeOne_multiplier_le`, here at `s = 0`) turns that
+  estimate (4) (`Manhattan.V4.Energy.degreeOne_multiplier_le`, here at `s = 0`) turns that
   into `6 ∫ (δ + r²) ‖f(r)‖² dm`.
 
-* **The degree-zero summand.** `hMinusEnergy_degreeZero` and
-  `inner_empty_residual_degreeOne`. The dual energy of a multiple of the
+* **The degree-zero summand.**  `hMinusEnergy_degreeZero` and
+  `inner_empty_residual_degreeOne`.  The dual energy of a multiple of the
   constant Walsh vector is `|c|²/(λ + θ(p))`, so Move 1's `h₀` is `λ + θ(p)`;
   and the constant Walsh coefficient of the residual `1 - A_p f` at the purely
   imaginary degree-one competitor `f = -iφ` is `1 - sin(p₁) ∫ φ dm`, Move 1's
   numerator.
 
-* **The competitor energy of Steps 3 and 4.** `parityCompetitor_density_eq`
-  and `paritySigmaEnergy_le_density`. At the parity minimizer
+* **The competitor energy of Steps 3 and 4.**  `parityCompetitor_density_eq`
+  and `paritySigmaEnergy_le_density`.  At the parity minimizer
   `v = w/(B + σ)` of `Manhattan.V4.parityProfileV` the degree-three density
   `σ v²` and the degree-two residual density `(w - σ v)²/B` add up **exactly**
   to the Move 1 density `w(r)² J₃(r)`, `J₃(r) = ∫ dm(β)/(B(r,β) + σ(r,β))`.
@@ -43,16 +40,13 @@ bridge that does not exist yet.
   analytic step is the interchange of the two torus integrals, which is
   legitimate because the integrand is bounded by `‖w‖_∞²/λ`.
 
-`v4_competitor_cost_le` composes these with OPEN-A
-(`Manhattan.V4.parity_betaIntegral_le`) and the formalizations
+`v4_competitor_cost_le` composes these with
+`Manhattan.V4.parity_betaIntegral_le` and
 `Manhattan.V4.Energy.move1_energy_le`: the whole Version 4 competitor cost is at
-most `(C₁ + C₃(π² + π³κ/2)) ∫ q φ² dm`, `q(r) = |r|/√(log(1/|r|))`. With
+most `(C₁ + C₃(π² + π³κ/2)) ∫ q φ² dm`, `q(r) = |r|/√(log(1/|r|))`.  With
 `C₁ = 6` (estimate (4)) and `C₃ = 9` (`Manhattan.V4.operatorEstimate`) and
 `κ = 120` (`Manhattan.V4.multiplier_le_evenMajorant`) that constant is
 `6 + 9π² + 540π³`.
-
-What is **not** here, and is the residue of OPEN-B, is listed in
- .
 -/
 
 noncomputable section
@@ -65,7 +59,7 @@ namespace Manhattan.V4
 
 /-- Estimate (4) with the two-row contraction dropped: the bare degree-one
 symbol `μ + d(r)` of the shifted row synthesis already obeys the Version 4
-bound `6(δ + r²)`. Specialization of `degreeOne_multiplier_le` at `s = 0`. -/
+bound `6(δ + r²)`.  Specialization of `degreeOne_multiplier_le` at `s = 0`. -/
 theorem degreeOne_symbol_le {mu delta r : ℝ} (hmu : 0 < mu) (hdelta : 0 < delta)
     (hdelta1 : delta ≤ 1) (hmud : mu ≤ delta ^ 2) :
     mu + Manhattan.Estimates.dispersion r ≤ 6 * (delta + r ^ 2) := by
@@ -73,7 +67,7 @@ theorem degreeOne_symbol_le {mu delta r : ℝ} (hmu : 0 < mu) (hdelta : 0 < delt
     hmu hdelta hdelta1 hmud (by norm_num; linarith)
   simpa using h
 
-/-- **Move 1, the degree-one summand, for the concrete model.** The exact
+/-- **Move 1, the degree-one summand, for the concrete model.**  The exact
 degree-one energy of the shifted row synthesis
 (`Manhattan.Glue.hEnergy_degreeOneRowShift`) is `∫ (λ + d(p₁) + d(r)) ‖f(r)‖² dm`,
 and estimate (4) turns that into `6 ∫ (δ + r²) ‖f(r)‖² dm`. -/
@@ -111,10 +105,9 @@ theorem hEnergy_degreeOne_le {lambda delta : ℝ} {p : Fin 2 → ℝ}
     (fun r => (delta + r ^ 2) * ‖f r‖ ^ 2)] at hmono
   exact hmono
 
-
 /-! ## The degree-zero summand of the Version 4 competitor -/
 
-/-- **Move 1, the degree-zero summand, for the concrete model.** The dual
+/-- **Move 1, the degree-zero summand, for the concrete model.**  The dual
 energy of a multiple of the constant Walsh vector is `|c|²/(λ + θ(p))`, so
 `h₀ = λ + θ(p)` is the denominator Move 1 writes. -/
 theorem hMinusEnergy_degreeZero {lambda : ℝ} (hlambda : 0 < lambda)
@@ -139,7 +132,7 @@ theorem hMinusEnergy_degreeZero_real {lambda : ℝ} (hlambda : 0 < lambda)
   congr 1
   rw [Complex.norm_real, Real.norm_eq_abs, sq_abs]
 
-/-- **The Version 4 degree-zero coefficient.** For the purely imaginary
+/-- **The Version 4 degree-zero coefficient.**  For the purely imaginary
 degree-one competitor `f = -iφ`, the constant Walsh coefficient of the residual
 `1 - A_p f` is `1 - sin(p₁) ∫ φ dm`, the numerator of Move 1. -/
 theorem inner_empty_residual_degreeOne (p : Fin 2 → ℝ) (phi : ℝ → ℝ)
@@ -188,7 +181,7 @@ theorem measurable_rowQuotient {kappa delta : ℝ} {q : Estimates.Parameters}
       (paritySigma_measurable kappa delta) hswap
   exact hnum.div (hB.add hsig)
 
-/-- **The competitor energy of Steps 3 and 4, evaluated.** For the parity
+/-- **The competitor energy of Steps 3 and 4, evaluated.**  For the parity
 competitor `v = w/(B + σ)` of `parityProfileV` with a row profile `w` that does
 not depend on the column frequency, the sum of the degree-three energy density
 `σ v²` and the degree-two residual density `(w - σ v)²/B` is exactly the Move 1
@@ -353,7 +346,6 @@ theorem paritySigmaEnergy_le_density {kappa delta Kw : ℝ} {q : Estimates.Param
     rw [div_eq_mul_inv]
   rw [hrw, Estimates.torusIntegral_smul_left]
 
-
 /-! ## The composed Version 4 competitor cost -/
 
 /-- The fibre integral `J₃(r) = ∫ dm(β)/(B(r,β) + σ(r,β))` of the Version 4
@@ -391,8 +383,8 @@ theorem parityFibreJ_measurable {kappa delta : ℝ} {q : Estimates.Parameters} :
   exact (Manhattan.Glue.stronglyMeasurable_torusIntegral
     hmeas.stronglyMeasurable).measurable
 
-/-- `∫ dm(β)/(B + σ) ≤ (π² + π³κ/2)/(|r| √(log(1/|r|)))` on `Γ_δ`. This is
-OPEN-A composed with ingredient (d) of Move 1. -/
+/-- `∫ dm(β)/(B + σ) ≤ (π² + π³κ/2)/(|r| √(log(1/|r|)))` on `Γ_δ`.  This is
+The fibre integral composed with ingredient (d) of Move 1. -/
 theorem parityFibreJ_le_weight {kappa delta r : ℝ} {q : Estimates.Parameters}
     (hlam : 0 < q.lambda) (hkappa : 0 < kappa) (hdelta : 0 < delta)
     (hdr : Real.sqrt delta ≤ |r|) (hr1 : |r| ≤ 1 / 4) :
@@ -407,14 +399,14 @@ theorem parityFibreJ_le_weight {kappa delta r : ℝ} {q : Estimates.Parameters}
     (lambda := q.lambda) (r := r) hkappa hdelta hdsq hlam hrpos hr1
   exact h
 
-/-- **The composed Version 4 competitor cost.** The degree-one cost
+/-- **The composed Version 4 competitor cost.**  The degree-one cost
 `C₁ ∫ (δ + r²) φ² dm` of estimate (4) together with `C₃` times the degree-three
 energy `∫∫ σ v² dm dm` of the parity competitor is at most
 `(C₁ + C₃(π² + π³κ/2)) ∫ q φ² dm`, `q(r) = |r|/√(log(1/|r|))`.
 
-This composes OPEN-A (`parity_betaIntegral_le`), the scalar completion at the
+This composes `parity_betaIntegral_le`, the scalar completion at the
 parity minimizer (`paritySigmaEnergy_le_density`) and Move 1
-(`Energy.move1_energy_le`). With `C₁ = 6` (estimate (4)) and `C₃ = 9`
+(`Energy.move1_energy_le`).  With `C₁ = 6` (estimate (4)) and `C₃ = 9`
 (`operatorEstimate`) the constant is `6 + 9(π² + π³κ/2)`, and at `κ = 120` it is
 `6 + 9π² + 540π³`. -/
 theorem v4_competitor_cost_le

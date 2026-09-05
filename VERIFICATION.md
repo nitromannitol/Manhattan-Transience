@@ -1,7 +1,8 @@
 # Statement verification: does the Lean say what the paper says?
 
 Checked 2026-09-05 against `paper/manuscript-current.tex`
-(SHA-256 `15884222065585ca…`, the text after the mean-zero correction).
+(SHA-256 `27829b7aceda2e0d…`, the text carrying the
+Formalization subsection).
 
 A formalization is only worth what its statements say. This file records, for
 every numbered statement of the paper, whether the Lean statement is the same
@@ -96,8 +97,10 @@ The paper states the averaged formula
 `(D̃_n f)_{j₁…j_{n+1}} = (i/(n+1)) ∑_a sin(P_{j_a}) f_{…ĵ_a…}`.
 Lean proves the concrete Walsh matrix elements
 (`lemma_raise_concrete_raising`, `lemma_raise_concrete_adjoint`), from which
-the printed formula follows by `(e^{ip} - e^{-ip})/2 = i sin p`. The content is
-the same; the printed averaged form is not itself a Lean statement.
+the printed formula follows by `(e^{ip} - e^{-ip})/2 = i sin p`, together with
+the slot sum itself at the degree the development uses
+(`Paper.Formulas.raise_slot_sum`, `n = 3`). The content is the same; the
+printed averaged form at general `n` is not itself a Lean statement.
 
 ## Lemma 3.2 (`lem:formulas`) — EXACT for two of three, EQUIVALENT for the third
 
@@ -118,30 +121,69 @@ The construction is formalized (`rawMultiplierEnergy_le_evenMajorantEnergy`,
 `operatorEstimate`, `effectiveWeight`), and `effectiveWeight r = |r|/√(log(1/|r|))`
 is the paper's `q(r)` exactly.
 
-**WEAKER in one respect.** The paper's `lem:effective-energy` states the
-constant **16**:
+**WEAKER in the value of the constant.** The paper's `lem:effective-energy`
+states the constant **16**:
 
     r_λ(p) ≤ (1 - s ∫ φ)²/H₀ + 16 ∫ q(r) φ(r)² dm(r).
 
-No Lean statement carries `16`. The formalized inequality has a symbolic
-constant. So the shape of the lemma is certified and its explicit constant is
-not.
+Lean proves the same inequality with the explicit constant
+`Manhattan.V4.v4ConstantSplit`, certified below `670` by
+`v4ConstantSplit_lt`. The shape of the lemma is certified exactly; the
+constant is larger than the paper's.
 
-## The explicit constants are not certified
+## The explicit constants
 
-This is the one place where the reader should not over-read the formalization.
-
-* `lem:effective-energy` prints `16`; Lean proves the same inequality with a
-  symbolic constant.
+* `lem:effective-energy` prints `16`. Lean proves the same inequality with
+  `v4ConstantSplit < 670` (`Manhattan/V4/SplitConstant.lean`), down from
+  `20,028` and from the `74,869` of the first assembly.
 * The proof of `prop:frequency` says "We verify that `C = 2048` suffices".
-  The *statement* is existential and is certified. The value `2048` is not.
-  Lean in fact proves the opposite direction about its own chain:
-  `Paper.Constant.green_constant_gt_paper` shows the constant the formalized
-  route produces exceeds `2048 · 10⁵`, and `annealed_green_le_numeral` certifies
-  only `∫ p̄_t(0,0) dt ≤ 2.75 · 10⁸`.
+  The *statement* is existential and is certified. The value `2048` is not:
+  the formalized route carries `max(max(1, 8π³ · v4ConstantSplit),
+  outerRegionConstant(1/4))` instead.
 
-Nothing here contradicts the paper. The formalization simply tracks constants
-far more loosely than a human derivation does, and it does not attempt the
-sharp bookkeeping that yields `16` and `2048`. Anyone citing this development
-should say that the qualitative theorems are machine-checked and that the
-explicit numerical constants are not.
+Nothing here contradicts the paper. Anyone citing this development should say
+that every statement is machine-checked, and that the two displayed numerical
+constants are proved with larger explicit values.
+
+### Where the remaining gap is
+
+The paper's `16` is `5 + 11`: the degree-one cost contributes `5`, and the
+column integral `eq:beta` contributes `11 = (π^{5/2}+π)/2` with coefficient
+one. Lean's `670` is `60 + 8·76.2`, and the two differences are exactly:
+
+| step | paper | Lean | why |
+| --- | --- | --- | --- |
+| degree-one and two-row | `5` | `60 = 2·6 + 4·12` | `objective_le_v4Move1` splits the residual by Cauchy–Schwarz, with multipliers `2` and `4` |
+| column term | `1 · 11` | `8 · 76.2` | the operator step is a majorant comparison (`A = 291/κ`), not the paper's exact minimization |
+
+Both `eq:beta` evaluations are now proved. `Manhattan/V4/BetaSplit.lean` splits
+the fundamental domain at `|β| = √ρ`, integrates the inner reciprocal quadratic
+over the line (`∫_ℝ dβ/(A+Bβ²) = π/√(AB)`, `Manhattan/V4/BetaIntegral.lean`)
+and evaluates both tails, giving `π/(2√(2c)) + π/2` in place of the earlier
+`π² + 1/c`. At the paper's own `c = 1/(2π³)` this is exactly `(π^{5/2}+π)/2`.
+
+`Manhattan/V4/SharpConstant.lean` closes the multiplier side:
+`symbolWeight_le_multiplier_one` (`κ = 40 → 1`),
+`multiplier_one_le_evenMajorant_three` (`κ = 120 → 3`, beating the paper's own
+`4` in `eq:M`) and `hThreeForm_rawWalsh_le_sharp`. They are proved by observing
+that the multiplier is *linear in its constant*, so an identity or a
+contraction established at one constant transfers to any other
+(`multiplier_eq_smul`, `integral_multiplier_eq_smul`,
+`rawMultiplierEnergy_eq_smul`); no frozen statement had to move.
+
+Move 1 is now stated over an abstract shared constant `κ`, operator coefficient
+`A` and column constant `C_β` (`OperatorCoefficient`, `BetaColumnBound`), with
+Move 1 coefficient `4A + 4`. Because the operator estimate reads as
+`A = 291/κ` and `C_β` grows like `√κ`, the product `(4A+4)·C_β` is least at
+`κ = 291`, where `A = 1`; that is the instance `SplitConstant.lean` runs.
+
+Which of the two binds is worth stating. `operatorEstimate_sharp` carries
+`A·κ = 97·3 = 291`, where `97 = 1 + 8·12` comes from
+`hThreeForm_rawWalsh_le_sharp` and `sectorDFourForm_rawWalsh_le`. Because the
+Move 1 coefficient is `4A + 4` and `C_β` grows like `√κ`, running at `A = 1`
+gives `60 + 8·C_β(κ)` with `κ = A·κ`. Even a perfect operator step, `A·κ = 1`,
+would leave `60 + 8·5.94 ≈ 108`: the `2`/`4` Cauchy–Schwarz multipliers of
+`objective_le_v4Move1` are the binding constraint, not the operator estimate.
+Closing the rest means replacing that splitting, and the majorant comparison,
+by the paper's exact minimization of the degree-three form. Neither affects any
+statement, only the value of the constant.

@@ -6,7 +6,7 @@ import Manhattan.Estimates.Competitor
 # The low-logarithmic and zero-frequency competitors
 
 When the logarithmic scale is below the fixed threshold, the zero competitor
-already gives the corrected-frequency bound. At zero frequency the corrected
+already gives the corrected-frequency bound.  At zero frequency the corrected
 majorant is defined to be the driftless one, matching the separate convention
 in the manuscript.
 

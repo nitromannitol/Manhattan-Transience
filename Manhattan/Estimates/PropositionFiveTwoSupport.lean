@@ -4,7 +4,7 @@ import Manhattan.Estimates.TargetStatements
 # Final integration step in Proposition 4.2
 
 This module proves that the beta-integral estimate (34) implies the final
-`r`-integral bound in Proposition 4.2, with the same constant. It isolates
+`r`-integral bound in Proposition 4.2, with the same constant.  It isolates
 the logarithmic change of variables at `manuscript.tex:1121-1125` from the
 still-open pointwise denominator and beta-splitting estimates.
 -/
@@ -174,7 +174,7 @@ theorem propositionFiveTwoIntegralBound_of_betaIntegralBound
 
 /-- Once the pointwise denominator estimate (33) and the beta-integral
 estimate (34) are available with uniform constants, the preceding theorem
-supplies the final conjunct of `PropositionFiveTwoClaim`. This records the
+supplies the final conjunct of `PropositionFiveTwoClaim`.  This records the
 exact remaining interface: no further two-dimensional integration estimate
 is needed. -/
 -- INTERFACE: supply equations (33) and (34), uniformly in `lambda` and `a`.

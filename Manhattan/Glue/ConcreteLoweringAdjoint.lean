@@ -2,15 +2,15 @@ import Manhattan.Glue.ConcreteRaising
 import Manhattan.Glue.ConcreteLoweringFourier
 
 /-!
-# The lowering coefficient as the adjoint of raising operator
+# The lowering coefficient as the adjoint of the raising operator
 
-the formalization proved the operator form of Lemma 5.1:
+The operator form of Lemma 5.1 is
 `concreteFiberA p = walshRaise p - walshLower p` and
 `walshLower p = (walshRaise p)†`
-(`Manhattan/Glue/ConcreteRaising.lean`). This file records that the
+(`Manhattan/Glue/ConcreteRaising.lean`).  This file records that the
 coefficient map `Manhattan.Glue.loweringCoefficient` used for (D1), (D2a) and
 (D2b) is exactly the adjoint pairing against that raising operator, so the two
-modules describe the same `D` and `D*`.
+files describe the same `D` and `D*`.
 
 Paper: `manuscript.tex:733-740`, `manuscript.tex:1176-1205`.
 -/

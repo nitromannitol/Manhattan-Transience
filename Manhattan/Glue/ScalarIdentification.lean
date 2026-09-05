@@ -4,9 +4,9 @@ import Manhattan.Estimates.PropositionFiveTwo
 /-!
 # Scalar identification for the degree-three correction
 
-This module isolates the scalar part of the calculation in Lemma 5.4. The
+This module isolates the scalar part of the calculation in Lemma 5.4.  The
 two positive pieces `B |v|²` and `σ |v|²` are bounded by the single reduced
-integrand `(B + σ)⁻¹` on the support interval. Consequently the final
+integrand `(B + σ)⁻¹` on the support interval.  Consequently the final
 integral supplied by Proposition 4.2 controls both pieces.
 
 The operator/Fourier intertwining that identifies these scalar forms with
@@ -472,7 +472,7 @@ theorem correctionScalarEnergy_le_sqrtScale {q : Estimates.Parameters}
 
 /-- `-- INTERFACE (still open)`: the complete lowering/projection calculation
 identifies the concrete mixed-residual energy with the two scalar pieces
-isolated in this file. The energy is a parameter so the lowering module can
+isolated in this file.  The energy is a parameter so the lowering part can
 instantiate its concrete degree-two form without an import cycle.
 
 Status of the three thirds of Lemma 5.4 that feed it:
@@ -480,12 +480,12 @@ Status of the three thirds of Lemma 5.4 that feed it:
 * Step 2's `L²` form of (D2a)/(D2b) is proved on the whole type-`(1,1,2)`
   sector by `Manhattan.Glue.type112DStarTwoRow_eq` and
   `Manhattan.Glue.type112DStarMixed_eq`
-  (`Manhattan/Glue/LoweringClosure.lean`, the formalization);
+  (`Manhattan/Glue/LoweringClosure.lean`);
 * Step 3's error term is proved by
   `Manhattan.Estimates.errorHMinusSq_le_rowOrder`
-  (`Manhattan/Estimates/KernelBoundError.lean`, the formalization), whose right-hand
+  (`Manhattan/Estimates/KernelBoundError.lean`), whose right-hand
   side is `Manhattan.Glue.correctionSigmaEnergy` definitionally;
-* the projection-error third is discharged for the actual competitor by module
+* the projection-error third is discharged for the actual competitor by part
   A8's `Manhattan.Glue.lemma_distinct_correction` and
   `Manhattan.Glue.lemma_distinct_correction_sigmaEnergy`
   (`Manhattan/Glue/CorrectionLowering.lean`), which carry no diagonal-freeness
@@ -496,12 +496,11 @@ Status of the three thirds of Lemma 5.4 that feed it:
   `Manhattan.Glue.concreteLoweringFormula_correction` discharges its mixed
   clause definitionally, because the mixed datum is *defined* as
   `rawD2StarMixed (rawOffDiagonalPart …)`, so it must not be cited alone; the
-  content is `Manhattan.Glue.mixedFourierCoefficient_correction`). The scalar
-  right-hand side is evaluateds
+  content is `Manhattan.Glue.mixedFourierCoefficient_correction`).  The scalar
+  right-hand side is evaluated s
   `Manhattan.Glue.projectionErrorHMinusSq_correction_le_two_correctionSigmaEnergy`.
   `Manhattan.Glue.lemma_distinct_shiftedRawCoefficient` is NOT one of these:
-  it assumes a diagonal-free kernel and is vacuous as a rendering of Lemma 5.3
-  .
+  it assumes a diagonal-free kernel and is vacuous as a rendering of Lemma 5.3.
 
 Steps 2--4 themselves are now proved on the frequency side, in
 `Manhattan/Glue/SummandThree.lean`: `rawD2StarTwoRow_correctionCoefficient`
@@ -514,7 +513,7 @@ degree-two transport that the paragraph below used to call for is
 What is still missing is the identification of the degree-two Walsh
 coefficients of the concrete residual `D₁f_p - D₂*k_p` with those
 frequency-side functions, together with the frequency shift of `eq:shift`
-recorded in the docstring of `Manhattan/Glue/FinalDischarge.lean`. Note also
+recorded in the docstring of `Manhattan/Glue/FinalDischarge.lean`.  Note also
 that the bound below has no universal constant, whereas
 `manuscript.tex:1409-1418` produces `‖·‖²_{-1} ≤ ∫∫(B+σ)⁻¹ + C∫∫σ|v|²`; a
 consumer needing the constant should use

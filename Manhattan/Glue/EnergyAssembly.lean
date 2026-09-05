@@ -4,9 +4,9 @@ import Manhattan.Glue.LowLog
 # Assembly of the corrected fixed-frequency competitor
 
 This file combines the horizontal high-logarithmic estimate with the
-row/column unitary and the elementary low-logarithmic estimate. The sole
-remaining premise is isolated as a named proposition so the W7A/W7B lowering,
-projection, cubic-energy, and scalar-identification modules can discharge it
+row/column unitary and the elementary low-logarithmic estimate.  The sole
+remaining premise is isolated as a named proposition so the lowering,
+projection, cubic-energy, and scalar-identification parts can discharge it
 without creating import cycles.
 
 Paper: `manuscript.tex:1134-1165`.
@@ -16,7 +16,7 @@ noncomputable section
 
 namespace Manhattan.Glue
 
-/-- The elementary normalization inequality used after (24)--(25). It is
+/-- The elementary normalization inequality used after (24)--(25).  It is
 kept separate from the model calculation: Lemma 4.1 supplies `b >= c a L`,
 whereas the remaining sector estimates supply a numerator of order
 `sqrt L`. -/
@@ -51,11 +51,11 @@ theorem inverseNormalization_sq_mul_sqrt_le
   rw [hsqrtFour]
   ring
 
-/-- The model-specific remainder after the exact constant cancellation. The
+/-- The model-specific remainder after the exact constant cancellation.  The
 premise is deliberately *unnormalized*, so all uses of Lemma 4.1 and
 (24)--(25) remain proved in this assembly file.
 
-discharged in `Glue/Discharge.lean` by
+DISCHARGED in `Glue/Discharge.lean` by
 `correctedUnnormalizedEnergyInterface_of_sectorEnergy`, from the paper's
 four-sector estimate (23) alone. -/
 def CorrectedUnnormalizedEnergyInterface (M : ℝ) : Prop :=
@@ -90,10 +90,10 @@ def CorrectedUnnormalizedEnergyInterface (M : ℝ) : Prop :=
           M * Real.sqrt (q.scaleLog |p 0|)
 
 /-- The complete horizontal high-logarithmic conclusion of the lowering,
-projection-error, cubic-energy, and scalar-identification calculations. This
-is the exact surface requested in the stage report.
+projection-error, cubic-energy, and scalar-identification calculations.  This
+is the exact surface required.
 
-discharged in `Glue/Discharge.lean` by
+DISCHARGED in `Glue/Discharge.lean` by
 `correctedHorizontalEnergySupply_of_sectorEnergy`. -/
 def CorrectedHorizontalEnergyInterface (C : ℝ) : Prop :=
   ∀ {lambda : ℝ}, ∀ hlambda : 0 < lambda,
@@ -120,9 +120,9 @@ def CorrectedHorizontalEnergyInterface (C : ℝ) : Prop :=
             correctedCompetitorCutoff lambda p
 
 /-- Lemma 4.1 v3, the exact cancellation (24), and the normalization identity
-(25) turn the unnormalized W7A/W7B sector bound into the exact horizontal
-high-logarithmic interface. In particular, positivity and the lower bound on
-`b_p` are not delegated to the operator layer. -/
+(25) turn the unnormalized sector bound into the exact horizontal
+high-logarithmic interface.  In particular, positivity and the lower bound on
+`b_p` are not delegated to the operator parts. -/
 theorem correctedHorizontalEnergyInterface_exists_of_unnormalized
     (M : ℝ) (hM : 0 ≤ M)
     (hunnormalized : CorrectedUnnormalizedEnergyInterface M) :
@@ -216,7 +216,7 @@ theorem correctedHorizontalEnergyInterface_exists_of_unnormalized
           correctedCompetitorCutoff lambda p := by rw [hmajorant]
 
 /-- Conditional form of the exact horizontal theorem while the independent
-W7A/W7B files are being joined. -/
+sector files are being joined. -/
 theorem correctedLowDegreeData_energy_horizontal_of_interface
     (C : ℝ) (hinterface : CorrectedHorizontalEnergyInterface C)
     {lambda : ℝ} (hlambda : 0 < lambda)

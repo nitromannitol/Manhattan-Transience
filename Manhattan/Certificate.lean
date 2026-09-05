@@ -2,14 +2,14 @@
 # Certificate
 
 The single file to read, and to run, if you want to know what this development
-proves. It restates the headline results in self-contained form and prints the
-axioms each one rests on. Building this file checks everything it claims:
+proves.  It restates the main results in self-contained form and prints the
+axioms each one rests on.  Building this file checks everything it claims:
 
     lake build Manhattan.Certificate
 
 Every `#print axioms` below must report exactly
 `[propext, Classical.choice, Quot.sound]`, the three axioms of Lean's standard
-classical foundation. Anything else, in particular `sorryAx`, would mean a gap.
+classical foundation.  Anything else, in particular `sorryAx`, would mean a gap.
 
 What is NOT certified is stated at the end, and in `VERIFICATION.md`.
 -/
@@ -61,8 +61,8 @@ theorem annealed_derivative_bound {t : ℝ} (ht : 0 < t) :
 /-! ## The closing remark of the open questions
 
 Stationarity, ergodicity under the full translation group and fair one-point
-marginals do NOT force transience. The witness is a random shift of the
-alternating environment. Pólya's theorem in two dimensions, which Mathlib does
+marginals do NOT force transience.  The witness is a random shift of the
+alternating environment.  Pólya's theorem in two dimensions, which Mathlib does
 not have, is proved here rather than assumed. -/
 
 theorem ergodic_counterexample :

@@ -2,9 +2,9 @@
 Transitive dependency cones.
 
 `#print axioms` tells us which axioms a theorem rests on, but not which
-*declarations* its proof actually uses. That second question is the one an
+*declarations* its proof actually uses.  That second question is the one an
 audit needs: a lemma flagged as weak matters only if the main theorem's proof
-term reaches it. This file walks the transitive closure of the constants
+term reaches it.  This file walks the transitive closure of the constants
 occurring in a declaration's type and value, and reports membership.
 -/
 import Manhattan.V4.Move2Supply
@@ -41,7 +41,7 @@ elab "#cone_size " tgt:ident : command => do
   logInfo m!"{tgtN}: cone has {cone.size} constants"
 
 /-- `#in_cone foo bar baz` reports, for each of `bar baz`, whether the proof of
-`foo` reaches it. This is the audit question: a defect outside the cone cannot
+`foo` reaches it.  This is the audit question: a defect outside the cone cannot
 affect `foo`. -/
 elab "#in_cone " tgt:ident ppSpace needles:(ident)+ : command => do
   let env ← getEnv
@@ -50,12 +50,12 @@ elab "#in_cone " tgt:ident ppSpace needles:(ident)+ : command => do
   let mut msg := m!"cone of {tgtN} ({cone.size} constants):"
   for nd in needles do
     let n ← liftCoreM <| realizeGlobalConstNoOverload nd
-    msg := msg ++ m!"\n {if cone.contains n then "IN CONE " else "not in cone "} {n}"
+    msg := msg ++ m!"\n  {if cone.contains n then "IN CONE     " else "not in cone "} {n}"
   logInfo msg
 
 /-- `#unreachable_from foo bar` lists every declaration in the `Manhattan`
-namespace that neither `foo` nor `bar` reaches. Those are the parts of the
-development that no headline result depends on: scaffolding, superseded
+namespace that neither `foo` nor `bar` reaches.  Those are the parts of the
+development that no main result depends on: scaffolding, superseded
 attempts, and documentary witnesses. -/
 elab "#unreachable_from " roots:(ident)+ : command => do
   let env ← getEnv
@@ -70,7 +70,7 @@ elab "#unreachable_from " roots:(ident)+ : command => do
   let sorted := dead.qsort (fun a b => a.toString < b.toString)
   let mut msg := m!"{sorted.size} Manhattan declarations are unreachable from the roots"
   for n in sorted do
-    msg := msg ++ m!"\n {n}"
+    msg := msg ++ m!"\n  {n}"
   logInfo msg
 
 end Manhattan.Meta
@@ -80,7 +80,7 @@ end Manhattan.Meta
 The 2026-09 audit of the Version 4 energy files flagged `move1_energy_le` for
 resting on a Bochner integral that is the junk value `0` when its integrand is
 non-measurable, and `nonvacuity_effectiveEnergy_le` for discharging a
-hypothesis by `le_refl`. Both objections are about whether those statements
+hypothesis by `le_refl`.  Both objections are about whether those statements
 say anything, so they matter only if the main theorem's proof reaches them.
 -/
 

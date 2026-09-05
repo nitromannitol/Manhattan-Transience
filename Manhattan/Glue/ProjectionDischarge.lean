@@ -10,7 +10,7 @@ This file replaces the two open interface hypotheses of
 `Manhattan.Glue.ProjectionError` by proofs.
 
 The paper writes a raw type-`112` coefficient in the shifted frequency
-variables `(r,r',beta)` of `manuscript.tex:806-819`. Removing the
+variables `(r,r',beta)` of `manuscript.tex:806-819`.  Removing the
 coincident-row diagonal is, on that side, removing the part that depends on
 the two row frequencies only through `alpha = r + r' - p_2`; that part is
 recovered by averaging along the fibre, which is the frequency-space form of
@@ -20,7 +20,7 @@ Two facts are then proved with no auxiliary hypothesis beyond periodicity:
 `(D2b)` applied to the coincident-row part is independent of the surviving
 row frequency and equals `projectionMixedError`, and `(D2a)` applied to it is
 a function of `alpha` alone, whose Walsh coefficient at a genuine two-element
-row index vanishes by character orthogonality. This is exactly the paper's
+row index vanishes by character orthogonality.  This is exactly the paper's
 "`Pi_2` removes it".
 
 Paper: `manuscript.tex:806-840` and `manuscript.tex:1274-1303`.
@@ -137,13 +137,13 @@ def rawD2StarMixed (k : ℝ → ℝ → ℝ → ℂ) (r beta : ℝ) : ℂ :=
     Estimates.torusIntegral fun r' => k r r' beta
 
 /-- Embedding of a coincident-row carrier `ell(alpha,beta)` into the raw
-coordinates. A raw coefficient is carried by the coincident-row diagonal
+coordinates.  A raw coefficient is carried by the coincident-row diagonal
 exactly when it is of this form. -/
 def diagonalRawCarrier (p₂ : ℝ) (ell : ℝ → ℝ → ℂ) (r r' beta : ℝ) : ℂ :=
   ell (mixedAlpha p₂ r r') beta
 
 /-- The coincident-row part of a raw coefficient, in the variables
-`(alpha, beta)`. In position space this is the restriction to the diagonal
+`(alpha, beta)`.  In position space this is the restriction to the diagonal
 `n₀ = n₁`; in frequency space it is the average along the fibre
 `r + r' - p₂ = alpha`, i.e. the orthogonal projection `I - Pi_3`. -/
 def rawDiagonalPart (p₂ : ℝ) (k : ℝ → ℝ → ℝ → ℂ) (alpha beta : ℝ) : ℂ :=
@@ -154,7 +154,7 @@ def rawOffDiagonalPart (p₂ : ℝ) (k : ℝ → ℝ → ℝ → ℂ) (r r' beta
   k r r' beta - diagonalRawCarrier p₂ (rawDiagonalPart p₂ k) r r' beta
 
 /-- The Walsh coefficient of a two-row frequency function at a genuine
-two-element row index. Reading the coefficient at a Finset index is exactly
+two-element row index.  Reading the coefficient at a Finset index is exactly
 the action of the degree-two projection `Pi_2`. -/
 def twoRowFourierCoefficient (F : ℝ → ℝ → ℂ) (T : Type11Index) : ℂ :=
   Estimates.torusIntegral fun r =>
@@ -289,9 +289,9 @@ theorem torusIntegral₂_character_comp_mixedAlpha (p₂ : ℝ) (m₀ m₁ : ℤ
     rw [if_pos rfl, if_pos (by omega : -m₀ + m₀ = 0), one_mul]
   · rw [if_neg hm, if_neg (by omega : ¬(-m₀ + m₁ = 0)), zero_mul]
 
-/-- Character orthogonality. A two-row frequency coefficient that depends on
+/-- Character orthogonality.  A two-row frequency coefficient that depends on
 the two row frequencies only through `alpha` has vanishing Walsh coefficient
-at every genuine two-element row index. This is the paper's "`Pi_2` removes
+at every genuine two-element row index.  This is the paper's "`Pi_2` removes
 it" (`manuscript.tex:1279-1281`). -/
 theorem twoRowFourierCoefficient_comp_mixedAlpha (p₂ : ℝ) (G : ℝ → ℂ)
     (hG : Function.Periodic G (2 * Real.pi)) (T : Type11Index) :
@@ -509,12 +509,12 @@ theorem projectionMixedError_const_mul (c : ℂ) (ell : ℝ → ℝ → ℂ) (be
   rw [projectionMixedError, projectionMixedError, torusIntegral_const_mul]
   ring
 
-/-- CROSS-LANE INPUT (the formalization, concrete lowering formulas; the paper's
-(D2a)--(D2b) at `manuscript.tex:827-834`). The concrete Finset operator
+/-- Shared input: the concrete lowering formulas, the paper's
+(D2a)--(D2b) at `manuscript.tex:827-834`).  The concrete Finset operator
 `D_2^*` evaluated on the projected coefficient `Pi_3 ktilde` is computed by the
 paper's formulas in the shifted frequency variables, up to the two Finset
 normalization constants `cTwoNorm` and `cMixNorm` of the type-`11` and
-type-`12` sectors. the formalization proves this with `cTwoNorm = 1` and
+type-`12` sectors.  This is proved with `cTwoNorm = 1` and
 `cMixNorm = sqrt 2` (`Manhattan.Glue.frequency_D2a`,
 `Manhattan.Glue.frequency_D2b`); nothing below depends on their values.
 Nothing else about the concrete operator is used here. -/
@@ -544,10 +544,10 @@ theorem torusBounded₃_rawOffDiagonalPart {k : ℝ → ℝ → ℝ → ℂ}
     TorusBoundedThree (rawOffDiagonalPart p₂ k) :=
   hk.sub ((hk.rawDiagonalPart p₂).diagonalRawCarrier p₂)
 
-/-- **Discharge of the first interface.** The complete frequency-space
+/-- **Discharge of the first interface.**  The complete frequency-space
 calculation identifies the raw/projected lowering difference with the carrier
 `projectionErrorComponents` of the coincident-row part, rescaled by the mixed
-Finset normalization. Only the concrete lowering formulas of the formalization are
+Finset normalization.  Only the concrete lowering formulas of  are
 imported. -/
 theorem rawProjectionDifferenceIdentification_of_lowering
     {cTwoNorm cMixNorm : ℂ} {p₂ : ℝ} {k : ℝ → ℝ → ℝ → ℂ}
@@ -597,7 +597,7 @@ theorem rawProjectionDifferenceIdentification_of_lowering
       exact rawDiagonalPart_scaleRaw cMixNorm p₂ k alpha beta]
     rw [projectionMixedError_const_mul]
 
-/-- **Lemma 5.3, qualitative clause, unconditional.** The raw/projected
+/-- **Lemma 5.3, qualitative clause, unconditional.**  The raw/projected
 lowering difference has no two-row component. -/
 theorem rawProjectionDifference_twoRow_eq_zero
     {cTwoNorm cMixNorm : ℂ} {p₂ : ℝ} {k : ℝ → ℝ → ℝ → ℂ}
@@ -634,6 +634,24 @@ def rawMultiplierEnergy (kappa : ℝ) (q : Estimates.Parameters) (p₂ : ℝ)
         Estimates.multiplier kappa q
             (Estimates.mixedTotalFrequency beta (mixedAlpha p₂ r r')) *
           ‖k r r' beta‖ ^ 2
+
+/-- The raw multiplier energy is linear in the multiplier constant. -/
+theorem rawMultiplierEnergy_eq_smul (kappa : ℝ) (q : Estimates.Parameters) (p₂ : ℝ)
+    (k : ℝ → ℝ → ℝ → ℂ) :
+    rawMultiplierEnergy kappa q p₂ k = kappa * rawMultiplierEnergy 1 q p₂ k := by
+  have hsmul : ∀ (c : ℝ) (f : ℝ → ℝ),
+      Estimates.torusIntegral (fun x => c * f x) = c * Estimates.torusIntegral f := by
+    intro c f
+    simp only [Estimates.torusIntegral, MeasureTheory.integral_const_mul, smul_eq_mul]
+    ring
+  simp only [rawMultiplierEnergy]
+  rw [← hsmul]
+  refine congrArg Estimates.torusIntegral (funext fun beta => ?_)
+  rw [← hsmul]
+  refine congrArg Estimates.torusIntegral (funext fun r => ?_)
+  rw [← hsmul]
+  refine congrArg Estimates.torusIntegral (funext fun r' => ?_)
+  simp only [Estimates.multiplier]; ring
 
 /-- The integrand of the raw energy, written along the fibre `r + r' - p₂`. -/
 def shiftedEnergyIntegrand (kappa : ℝ) (q : Estimates.Parameters) (p₂ : ℝ)
@@ -801,7 +819,7 @@ theorem diagonalMultiplierEnergy_slice_le (hkappa : 0 ≤ kappa)
   rw [show r' + (t - p₂) - t + p₂ = r' by ring,
     show r' + (t - p₂) = mixedAlpha p₂ t r' by rw [mixedAlpha]; ring]
 
-/-- **Discharge of the second interface.** The omitted diagonal coefficient
+/-- **Discharge of the second interface.**  The omitted diagonal coefficient
 is the fibre average of the raw coefficient, that projection commutes with a
 multiplier depending only on the total frequency, and the resulting
 contraction is the paper's (46). -/
@@ -973,7 +991,7 @@ theorem projectionErrorIntegrable_rawDiagonalPart (hkappa : 0 ≤ kappa)
       exact energy_integrand_bound hkappa hlambda.le hCnonneg
         (hellC alpha beta) beta alpha
 
-/-- **The second interface, discharged.** The weighted contractivity bridge
+/-- **The second interface, discharged.**  The weighted contractivity bridge
 holds with the raw multiplier quadratic form on the right. -/
 theorem rawProjectionEnergyBound_discharged (hlambda : 0 ≤ q.lambda)
     (hk : TorusBoundedThree k)
@@ -982,7 +1000,7 @@ theorem rawProjectionEnergyBound_discharged (hlambda : 0 ≤ q.lambda)
       (rawMultiplierEnergy 40 q p₂ k) :=
   diagonalMultiplierEnergy_le_rawMultiplierEnergy (by norm_num) hlambda hk hper
 
-/-- **Lemma 5.3, unconditional.** The squared `H^-1` norm of the
+/-- **Lemma 5.3, unconditional.**  The squared `H^-1` norm of the
 raw/projected lowering difference is bounded by the raw multiplier quadratic
 form, with constant one in the Finset normalization
 (`manuscript.tex:1208-1219`). -/
@@ -1000,7 +1018,7 @@ end Finiteness
 /-! ## Periodization
 
 A formula written on `ℝ³` represents a function on the three-torus only after
-its arguments are reduced to the fundamental domain. The reduction below
+its arguments are reduced to the fundamental domain.  The reduction below
 turns any bounded measurable formula into a genuine coefficient satisfying the
 periodicity hypothesis used above, without changing its values on
 `(-pi, pi]`. -/
@@ -1102,7 +1120,7 @@ theorem rawProjectionDifference_mixed_eq
   rw [h, projectionError_mixed_apply]
 
 /-- **Lemma 5.3** (`manuscript.tex:1212-1219`), both clauses, unconditional
-modulo the concrete lowering formula of the formalization. The universal constant is
+modulo the concrete lowering formula.  The universal constant is
 the squared mixed Finset normalization: one for `cMixNorm = 1`, two for the
 manuscript's `sqrt 2`. -/
 theorem lemma_distinct_of_concreteLowering
@@ -1314,7 +1332,7 @@ private theorem colTransform_periodic (n : ℤ)
   rw [h]
 
 /-- The coincident-row part of a raw coefficient has exactly the raw Fourier
-coefficients on the diagonal. Together with
+coefficients on the diagonal.  Together with
 `rawFourierCoefficient_diagonalRawCarrier` this identifies
 `rawDiagonalPart` with `I - Pi_3` and `rawOffDiagonalPart` with `Pi_3`. -/
 theorem carrierFourierCoefficient_rawDiagonalPart (hk : TorusBoundedThree k)
@@ -1505,9 +1523,9 @@ theorem rawFourierCoefficient_sub {f g : ℝ → ℝ → ℝ → ℂ}
   funext b
   ring
 
-/-- **`rawOffDiagonalPart` is the projection `Pi_3`.** Its Fourier
+/-- **`rawOffDiagonalPart` is the projection `Pi_3`.**  Its Fourier
 coefficients vanish on the coincident-row diagonal and agree with those of the
-raw coefficient off it. This is what makes `rawDiagonalPart` the paper's
+raw coefficient off it.  This is what makes `rawDiagonalPart` the paper's
 `ell = (I - Pi_3) ktilde` rather than a definition by fiat
 (`manuscript.tex:1275-1279`). -/
 theorem rawFourierCoefficient_rawOffDiagonalPart {p₂ : ℝ} {k : ℝ → ℝ → ℝ → ℂ}

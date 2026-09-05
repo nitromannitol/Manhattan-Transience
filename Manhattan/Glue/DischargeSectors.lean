@@ -6,14 +6,14 @@ import Manhattan.Walsh.LowDegreeSectors
 
 The paper evaluates the variational objective (20) at `g=(f+k)/b` with
 `f` of Walsh degree one and `k` of Walsh degree three, and reads the answer
-off the four-sector quadratic form `E_p(f,k)` of (22). The four sectors are
+off the four-sector quadratic form `E_p(f,k)` of (22).  The four sectors are
 `⟨f,H₁f⟩`, `⟨k,H₃k⟩`, the degree-two residual `D₁f-D₂^*k`, and the
 degree-four residual `D₃k`.
 
 This file supplies the missing structural step: the residual
 `b·1-A_p(f+k)` really is supported in Walsh degrees two and four once the
 degree-zero component cancels, so the objective is dominated by a universal
-multiple of `E_p(f,k)`. Everything here is unconditional.
+multiple of `E_p(f,k)`.  Everything here is unconditional.
 
 Paper: `manuscript.tex:762-790`.
 -/
@@ -305,7 +305,7 @@ end QuadraticForms
 section Objective
 
 /-- Paper (22): the four-sector quadratic form `E_p(f,k)` of the concrete
-degree-one plus degree-three competitor. The two dual terms are exactly
+degree-one plus degree-three competitor.  The two dual terms are exactly
 `‖D₁f-D₂^*k‖²_{-1}` and `‖D₃k‖²_{-1}`, read off as the degree-two and
 degree-four Walsh sectors of the unnormalized residual. -/
 def sectorObjective {lambda : ℝ} (hlambda : 0 < lambda) (p : Fin 2 → ℝ)
@@ -347,7 +347,7 @@ theorem hMinusEnergy_sector_four_residual {lambda : ℝ} (hlambda : 0 < lambda)
   rw [walshSectorComponent_four_unnormalizedResidual p b hf, hMinusEnergy_neg]
 
 /-- The unnormalized objective of (24) is dominated by twice the paper's
-four-sector form `E_p(f,k)`. This is the only place where the degree-zero
+four-sector form `E_p(f,k)`.  This is the only place where the degree-zero
 cancellation is used. -/
 theorem unnormalizedObjective_le_sectorObjective {lambda : ℝ}
     (hlambda : 0 < lambda) (p : Fin 2 → ℝ) (b : ℝ) {f k : WalshL2}

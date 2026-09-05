@@ -5,9 +5,9 @@ import Manhattan.Glue.AxisSwap
 /-!
 # Version 4: `V4Move2Supply` is a theorem (residue B-4)
 
- lists four residues of OPEN-B. B-1 was
-closed, and B-1b, B-2, B-3 by `Manhattan/V4/MixedSector.lean`,
-`Manhattan/V4/TwoRow.lean` and `Manhattan/V4/Sectors.lean`. This file closes
+Move 1 leaves four residues.  B-1 is closed by
+`Manhattan/V4/MixedBridge.lean`, and B-1b, B-2, B-3 by `Manhattan/V4/MixedSector.lean`,
+`Manhattan/V4/TwoRow.lean` and `Manhattan/V4/Sectors.lean`.  This file closes
 B-4.
 
 * `v4_move1_at` checks the hypotheses of `Manhattan.V4.v4_move1_objective` at
@@ -40,7 +40,6 @@ namespace Manhattan.V4
 open Manhattan.Glue Manhattan.Operator
 open scoped ENNReal
 
-
 /-- The composed Move 1 constant of Version 4:
 `C = C₁ + C₃(π² + π³κ/2)` with `C₁ = 60`, `C₃ = 40` and `κ = 120`. -/
 def v4Constant : ℝ := 60 + 40 * (Real.pi ^ 2 + Real.pi ^ 3 * 120 / 2)
@@ -50,7 +49,7 @@ theorem v4Constant_pos : 0 < v4Constant := by
   unfold v4Constant
   positivity
 
-/-- The parameter record carrying the Version 4 spectral parameter. Only
+/-- The parameter record carrying the Version 4 spectral parameter.  Only
 `lambda` is used: the operator estimate `Manhattan.V4.operatorEstimate` needs no
 admissibility, and every other object (`correctionB`, `mixedHMinusWeight`,
 `parityFibreJ`) depends on `q` only through `q.lambda`. -/
@@ -65,7 +64,7 @@ theorem self_le_sqrt {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : lambda �
   have hpos : 0 < Real.sqrt lambda := Real.sqrt_pos.mpr hlambda
   nlinarith [hs, hpos]
 
-/-- **Move 1 in the improvement region.** All the hypotheses of
+/-- **Move 1 in the improvement region.**  All the hypotheses of
 `Manhattan.V4.v4_move1_objective` hold at `δ = √λ + a(p)`. -/
 theorem v4_move1_at {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : lambda ≤ 1)
     (p : Fin 2 → ℝ) {r0 : ℝ} (hr0 : 0 < r0) (hr014 : r0 ≤ 1 / 4)
@@ -115,7 +114,7 @@ theorem v4_move1_at {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : lambda ≤
 
 /-! ## Transport through the axis swap -/
 
-/-- The Version 4 competitor objective transports through the axis swap. This
+/-- The Version 4 competitor objective transports through the axis swap.  This
 is `Manhattan.Glue.correctedCompetitor_of_axisSwap` with an arbitrary right-hand
 side. -/
 theorem objective_of_axisSwap {lambda X : ℝ} (hlambda : 0 < lambda) (p : Fin 2 → ℝ)
@@ -153,7 +152,7 @@ theorem resolventQuadratic_le_of_objective {lambda X : ℝ} (hlambda : 0 < lambd
 
 /-! ## Move 2 -/
 
-/-- **Move 2 of Version 4.** The Move 1 family, minimized over the profile
+/-- **Move 2 of Version 4.**  The Move 1 family, minimized over the profile
 parameter `t`, gives the closed form with the torus mass of the competitor
 profile; `Manhattan.V4.Zdelta_le_profileMass` then replaces that mass by `Z_δ`,
 which is all Move 3 uses. -/
@@ -215,10 +214,67 @@ theorem v4_move2_at {lambda : ℝ} (hlambda : 0 < lambda)
     linarith
   exact one_div_le_one_div_of_le hden1 hstep
 
+theorem v4_move2_at' {lambda C : ℝ} (hC : 0 < C) (hlambda : 0 < lambda)
+    (p : Fin 2 → ℝ) {r0 : ℝ} (hr0 : 0 < r0) (hr014 : r0 ≤ 1 / 4)
+    (hle : Real.sqrt lambda + Operator.maxFrequency p ≤ r0 ^ 4)
+    {s : ℝ}
+    (hmove1 : ∀ t : ℝ, ∃ g : Manhattan.WalshL2,
+      (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hEnergy lambda g
+          + (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hMinusEnergy hlambda
+              (Manhattan.walshL2 ∅ - Manhattan.concreteFiberA p g)
+        ≤ (1 - s * (t * profileMass r0 (Real.sqrt lambda + Operator.maxFrequency p))) ^ 2
+              / (lambda + Operator.theta p)
+            + C
+                * (t ^ 2 * profileMass r0 (Real.sqrt lambda + Operator.maxFrequency p))) :
+    (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).resolventQuadratic
+        hlambda (Manhattan.walshL2 ∅)
+      ≤ 1 / (lambda + Operator.theta p
+          + s ^ 2 * Zdelta r0 (Real.sqrt lambda + Operator.maxFrequency p)
+            / C) := by
+  have hann : 0 ≤ Operator.maxFrequency p := Frequency.maxFrequency_nonneg p
+  have hspos : 0 < Real.sqrt lambda := Real.sqrt_pos.mpr hlambda
+  set delta := Real.sqrt lambda + Operator.maxFrequency p with hdeltadef
+  have hdelta : 0 < delta := by positivity
+  have hr01 : r0 < 1 := lt_of_le_of_lt hr014 (by norm_num)
+  have hr0pi : r0 < Real.pi := by linarith [Real.pi_gt_three]
+  have hsqpos : 0 < Real.sqrt delta := Real.sqrt_pos.mpr hdelta
+  have hsqle : Real.sqrt delta ≤ r0 := Frequency.sqrt_le_of_le_pow_four hr0 hr014 hle
+  have hZpos : 0 < Zdelta r0 delta :=
+    Frequency.Zdelta_pos hr0 hr014 hdelta hle
+  have hZle : Zdelta r0 delta ≤ profileMass r0 delta :=
+    Zdelta_le_profileMass hsqpos hsqle hr01 hr0pi
+  have hMpos : 0 < profileMass r0 delta := lt_of_lt_of_le hZpos hZle
+  have hthetann : 0 ≤ Operator.theta p := by
+    rw [Manhattan.Estimates.operator_theta_eq]
+    exact Manhattan.Estimates.theta_nonneg p
+  have hh0 : 0 < lambda + Operator.theta p := by linarith
+  have hall : ∀ t : ℝ,
+      (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).resolventQuadratic
+          hlambda (Manhattan.walshL2 ∅)
+        ≤ (1 - s * (t * profileMass r0 delta)) ^ 2 / (lambda + Operator.theta p)
+            + C * (t ^ 2 * profileMass r0 delta) :=
+    fun t => resolventQuadratic_le_of_objective hlambda p (hmove1 t)
+  have hmove2 := Frequency.move2_bound hh0 hMpos hC hall
+  refine hmove2.trans ?_
+  have hnum : 0 ≤ s ^ 2 := sq_nonneg s
+  have hden1 : 0 < lambda + Operator.theta p
+      + s ^ 2 * Zdelta r0 delta / C := by
+    have h0 : 0 ≤ s ^ 2 * Zdelta r0 delta / C :=
+      div_nonneg (mul_nonneg hnum hZpos.le) hC.le
+    linarith
+  have hstep : lambda + Operator.theta p
+      + s ^ 2 * Zdelta r0 delta / C
+      ≤ lambda + Operator.theta p + s ^ 2 * profileMass r0 delta / C := by
+    have hmul : s ^ 2 * Zdelta r0 delta / C
+        ≤ s ^ 2 * profileMass r0 delta / C := by
+      gcongr
+    linarith
+  exact one_div_le_one_div_of_le hden1 hstep
+
 /-! ## `V4Move2Supply` -/
 
-/-- **The Move 2 supply of Version 4, unconditionally.** This is the last
-residue (B-4). The existential over `s`
+/-- **The Move 2 supply of Version 4, unconditionally.**  This is the last
+residue, B-4.  The existential over `s`
 is discharged by `sin p₁` on the branch where `a(p) = |p₁|` and by `sin p₂`,
 through the axis swap of `Manhattan/Glue/AxisSwap.lean`, on the other. -/
 theorem v4Move2Supply_proved {r0 : ℝ} (hr0 : 0 < r0) (hr014 : r0 ≤ 1 / 4) :
@@ -263,7 +319,7 @@ theorem v4Move2Supply_proved {r0 : ℝ} (hr0 : 0 < r0) (hr014 : r0 ≤ 1 / 4) :
 
 /-! ## The unconditional consequences -/
 
-/-- **`V4FrequencyBound` is now unconditional.** At `r₀ = 1/4` the Version 4
+/-- **`V4FrequencyBound` is now unconditional.**  At `r₀ = 1/4` the Version 4
 fixed-frequency bound holds with the absolute constant
 `max (max 1 (8π³ C)) (outerRegionConstant (1/4))`, `C = 60 + 40(π² + 60π³)`. -/
 theorem v4FrequencyBound_proved :

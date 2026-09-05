@@ -4,7 +4,7 @@ import Manhattan.Glue.VectorFourier
 # Concrete joint-generator fiberization
 
 This file writes the position/environment generator on complete
-Fourier--Walsh coefficient spaces. Its elementary shift is precisely
+Fourier--Walsh coefficient spaces.  Its elementary shift is precisely
 `F(τ_x ω, z+x)`, and `jointPositionFourier` conjugates the resulting
 bounded generator to the frequency-side operator.
 

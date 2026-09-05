@@ -85,8 +85,8 @@ import Manhattan.Frozen.Main.Theorem11
 # Axiom audit
 
 Every active PROVED frozen statement and the sorry-free joint-fiberization
-bridge are checked here. Retired historical predecessors are excluded. The
-headline cone `theorem_1_1 <- theorem_1_2 <- proposition_frequency (v2) <-
+bridge are checked here. Retired historical predecessors are excluded.  The
+main cone `theorem_1_1 <- theorem_1_2 <- proposition_frequency (v2) <-
 equation (23)` is at the end of the file: none of it may report `sorryAx`.
 -/
 
@@ -193,7 +193,6 @@ equation (23)` is at the end of the file: none of it may report `sorryAx`.
 #print axioms Manhattan.Frozen.Main.theorem_1_2
 #print axioms Manhattan.Frozen.Main.theorem_1_1
 
--- The concrete-lemma anchors sealed (ledger/briefs/the sealing pass.md item 2).
 #print axioms Manhattan.Frozen.Glue.lemma_raise_concrete_raising
 #print axioms Manhattan.Frozen.Glue.lemma_raise_concrete_adjoint
 #print axioms Manhattan.Frozen.Glue.hsym_concrete

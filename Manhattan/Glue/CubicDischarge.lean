@@ -5,7 +5,7 @@ import Manhattan.Glue.CubicDischargeTorus
 
 The raw type-`112` coefficient of the paper is the symmetrization of a single
 summand, and Step 1 of Lemma 5.4 shows that the two summands have disjoint
-supports. Consequently the raw multiplier energy is exactly twice the scalar
+supports.  Consequently the raw multiplier energy is exactly twice the scalar
 quantity `correctionSigmaEnergy`.
 
 Paper: `manuscript.tex:1045-1052` (the coefficient), `manuscript.tex:1314-1330`
@@ -140,7 +140,6 @@ theorem multiplier_mul_norm_correctionCoefficient_sq {kappa : ℝ}
     ring
   · rw [if_neg h1, if_neg h2, if_neg h1, if_neg h2]
     simp
-
 
 /-! ### Bounds and measurability -/
 
@@ -279,7 +278,7 @@ theorem cubicSplitDensity_measurable (kappa : ℝ) (q : Estimates.Parameters)
 /-! ### The inner column-frequency integral -/
 
 /-- Integrating the summand in the second row frequency produces exactly the
-logarithmic correction `σ` of (31) times `|v|²`. This is the change of
+logarithmic correction `σ` of (31) times `|v|²`.  This is the change of
 variables `α = r+r'-p₂` in Step 2 of Lemma 5.4. -/
 theorem cubicSplitDensity_integral_r' {kappa : ℝ} {q : Estimates.Parameters}
     (hlambda : 0 < q.lambda) (hK : 1 ≤ q.K) (hrho : 0 ≤ q.rho)
@@ -327,7 +326,6 @@ theorem cubicSplitDensity_integral_r' {kappa : ℝ} {q : Estimates.Parameters}
       simp [Estimates.correctionV, hr]
     rw [hv]
     ring
-
 
 /-! ### Measurability of the slices of the split density -/
 
@@ -429,7 +427,6 @@ theorem cubicSplitDensity_doubleSwap_measurable :
 
 
 end Slices
-
 
 /-! ### Slices at a fixed column frequency -/
 
@@ -616,7 +613,6 @@ theorem rawCubicMultiplierEnergy_eq_two_correctionSigmaEnergy
 
 end RawEnergy
 
-
 /-! ### Consequences for the cubic interfaces -/
 
 /-- Discharge of the `CubicMultiplierScalarIdentification` interface for the
@@ -651,7 +647,6 @@ theorem rawCubicCoreEnergy_le_sqrtScale
     rawCubicCoreEnergy q a p₂ ≤ 2 * C * Real.sqrt (q.scaleLog a) :=
   (rawCubicCoreEnergy_le_multiplier hlambda a p₂).trans
     (rawCubicMultiplierEnergy_le_sqrtScale hlambda hK hrho hrhopi ha hp₂ hfive)
-
 
 /-! ### The two sectors of the scalar core -/
 
@@ -838,11 +833,11 @@ theorem rawCubicCoreEnergy_eq_add {q : Estimates.Parameters}
 
 end Sectors
 
-/-! ### Reduction of the cubic intertwining interface to the two modules -/
+/-! ### Reduction of the cubic intertwining interface to the two parts -/
 
-/-- Cross-module statement of the `H₃` half of Lemma 5.2: the degree-three
+/-- Shared statement of the `H₃` half of Lemma 5.2: the degree-three
 `H` quadratic form of the projected correction is at most the raw `H`-weight
-energy. This is (Hsym) together with the contractivity (46) of the
+energy.  This is (Hsym) together with the contractivity (46) of the
 coincident-row projection for the positive multiplier `λ+θ(P)`
 (`manuscript.tex:1233-1235`, `manuscript.tex:1257-1272`). -/
 def ConcreteHThreeQuadraticBound (q : Estimates.Parameters)
@@ -850,9 +845,9 @@ def ConcreteHThreeQuadraticBound (q : Estimates.Parameters)
   hThree (shiftedCorrectionWalsh (kappa := 40) (by norm_num) hlambda a p₁ p₂) ≤
     rawCubicHWeightEnergy q a p₂
 
-/-- Cross-module statement of the `D₃` half of Lemma 5.2: the `H⁻¹` energy of
+/-- Shared statement of the `D₃` half of Lemma 5.2: the `H⁻¹` energy of
 the degree-four raising of the projected correction is at most the raw
-degree-four raising energy. This is the raising formula (45), the four-term
+degree-four raising energy.  This is the raising formula (45), the four-term
 Cauchy--Schwarz, the line integral (22), and (46)
 (`manuscript.tex:1257-1272`). -/
 def ConcreteDThreeRaisingBound (q : Estimates.Parameters)
@@ -873,7 +868,7 @@ theorem shiftedCorrectionWalsh_cubicCoreEnergy_le_of_sectors
   rw [rawCubicCoreEnergy_eq_add hlambda a p₂]
   exact add_le_add hH hD
 
-/-- Lemma 5.2 and Proposition 4.2 in the concrete model. The only remaining
+/-- Lemma 5.2 and Proposition 4.2 in the concrete model.  The only remaining
 premises are the two operator-sector bounds; the multiplier identification is
 now proved. -/
 theorem correctionWalsh_cubicEnergy_le_sqrtScale_of_sectors

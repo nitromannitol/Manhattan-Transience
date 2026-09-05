@@ -3,12 +3,12 @@ import Manhattan.Glue.GreenDensity
 import Manhattan.Glue.Assembly
 
 /-!
-# Proposition 2.2 and headline handoffs
+# Proposition 2.2 and the handoffs to the main theorems
 
 The axis-swap and low-log branches reduce the whole fixed-frequency estimate
-to one horizontal high-logarithmic supply. Once W7A/W7B discharge that named
-interface, this file produces the exact `PropositionFrequencyClaim` consumed
-by the already-proved stage headline implications.
+to one horizontal high-logarithmic supply.  Once the sector files discharge
+that named interface, this file produces the exact `PropositionFrequencyClaim`
+consumed by the already-proved implications.
 
 Paper: `manuscript.tex:644-681` and `manuscript.tex:1134-1169`.
 -/
@@ -21,13 +21,13 @@ open Filter MeasureTheory
 open scoped ENNReal
 
 /-- Existence of one universal constant for the complete horizontal energy
-estimate. discharged in `Glue/Discharge.lean` by
+estimate.  DISCHARGED in `Glue/Discharge.lean` by
 `correctedHorizontalEnergySupply_of_sectorEnergy`. -/
 def CorrectedHorizontalEnergySupply : Prop :=
   ∃ C : ℝ, 0 ≤ C ∧ CorrectedHorizontalEnergyInterface C
 
 /-- Existence of a universal constant for the unnormalized operator-sector
-estimate. discharged in `Glue/Discharge.lean` by
+estimate.  DISCHARGED in `Glue/Discharge.lean` by
 `correctedUnnormalizedEnergySupply_of_sectorEnergy`. -/
 def CorrectedUnnormalizedEnergySupply : Prop :=
   ∃ M : ℝ, 0 ≤ M ∧ CorrectedUnnormalizedEnergyInterface M
@@ -42,7 +42,7 @@ theorem correctedHorizontalEnergySupply_of_unnormalized
     M hM hsector
 
 /-- The complete torus-restricted Proposition 2.2 provider, conditional only
-on the named horizontal W7A/W7B supply. -/
+on the named horizontal supply. -/
 theorem proposition_frequency_v2_of_horizontalEnergy
     (hsupply : CorrectedHorizontalEnergySupply) : PropositionFrequencyClaim := by
   obtain ⟨C, hC, hhorizontal⟩ := hsupply
@@ -92,7 +92,7 @@ theorem proposition_frequency_v2_of_horizontalEnergy
   exact ⟨Manhattan.concreteFiberEnvironment, rfl, rfl,
     r0, C', hr0, hr0One, hC', hbound⟩
 
-/-- Proposition 2.2 conditional only on the final unnormalized W7A/W7B
+/-- Proposition 2.2 conditional only on the final unnormalized
 operator-sector supply. -/
 theorem proposition_frequency_v2_of_unnormalizedEnergy
     (hsupply : CorrectedUnnormalizedEnergySupply) :
@@ -100,14 +100,14 @@ theorem proposition_frequency_v2_of_unnormalizedEnergy
   proposition_frequency_v2_of_horizontalEnergy
     (correctedHorizontalEnergySupply_of_unnormalized hsupply)
 
-/-- stage's Theorem 1.2 provider elaborates immediately from the conditional
+/-- The Theorem 1.2 provider elaborates immediately from the conditional
 Proposition 2.2 assembly. -/
 theorem theorem_1_2_proved_of_horizontalEnergy
     (hsupply : CorrectedHorizontalEnergySupply) : Manhattan.AnnealedGreenBound :=
   theorem_1_2_of_proposition_frequency
     (proposition_frequency_v2_of_horizontalEnergy hsupply)
 
-/-- stage's Theorem 1.1 provider elaborates immediately from the conditional
+/-- The Theorem 1.1 provider elaborates immediately from the conditional
 Proposition 2.2 assembly. -/
 theorem theorem_1_1_proved_of_horizontalEnergy
     (hsupply : CorrectedHorizontalEnergySupply) :

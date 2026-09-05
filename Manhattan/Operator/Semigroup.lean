@@ -9,7 +9,7 @@ import Mathlib.MeasureTheory.Integral.IntegralEqImproper
 
 For a bounded generator whose exponential is contractive at nonnegative
 times, the Bochner integral of the exponentially damped orbit is the
-bounded inverse of `lambda I - G`. Taking an inner product gives the
+bounded inverse of `lambda I - G`.  Taking an inner product gives the
 Green--Kubo resolvent identity used in (9)--(10).
 
 Paper: `manuscript.tex:577-608`.

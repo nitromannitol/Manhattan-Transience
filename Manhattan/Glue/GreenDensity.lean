@@ -101,7 +101,7 @@ theorem continuous_concreteResolventInverse {lambda : ℝ}
   simpa only [Function.comp_apply] using
     hinv.comp (continuous_concreteResolventOperator lambda).continuousAt
 
-/-- The concrete density `r_λ(p)`. The zero branch makes it a total
+/-- The concrete density `r_λ(p)`.  The zero branch makes it a total
 function of `lambda`; all paper-facing uses are in the positive branch. -/
 def concreteGreenDensity (lambda : ℝ) (z : ℝ × ℝ) : ℝ :=
   if 0 < lambda then
@@ -359,7 +359,7 @@ theorem concreteGreenDensity_frequency_bound (h : PropositionFrequencyClaim) :
     hlambda (Manhattan.walshL2 ∅) g).trans hg
 
 /-- The concrete density instantiates W5B's non-circular three-region
-constructor. Existence is proposition-valued so Proposition 2.2's
+constructor.  Existence is proposition-valued so Proposition 2.2's
 existential constants are not eliminated from `Prop` into data. -/
 theorem exists_concreteRegionalIntegralBounds (h : PropositionFrequencyClaim) :
     Nonempty (Manhattan.Operator.RegionalIntegralBounds (fun lambda ↦

@@ -121,7 +121,7 @@ noncomputable def fiberDRaisingSpatialCoefficient (p : Fin 2 → ℝ)
         (Finsupp.single (translateWalshIndex (-Operator.axisVector i) S)
           (Complex.exp (-Complex.I * p i))))
 
-/-- The signed degree-lowering part `D⁺` on one Walsh monomial. The minus
+/-- The signed degree-lowering part `D⁺` on one Walsh monomial.  The minus
 sign is the skew-adjoint convention, so `A = D - D⁺`. -/
 noncomputable def fiberDStarLoweringSpatialCoefficient (p : Fin 2 → ℝ)
     (S : Finset LineIndex) : WalshCoefficient :=
@@ -222,7 +222,7 @@ theorem concreteFiberS_empty (p : Fin 2 → ℝ) :
     ← Complex.ofReal_cos, ← Complex.ofReal_sin]
   module
 
-/-- Nonnegativity of the operator layer's dispersion sum. -/
+/-- Nonnegativity of the operator part's dispersion sum. -/
 theorem operatorTheta_nonneg (p : Fin 2 → ℝ) :
     0 ≤ Operator.theta p := by
   unfold Operator.theta Operator.dispersion

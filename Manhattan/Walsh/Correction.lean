@@ -5,10 +5,10 @@ import Mathlib.Analysis.Fourier.AddCircleMulti
 /-!
 # Ordered coordinates for the type-`(1,1,2)` correction
 
-The homogeneous Walsh carrier remains Finset-indexed. The raw correction is
+The homogeneous Walsh carrier remains Finset-indexed.  The raw correction is
 first represented by two ordered row indices and one column index; the strict
 ordering below is the canonical representative used when the coincident-row
-diagonal is removed. This is the concrete bridge from the ordered raw
+diagonal is removed.  This is the concrete bridge from the ordered raw
 calculation to `Type112Index`.
 
 Paper: `manuscript.tex:719-740`, `manuscript.tex:1045-1052`, and
@@ -186,7 +186,7 @@ theorem type112RawIndex_injective : Function.Injective type112RawIndex := by
   exact Subtype.ext h
 
 /-- Restrict an ordered raw square-summable coefficient to the strict
-off-diagonal and reindex it by the Finset carrier. This is the coefficient
+off-diagonal and reindex it by the Finset carrier.  This is the coefficient
 form of the diagonal projection `Π₃`. -/
 noncomputable def type112DiagonalProjection
     (c : ℓ²(RawType112Index, ℂ)) : ℓ²(Type112Index, ℂ) :=
@@ -425,7 +425,7 @@ theorem correctionCoefficient_norm_bound {kappa : ℝ}
         (inv_nonneg.mpr hprodPos.le)
 
 /-- The raw correction is square-integrable on the three-dimensional
-normalized torus. This is the analytic square-summability input for the
+normalized torus.  This is the analytic square-summability input for the
 Fourier coefficient sequence. -/
 theorem rawCorrectionFunction_memLp {kappa : ℝ}
     {q : Estimates.Parameters} (hkappa : 0 < kappa)
@@ -471,7 +471,8 @@ noncomputable def correctionWalsh {kappa : ℝ}
   type112WalshSynthesis
     (correctionType112Coefficients hkappa hlambda a p₂)
 
-/-- The raw Fourier coefficients are square-summable by construction. -/
+/-- The raw Fourier coefficients are square-summable by construction.
+-/
 theorem rawCorrectionFourierCoefficients_memℓp {kappa : ℝ}
     {q : Estimates.Parameters} (hkappa : 0 < kappa)
     (hlambda : 0 < q.lambda) (a p₂ : ℝ) :
@@ -499,7 +500,8 @@ theorem norm_correctionType112Coefficients_le {kappa : ℝ}
       ‖rawCorrectionFourierCoefficients hkappa hlambda a p₂‖ :=
   norm_type112DiagonalProjection_le _
 
-/-- The synthesized correction has exactly the projected coefficient norm. -/
+/-- The synthesized correction has exactly the projected coefficient norm.
+-/
 theorem norm_correctionWalsh {kappa : ℝ}
     {q : Estimates.Parameters} (hkappa : 0 < kappa)
     (hlambda : 0 < q.lambda) (a p₂ : ℝ) :
@@ -518,11 +520,11 @@ theorem correctionWalsh_mem_degree {kappa : ℝ}
 
 The manuscript writes every scalar object of Lemmas 4.1, 5.2 and 6.4 in the
 shifted variables `r=p₂+s`, `r'=p₂+s'`, `β=p₁+u` of `manuscript.tex:791-800`,
-where `(s,s',u)` are the Walsh line frequencies. The Fourier coefficient of
+where `(s,s',u)` are the Walsh line frequencies.  The Fourier coefficient of
 `k̃(p₂+s,p₂+s',p₁+u)` at the line index `(m,m',n)` is the coefficient of
 `k̃` there times the unimodular phase `e^{i(m+m')p₂+inp₁}`, which is the value
 at the raw index of the multivariate character attached to the point
-`(p₂/2π,p₂/2π,p₁/2π)` of the frequency torus. The declarations below install
+`(p₂/2π,p₂/2π,p₁/2π)` of the frequency torus.  The declarations below install
 that phase; the coefficient moduli, and hence every `ℓ²` norm, are unchanged.
 -/
 
@@ -594,7 +596,7 @@ theorem norm_type112ShiftTwistFun (p₁ p₂ : ℝ) (c : ℓ²(Type112Index, ℂ
   nlinarith
 
 /-- Multiplication of a type-`(1,1,2)` coefficient by the (shift) phase, as a
-linear isometry. This is the passage from the manuscript's coefficients read
+linear isometry.  This is the passage from the manuscript's coefficients read
 at the unshifted line frequencies to the coefficients read at the true
 frequencies `(r,r',β)`. -/
 noncomputable def type112ShiftTwist (p₁ p₂ : ℝ) :
@@ -645,7 +647,7 @@ theorem type112ShiftTwist_single (p₁ p₂ : ℝ) (S : Type112Index) (a : ℂ) 
     rw [lp.single_apply_self, lp.single_apply_self]
   · rw [lp.single_apply_ne _ _ _ h, lp.single_apply_ne _ _ _ h, mul_zero]
 
-/-- **The competitor's degree-three coefficient.** This is `Π₃k̃` read at the
+/-- **The competitor's degree-three coefficient.**  This is `Π₃k̃` read at the
 manuscript's shifted variables `(r,r',β)` of (shift), i.e. the projected
 Fourier coefficients of `k̃` carrying the compensating unimodular phase. -/
 noncomputable def shiftedCorrectionType112Coefficients {kappa : ℝ}
@@ -675,9 +677,6 @@ noncomputable def shiftedCorrectionWalsh {kappa : ℝ}
   type112WalshSynthesis
     (shiftedCorrectionType112Coefficients hkappa hlambda a p₁ p₂)
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem norm_shiftedCorrectionWalsh {kappa : ℝ}
     {q : Estimates.Parameters} (hkappa : 0 < kappa)
     (hlambda : 0 < q.lambda) (a p₁ p₂ : ℝ) :
@@ -686,9 +685,6 @@ theorem norm_shiftedCorrectionWalsh {kappa : ℝ}
   rw [shiftedCorrectionWalsh, type112WalshSynthesis.norm_map,
     norm_shiftedCorrectionType112Coefficients]
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem shiftedCorrectionWalsh_mem_degree {kappa : ℝ}
     {q : Estimates.Parameters} (hkappa : 0 < kappa)
     (hlambda : 0 < q.lambda) (a p₁ p₂ : ℝ) :

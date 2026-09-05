@@ -6,19 +6,19 @@ import Mathlib.Analysis.Real.Pi.Bounds
 
 `Manhattan.Glue.CorrectedLowDegreeCertificate` asks for a competitor of the
 form `(f+k)/b` with `f` a *horizontal* degree-one function and `k` of type
-`(1,1,2)` at **every** frequency of the torus. The paper never asks for
+`(1,1,2)` at **every** frequency of the torus.  The paper never asks for
 that: at `manuscript.tex:1156` it exchanges rows and columns before running
 the construction.
 
-This file proves that the difference is real. When `sin p₁ = 0` every such
+This file proves that the difference is real.  When `sin p₁ = 0` every such
 competitor leaves the constant Walsh component untouched, so its objective is
 at least the driftless majorant `1/(λ+θ(p))`, and at
-`p=(0,s)`, `λ=s²`, `s` small this exceeds `C/(a²L^{3/2})`. Hence
+`p=(0,s)`, `λ=s²`, `s` small this exceeds `C/(a²L^{3/2})`.  Hence
 `CorrectedLowDegreeCertificate r0 C` is false for every `r0` and `C`.
 
 The corrected interface, which is the one the paper actually states and the
 one Proposition 2.2 consumes, quantifies over an arbitrary Walsh competitor;
-it is discharged here from the single cross-module bound.
+it is discharged here from the single shared bound.
 
 Paper: `manuscript.tex:640-661` and `manuscript.tex:1156`.
 -/
@@ -128,7 +128,7 @@ section Refutation
 
 open Manhattan.Operator
 
-/-- `Glue/Competitor.lean:117` is unsatisfiable. At `p=(0,s)` with
+/-- `Glue/Competitor.lean:117` is unsatisfiable.  At `p=(0,s)` with
 `lambda=s²` every horizontal low-degree competitor leaves the constant Walsh
 component intact, so its objective is at least `1/(lambda+theta(p))`, which is
 larger than `C/(a²L^{3/2})` once `L` exceeds `(3C/2)^{2/3}`. -/

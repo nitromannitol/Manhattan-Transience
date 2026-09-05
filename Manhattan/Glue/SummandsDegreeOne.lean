@@ -12,7 +12,7 @@ frequency integral of (Hsym) in degree one, and bounds it by the scalar
 The competitor of `Glue/Correction.lean` carries the paper's coefficient in
 the *shifted* variable `r=p₂+s` of `eq:shift` (`manuscript.tex:791-800`)
 while the Walsh vector it synthesizes carries it in the *unshifted* line
-frequency `s`. The two weights `λ+d(p₁)+d(p₂+s)` and `λ+d(p₁)+d(s)`
+frequency `s`.  The two weights `λ+d(p₁)+d(p₂+s)` and `λ+d(p₁)+d(s)`
 therefore differ; `dispersion_add_le` and `dispersion_le_of_abs_le` show
 they are comparable with the universal factor three, which is all the
 estimate (23) needs.
@@ -165,7 +165,7 @@ theorem rowSymbol_coe (lambda : ℝ) (p : Fin 2 → ℝ) (r : ℝ) :
   simp only [Manhattan.Estimates.dispersion]
   ring
 
-/-- **(Hsym) in degree one for the actual fiber.** The `H₁` energy of the
+/-- **(Hsym) in degree one for the actual fiber.**  The `H₁` energy of the
 row-sector Walsh vector synthesized from a torus frequency function `F` is
 the integral of `|F|²` against the total-frequency weight
 `λ+d(p₁)+d(p₂+s)`. -/
@@ -360,8 +360,6 @@ theorem hEnergy_degreeOneRow (lambda : ℝ) (p : Fin 2 → ℝ) (F : Lp ℂ 2 ha
   simp only [Manhattan.Estimates.dispersion]
   ring
 
-
-
 /-- The same identity for the real-frequency competitor of Section 4:
 the `H₁` energy is the paper's normalized torus integral of `|f|²` against
 `λ+d(p₁)+d(p₂+r)`. -/
@@ -407,7 +405,7 @@ theorem fourier_neg_one_coe (r : ℝ) :
   field_simp
   ring
 
-/-- **The (shift) phase makes the degree-one weight exact.** The row symbol at
+/-- **The (shift) phase makes the degree-one weight exact.**  The row symbol at
 the true momentum `p`, read at the line frequency `s`, is the symbol at the
 momentum `(p₁,0)` read at the shifted frequency `r=p₂+s`. -/
 theorem rowSymbol_add_shift (lambda : ℝ) (p : Fin 2 → ℝ)
@@ -421,7 +419,7 @@ theorem rowSymbol_add_shift (lambda : ℝ) (p : Fin 2 → ℝ)
   congr 2
   ring_nf
 
-/-- **Summand 1 of (22) is exact.** With the (shift) phase in place the
+/-- **Summand 1 of (22) is exact.**  With the (shift) phase in place the
 concrete degree-one `H₁` energy of the competitor is the paper's
 `degreeOneEnergy`, not merely comparable to it. -/
 theorem hEnergy_degreeOneRowShift (lambda : ℝ) (p : Fin 2 → ℝ) (f : ℝ → ℂ)
@@ -462,10 +460,7 @@ theorem hEnergy_degreeOneRowShift (lambda : ℝ) (p : Fin 2 → ℝ) (f : ℝ �
 /-! ### The bound from Lemma 4.1 v3 -/
 
 /-- The shifted and unshifted degree-one weights are comparable.
-
-the (shift) phase installed (E-009)
-removed the need to absorb a displaced row weight, so nothing consumes this any
-more. -/
+-/
 theorem rowWeight_le {lambda : ℝ} (hlambda : 0 ≤ lambda) {p : Fin 2 → ℝ}
     (hp₀ : p 0 ∈ Manhattan.Estimates.torus) (horder : |p 1| ≤ |p 0|) (r : ℝ) :
     lambda + Manhattan.Estimates.dispersion (p 0) +

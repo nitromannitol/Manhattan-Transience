@@ -2,9 +2,9 @@ import Manhattan.V4.Frequency.Integration
 import Mathlib.Analysis.Real.Pi.Bounds
 
 /-!
-# Version 4, the formalization: non-degeneracy witnesses
+# Version 4, : non-degeneracy witnesses
 
-Every lemma of this file is a bound of the form `X ≤ Y`, and three earlier declarations
+Every lemma of this part is a bound of the form `X ≤ Y`, and three earlier declarations
 in this repository were true but worthless (an `X ≤ X` after unfolding, a hypothesis
 forcing the bounded quantity to vanish, a clause discharged because the datum passed in
 was the thing being characterised). This file rules those failure modes out by machine
@@ -24,9 +24,9 @@ check rather than by inspection.
   `hs`, which is the intended `s = sin p₁` fed through Jordan's inequality -- hold
   simultaneously at `r₀ = 1/4`, `λ = 10⁻⁶`, `p = (1/2000, 0)`.
 
-Positivity of the two quantities the module bounds things by is
+Positivity of the two quantities the part bounds things by is
 `Manhattan.V4.Frequency.Zdelta_pos` and `Manhattan.V4.Frequency.v4Majorant_pos`; no
-integral in this file appears without either an integrability proof or an evaluation.
+integral in this part appears without either an integrability proof or an evaluation.
 -/
 
 noncomputable section

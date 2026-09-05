@@ -16,8 +16,8 @@ the objective and composes them again (`concreteSectorEnergyBound_of_four`).
 
 All four summand bounds are now proved:
 
-* `Manhattan.Glue.summandOneBound_proved` (`Glue/Summands.lean`), `⟨f,H₁f⟩`;
-* `Manhattan.Glue.summandTwoBound_proved` (`Glue/SummandsMixed.lean`),
+* `Manhattan.Glue.summandOneBound_proved`  (`Glue/Summands.lean`), `⟨f,H₁f⟩`;
+* `Manhattan.Glue.summandTwoBound_proved`  (`Glue/SummandsMixed.lean`),
   `⟨k,H₃k⟩`;
 * `Manhattan.Glue.summandThreeBound_proved`
   (`Glue/SummandThreeMixedBound.lean`), `‖D₁f-D₂^*k‖²_{-1}`;
@@ -29,7 +29,7 @@ This file composes them, so equation (23) holds unconditionally
 (`prop:frequency`, `manuscript.tex:644-661`) through the provider
 `proposition_frequency_v2_of_exists` of `Glue/FinalDischarge.lean`.
 
-The two headline conclusions, `Manhattan.AnnealedGreenBound` (Theorem 1.2) and
+The two main conclusions, `Manhattan.AnnealedGreenBound` (Theorem 1.2) and
 the quenched finiteness of the Green series (Theorem 1.1), are the frozen
 anchors themselves; their bodies apply
 `Manhattan.Glue.theorem_1_2_proved_of_exists` and
@@ -41,9 +41,9 @@ noncomputable section
 
 namespace Manhattan.Glue
 
-/-- **Equation (23), unconditionally.** The four summands of the objective
-`eq:E = (22)` at the concrete competitor, each bounded by its own module, add up
-to `M √L`. This is the last hypothesis the discharge chain of
+/-- **Equation (23), unconditionally.**  The four summands of the objective
+`eq:E = (22)` at the concrete competitor, each bounded by its own part, add up
+to `M √L`.  This is the last hypothesis the discharge chain of
 `Glue/Discharge.lean` was waiting for. -/
 theorem exists_concreteSectorEnergyBound :
     ∃ M : ℝ, 0 ≤ M ∧ ConcreteSectorEnergyBound M := by

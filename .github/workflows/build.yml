@@ -48,7 +48,10 @@ jobs:
             echo "The certificate build emitted a warning."
             exit 1
           fi
-          if grep -E '^info:' certificate.log \
+          awk '/^(info:|warning:|error:|✔|✖|⚠|Build|Some)/ { if (m) print m; m = $0; next }
+               { sub(/^[ \t]+/, ""); m = m " " $0 }
+               END { if (m) print m }' certificate.log > certificate.unwrapped
+          if grep -E '^info:' certificate.unwrapped \
                | grep -vF 'depends on axioms: [propext, Classical.choice, Quot.sound]'; then
             echo "A certificate declaration rests on something other than the three standard axioms."
             exit 1

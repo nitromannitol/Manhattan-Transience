@@ -3,7 +3,7 @@ import Manhattan.V4.Energy.Move1
 /-!
 # Version 4, Move 1: anti-vacuity witnesses
 
-Every theorem of this file is an inequality with hypotheses. The declarations
+Every theorem of this part is an inequality with hypotheses.  The declarations
 below are the record that those hypothesis sets are **jointly satisfiable with a
 nonzero test function**, so that none of the Move 1 statements is vacuously true,
 and that the inequalities are strict in at least one concrete instance, so that
@@ -22,7 +22,7 @@ the two sides are not the same term after unfolding.
   `δ = 1/100`, `r = 1/5`, so `add_sq_le_effectiveWeight` is not an identity in
   disguise.
 
-Junk values are recorded rather than hidden. `effectiveWeight 0 = 0` because
+Junk values are recorded rather than hidden.  `effectiveWeight 0 = 0` because
 `1/0 = 0`, `log 0 = 0` and `0/0 = 0` in Lean; every statement about it therefore
 carries `0 < |r|`, except `effectiveWeight_nonneg` and `measurable_effectiveWeight`.
 In `move1_energy_le` the majorant is evaluated at every `r`, but the support
@@ -36,7 +36,7 @@ namespace Manhattan.V4.Energy
 /-! ## The `β` integral -/
 
 /-- **Anti-vacuity witness for `betaIntegral_le` (and hence for
-`torusIntegral_inv_le`).** The hypotheses hold for `σ(β) = c β² log(1/|r|)`. -/
+`torusIntegral_inv_le`).**  The hypotheses hold for `σ(β) = c β² log(1/|r|)`. -/
 theorem nonvacuity_betaIntegral_le {lambda c r : ℝ}
     (hlam : 0 < lambda) (hc : 0 < c) (hr : 0 < |r|) (hr1 : |r| ≤ 1 / 4) :
     Manhattan.Estimates.torusIntegral (fun b =>
@@ -103,7 +103,7 @@ theorem nonvacuity_move1_integrand_le {delta C1 C2 r : ℝ} (phi : ℝ → ℝ)
       ≤ (C1 + C2) * (effectiveWeight r * phi r ^ 2) :=
   move1_integrand_le phi hC1 hC2 hd hdr hr hr1 le_rfl
 
-/-- The test profile: the indicator of `Γ_δ = {√δ ≤ |r| ≤ r₀}`. It is not the
+/-- The test profile: the indicator of `Γ_δ = {√δ ≤ |r| ≤ r₀}`.  It is not the
 zero function whenever `Γ_δ` is nonempty, which `gammaDelta_nonempty` exhibits. -/
 noncomputable def testPhi (delta r0 : ℝ) : ℝ → ℝ :=
   Set.indicator {r : ℝ | Real.sqrt delta ≤ |r| ∧ |r| ≤ r0} (fun _ => (1 : ℝ))

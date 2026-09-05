@@ -4,27 +4,27 @@ import Manhattan.V4.Energy.DegreeOne
 /-!
 # Version 4, Move 1: the effective-energy inequality
 
-This file assembles the ingredients of Move 1 of the Version 4 argument.
+This file assembles the ingredients of Move 1.
 For every real even `φ` supported on `Γ_δ = {√δ ≤ |r| ≤ r₀}`, `r₀ ≤ 1/4`,
 
-    `r_λ(p) ≤ (1 - s ∫ φ dm)² / h₀ + C ∫_{Γ_δ} q φ² dm`, `q(r) = |r|/√(log(1/|r|))`.
+    `r_λ(p) ≤ (1 - s ∫ φ dm)² / h₀ + C ∫_{Γ_δ} q φ² dm`,   `q(r) = |r|/√(log(1/|r|))`.
 
 What is proved here is the **energy estimate**: the competitor energy density,
 namely the degree-one cost `C₁ (δ + r²) φ(r)²` of estimate (4) together with the
 `β`-integrated degree-three cost `sin²(r) J(r) φ(r)²` of (5)-(6), is dominated
-pointwise and then in the `r` integral by `(C₁ + C₂) q(r) φ(r)²`. The two
+pointwise and then in the `r` integral by `(C₁ + C₂) q(r) φ(r)²`.  The two
 inputs are `Manhattan.V4.Energy.add_sq_le_effectiveWeight` (ingredient (e)) and
 `Manhattan.V4.Energy.betaIntegral_le` (ingredient (d)).
 
 The final statement `effectiveEnergy_le` carries the competitor bound itself as
-the hypothesis `hcompetitor`. That hypothesis is what Step 1 of
-the Version 4 argument (`Manhattan.V4.resolventQuadratic_le_cauchySchwarz`, or the
-stronger sealed `Manhattan.Operator.DissipativeSkewPair.resolventQuadratic_le`)
-delivers once the parity construction of Steps 2-3 supplies
+the hypothesis `hcompetitor`.  That hypothesis is what Step 1
+delivers (`Manhattan.V4.resolventQuadratic_le_cauchySchwarz`, or the
+stronger sealed `Manhattan.Operator.DissipativeSkewPair.resolventQuadratic_le`),
+once the parity construction of Steps 2-3 supplies
 `(D₂* k)₁₂ = σ v` and `(D₂* k)₁₁ = 0`, and the scalar completion of the square
-`Manhattan.V4.scalarCompletion_le` is applied pointwise in `(r, β)`. Those two
-lowering identities belong to the parity construction and are **not** reproved here; the
-present module owns only the estimate that turns the resulting energy into
+`Manhattan.V4.scalarCompletion_le` is applied pointwise in `(r, β)`.  Those two
+lowering identities belong to the parity part and are **not** reproved here; the
+present part owns only the estimate that turns the resulting energy into
 `C ∫ q φ² dm`.
 -/
 
@@ -34,7 +34,7 @@ namespace Manhattan.V4.Energy
 
 /-! ## The pointwise bound -/
 
-/-- **Move 1, integrand form.** On `Γ_δ = {√δ ≤ |r| ≤ 1/4}` the degree-one cost
+/-- **Move 1, integrand form.**  On `Γ_δ = {√δ ≤ |r| ≤ 1/4}` the degree-one cost
 density `C₁ (δ + r²) φ(r)²` of estimate (4) and the `β`-integrated degree-three
 density `sin²(r) J φ(r)²` of (5)-(6) are together dominated by
 `(C₁ + C₂) q(r) φ(r)²`. -/
@@ -60,8 +60,8 @@ theorem move1_integrand_le
 
 /-! ## The integrated bound -/
 
-/-- **Move 1, integrated form.** For `φ` supported in `Γ_δ` the competitor
-energy of Version 4 is bounded by `(C₁ + C₂) ∫ q φ² dm`. The support hypothesis
+/-- **Move 1, integrated form.**  For `φ` supported in `Γ_δ` the competitor
+energy of Version 4 is bounded by `(C₁ + C₂) ∫ q φ² dm`.  The support hypothesis
 is what makes the pointwise bound of `move1_integrand_le`, valid only on `Γ_δ`,
 enough on the whole circle. -/
 theorem move1_energy_le
@@ -106,11 +106,11 @@ theorem move1_energy_le
   rw [h_smul] at h_mono
   exact h_mono
 
-/-- **Move 1, integrated form with the `β` integral supplied by (6).** Here the
+/-- **Move 1, integrated form with the `β` integral supplied by (6).**  Here the
 degree-three density is the actual `β` integral `∫ dm(β)/(B(r,β) + σ(r,β))` of
 the manuscript, with `B(r,β) = λ + d(r) + d(β)`, and the constant produced is
-`C₁ + π² + 1/c`. Ingredient (d) enters through `betaIntegral_le`, whose only
-input from the parity construction is the inner lower bound `hSlow` on `σ`, itself
+`C₁ + π² + 1/c`.  Ingredient (d) enters through `betaIntegral_le`, whose only
+input from the parity part is the inner lower bound `hSlow` on `σ`, itself
 supplied by `sigma_inner_lower` with `c = 2/(π³κ)`. -/
 theorem move1_energy_le_of_betaIntegral
     {delta lambda c r0 C1 : ℝ} (phi : ℝ → ℝ) (Sig : ℝ → ℝ → ℝ)
@@ -143,10 +143,9 @@ theorem move1_energy_le_of_betaIntegral
     have h3 := hSignn r b
     linarith
 
-
 /-- The competitor energy density on the left of `move1_energy_le` is genuinely
 integrable when `φ` and `J` are measurable and bounded and `φ` is supported in
-`Γ_δ ⊆ {|r| ≤ 1/4}`. Without this the Bochner integral on that side could be
+`Γ_δ ⊆ {|r| ≤ 1/4}`.  Without this the Bochner integral on that side could be
 the junk value `0` and the inequality would be uninformative; the support
 hypothesis is what makes the unbounded factor `δ + r²` harmless. -/
 theorem integrable_move1_density
@@ -203,14 +202,13 @@ theorem integrable_move1_density
 /-! ## The effective-energy inequality -/
 
 /-- **Move 1 of Version 4, the effective-energy inequality (1).**
-
-`hcompetitor` is the competitor bound of Step 1 of the Version 4 argument applied to
+`hcompetitor` is the competitor bound of Step 1 applied to
 `f = -i φ` and the parity competitor `k` of Steps 2-3: its first summand is the
 uncancelled degree-zero contribution `(1 - s ∫ φ dm)²/h₀`, produced by
 `dStarZero_neg_I_mul` together with the fact that `H` acts on degree zero as
 `h₀ = λ + d(p₁) + d(p₂)`, and its second summand is the competitor energy after
-`(P1)-(P4)` and the scalar completion of the square. Supplying `hcompetitor` is
-the parity construction's job; this file proves that its second summand is at most
+`(P1)-(P4)` and the scalar completion of the square.  Supplying `hcompetitor` is
+the parity part's job; this part proves that its second summand is at most
 `(C₁ + C₂) ∫ q φ² dm`, which is the content of the inequality below. -/
 theorem effectiveEnergy_le
     {rlambda h0 s delta C1 C2 r0 : ℝ} (phi J : ℝ → ℝ)

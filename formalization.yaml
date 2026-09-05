@@ -19,8 +19,7 @@ sources:
     author_contacted: "n/a"
     prior_work: >-
       The scaffold and audit discipline follow the authors' GMC formalization.
-      Reuse candidates and dependency decisions are surveyed in
-      ledger/reports/S-search.md.
+      Reuse candidates were surveyed and none were adopted.
 
 status:
   scope: >-
@@ -28,16 +27,14 @@ status:
     Manhattan model, countable Fourier--Walsh coordinates, Fourier transform
     in position, the fixed-frequency variational upper bound, the explicit
     degree-one and degree-three estimates, the concrete competitor and the
-    four-sector objective, and both headline theorems. The manifest has 76
+    four-sector objective, and both main theorems. The manifest has 76
     records, every one in state PROVED and none registered as a draft; three
     proved predecessors are retired from the live import cone. Manhattan/
     contains no sorry, and Theorem 1.1, Theorem 1.2 and Proposition 2.2 all
-    depend on exactly [propext, Classical.choice, Quot.sound]. The only sorry
-    in the repository is the deliberate Mathlib-only comparator placeholder at
-    Audit/Transience/Challenge.lean:115, which is a challenge statement and not
-    a proof. The independent second key required by the two-key rule of
-    Audit/README.md is still outstanding for the twelve concrete-lemma anchors
-    frozen on 2026-09-04 and for the headline cone.
+    depend on exactly [propext, Classical.choice, Quot.sound]. The repository
+    contains no sorry. The independent second key required by the two-key rule
+    is still outstanding for the twelve concrete-lemma anchors frozen on
+    2026-09-04 and for the cone of the main theorems.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms:
@@ -52,12 +49,11 @@ status:
         - "propext"
         - "Classical.choice"
         - "Quot.sound"
-      comparator_config: "Audit/MainTransience/comparator.json"
       literature_dependencies: []
       note: >-
         Theorem 1.1; proved by Manhattan.Glue.theorem_1_1_proved_of_exists from
         Manhattan.Glue.exists_concreteSectorEnergyBound. Independent second key
-        of the headline cone not yet recorded.
+        of the cone of the main theorems not yet recorded.
     - declaration: "Manhattan.Frozen.Main.theorem_1_2"
       file: "Manhattan/Frozen/Main/Theorem12.lean"
       sorry_count: 0
@@ -65,11 +61,10 @@ status:
         - "propext"
         - "Classical.choice"
         - "Quot.sound"
-      comparator_config: "Audit/AnnealedGreen/comparator.json"
       literature_dependencies: []
       note: >-
         Theorem 1.2; proved by Manhattan.Glue.theorem_1_2_proved_of_exists.
-        Independent second key of the headline cone not yet recorded.
+        Independent second key of the cone of the main theorems not yet recorded.
 
 automation:
   methods:
@@ -77,9 +72,9 @@ automation:
       models: []
       framework: "Codex agentic coding harness"
       tool_setup: >-
-        Lake builds under Lean v4.26.0 with Mathlib v4.26.0 as the only Wave 1
+        Lake builds under Lean v4.26.0 with Mathlib v4.26.0 as the only
         dependency. Public declarations use a content-hashed frozen-statement
-        manifest and headline results require an independent Mathlib-only
+        manifest and the main results require an independent Mathlib-only
         comparator audit.
       cost:
         wall_time: ""
@@ -87,7 +82,7 @@ automation:
         spend_usd: ""
         hardware: ""
       prompting_notes: >-
-        Human-directed parallel lanes with statement-level decisions recorded
+        Human-directed parallel development with statement-level decisions recorded
         before integration.
   spend_usd: ""
   notes: >-
@@ -97,7 +92,7 @@ automation:
 fidelity:
   divergences: >-
     Encoding choices, ambiguities, and suspected source issues are recorded in
-    ledger/ERRATA.md and linked to numbered rulings in ledger/decisions.md; no
+    ledger/ERRATA.md; no
     manuscript deviation is absorbed silently.
 
 review:
@@ -108,9 +103,9 @@ review:
   notes: >-
     All 76 PROVED manifest nodes and the audited Glue support have the standard
     Mathlib axiom surface; no DRAFT_SORRY node remains and the
-    frequency-to-headline chain is closed. Six independent second keys have been
-    recorded (ledger/reports/AUD-*.md); the per-node second keys for the twelve
-    concrete-lemma anchors and for the headline cone are still outstanding.
+    frequency-to-theorem chain is closed. Six independent second keys have been
+    recorded; the per-node second keys for the twelve concrete-lemma anchors and
+    for the cone of the main theorems are still outstanding.
 
 alignment:
   namespace: "Manhattan"
@@ -120,25 +115,25 @@ alignment:
       module: "Manhattan.Frozen.Main.Theorem11"
       status: "proved"
       note: >-
-        Exact headline anchor fixed by D-001; proved, standard axioms only.
+        Exact anchor for Theorem 1.1; proved, standard axioms only.
         Independent second key pending.
     - source: "Theorem 1.2 (annealed Green bound; thm-annealed)"
       lean: "Manhattan.Frozen.Main.theorem_1_2"
       module: "Manhattan.Frozen.Main.Theorem12"
       status: "proved"
       note: >-
-        Exact second anchor fixed by D-001; proved, standard axioms only.
+        Exact anchor for Theorem 1.2; proved, standard axioms only.
         Independent second key pending.
     - source: "Proposition 2.1 (prop-generator)"
       lean: "Manhattan.Frozen.Operator.proposition_generator_v2"
       module: "Manhattan.Frozen.Operator.PropositionGeneratorV2"
       status: "proved"
-      note: "D-030/D-027 pointwise-intertwining successor; second key D-028."
+      note: "Pointwise-intertwining successor; second key recorded."
     - source: "Formula (11), upper-bound direction (var-ineq)"
       lean: "Manhattan.Frozen.Operator.resolventQuadratic_le"
       module: "Manhattan.Frozen.Operator.ResolventQuadraticLe"
       status: "proved"
-      note: "Scope fixed by D-004."
+      note: "Upper-bound direction only."
     - source: "Proposition 2.2 (prop-frequency)"
       lean: "Manhattan.Frozen.Estimates.proposition_frequency"
       module: "Manhattan.Frozen.Estimates.PropositionFrequency"
@@ -150,7 +145,7 @@ alignment:
       lean: "Manhattan.Frozen.Estimates.lemma_one_coin_v3"
       module: "Manhattan.Frozen.Estimates.LemmaOneCoinV3"
       status: "proved"
-      note: "D-029 v3 adds explicit integral-finiteness certificates; second key D-026."
+      note: "Version 3 adds explicit integral-finiteness certificates; second key recorded."
     - source: "Proposition 4.2 (prop-key)"
       lean: "Manhattan.Frozen.Estimates.proposition_key"
       module: "Manhattan.Frozen.Estimates.PropositionKey"
@@ -187,7 +182,7 @@ alignment:
       status: "sealed"
       note: >-
         RAW/FREQUENCY side only. The operator-level identification of
-        projectionErrorHMinusSq is AUD-2 action 2 and is open; this node does not
+        The operator-level bridge for projectionErrorHMinusSq is open; this node does not
         claim it. Independent second key pending.
     - source: "Lemma 5.4 (lem-correction-calculation-concrete)"
       lean: "Manhattan.Frozen.Glue.lemma_correction_calculation_concrete"
@@ -208,7 +203,7 @@ alignment:
       lean: "Manhattan.Frozen.Glue.summand_three_bound"
       module: "Manhattan.Frozen.Glue.SummandThree"
       status: "sealed"
-      note: "Carries the sgn(sin p1) multiplier of D-035. Independent second key pending."
+      note: "Carries the sgn(sin p1) multiplier. Independent second key pending."
     - source: "Objective (22), summand 4 (eq-e-summand-four)"
       lean: "Manhattan.Frozen.Glue.summand_four_bound"
       module: "Manhattan.Frozen.Glue.SummandFour"

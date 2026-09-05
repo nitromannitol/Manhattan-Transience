@@ -6,7 +6,7 @@ import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
 # Complete homogeneous Walsh synthesis
 
 This file upgrades the finite synthesis in `Coefficients.lean` to the complete
-Finset-indexed Hilbert sums used by the competitor. The index subtype carries
+Finset-indexed Hilbert sums used by the competitor.  The index subtype carries
 the homogeneous degree, so coincident line indices cannot occur.
 
 Paper: `manuscript.tex:701-758`.
@@ -32,8 +32,7 @@ theorem orthonormal_homogeneousWalshFamily (n : ℕ) :
   exact orthonormal_walshL2.comp Subtype.val Subtype.val_injective
 
 /-- Complete synthesis of square-summable degree-`n` Finset coefficients.
-
-This is the form of (17): no factorial occurs because each unordered
+This is the Finset form of (17): no factorial occurs because each unordered
 set of distinct lines appears exactly once. -/
 noncomputable def homogeneousWalshSynthesis (n : ℕ) :
     ℓ²(WalshDegreeIndex n, ℂ) →ₗᵢ[ℂ] WalshL2 :=
@@ -81,8 +80,8 @@ theorem homogeneousWalshSynthesis_mem_degree (n : ℕ)
     (Submodule.isClosed_topologicalClosure _)) hrange
 
 /-- A three-line index of type `(1,1,2)`: two horizontal lines and one
-vertical line. Encoding the carrier as a Finset makes pairwise distinctness
-part of the type, as required here. -/
+vertical line.  Encoding the carrier as a Finset makes pairwise distinctness
+part of the type, as the Finset convention requires. -/
 def IsType112Index (S : Finset LineIndex) : Prop :=
   S.card = 3 ∧ (S.filter fun l => l.1 = Axis.horizontal).card = 2
 
@@ -220,7 +219,7 @@ theorem inner_axisDegreeOneSynthesis_of_ne (i j : Axis) (hij : j ≠ i)
   apply hm.unique
   simpa [innerSL_apply_apply, inner_smul_right, inner_walshL2, hij] using hz
 
-/-- Fourier-series synthesis followed by degree-one Walsh synthesis. The
+/-- Fourier-series synthesis followed by degree-one Walsh synthesis.  The
 input is an honest `L²` frequency function on the paper's `2π`-torus. -/
 noncomputable def degreeOneFrequencySynthesis (i : Axis) :
     Lp ℂ 2 (AddCircle.haarAddCircle : Measure (AddCircle torusPeriod)) →ₗᵢ[ℂ]

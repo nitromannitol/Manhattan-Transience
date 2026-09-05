@@ -3,7 +3,7 @@ import Manhattan.V4.Energy.Weight
 /-!
 # Version 4, Move 1: the `β` integral (6)
 
-Ingredient (d) of Move 1 of the Version 4 argument: for `r` in
+Ingredient (d) of Move 1: for `r` in
 `Γ_δ = {√δ ≤ |r| ≤ 1/4}`, writing `ρ = |r|` and `L = log(1/ρ)`,
 
     `∫_𝕋 dm(β) / (B(r,β) + σ(r,β)) ≤ C / (ρ √L)`.
@@ -23,9 +23,9 @@ integral by the elementary `∫_a^b dx/x² ≤ 1/a`, so no special function is n
 
 The main theorem is stated for an abstract positive weight `Φ` satisfying the
 three pointwise lower bounds, plus one global positive lower bound `m` that
-makes `Φ⁻¹` bounded and hence integrable. `betaIntegral_le` instantiates it at
+makes `Φ⁻¹` bounded and hence integrable.  `betaIntegral_le` instantiates it at
 `Φ(β) = λ + d(r) + d(β) + σ(β)`, which is the manuscript's `B + σ`; the only
-input still owed by the parity construction is the inner lower bound on `σ`, isolated
+input still owed by the parity part is the inner lower bound on `σ`, isolated
 here as the hypothesis `hSlow`.
 -/
 
@@ -309,7 +309,7 @@ theorem torusIntegral_inv_le
 
 /-! ## The inner lower bound on `σ`, and the manuscript's form of (6) -/
 
-/-- **The inner-zone lower bound on the logarithmic correction `σ`.** With
+/-- **The inner-zone lower bound on the logarithmic correction `σ`.**  With
 `σ(r,β) = sin²β · J` and `J ≥ (κπ)⁻¹ log(1 + π/(δ + ρ + |β|))` (which is the
 value of the fibre integral `∫ dm(r')/M(r,r',β)` for the even majorant
 `M = κ(δ + |r| + |r'| + |β|)`), the hypotheses `δ ≤ ρ²`, `ρ ≤ 1/4`, `|β| ≤ √ρ`
@@ -377,7 +377,7 @@ theorem sigma_inner_lower {kappa delta rho beta J : ℝ}
   rw [goal_eq, ← key]
   exact mul_le_mul hsin hJlow (by positivity) (by positivity)
 
-/-- **Ingredient (d) of Move 1, in the manuscript's variables.** With
+/-- **Ingredient (d) of Move 1, in the manuscript's variables.**  With
 `B(r,β) = λ + d(r) + d(β)` and an abstract nonnegative `σ` obeying the inner
 lower bound `hSlow`, the `β` integral of `(B + σ)⁻¹` obeys `(6)`:
 

@@ -4,11 +4,11 @@ import Manhattan.Glue.CubicDischargeTorus
 /-!
 # Version 4, Step 2: the even majorant `M` and the majorization of the multiplier
 
-Version 4 of the argument (the Version 4 argument, Steps 2--3 and the
+Version 4 of the argument (Steps 2--3 and the
 `VERSION 4` section) replaces the multiplier `M(P)` of the manuscript's (35) by
 the **separately even** majorant
 
-  `M(r,r',β) = κ (δ + |r| + |r'| + |β|)`, `δ = √λ + a`.
+  `M(r,r',β) = κ (δ + |r| + |r'| + |β|)`,      `δ = √λ + a`.
 
 Everything that the parity construction needs from `M` is that it is positive,
 symmetric in the two row frequencies, and **even in each variable separately**;
@@ -18,19 +18,19 @@ the existing development already contains.
 ## What is proved
 
 * `Manhattan.V4.torusAbs`, the distance to `2πℤ`, written as `|·|` of the
-  reduction to the fundamental domain `(-π,π]`. On `(-π,π]` it *is* `|·|`
+  reduction to the fundamental domain `(-π,π]`.  On `(-π,π]` it *is* `|·|`
   (`torusAbs_eq_abs`), so `evenMajorant` is literally the note's `M` on the
   fundamental domain, but it is genuinely `2π`-periodic and even, which the
-  bare `|·|` is not. Both properties are used by the parity construction:
+  bare `|·|` is not.  Both properties are used by the parity construction:
   evenness for the four cancellations, periodicity for the translation in the
   row frequency that identifies `(I-Π)K`.
 * `Manhattan.V4.multiplier_le_evenMajorant`: the **majorization**
 
-    `Estimates.multiplier 40 q (β, r+r'-p₂) ≤ evenMajorant 120 δ r r' β`
+    `Estimates.multiplier 40 q (β, r+r'-p₂)  ≤  evenMajorant 120 δ r r' β`
 
-  whenever `λ ≤ δ` and `|p₂| ≤ δ`. The two inputs are `2|sin(x/2)| ≤ |x|`
+  whenever `λ ≤ δ` and `|p₂| ≤ δ`.  The two inputs are `2|sin(x/2)| ≤ |x|`
   (applied to the fundamental representative, which is where `torusAbs`
-  enters) and `|α|_𝕋 ≤ |r| + |r'| + |p₂|`. The constant is `κ = 120 = 3·40`.
+  enters) and `|α|_𝕋 ≤ |r| + |r'| + |p₂|`.  The constant is `κ = 120 = 3·40`.
 * `Manhattan.V4.rawMultiplierEnergy_le_evenMajorantEnergy`: the integrated
   form, `∫ multiplier |k|² ≤ ∫ M |k|²` for every bounded measurable raw
   type-`112` kernel.
@@ -40,25 +40,25 @@ the existing development already contains.
 The operator estimate (OP) of the note is obtained from the existing
 development by composing
 
-  `‖Π K‖₊² + ‖D₃ (Π K)‖₋² ≤ 5 ∑ ∫ multiplier |Π K|²`
+  `‖Π K‖₊² + ‖D₃ (Π K)‖₋²  ≤  5 ∑ ∫ multiplier |Π K|²`
       (`Manhattan.Glue.tsum_integral_inv_symbolWeight_degreeRaiseDir_le`
        together with `Estimates.fourEstimateCore_le_multiplier` and the
        transport of `Manhattan/Glue/Transport.lean`)
-  ` ≤ 5 ∑ ∫ multiplier |K|²`
+  `                        ≤  5 ∑ ∫ multiplier |K|²`
       (the input-projection contraction, `Manhattan/Glue/OrderedContractivity.lean`
        and `Manhattan.Glue.multiplier_integral_type112DiagonalProjection_le`)
-  ` ≤ 5 ∑ ∫ M |K|²`
+  `                        ≤  5 ∑ ∫ M |K|²`
       (this file).
 
 **The projection contraction is applied with the TRUE total-frequency
-multiplier, and only then is the weight enlarged to `M`.** That is why no
+multiplier, and only then is the weight enlarged to `M`.**  That is why no
 commutation of `Π` with `M` is ever needed: `M` is not a function of the total
 frequency `P = (β, α)` alone -- it depends on `r` and `r'` separately -- so it
 does *not* commute with `Π`, and the enlargement is a pointwise inequality
 under a fixed integral, performed after every operator step is finished.
 
 Paper: `manuscript.tex:983-987` (`eq:M` = (35)), `manuscript.tex:1193-1198`
-(equation (46)); ERRATA E-010 for the multiplier's failure to be
+(equation (46)); ERRATA E-010 / for the multiplier's failure to be
 a trigonometric polynomial.
 -/
 
@@ -133,7 +133,7 @@ theorem torusAbs_measurable : Measurable torusAbs := by
   have h : Measurable fun x : ℝ => ‖Glue.torusWrap x‖ := Glue.torusWrap_measurable.norm
   simpa [torusAbs, Real.norm_eq_abs] using h
 
-/-- The distance to `2πℤ` is an even function. This is the property the
+/-- The distance to `2πℤ` is an even function.  This is the property the
 parity construction uses. -/
 theorem torusAbs_neg (x : ℝ) : torusAbs (-x) = torusAbs x := by
   obtain ⟨n, hn⟩ := exists_torusWrap_decomposition x
@@ -295,13 +295,13 @@ theorem evenMajorant_le {kappa delta : ℝ} (hkappa : 0 ≤ kappa) (r r' beta : 
 
 /-! ## The majorization -/
 
-/-- **The majorization.** The multiplier `M(P)` of the manuscript's (35), at
+/-- **The majorization.**  The multiplier `M(P)` of the manuscript's (35), at
 the total frequency `P = (β, r+r'-p₂)` of the shifted row/column variables, is
 dominated by the even majorant with `κ = 120`, as soon as `λ ≤ δ` and
 `|p₂| ≤ δ`.
 
 Both hypotheses hold in Version 4, where `δ = √λ + a` and `a = |p₁| ≥ |p₂|`:
-then `λ = (√λ)² ≤ δ²`, so `λ ≤ δ` whenever `δ ≤ 1`, and `|p₂| ≤ a ≤ δ`. No
+then `λ = (√λ)² ≤ δ²`, so `λ ≤ δ` whenever `δ ≤ 1`, and `|p₂| ≤ a ≤ δ`.  No
 hypothesis `λ ≤ a²` is needed, which is exactly what replacing `a` by `δ`
 buys. -/
 theorem multiplier_le_evenMajorant {q : Estimates.Parameters} {delta p₂ : ℝ}
@@ -309,6 +309,34 @@ theorem multiplier_le_evenMajorant {q : Estimates.Parameters} {delta p₂ : ℝ}
     Estimates.multiplier 40 q
         (Estimates.mixedTotalFrequency beta (r + r' - p₂))
       ≤ evenMajorant 120 delta r r' beta := by
+  have hbeta : 2 * |Real.sin (beta / 2)| ≤ torusAbs beta :=
+    two_abs_sin_half_le_torusAbs beta
+  have halpha : 2 * |Real.sin ((r + r' - p₂) / 2)| ≤ torusAbs r + torusAbs r' + delta :=
+    (two_abs_sin_half_mixedAlpha_le r r' p₂).trans (by linarith)
+  have hdbeta := dispersion_le_two_abs_sin_half beta
+  have hdalpha := dispersion_le_two_abs_sin_half (r + r' - p₂)
+  have hr := torusAbs_nonneg r
+  have hr' := torusAbs_nonneg r'
+  have hb := torusAbs_nonneg beta
+  simp only [Estimates.multiplier, Estimates.theta, Estimates.mixedTotalFrequency,
+    evenMajorant, Matrix.cons_val_zero, Matrix.cons_val_one]
+  linarith
+
+/-- **The sharp pointwise majorant.**  The manuscript's `eq:M` takes
+`M = 4(δ + |r| + |r'| + |β|)`.  The inequality in fact holds with `κ = 3`, and
+with the multiplier at its own sharp normalization `κ = 1` rather than the `40`
+that the projection-contraction chain carries.
+
+Together with `symbolWeight_le_multiplier_one` this is the manuscript's
+majorization at a constant better than the printed one.  It is stated
+separately from `multiplier_le_evenMajorant` because the route to
+`operatorEstimate` runs through frozen lemmas normalized at `κ = 40`; those
+would have to be restated at a general `κ` before this sharp form could replace
+the lossy one in the composed bound. -/
+theorem multiplier_one_le_evenMajorant_three {q : Estimates.Parameters}
+    {delta p₂ : ℝ} (hlam : q.lambda ≤ delta) (hp₂ : |p₂| ≤ delta) (r r' beta : ℝ) :
+    Estimates.multiplier 1 q (Estimates.mixedTotalFrequency beta (r + r' - p₂))
+      ≤ evenMajorant 3 delta r r' beta := by
   have hbeta : 2 * |Real.sin (beta / 2)| ≤ torusAbs beta :=
     two_abs_sin_half_le_torusAbs beta
   have halpha : 2 * |Real.sin ((r + r' - p₂) / 2)| ≤ torusAbs r + torusAbs r' + delta :=
@@ -389,7 +417,7 @@ theorem torusIntegral₃_mono {F G : ℝ → ℝ → ℝ → ℝ}
     rw [Real.norm_eq_abs]
     exact hGb x y z
 
-/-- **The integrated majorization.** The raw multiplier energy of the
+/-- **The integrated majorization.**  The raw multiplier energy of the
 manuscript is dominated by the even-majorant energy. -/
 theorem rawMultiplierEnergy_le_evenMajorantEnergy {q : Estimates.Parameters}
     {delta p₂ : ℝ} {k : ℝ → ℝ → ℝ → ℂ}

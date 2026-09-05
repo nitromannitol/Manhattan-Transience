@@ -2,7 +2,7 @@ import Manhattan.V4.MixedBridge
 import Manhattan.V4.AssemblyWitnesses
 
 /-!
-# The formalization: the non-degeneracy certificates for the mixed bridge
+# The non-degeneracy certificates for the mixed bridge
 
 Every statement of `Manhattan/V4/MixedBridge.lean` gets a witness here:
 explicit parameters satisfying all of its hypotheses simultaneously, and, for
@@ -10,21 +10,21 @@ each inequality, a proof that it is **strict** at explicit data, so no link can
 be `X = X` after unfolding.
 
 * `witnessProfile` is `Manhattan.V4.sineProfile` at the constant profile
-  `φ ≡ 1`, so `v(r,β) = sin r`. It is not the zero profile:
+  `φ ≡ 1`, so `v(r,β) = sin r`.  It is not the zero profile:
   `witnessProfile_at_half_pi` evaluates it to `1`, and
   `strict_norm_parityKernel_pos` shows the kernel fed to the bridge is nonzero
-  at explicit frequencies. So no identity proved about it is `0 = 0`.
+  at explicit frequencies.  So no identity proved about it is `0 = 0`.
 * `nonvacuity_mixedFourierCoefficient_rawOffDiagonalPart` instantiates the
   bridge itself: all three hypotheses (`TorusBoundedThree`, row periodicity, row
   symmetry) hold simultaneously at `κ = 120`, `δ = 1/100` and that profile.
 * `strict_shiftPhase_ne_one`: the unimodular `(shift)` factor in the bridge is
-  `-1` at `p₂ = π`, `m = 1`. The bridge is therefore not the identity with a
+  `-1` at `p₂ = π`, `m = 1`.  The bridge is therefore not the identity with a
   hidden `1` in front.
 * `strict_parityMixedSymbol_normalization`: the mixed symbol is `(√2)⁻¹ σ v`
   and **not** `σ v`; the two are strictly different at explicit frequencies.
   `strict_hMinusEnergy_density_halving`: the `2⁻¹` in
-  `hMinusEnergy_parityMixed_density` is likewise strict. A silently doubled or
-  halved constant is caught by these two. `parityMixedSymbol_ne_zero` shows the
+  `hMinusEnergy_parityMixed_density` is likewise strict.  A silently doubled or
+  halved constant is caught by these two.  `parityMixedSymbol_ne_zero` shows the
   function whose Fourier coefficients the bridge computes is not the zero
   function, and `nonvacuity_mixedFourierCoefficient_shift` instantiates the
   translation lemma.
@@ -82,7 +82,7 @@ theorem witnessProfile_at_half_pi (r : ℝ) :
     witnessProfile.toFun (Real.pi / 2) r = 1 := by
   rw [witnessProfile_toFun, Real.sin_pi_div_two, mul_one]
 
-/-- **Strict.** The Version 4 kernel is genuinely nonzero at explicit
+/-- **Strict.**  The Version 4 kernel is genuinely nonzero at explicit
 frequencies, so no identity proved about it is `0 = 0`. -/
 theorem strict_norm_parityKernel_pos :
     0 < ‖parityKernel 120 (1/100) witnessProfile.toFun
@@ -118,7 +118,7 @@ theorem witness_symmetric (r r' b : ℝ) :
       = parityKernel 120 (1/100) witnessProfile.toFun r' r b :=
   parityKernel_swap witnessProfile.toFun r r' b
 
-/-- **The bridge, instantiated.** All three hypotheses of
+/-- **The bridge, instantiated.**  All three hypotheses of
 `mixedFourierCoefficient_rawOffDiagonalPart` hold simultaneously at
 `κ = 120`, `δ = 1/100` and the nonzero profile `witnessProfile`, and the
 landed conclusion is a statement about that concrete instance. -/
@@ -137,8 +137,8 @@ theorem nonvacuity_mixedFourierCoefficient_rawOffDiagonalPart
 
 /-! ### The `(shift)` phase is not the identity -/
 
-/-- **Strict.** The unimodular factor in the bridge is a genuine phase: at
-`p₂ = π` and `m = 1` it is `-1`. So the bridge is not the identity
+/-- **Strict.**  The unimodular factor in the bridge is a genuine phase: at
+`p₂ = π` and `m = 1` it is `-1`.  So the bridge is not the identity
 `X = X` with a hidden `1` in front. -/
 theorem strict_shiftPhase_ne_one :
     Glue.intCharacter 1 Real.pi ≠ 1 := by
@@ -161,7 +161,7 @@ theorem one_lt_sqrt_two : (1:ℝ) < Real.sqrt 2 := by
 theorem inv_sqrt_two_lt_one : (Real.sqrt 2)⁻¹ < 1 :=
   inv_lt_one_of_one_lt₀ one_lt_sqrt_two
 
-/-- **Strict.** `σ v > 0` at explicit frequencies. -/
+/-- **Strict.**  `σ v > 0` at explicit frequencies. -/
 theorem strict_paritySigma_mul_profile_pos :
     0 < paritySigma 120 (1/100) (Real.pi / 2) (Real.pi / 2) *
       witnessProfile.toFun (Real.pi / 2) (Real.pi / 2) := by
@@ -173,8 +173,8 @@ theorem strict_paritySigma_mul_profile_pos :
   rw [witnessProfile_at_half_pi]
   simpa using hsigma
 
-/-- **Strict.** The mixed symbol of the Version 4 competitor is `(√2)⁻¹ σ v`
-and **not** `σ v`: the two differ at explicit frequencies. A silently dropped
+/-- **Strict.**  The mixed symbol of the Version 4 competitor is `(√2)⁻¹ σ v`
+and **not** `σ v`: the two differ at explicit frequencies.  A silently dropped
 `(√2)⁻¹` would therefore be caught here. -/
 theorem strict_parityMixedSymbol_normalization :
     (Real.sqrt 2)⁻¹ * (paritySigma 120 (1/100) (Real.pi / 2) (Real.pi / 2) *
@@ -184,7 +184,7 @@ theorem strict_parityMixedSymbol_normalization :
   have hpos := strict_paritySigma_mul_profile_pos
   nlinarith [inv_sqrt_two_lt_one]
 
-/-- **Strict.** The `2⁻¹` in `hMinusEnergy_parityMixed_density` is not slack:
+/-- **Strict.**  The `2⁻¹` in `hMinusEnergy_parityMixed_density` is not slack:
 the halved density is strictly below the unhalved one at explicit
 frequencies. -/
 theorem strict_hMinusEnergy_density_halving :
@@ -236,7 +236,7 @@ theorem nonvacuity_mixedFourierCoefficient_shift (p : Fin 2 → ℝ) (m n : ℤ)
 
 /-! ### The weighted scalar completion is strict -/
 
-/-- **Strict.** At `B = σ = w = 1`, `C = 18` and `u = 0` the weighted
+/-- **Strict.**  At `B = σ = w = 1`, `C = 18` and `u = 0` the weighted
 completion reads `18/19 < 1`. -/
 theorem strict_weightedCompletion_le :
     (1:ℝ) ^ 2 / (1 + 1 / 18) < 18 * 1 * (0:ℝ) ^ 2 + (1 - 1 * (0:ℝ)) ^ 2 / 1 := by
@@ -247,7 +247,7 @@ theorem nonvacuity_weightedCompletion_le :
   weightedCompletion_le (B := 1) (sigma := 1) (w := 1) (C := 18)
     (by norm_num) (by norm_num) (by norm_num) 0
 
-/-- **Strict.** At `B = σ = w = 1`, `C = 18` the passage to the Move 1 density
+/-- **Strict.**  At `B = σ = w = 1`, `C = 18` the passage to the Move 1 density
 reads `18/19 < 9`. -/
 theorem strict_weightedCompletion_le_density :
     (1:ℝ) ^ 2 / (1 + 1 / 18) < 18 * ((1:ℝ) ^ 2 / (1 + 1)) := by
@@ -260,7 +260,7 @@ theorem nonvacuity_weightedCompletion_le_density :
 
 /-! ### The degree-two dual form, instantiated -/
 
-/-- **The degree-two dual form at explicit data.** Every hypothesis of
+/-- **The degree-two dual form at explicit data.**  Every hypothesis of
 `hMinusEnergy_parityMixed_density` holds simultaneously at `λ = 1/2`,
 `κ = 120`, `δ = 1/100` and the nonzero `witnessProfile`. -/
 theorem nonvacuity_hMinusEnergy_parityMixed_density (p : Fin 2 → ℝ) :

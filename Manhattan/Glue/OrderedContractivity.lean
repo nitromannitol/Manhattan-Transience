@@ -10,10 +10,10 @@ statement form is the commutation clause of Lemma 5.1 at
 `manuscript.tex:1189-1190`), `manuscript.tex:1212-1221` (Lemma 5.3,
 `lem:distinct`).
 
-the formalization proved the analogous statement for the *coincident-row diagonal*
+The analogous statement for the *coincident-row diagonal* is proved
 (`Manhattan.Glue.diagonalMultiplierEnergy_le_rawMultiplierEnergy`), and
 `Manhattan.norm_type112DiagonalProjection_le` is the *unweighted* contractivity
-of the passage to the ordered representative. This file supplies the missing
+of the passage to the ordered representative.  This file supplies the missing
 weighted statement: passing from a raw coefficient indexed by ordered, possibly
 coincident tuples of lines to its ordered off-diagonal representative (the
 sorted enumeration `Manhattan.Glue.degreeEnum` of a Finset Walsh index) is
@@ -36,8 +36,8 @@ namespace Manhattan.Glue
 /-! ### An abstract splitting device
 
 If a bounded operator commutes with an orthogonal projection, its quadratic
-form splits as the sum of the forms on the range and on the kernel. Positivity
-of the operator then gives contractivity. No square root and no spectral
+form splits as the sum of the forms on the range and on the kernel.  Positivity
+of the operator then gives contractivity.  No square root and no spectral
 theory is needed. -/
 
 section Abstract
@@ -87,7 +87,7 @@ theorem re_inner_le_of_commuting_projection (T P : E →L[ℂ] E)
   rw [inner_split_of_commuting_projection T P hidem hsym hcomm c, map_add]
   linarith [hpos (c - P c)]
 
-/-- The same, transported through an intertwining map. This is the form used
+/-- The same, transported through an intertwining map.  This is the form used
 for the image energies: if `A` intertwines a projection `P` upstairs with a
 projection `Q` downstairs, and the weight `N` commutes with `Q`, then the
 `N`-energy of `A` applied to the projected vector is no larger. -/
@@ -126,7 +126,7 @@ private theorem memlp_indicator (s : Set ι) (c : ℓ²(ι, ℂ)) :
     (indicator_norm_rpow_le s c)
     (c.prop.summable (by norm_num : 0 < ENNReal.toReal 2))
 
-/-- Restriction of a square-summable family to a set of coordinates. This is
+/-- Restriction of a square-summable family to a set of coordinates.  This is
 the orthogonal projection onto the closed span of the corresponding standard
 vectors. -/
 def l2SupportProjection (s : Set ι) : ℓ²(ι, ℂ) →L[ℂ] ℓ²(ι, ℂ) :=
@@ -251,7 +251,7 @@ end Ext
 /-! ### The ordered representatives
 
 The sorted enumeration `degreeEnum` of a Finset Walsh index is the paper's
-choice of ordered representative for an off-diagonal tuple of lines. Its
+choice of ordered representative for an off-diagonal tuple of lines.  Its
 range is the set of ordered representatives, and restriction to that range is
 the orthogonal projection realising the passage from a raw, possibly
 coincident, ordered coefficient to its Finset coefficient. -/
@@ -299,7 +299,7 @@ private theorem memlp_orderedRestrict (c : OrderedCoefficient n) :
       (degreeEnum_injective n)
 
 /-- Passing from an ordered coefficient to the Finset coefficient by reading it
-at the sorted representatives. This is the ordered analogue of
+at the sorted representatives.  This is the ordered analogue of
 `Manhattan.type112DiagonalProjection`. -/
 def orderedRestrict : OrderedCoefficient n →L[ℂ] DegreeCoefficient n :=
   LinearMap.mkContinuous
@@ -384,10 +384,10 @@ theorem norm_orderedRestrict (c : OrderedCoefficient n) :
 
 This is the paper's "a multiplier in `P` is a combination of simultaneous
 translations of all line indices, which preserve distinctness"
-(`manuscript.tex:1233-1235`). Sorting is equivariant
+(`manuscript.tex:1233-1235`).  Sorting is equivariant
 (`Manhattan.Glue.degreeEnum_translateDegreeIndex`), so a simultaneous
 translation not only preserves distinctness but also preserves the *choice of
-ordered representative*. That is what upgrades L3's
+ordered representative*.  That is what upgrades L3's
 `orderedH_comm_offDiagonalProjection` to the statement needed for (46). -/
 
 theorem tupleTranslate_image_degreeRange (x : Operator.Lattice) :
@@ -550,9 +550,9 @@ theorem re_inner_orderedH_nonneg {lam : ℝ} (hlam : 0 ≤ lam) (p : Fin 2 → �
 /-! ### The ordered representatives are off-diagonal
 
 The sorted enumeration of an `n`-element Finset is injective as a tuple, so the
-ordered representatives already lie in the range of the paper's `Pi_n`. The
+ordered representatives already lie in the range of the paper's `Pi_n`.  The
 passage to the ordered representative therefore *factors through* the removal
-of the coincident-row diagonal, and the contractivity below refines the formalizations
+of the coincident-row diagonal, and the contractivity below refines s
 diagonal statement rather than repeating it. -/
 
 theorem injective_degreeEnum_tuple (S : WalshDegreeIndex n) :
@@ -604,7 +604,7 @@ theorem offDiagonalProjection_sym (c d : OrderedCoefficient n) :
   refine tsum_congr fun t => ?_
   by_cases h : Function.Injective t <;> simp [h]
 
-/-- **Equation (46) for a general weight.** Any nonnegative operator on the
+/-- **Equation (46) for a general weight.**  Any nonnegative operator on the
 ordered coefficients that commutes with the choice of ordered representative
 has smaller energy after the passage to that representative. -/
 theorem re_inner_orderedRepresentativeProjection_le
@@ -621,7 +621,7 @@ theorem re_inner_orderedRepresentativeProjection_le
     (orderedRepresentativeProjection_sym n) hcomm hpos c
 
 /-- **Equation (46) for the removal of the coincident-row diagonal**, in the
-ordered coefficient picture. This is the operator-side companion of the formalizations
+ordered coefficient picture.  This is the operator-side companion of s
 `diagonalMultiplierEnergy_le_rawMultiplierEnergy`. -/
 theorem re_inner_orderedH_offDiagonalProjection_le {lam : ℝ} (hlam : 0 ≤ lam)
     (p : Fin 2 → ℝ) (c : OrderedCoefficient n) :
@@ -646,9 +646,9 @@ theorem re_inner_orderedH_orderedRepresentativeProjection_le {lam : ℝ}
     (orderedH_comm_orderedRepresentativeProjection n lam p)
     (re_inner_orderedH_nonneg n hlam p) c
 
-/-- **The target statement.** Reading a raw ordered coefficient at the sorted
+/-- **The target statement.**  Reading a raw ordered coefficient at the sorted
 representatives, that is, passing to the Finset-indexed Walsh coefficient of
-degree `n`, is contractive for the `H_n` energy. This is the weighted
+degree `n`, is contractive for the `H_n` energy.  This is the weighted
 analogue of `Manhattan.norm_type112DiagonalProjection_le`. -/
 theorem re_inner_coeffH_orderedRestrict_le {lam : ℝ} (hlam : 0 ≤ lam)
     (p : Fin 2 → ℝ) (c : OrderedCoefficient n) :

@@ -3,7 +3,7 @@ import Manhattan.Model.LowDegree
 /-!
 # Complete degree-two Walsh sectors and the lowering part of the skew fiber
 
-The paper writes degree-two coefficients in ordered tuple coordinates. Here
+The paper writes degree-two coefficients in ordered tuple coordinates.  Here
 the two-row and mixed sectors are indexed directly by two-element Finsets.
 Their synthesis and analysis maps therefore have no factorial rescaling.
 
@@ -157,7 +157,7 @@ noncomputable def type112DStar (p : Fin 2 → ℝ)
   type11WalshSynthesis (type112DStarTwoRow p c) +
     type12WalshSynthesis (type112DStarMixed p c)
 
-/-- Adjoint characterization of the two-row lowering coefficient. There is
+/-- Adjoint characterization of the two-row lowering coefficient.  There is
 no `sqrt 2` or factorial: all three synthesis maps are literal isometries. -/
 theorem type112DStarTwoRow_apply (p : Fin 2 → ℝ)
     (c : ℓ²(Type112Index, ℂ)) (T : Type11Index) :
@@ -170,7 +170,7 @@ theorem type112DStarTwoRow_apply (p : Fin 2 → ℝ)
     inner_neg_left]
   simp
 
-/-- Spatial Finset form of (D2a). The finite sum is the actual raising
+/-- Spatial Finset form of (D2a).  The finite sum is the actual raising
 coefficient of `A` on the test index, paired with the complete type-`112`
 coefficient. -/
 theorem type112DStarTwoRow_apply_finset (p : Fin 2 → ℝ)
@@ -181,7 +181,7 @@ theorem type112DStarTwoRow_apply_finset (p : Fin 2 → ℝ)
   rw [type112DStarTwoRow_apply, concreteFiberA_walshL2,
     inner_walshSynthesis_type112WalshSynthesis]
 
-/-- Adjoint characterization of the mixed lowering coefficient. In Finset
+/-- Adjoint characterization of the mixed lowering coefficient.  In Finset
 coordinates its normalization is one; the manuscript's tuple-space `sqrt 2`
 is not imported. -/
 theorem type112DStarMixed_apply (p : Fin 2 → ℝ)
@@ -195,7 +195,7 @@ theorem type112DStarMixed_apply (p : Fin 2 → ℝ)
     inner_neg_left]
   simp
 
-/-- Spatial Finset form of (D2b). Unlike the ordered-tuple display in the
+/-- Spatial Finset form of (D2b).  Unlike the ordered-tuple display in the
 manuscript, this exact isometric formula has no external `sqrt 2` factor. -/
 theorem type112DStarMixed_apply_finset (p : Fin 2 → ℝ)
     (c : ℓ²(Type112Index, ℂ)) (T : Type12Index) :

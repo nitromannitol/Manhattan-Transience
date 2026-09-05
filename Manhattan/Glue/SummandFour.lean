@@ -8,7 +8,7 @@ import Mathlib.Analysis.Real.Pi.Bounds
 
 Summand 4 of the four-sector form (22) is `‖D₃k_p‖²_{-1}`, read off
 as the degree-four Walsh sector of the unnormalized residual
-(`Manhattan.Glue.SummandFourBound`). The paper bounds it in the second half
+(`Manhattan.Glue.SummandFourBound`).  The paper bounds it in the second half
 of Lemma 5.2 (`manuscript.tex:1196-1205`, proof at
 `manuscript.tex:1257-1272`): drop the projections by (46), bound the square of
 the raising sum of (45) by the number of its terms times the sum of squares,
@@ -25,14 +25,14 @@ This file supplies three of the ingredients of that argument.
 * The **`H⁻¹` transport in a fixed degree**: for a homogeneous vector the dual
   energy is the explicit weighted line-frequency integral of (20)
   (`hMinusEnergy_homogeneousWalshSynthesis`,
-  `sectorDFourForm_eq_integral`). This is the `H⁻¹` companion of
-  `Manhattan.Glue.re_inner_coeffH_eq_integral`, which the formalization used for the
+  `sectorDFourForm_eq_integral`).  This is the `H⁻¹` companion of
+  `Manhattan.Glue.re_inner_coeffH_eq_integral`, which  used for the
   `H₃` half.
 * The **momentum comparison**: `Manhattan.correctionType112Coefficients` takes
   the Fourier coefficients of the manuscript's `k̃` in the shifted variables
   `(r,r',β)` of `manuscript.tex:812-814` without the compensating phase, so
   the objective's total frequency at the momentum `p` differs from the
-  manuscript's by `(p₁, p₂+p₂)`. Wherever `k̃` is nonzero, the support
+  manuscript's by `(p₁, p₂+p₂)`.  Wherever `k̃` is nonzero, the support
   intervals of `manuscript.tex:1040-1063` separate `α` from the origin by
   `4K(a+√λ+|β|)`, which dominates that shift with room to spare; the raising
   density at the momentum `p` is then at most eight times the raising density
@@ -67,7 +67,7 @@ private theorem walshVector_ext {x y : WalshL2}
 /-! ### The degree-four sector of `A_p k` -/
 
 /-- The degree-four Walsh sector of a difference of a degree-four and a
-degree-two vector is the degree-four term. This is the degree bookkeeping of
+degree-two vector is the degree-four term.  This is the degree bookkeeping of
 `A = D - D*` (`manuscript.tex:735-737`) in the sector of (22). -/
 theorem walshSectorComponent_four_sub {a b : WalshL2}
     (ha : a ∈ Manhattan.walshDegree 4) (hb : b ∈ Manhattan.walshDegree 2) :
@@ -98,10 +98,11 @@ theorem walshSectorComponent_card_mem_walshDegree (n : ℕ) (x : WalshL2) :
   have := Manhattan.walshL2_mem_degree T.1
   rwa [T.2] at this
 
-/-- **Equation (45) in adjoint form.** On a degree-four index the Walsh
+/-- **Equation (45) in adjoint form.**  On a degree-four index the Walsh
 coefficient of the degree-four sector of `A_p k` is the pairing of `k` with
 the finite lowering coefficient of that index; the raising half of `A_p`
-lands in degree five and drops out. -/
+lands in degree five and drops out.
+-/
 theorem inner_walshL2_sectorFour (p : Fin 2 → ℝ) {k : WalshL2}
     (hk : k ∈ Manhattan.walshDegree 3) {T : Finset LineIndex} (hT : T.card = 4) :
     inner ℂ (Manhattan.walshL2 T)
@@ -119,7 +120,8 @@ theorem inner_walshL2_sectorFour (p : Fin 2 → ℝ) {k : WalshL2}
   ring
 
 /-- The degree-four sector of `A_p k` has a degree-four coefficient
-sequence. -/
+sequence.
+-/
 theorem exists_sectorFour_coefficient (p : Fin 2 → ℝ) (k : WalshL2) :
     ∃ c : DegreeCoefficient 4, homogeneousWalshSynthesis 4 c =
       walshSectorComponent (fun S => S.card = 4) (Manhattan.concreteFiberA p k) := by
@@ -129,9 +131,9 @@ theorem exists_sectorFour_coefficient (p : Fin 2 → ℝ) (k : WalshL2) :
 
 /-! ### The `H⁻¹` energy in a fixed Walsh degree -/
 
-/-- **The `H⁻¹` transport in degree `n`.** For a homogeneous vector the dual
+/-- **The `H⁻¹` transport in degree `n`.**  For a homogeneous vector the dual
 energy of (12) is the integral of `(λ+θ(P))⁻¹` against the squared modulus of
-the line-frequency coefficient of equation (20). This is the `H⁻¹` companion
+the line-frequency coefficient of equation (20).  This is the `H⁻¹` companion
 of `re_inner_coeffH_eq_integral`. -/
 theorem hMinusEnergy_homogeneousWalshSynthesis (n : ℕ) {lam : ℝ} (hlam : 0 < lam)
     (p : Fin 2 → ℝ) (c : DegreeCoefficient n) :
@@ -154,7 +156,8 @@ theorem hMinusEnergy_homogeneousWalshSynthesis (n : ℕ) {lam : ℝ} (hlam : 0 <
     ← re_inner_coeffH_inv_eq_integral n hlam p c d hd,
     ← inner_conj_symm (𝕜 := ℂ) d c, RCLike.conj_re]
 
-/-- **Summand 4 of (22) as a weighted line-frequency integral.** -/
+/-- **Summand 4 of (22) as a weighted line-frequency integral.**
+-/
 theorem sectorDFourForm_eq_integral {lambda : ℝ} (hlambda : 0 < lambda)
     (p : Fin 2 → ℝ) (k : WalshL2) (c : DegreeCoefficient 4)
     (hc : homogeneousWalshSynthesis 4 c =
@@ -168,7 +171,7 @@ theorem sectorDFourForm_eq_integral {lambda : ℝ} (hlambda : 0 < lambda)
 /-! ### The momentum comparison for the raising density -/
 
 /-- The `α`-interval of `manuscript.tex:1040-1063` is separated from the
-origin by `4K(a+√λ+|β|)`. This sharpens `correctionInterval_bounds`, which
+origin by `4K(a+√λ+|β|)`.  This sharpens `correctionInterval_bounds`, which
 records only the separation `4Ka`. -/
 theorem correctionInterval_bounds_strong {q : Manhattan.Estimates.Parameters}
     (hK : 0 ≤ q.K) {a s beta alpha : ℝ} (ha : 0 ≤ a)
@@ -200,7 +203,7 @@ private theorem pi_sq_le_ten : Real.pi ^ 2 ≤ 10 := by
   nlinarith [Real.pi_lt_d4, Real.pi_pos]
 
 set_option maxHeartbeats 1000000 in
-/-- **The scalar momentum comparison.** When the frequency `α` is separated
+/-- **The scalar momentum comparison.**  When the frequency `α` is separated
 from the origin by `80(a+√λ+|β|)` and stays in `[-π/20,0]`, shifting the two
 total-frequency coordinates by amounts of size at most `a` and `2a` costs at
 most a factor `8/√2` in the raising density `sin²(P)/√(λ+d(P))` of
@@ -317,10 +320,11 @@ theorem sineSqDivSqrt_shift_le_scalar {lam a c0 c1 alpha beta : ℝ}
     div_nonneg (sq_nonneg _) (Real.sqrt_nonneg _)
   linarith
 
-/-- **The momentum comparison at the concrete competitor.** Wherever the
+/-- **The momentum comparison at the concrete competitor.**  Wherever the
 manuscript's `k̃` is nonzero, the raising density at the objective's momentum
 `p` is at most eight times the raising density at the manuscript's frozen
-frequencies, which is the integrand of `rawCubicRaisingEnergy`. -/
+frequencies, which is the integrand of `rawCubicRaisingEnergy`.
+-/
 theorem sineSqDivSqrt_shift_le {q : Manhattan.Estimates.Parameters}
     (hlambda : 0 < q.lambda) (hK : q.K = 20) (hrho : q.rho = Real.pi / 20)
     (p : Fin 2 → ℝ) (horder : |p 1| ≤ |p 0|)
@@ -419,7 +423,8 @@ theorem walshRaiseDir_mem_walshDegree (p : Fin 2 → ℝ) (i : Fin 2)
   exact walshSectorComponent_card_mem_walshDegree 4 _
 
 /-- Each direction of the raised vector has a degree-four coefficient
-sequence. -/
+sequence.
+-/
 theorem exists_walshRaiseDir_coefficient (p : Fin 2 → ℝ) (i : Fin 2)
     {k : WalshL2} (hk : k ∈ Manhattan.walshDegree 3) :
     ∃ c : DegreeCoefficient 4,
@@ -428,7 +433,7 @@ theorem exists_walshRaiseDir_coefficient (p : Fin 2 → ℝ) (i : Fin 2)
   rw [← SetLike.mem_coe, walshDegree_eq_range] at h
   exact h
 
-/-- **Splitting the two raising directions.** The parallelogram bound for the
+/-- **Splitting the two raising directions.**  The parallelogram bound for the
 dual energy costs the factor two of the two-term Cauchy--Schwarz of
 `manuscript.tex:1257-1272` and leaves no cross term. -/
 theorem sectorDFourForm_le_dirs {lambda : ℝ} (hlambda : 0 < lambda)
@@ -467,7 +472,7 @@ theorem sectorDFourForm_le_dir_integrals {lambda : ℝ} (hlambda : 0 < lambda)
 
 /-! ### The reduction of `SummandFourBound` -/
 
-/-- **The reduction of summand 4 of (22).** `SummandFourBound C` is exactly
+/-- **The reduction of summand 4 of (22).**  `SummandFourBound C` is exactly
 the bound on `sectorDFourForm` at the projected correction `k_p`; the passage
 through the unnormalized residual is `sector_four_residual_eq`. -/
 theorem summandFourBound_of_sectorDFour {C : ℝ}

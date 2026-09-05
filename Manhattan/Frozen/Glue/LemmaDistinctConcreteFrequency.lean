@@ -4,11 +4,9 @@ import Manhattan.Glue.CorrectionLowering
 (`lem:distinct`, `manuscript.tex:1212-1221`).
 
 SCOPE, recorded with the node: `projectionErrorHMinusSq` is a frequency-side
-scalar. Nothing in the tree proves it equal to the operator-level
-`‖Π₂ D̃₂* k̃ - D₂* k‖²_{H⁻¹}` of an actual Walsh vector; that bridge is the audit
-action 2 and is still open (,
- ). This node must therefore NOT be read as
-an operator-level rendering of Lemma 5.3. The qualitative clause is
+scalar.  Nothing in the tree proves it equal to the operator-level
+`‖Π₂ D̃₂* k̃ - D₂* k‖²_{H⁻¹}` of an actual Walsh vector; that bridge is still open.  This node must therefore NOT be read as
+an operator-level rendering of Lemma 5.3.  The qualitative clause is
 independently covered at the Walsh level by
 `Manhattan.Glue.type112DStarTwoRow_correction`. -/
 

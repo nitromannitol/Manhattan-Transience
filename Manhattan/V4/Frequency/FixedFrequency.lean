@@ -8,7 +8,7 @@ import Manhattan.Estimates.Regional
 Move 1 of Version 4 supplies, for every real even `phi` supported on
 `Γ_δ = {√δ ≤ |r| ≤ r₀}` with `δ = √λ + a(p)`,
 
-  `r_λ(p) ≤ (1 - s ∫ phi dm)² / h₀ + C ∫_{Γ_δ} q phi² dm`, `q(r) = |r|/√(log(1/|r|))`.
+  `r_λ(p) ≤ (1 - s ∫ phi dm)² / h₀ + C ∫_{Γ_δ} q phi² dm`,   `q(r) = |r|/√(log(1/|r|))`.
 
 This file takes that inequality as a hypothesis and finishes the argument.
 

@@ -14,12 +14,12 @@ vector: the left-hand side is `x ↦ ⟪A_p (walshL2 S), x⟫` by
 linear combination of the Walsh coefficient functionals `x ↦ ⟪walshL2 S, x⟫`.
 The finite type-`112` Walsh polynomials are dense in the range of the complete
 type-`112` synthesis `Manhattan.type112WalshSynthesis`, which is an isometry
-of `ℓ²(Type112Index, ℂ)` onto that closed subspace. Two continuous functionals
+of `ℓ²(Type112Index, ℂ)` onto that closed subspace.  Two continuous functionals
 that agree on a spanning set therefore agree on the whole closed sector, so the
 formulas hold for an arbitrary square-summable type-`112` coefficient.
 
 The statements below are the `L²` forms of (D2a) and (D2b) in the Finset
-(spatial) coordinates. They are stated with no symmetry and no
+(spatial) coordinates of.  They are stated with no symmetry and no
 diagonal-freeness hypothesis: a Finset index carries distinctness by
 construction, and the coefficient of a type-`112` vector at a non-type-`112`
 index vanishes.
@@ -78,7 +78,7 @@ theorem not_isType112_tripleToFinset_diag (a c : ℤ) :
 
 /-! ## (D2a) and (D2b) on the whole type-`112` sector -/
 
-/-- **(D2a) on all of `L²`.** For every vector carried by the type-`112`
+/-- **(D2a) on all of `L²`.**  For every vector carried by the type-`112`
 indices the two-row Walsh coefficient of `D₂* x` is one signed lattice step in
 *both* row indices, with the column index of the input pinned to the origin.
 No finite support, no symmetry and no diagonal-freeness hypothesis is used. -/
@@ -106,7 +106,7 @@ theorem loweringCoefficient_rowPair_of_supported (p : Fin 2 → ℝ) {x : WalshL
     hx _ (not_isType112_toggle_horizontal_rowPair m m')]
   ring
 
-/-- **(D2b) on all of `L²`.** For every vector carried by the type-`112`
+/-- **(D2b) on all of `L²`.**  For every vector carried by the type-`112`
 indices the mixed Walsh coefficient of `D₂* x` is one signed lattice step in the
 column index, with the second row index of the input pinned to the origin. -/
 theorem loweringCoefficient_mixedPair_of_supported (p : Fin 2 → ℝ) {x : WalshL2}
@@ -172,7 +172,7 @@ theorem type112WalshSynthesis_mem_topologicalClosure (c : ℓ²(Type112Index, �
     exact this
   exact Submodule.topologicalClosure_mono hU hrange
 
-/-- **The closure argument.** Two continuous linear functionals that agree on
+/-- **The closure argument.**  Two continuous linear functionals that agree on
 every type-`112` Walsh character agree on the whole closed type-`112` sector. -/
 theorem eq_of_mem_type112Closure {f g : WalshL2 →L[ℂ] ℂ}
     (h : ∀ T : Type112Index, f (walshL2 T.1) = g (walshL2 T.1))
@@ -216,7 +216,7 @@ def walshFunctional (S : Finset LineIndex) : WalshL2 →L[ℂ] ℂ :=
 @[simp] theorem walshFunctional_apply (S : Finset LineIndex) (x : WalshL2) :
     walshFunctional S x = walshCoefficientAt x S := rfl
 
-/-- **(D2a) on the closed type-`112` sector, by density.** This is the closure
+/-- **(D2a) on the closed type-`112` sector, by density.**  This is the closure
 argument in the form the manuscript uses it: both sides are continuous linear
 functionals, they agree on every finite type-`112` Walsh polynomial, hence they
 agree on the closure of those polynomials. -/
@@ -288,7 +288,7 @@ theorem rowPairFinset_type11RawIndex (T : Type11Index) :
     congrArg Subtype.val h
   exact h1
 
-/-- **(D2a) for an arbitrary square-summable type-`112` coefficient.** This is
+/-- **(D2a) for an arbitrary square-summable type-`112` coefficient.**  This is
 the `L²` form of `Manhattan.Glue.frequency_D2a`: the complete two-row component
 of `D₂*` is one signed lattice step in both row indices, with the column index
 of the input pinned to the origin. -/
@@ -306,7 +306,7 @@ theorem type112DStarTwoRow_eq (p : Fin 2 → ℝ) (c : ℓ²(Type112Index, ℂ))
       (type112WalshSynthesis_mem_topologicalClosure c)]
   simp only [walshCoefficientAt, inner_walshL2_type112WalshSynthesis]
 
-/-- **(D2b) for an arbitrary square-summable type-`112` coefficient.** This is
+/-- **(D2b) for an arbitrary square-summable type-`112` coefficient.**  This is
 the `L²` form of `Manhattan.Glue.frequency_D2b`. -/
 theorem type112DStarMixed_eq (p : Fin 2 → ℝ) (c : ℓ²(Type112Index, ℂ))
     (m n : ℤ) :

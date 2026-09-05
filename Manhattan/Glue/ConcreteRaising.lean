@@ -7,7 +7,7 @@ This module proves, for the actual operator `concreteFiberEnvironment.fiberA`,
 the splitting `A = D - D*` of `manuscript.tex:735-737` together with the
 explicit coefficient formula (45) of `manuscript.tex:1179-1188`.
 
-The formalization indexes Walsh chaos by finite sets of distinct line indices.  In
+indexes Walsh chaos by finite sets of distinct line indices.  In
 that convention the paper's symmetrization factor `1/(n+1)` and the sum over
 the `n+1` slots of an ordered tuple are replaced by the single sum over the two
 possible types of the appended line: raising appends the line of type `i`
@@ -99,7 +99,6 @@ theorem walshL2_ext_op {T U : WalshL2 →L[ℂ] WalshL2}
   refine ContinuousLinearMap.ext_on walshL2_span_dense ?_
   rintro _ ⟨S, rfl⟩
   exact h S
-
 
 /-! ### The creation and annihilation halves of a sign multiplication
 
@@ -254,7 +253,8 @@ theorem concreteFiberA_eq_walshRaise_sub_walshLower (p : Fin 2 -> Real) :
   rw [walshRaiseDir, walshLowerDir, sub_neg_eq_add, ← smul_add,
     ← ContinuousLinearMap.add_comp, originRaise_add_originLower]
 
-/-- The same statement for the bundled fiber environment.  The unbundled
+/-- The same statement for the bundled fiber environment.
+The unbundled
 `Manhattan.Glue.concreteFiberA_eq_walshRaise_sub_walshLower` is the one that is
 used. -/
 theorem fiberA_eq_walshRaise_sub_walshLower (p : Fin 2 -> Real) :
@@ -284,7 +284,7 @@ theorem walshLower_eq_adjoint_walshRaise (p : Fin 2 -> Real) :
 /-! ### The exact Finset coefficient formula
 
 This is equation (45) of `manuscript.tex:1181-1188` in the Finset convention of
-this convention.  The appended line index is the line of type `i` through the
+The appended line index is the line of type `i` through the
 origin, so the paper's sum over the `n+1` slots of a symmetric tuple becomes the
 sum over the two types `i` for which that line occurs in the output index set;
 the manuscript's symmetrization factor `1/(n+1)` disappears with the `n!` of

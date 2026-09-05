@@ -9,17 +9,17 @@ is a translate of the alternating environment, which is recurrent, and that the
 recurrence is seen by halving both coordinates at even times: the resulting
 process is the simple random walk on `ℤ²`.
 
-This file proves that reduction. Writing a site reached at an even time as
+This file proves that reduction.  Writing a site reached at an even time as
 `(2a+γ, 2b+γ)` with `γ ∈ {0,1}` (`sitePos`), the theorem `two_step` shows that
 two steps of the walk move the block `(a,b)` by one of the four unit vectors and
-that the new `γ` is read off from that unit vector alone. Counting words then
+that the new `γ` is read off from that unit vector alone.  Counting words then
 gives `two_mul_pathCount`: twice the number of `2(n+1)`-letter words returning
-to the origin is the number of `(n+1)`-step simple-random-walk loops. The
+to the origin is the number of `(n+1)`-step simple-random-walk loops.  The
 factor two is the constraint that the last block step be positive, and it is
 removed by the reflection `S ↦ -S` in `blockReturn_add_neg`.
 
 The only input left unproved is `SimpleRandomWalkRecurrent`, that the
-two-dimensional simple random walk has a divergent Green series. That is
+two-dimensional simple random walk has a divergent Green series.  That is
 Pólya's theorem, which Mathlib does not have.
 
 Paper: the remark before `\begin{problem}[Which orientations are transient]`,
@@ -113,7 +113,7 @@ def cornerVal : Bool → ℤ
   | false => 0
   | true => 1
 
-/-- The site of the block `S` at corner `c`. Every site reached at an even time
+/-- The site of the block `S` at corner `c`.  Every site reached at an even time
 is of this shape. -/
 def sitePos (S : ℤ × ℤ) (c : Bool) : Site :=
   (2 * S.1 + cornerVal c, 2 * S.2 + cornerVal c)
@@ -127,7 +127,7 @@ theorem sitePos_eq_zero_iff (S : ℤ × ℤ) (c : Bool) :
   cases c <;> simp [sitePos, cornerVal, Prod.ext_iff]
   omega
 
-/-- The paper's coarse-graining: halve each coordinate and round down. On `ℤ`
+/-- The paper's coarse-graining: halve each coordinate and round down.  On `ℤ`
 the quotient `/` rounds towards `-∞`. -/
 def halve (z : Site) : ℤ × ℤ := (z.1 / 2, z.2 / 2)
 
@@ -182,7 +182,6 @@ theorem sum_blockStep {M : Type*} [AddCommMonoid M] (c : Bool) (f : Step → M) 
   · rw [sum_axis, sum_axis, sum_axis, sum_step]
     simp only [blockStep]
     abel
-
 
 /-! ### Counting words -/
 
@@ -329,7 +328,7 @@ theorem two_mul_nStepKernel (n : ℕ) :
 /-! ### Recurrence -/
 
 /-- Pólya's theorem in two dimensions: the Green series of the simple random
-walk on `ℤ²` diverges. This is the single named input that is not proved here;
+walk on `ℤ²` diverges.  This is the single named input that is not proved here;
 Mathlib has no recurrence theorem for random walks. -/
 def SimpleRandomWalkRecurrent : Prop := ∑' n : ℕ, (srwKernel n : ℝ≥0∞) = ⊤
 
@@ -338,7 +337,7 @@ theorem discreteGreen_altBase_eq_top (h : SimpleRandomWalkRecurrent) :
     discreteGreen altBase 0 = ⊤ := by
   have h' : ∑' n : ℕ, (srwKernel n : ℝ≥0∞) = ⊤ := h
   have htail : ∑' m : ℕ, (srwKernel (m + 1) : ℝ≥0∞) = ⊤ := by
-    rw [tsum_eq_zero_add' ENNReal.summable] at h' 
+    rw [tsum_eq_zero_add' ENNReal.summable] at h'
     rcases ENNReal.add_eq_top.mp h' with h0 | h1
     · exact absurd h0 ENNReal.coe_ne_top
     · exact h1

@@ -6,7 +6,7 @@ import Mathlib.MeasureTheory.Integral.Lebesgue.Add
 # Removing the Laplace damping
 
 The uniform damped estimate implies the undamped annealed Green bound by
-Fatou's lemma along `lambda_n = 1 / (n + 1)`. This is the final
+Fatou's lemma along `lambda_n = 1 / (n + 1)`.  This is the final
 measure-theoretic bridge in Theorem 1.2.
 
 Paper: `manuscript.tex:668-681`.

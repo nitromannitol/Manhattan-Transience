@@ -11,7 +11,7 @@ This file defines the error term `U(-s,β)` of `manuscript.tex:1349-1355`
 
 The proof follows the paper: the support facts `(support)`, the lower bound
 `(sigmalow)` for `σ`, the explicit kernel bound, and the Hilbert--Schmidt
-estimate. The last step uses `Manhattan.Estimates.torusIntegral_kernel_sq_le`
+estimate.  The last step uses `Manhattan.Estimates.torusIntegral_kernel_sq_le`
 rather than a Hilbert--Schmidt operator theory, which Mathlib v4.26.0 does not
 have.
 
@@ -74,7 +74,6 @@ theorem sin_sq_le_sq (x : ℝ) : Real.sin x ^ 2 ≤ x ^ 2 := by
   have h2 : x ^ 2 = |x| ^ 2 := (sq_abs _).symm
   rw [h1, h2]
   exact pow_le_pow_left₀ (abs_nonneg _) h 2
-
 
 /-! ### The support facts (support) -/
 
@@ -251,7 +250,6 @@ theorem correctionSigma_lower {q : Parameters} (hq : q.Admissible) {a t beta : �
   rw [correctionSigma]
   exact hfinal
 
-
 /-! ### Basic bounds on `σ` and `v` -/
 
 theorem correctionSigma_le_inv {q : Parameters} (hq : q.Admissible) (a r beta : ℝ) :
@@ -346,11 +344,10 @@ theorem measurableSet_errorSupport (q : Parameters) (a p₂ s beta : ℝ) :
   simp only [Set.mem_ite_empty_right, Set.mem_Icc]
   measurability
 
-
 /-! ### The error term and its `H⁻¹` norm -/
 
 /-- The error term `U(-s,β)` at negative row frequencies,
-`manuscript.tex:1349-1355` (equation `(err)`). The paper's `∫_I` is
+`manuscript.tex:1349-1355` (equation `(err)`).  The paper's `∫_I` is
 automatic: `v` and `J` both vanish off the support interval `I`. -/
 noncomputable def errorU (q : Parameters) (a p₂ s beta : ℝ) : ℝ :=
   Real.sin beta ^ 2 * torusIntegral (fun t : ℝ =>
@@ -359,7 +356,7 @@ noncomputable def errorU (q : Parameters) (a p₂ s beta : ℝ) : ℝ :=
         (multiplier 40 q (mixedTotalFrequency beta (-s + t - p₂)))⁻¹
     else 0)
 
-/-- The squared `H⁻¹` norm of the error term. `U` is supported at negative
+/-- The squared `H⁻¹` norm of the error term.  `U` is supported at negative
 row frequencies `r = -s`, `s > 0`, and the `H⁻¹` multiplier there is
 `(λ+d(r)+d(β))⁻¹`. -/
 noncomputable def errorHMinusSq (q : Parameters) (a p₂ : ℝ) : ℝ :=
@@ -451,7 +448,6 @@ theorem errorKernel_measurable (q : Parameters) (a p₂ s beta : ℝ) :
     (Real.continuous_sqrt.measurable.comp
       (correctionSigma_measurable_left 40 q a beta)))
 
-
 /-- On the support of the kernel, `√σ ≥ √c |sin β|`, which is the only place
 `(sigmalow)` is used. -/
 theorem sqrt_correctionSigma_lower {q : Parameters} (hq : q.Admissible)
@@ -528,7 +524,6 @@ theorem errorKernel_mul_errorPhi_integrable {q : Parameters} (hq : q.Admissible)
   exact mul_le_mul (errorKernel_le hq ha hp₂ hs t) (errorPhi_le hq a t beta)
     (errorPhi_nonneg hq a t beta)
     (le_trans (errorKernel_nonneg q a p₂ s beta t) (errorKernel_le hq ha hp₂ hs t))
-
 
 /-! ### The kernel bound of Step 3 -/
 
@@ -669,7 +664,6 @@ theorem sqrt_weight_mul_errorU_le {q : Parameters} (hq : q.Admissible)
   · exact mul_nonneg (correctionV_nonneg hq a t beta)
       (inv_nonneg.2 (multiplier_pos (by norm_num) hq.1 _).le)
   · exact le_rfl
-
 
 /-! ### The Hilbert--Schmidt estimate -/
 
@@ -880,7 +874,6 @@ theorem errorU_nonneg {q : Parameters} (hq : q.Admissible) (a p₂ s beta : ℝ)
       (inv_nonneg.2 (multiplier_pos (by norm_num) hq.1 _).le)
   · exact le_rfl
 
-
 /-! ### Step 3 of Lemma 5.4 -/
 
 /-- The bound at a fixed column frequency `β`. -/
@@ -1088,7 +1081,6 @@ theorem errorHMinusSq_le {q : Parameters} (hq : q.Admissible) {a p₂ : ℝ}
           torusIntegral (fun t : ℝ =>
             correctionSigma 40 q a t beta * correctionV 40 q a t beta ^ 2)) :=
         torusIntegral_smul_left _ _
-
 
 /-! ### The two orders of integration -/
 

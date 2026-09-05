@@ -4,11 +4,11 @@ import Manhattan.Glue.CubicEnergy
 # Transfer between the three-dimensional Fourier torus and the paper's torus
 
 The raw type-`112` correction is a function on `UnitAddTorus (Fin 3)`, because
-that is where its Fourier coefficients are taken. Every scalar estimate of
+that is where its Fourier coefficients are taken.  Every scalar estimate of
 Sections 4 and 5, on the other hand, is written as an iterated normalized
 integral over the paper's real torus `(-π,π]`.
 
-This file supplies the bridge. `integral_unitTorus_three` rewrites a bounded
+This file supplies the bridge.  `integral_unitTorus_three` rewrites a bounded
 measurable function of the three angle coordinates as the iterated
 `Estimates.torusIntegral`, and the remaining lemmas are the linearity,
 Fubini, and translation facts used to evaluate such iterated integrals.
@@ -157,7 +157,6 @@ theorem integral_unitTorus_three (F : ℝ → ℝ → ℝ → ℝ)
   simp only [h2]
   exact integral_unitAddCircle_angle (fun r => Estimates.torusIntegral fun r' =>
     Estimates.torusIntegral fun b => F r r' b)
-
 
 /-! ### Elementary properties of the normalized torus integral -/
 

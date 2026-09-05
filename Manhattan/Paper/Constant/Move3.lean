@@ -5,28 +5,28 @@ import Manhattan.V4.Move2Supply
 
 `results/01-transience/manuscript.tex` asserts the explicit Green bound
 `∫₀^∞ p̄_t(0,0) dt ≤ 2048` (`eq:green-explicit`), proved from the
-fixed-frequency bound `prop:frequency` with `C = 2048`. The Version 4 Lean
-chain proves the same two statements with much larger constants. This file
+fixed-frequency bound `prop:frequency` with `C = 2048`.  The Version 4 Lean
+chain proves the same two statements with much larger constants.  This file
 removes the part of the discrepancy that is a pure loss in the scalar
 arithmetic of Move 3; the rest is analysed in
 `Manhattan/Paper/Constant/GreenConstant.lean` and in
- .
+.
 
 Two steps are tightened, both downstream of `Manhattan.V4.v4Constant`, and
 neither touches `Manhattan/V4/`.
 
-* `five_le_negLog`. On the improvement region `δ ≤ r₀⁴ ≤ 4⁻⁴` the logarithmic
+* `five_le_negLog`.  On the improvement region `δ ≤ r₀⁴ ≤ 4⁻⁴` the logarithmic
   scale `L = log(1/δ)` is at least `4 log 4 = 8 log 2 > 5.54`, not merely `1`,
   which is all `Manhattan.V4.Frequency.one_le_negLog` extracts.
 
-* `rpow_le_Zdelta_tight`. With `L ≥ 5` the manuscript's step
+* `rpow_le_Zdelta_tight`.  With `L ≥ 5` the manuscript's step
   `1 + L ≤ (6/5) L`, `(6/5)^{3/2} < 3/2` replaces `1 + L ≤ 2 L`, and the
   comparison constant of `Manhattan.V4.Frequency.rpow_le_Zdelta` drops from
   `30π ≈ 94.25` to `9√2π < 40`.
 
-* `move3_bound_tight`. Consequently the fixed-frequency constant of
+* `move3_bound_tight`.  Consequently the fixed-frequency constant of
   `Manhattan.V4.Frequency.move3_bound` drops from `8π³ C ≈ 248.05 C` to
-  `10π² C ≈ 98.70 C`. For comparison, the manuscript's own optimized value is
+  `10π² C ≈ 98.70 C`.  For comparison, the manuscript's own optimized value is
   `(9√2/4)π³ C = 98.66 C`, so after this step Move 3 is within `0.04%` of the
   paper.
 
@@ -42,7 +42,7 @@ namespace Manhattan.Paper.Constant
 open Manhattan.V4 Manhattan.V4.Frequency
 
 /-- On the improvement region `δ ≤ r₀⁴`, `r₀ ≤ 1/4`, the logarithmic scale
-`L = log(1/δ)` is at least `5`. `Manhattan.V4.Frequency.one_le_negLog`
+`L = log(1/δ)` is at least `5`.  `Manhattan.V4.Frequency.one_le_negLog`
 extracts only `1` from the same hypotheses. -/
 theorem five_le_negLog {r0 delta : ℝ} (hr0 : 0 < r0) (hr01 : r0 ≤ 1 / 4)
     (hd : 0 < delta) (hdle : delta ≤ r0 ^ 4) : 5 ≤ -Real.log delta := by
@@ -122,7 +122,7 @@ private theorem scalar_move3 {rl lambda th A B K Cc : ℝ}
   rw [mul_one_div, div_le_div_iff₀ hD hE]
   linarith
 
-/-- **MOVE 3, tightened.** The statement of
+/-- **MOVE 3, tightened.**  The statement of
 `Manhattan.V4.Frequency.move3_bound` with `8π³ C` replaced by `10π² C`. -/
 theorem move3_bound_tight {r0 lambda rl s C : ℝ} {p : Fin 2 → ℝ}
     (hr0 : 0 < r0) (hr01 : r0 ≤ 1 / 4) (hlambda : 0 < lambda) (hC : 0 < C)
@@ -181,7 +181,7 @@ theorem move3_bound_tight {r0 lambda rl s C : ℝ} {p : Fin 2 → ℝ}
     hlambda hthetann hB hA (le_max_left _ _) (le_max_right _ _) hlow hmove2
   simpa only [v4Majorant] using hmain
 
-/-- **The tightened fixed-frequency bound.** The statement of
+/-- **The tightened fixed-frequency bound.**  The statement of
 `Manhattan.V4.Frequency.v4FrequencyBound_of_move2Supply` with `8π³ C` replaced
 by `10π² C`; the complementary region is unchanged. -/
 theorem v4FrequencyBound_tight {r0 C : ℝ}

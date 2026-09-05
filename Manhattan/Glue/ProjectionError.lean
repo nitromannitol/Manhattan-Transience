@@ -5,9 +5,9 @@ import Mathlib.MeasureTheory.Integral.MeanInequalities
 /-!
 # The type-112 diagonal projection error
 
-This file isolates the analytic estimate in Lemma 5.3. In the Finset
+This file isolates the analytic estimate in Lemma 5.3.  In the Finset
 encoding, the discarded coincident-row part is represented by a function
-`ell(alpha,beta)`. Removing the column sign is killed by the degree-two
+`ell(alpha,beta)`.  Removing the column sign is killed by the degree-two
 Finset projection; removing a row leaves the single mixed component below.
 
 All integrals are normalized Haar integrals on the paper's real torus.
@@ -22,14 +22,14 @@ namespace Manhattan.Glue
 
 noncomputable section
 
-/-- The mixed component left by the coincident-row projection error. The
+/-- The mixed component left by the coincident-row projection error.  The
 Finset normalization has coefficient one (not the tuple-space `sqrt 2`). -/
 noncomputable def projectionMixedError (ell : ℝ → ℝ → ℂ)
     (beta : ℝ) : ℂ :=
   -Complex.I * (Real.sin beta : ℂ) *
     Estimates.torusIntegral (fun alpha => ell alpha beta)
 
-/-- The squared `H⁻¹` norm of the projection error. The error is
+/-- The squared `H⁻¹` norm of the projection error.  The error is
 independent of the remaining row frequency, exactly as in Lemma 5.3. -/
 noncomputable def projectionErrorHMinusSq (q : Estimates.Parameters)
     (ell : ℝ → ℝ → ℂ) : ℝ :=
@@ -67,12 +67,6 @@ theorem projectionError_onlyMixed (ell : ℝ → ℝ → ℂ) :
     (projectionErrorComponents ell).mixed r beta =
       projectionMixedError ell beta := rfl
 
--- Discharged. The complete
--- frequency-space calculation identifying the operator difference
--- `Pi₂ Dtilde₂* ktilde - D₂* (Pi₃ ktilde)` with the carrier below is
--- `Manhattan.Glue.rawProjectionDifferenceIdentification_of_lowering` in
--- `Manhattan/Glue/ProjectionDischarge.lean`. The definition below is the
--- statement surface only; it is no longer an open hypothesis.
 /-- Identification surface for the concrete raw/projected lowering
 difference. -/
 def RawProjectionDifferenceIdentification
@@ -160,7 +154,7 @@ private theorem volume_torus_ne_top :
     volume Estimates.torus ≠ ⊤ := by
   simp [Estimates.torus]
 
-/-- Weighted Cauchy--Schwarz on the normalized real torus. The explicit
+/-- Weighted Cauchy--Schwarz on the normalized real torus.  The explicit
 integrability hypotheses prevent any use of Lean's undefined-integral
 branch. -/
 theorem torusIntegral_norm_sq_le_weighted (mu : ℝ) (hmu : 0 < mu)
@@ -433,7 +427,7 @@ theorem projectionError_slice_le_multiplier {kappa : ℝ}
   exact hbasicLe
 
 /-- Finiteness data needed to pass the pointwise projection-error estimate
-through the outer normalized torus integral. For the paper's explicit
+through the outer normalized torus integral.  For the paper's explicit
 correction these facts follow from its bounded measurable formula. -/
 def ProjectionErrorIntegrable (kappa : ℝ) (q : Estimates.Parameters)
     (ell : ℝ → ℝ → ℂ) : Prop :=
@@ -463,7 +457,7 @@ private theorem torusIntegral_mono {f g : ℝ → ℝ}
   apply mul_le_mul_of_nonneg_left _ (by positivity)
   exact integral_mono hf hg hfg
 
-/-- Lemma 5.3 after integration in the remaining column frequency. In the
+/-- Lemma 5.3 after integration in the remaining column frequency.  In the
 Finset normalization the universal constant is one. -/
 theorem projectionErrorHMinusSq_le_diagonalMultiplierEnergy {kappa : ℝ}
     {q : Estimates.Parameters} (hlambda : 0 < q.lambda)
@@ -488,13 +482,6 @@ theorem projectionErrorHMinusSq_le_diagonalMultiplierEnergy40
   projectionErrorHMinusSq_le_diagonalMultiplierEnergy hlambda (by norm_num)
     ell hfinite
 
--- Discharged. The omitted
--- diagonal coefficient is the fibre average of the raw coefficient, that
--- projection commutes with a multiplier depending only on the total
--- frequency, and the resulting contraction is the paper's (46). The proof is
--- `Manhattan.Glue.rawProjectionEnergyBound_discharged` in
--- `Manhattan/Glue/ProjectionDischarge.lean`. The definition below is the
--- statement surface only; it is no longer an open hypothesis.
 /-- Weighted contractivity bridge from the diagonal error energy to the full
 raw multiplier energy. -/
 def RawProjectionEnergyBound (q : Estimates.Parameters)

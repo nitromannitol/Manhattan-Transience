@@ -5,13 +5,13 @@ import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
 # Fixed-frequency input and uniform assembly
 
 This file separates the model-specific competitor estimate from its abstract
-operator consequence. The raw-frequency `CompetitorBoundClaim` is retained
+operator consequence.  The raw-frequency `CompetitorBoundClaim` is retained
 only for the frozen version-1 record and its refutation; the live interface is
-the torus-restricted `CompetitorBoundClaimV2`. Once that interface is
+the torus-restricted `CompetitorBoundClaimV2`.  Once that interface is
 supplied, the one-sided variational inequality gives the resolvent bound
 without any further probabilistic input.
 
-The final part records the three-region integration argument. Its only
+The final part records the three-region integration argument.  Its only
 improper integral is evaluated exactly, rather than hidden in an `O(1)`.
 
 Paper: `manuscript.tex:640-681`.
@@ -44,7 +44,7 @@ def frequencyLogScale (r0 lambda : ℝ) (p : Fin 2 → ℝ) : ℝ :=
 def driftlessMajorant (lambda : ℝ) (p : Fin 2 → ℝ) : ℝ :=
   1 / (lambda + theta p)
 
-/-- The second entry in (13). At zero frequency it is replaced by the first
+/-- The second entry in (13).  At zero frequency it is replaced by the first
 entry; this has exactly the same effect after taking the minimum as the
 paper's convention that the second entry is `+infinity`. -/
 def correctedMajorant (r0 lambda : ℝ) (p : Fin 2 → ℝ) : ℝ :=
@@ -59,9 +59,9 @@ def frequencyMajorant (r0 lambda : ℝ) (p : Fin 2 → ℝ) : ℝ :=
 def frequencyTorus : Set ℝ := Set.Ioc (-Real.pi) Real.pi
 
 /-- Retired version-1 interface for the model-specific content of Proposition
-2.2. New consumers must use `CompetitorBoundClaimV2`.
+2.2.  New consumers must use `CompetitorBoundClaimV2`.
 
-The concrete environment/Walsh modules must construct this value. Keeping it
+The concrete environment/Walsh parts must construct this value.  Keeping it
 as proposition-valued data avoids postulating a theorem about arbitrary
 unitary actions, for which the logarithmic estimate would be false. -/
 def CompetitorBoundClaim {E : Type*} [NormedAddCommGroup E]
@@ -76,7 +76,7 @@ def CompetitorBoundClaim {E : Type*} [NormedAddCommGroup E]
           C * frequencyMajorant r0 lambda p
 
 /-- Retired raw-frequency consequence retained for its frozen version-1
-wrapper. `frequency_resolvent_le_of_competitor_v2` is the live theorem. -/
+wrapper.  `frequency_resolvent_le_of_competitor_v2` is the live theorem. -/
 theorem frequency_resolvent_le_of_competitor {E : Type*}
     [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E]
     (D : FiberEnvironment E) (V : E) (h : CompetitorBoundClaim D V) :
@@ -146,7 +146,7 @@ structure RegionalIntegralBounds (green : ℝ → ℝ) where
     green lambda ≤ smallBound + middleCoefficient * logarithmicTail + outerBound
 
 /-- Uniform bound obtained from the three regions and the exact tail
-integral. This is the final analytic implication used for Theorem 1.2. -/
+integral.  This is the final analytic implication used for Theorem 1.2. -/
 theorem uniform_green_bound_of_regional_bounds {green : ℝ → ℝ}
     (B : RegionalIntegralBounds green) {lambda : ℝ}
     (hlambda : 0 < lambda) (hlambda1 : lambda ≤ 1) :

@@ -4,7 +4,7 @@ import Manhattan.Model.LowDegree
 # Exchange of the two coordinate axes
 
 The Manhattan environment law and the concrete Fourier fibers are invariant
-under exchanging horizontal and vertical lines. This file realizes that
+under exchanging horizontal and vertical lines.  This file realizes that
 symmetry as a unitary permutation of the complete Finset-indexed Walsh basis
 and proves its intertwining with the concrete symmetric and skew operators.
 

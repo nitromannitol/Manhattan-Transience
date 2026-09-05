@@ -198,7 +198,6 @@ theorem torusIntegral_mul_sq_le {f g : ℝ → ℝ}
   rw [hleft, hright] at hmono
   linarith
 
-
 /-! ### The Hilbert--Schmidt bound -/
 
 /-- The Hilbert--Schmidt bound at a fixed output frequency: an integral
@@ -224,9 +223,9 @@ the replacement for the missing Mathlib theorem
 Cauchy--Schwarz in `t` and monotonicity in `s`, and it needs no
 Hilbert--Schmidt operator theory.
 
-Step 3 of Lemma 5.4 goes through
-`Manhattan.Estimates.torusIntegral_kernel_sq_le`
-(`Manhattan/Estimates/KernelBoundError.lean:966`) instead. -/
+Step 3 of Lemma 5.4 actually goes
+through `Manhattan.Estimates.torusIntegral_kernel_sq_le`
+(`Manhattan/Estimates/KernelBoundError.lean:966`). -/
 theorem torusIntegral_hilbertSchmidt_le {k : ℝ → ℝ → ℝ} {g : ℝ → ℝ}
     (hk : ∀ s, Integrable (fun t => k s t ^ 2) (volume.restrict torus))
     (hg : Integrable (fun t => g t ^ 2) (volume.restrict torus))

@@ -6,7 +6,7 @@ import Mathlib.MeasureTheory.Integral.Prod
 # Corrected successor to Lemma 4.1
 
 Erratum E-006 shows that the frozen version-one candidate is false at zero
-frequency. This file leaves that candidate untouched and proves the exact
+frequency.  This file leaves that candidate untouched and proves the exact
 successor used by the paper: the sole new hypothesis is `0 < |p₁|`.
 
 Paper: `manuscript.tex:907-958`, with the application-side positivity
@@ -23,7 +23,7 @@ local instance lemmaFourTwoSuccessorPropDecidable (p : Prop) : Decidable p :=
   Classical.propDecidable p
 
 /-- Lemma 4.1(a)--(d), corrected only by the hypothesis `0 < |p₁|` found at
-its application in `manuscript.tex:1137`. Both `H⁻¹` quantities remain the
+its application in `manuscript.tex:1137`.  Both `H⁻¹` quantities remain the
 explicit weighted integrals defined in `DegreeOne.lean`. -/
 def LemmaFourTwoSuccessorClaim (K rho : ℝ) : Prop :=
   20 ≤ K → 0 < rho → rho ≤ Real.pi / 20 →
@@ -1350,7 +1350,7 @@ private theorem twoRowResidualHMinusSq_le {q : Parameters} (hq : q.Admissible)
         _ ≤ 16 * 1 := mul_le_mul_of_nonneg_left hratio (by norm_num)
         _ = 16 := mul_one _
 
-/-- Provider for the corrected successor of Lemma 4.1. The only change from
+/-- Provider for the corrected successor of Lemma 4.1.  The only change from
 the frozen v1 statement is the application-side hypothesis `0 < |p₁|`.
 The uniform witnesses are `c = 1 / (4000π)` and `C = 200000`. -/
 theorem lemmaFourTwoSuccessorClaim_proved (K rho : ℝ) :
@@ -1422,7 +1422,7 @@ noncomputable def twoRowResidualHMinusIntegrand (q : Parameters) (p₁ p₂ : �
       (degreeOneCoefficient q p₁ z.1 + degreeOneCoefficient q p₁ z.2)‖ ^ 2
 
 /-- Finiteness certificate for every integral used as an energy or squared
-`H⁻¹` norm in Lemma 4.1. The final two fields identify the iterated
+`H⁻¹` norm in Lemma 4.1.  The final two fields identify the iterated
 normalized integrals with genuine finite product integrals. -/
 structure LemmaFourTwoIntegralCertificate (q : Parameters) (p₁ p₂ : ℝ) : Prop where
   degreeOneEnergy_measurable : Measurable (degreeOneEnergyIntegrand q p₁)
@@ -1574,7 +1574,7 @@ theorem lemmaFourTwoIntegralCertificate_proved {q : Parameters} (hq : q.Admissib
       (by simpa only [twoRowResidualHMinusIntegrand, Function.uncurry_apply_pair]
         using htwoIntegrable)
 
-/-- Version-3 successor of Lemma 4.1. In addition to the printed
+/-- version-3 successor of Lemma 4.1.  In addition to the printed
 bounds, the statement exposes measurability, integrability, and finite
 product-integral identities for all three energy integrands. -/
 def LemmaFourTwoSuccessorV3Claim (K rho : ℝ) : Prop :=

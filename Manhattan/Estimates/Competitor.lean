@@ -7,7 +7,7 @@ import Manhattan.Operator.Frequency
 This module contains the sorry-free scalar glue between the explicit
 frequency vocabulary and the abstract interfaces in `Manhattan.Operator`.
 The concrete Walsh competitor and the concrete Green function remain model
-data; the two interface theorems below state exactly what those modules must
+data; the two interface theorems below state exactly what that data must
 supply.
 
 Paper: `manuscript.tex:640-681`.
@@ -19,11 +19,11 @@ open scoped BigOperators
 
 namespace Manhattan.Estimates
 
-/-- The two estimate modules use the same one-dimensional dispersion. -/
+/-- The two estimate files use the same one-dimensional dispersion. -/
 theorem operator_dispersion_eq (s : ℝ) :
     Operator.dispersion s = dispersion s := rfl
 
-/-- The operator successor and the estimates module use the same torus
+/-- The operator successor and the estimate files use the same torus
 fundamental domain. -/
 theorem operator_frequencyTorus_eq_torus : Operator.frequencyTorus = torus := rfl
 
@@ -44,7 +44,7 @@ theorem operator_frequencyLogScale_eq_scaleLog (q : Parameters)
     Parameters.delta, logPos, max_comm]
 
 /-- `-- INTERFACE`: separate driftless and corrected competitors imply the
-minimum bound expected by the operator layer. The witnesses may differ; the
+minimum bound expected by the operator interfaces.  The witnesses may differ; the
 proof selects the appropriate one pointwise in frequency. -/
 theorem competitorBoundClaim_of_two_branches {E : Type*}
     [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E]

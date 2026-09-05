@@ -3,9 +3,9 @@ import Manhattan.Paper.Constant.Witnesses
 /-!
 # The paper's constant: axiom audit
 
-The module's own `#print axioms` surface, kept inside
+The part's own `#print axioms` surface, kept inside
 `Manhattan/Paper/Constant/` so that `Manhattan/Meta/AxiomsAudit.lean` is not
-touched. Every declaration below must report exactly
+touched.  Every declaration below must report exactly
 `[propext, Classical.choice, Quot.sound]`.
 -/
 

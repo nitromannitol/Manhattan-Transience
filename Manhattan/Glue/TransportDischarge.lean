@@ -4,8 +4,8 @@ import Manhattan.Glue.OrderedContractivity
 /-!
 # The type-`(1,1,2)` sector of the weighted contractivity, and the `H₃` bound
 
-the formalization proved equation (46) for the ordered representative in the coefficient
-picture. This file transports it to the type-`(1,1,2)` carrier of
+Equation (46) is proved for the ordered representative in the coefficient
+picture.  This file transports it to the type-`(1,1,2)` carrier of
 `Manhattan/Walsh/Correction.lean` through the sorted enumeration, and combines
 it with the Plancherel transport of `Manhattan/Glue/Transport.lean` to discharge
 `ConcreteHThreeQuadraticBound`, the `H₃` half of Lemma 5.2 for the actual
@@ -245,7 +245,7 @@ theorem hWeight_integral_rawCorrectionL2 {q : Estimates.Parameters}
       UnitAddTorus (Fin 3) → ℂ) t = Manhattan.rawCorrectionFunction 40 q a p₂ t := ht
   rw [h2]
 
-/-- **The blocker (T) of `O5-cubic.md`, discharged.** The degree-three `H`
+/-- **The blocker (T) of `O5-cubic.md`, discharged.**  The degree-three `H`
 quadratic form of the manuscript's coefficient, at the frozen momentum
 `(0,-p₂)`, is at most the raw `H`-weight energy of `k̃`. -/
 theorem hThreeForm_frozen_correctionWalsh_le {q : Estimates.Parameters}
@@ -270,9 +270,9 @@ theorem hThreeForm_frozen_correctionWalsh_le {q : Estimates.Parameters}
   rw [← hWeight_integral_rawCorrectionL2 hlambda a p₂]
   exact key
 
-/-- **`ConcreteHThreeQuadraticBound` at the true momentum.** The `(shift)`
+/-- **`ConcreteHThreeQuadraticBound` at the true momentum.**  The `(shift)`
 phase of `Manhattan.type112ShiftTwist` moves the frozen momentum `(0,-p₂)` of
-the formalization to the momentum `(p₁,p₂)` of the objective, exactly and with no loss;
+ to the momentum `(p₁,p₂)` of the objective, exactly and with no loss;
 before the phase was installed only the frozen momentum was reachable. -/
 theorem concreteHThreeQuadraticBound {q : Estimates.Parameters}
     (hlambda : 0 < q.lambda) (a p₁ p₂ : ℝ) :
@@ -301,7 +301,8 @@ namespace Manhattan.Glue
 noncomputable section
 
 /-- Lemma 5.2 and Proposition 4.2 for the concrete correction, with the `H₃`
-half now proved: the only remaining premise is the degree-four raising bound. -/
+half now proved: the only remaining premise is the degree-four raising bound.
+-/
 theorem correctionWalsh_hThree_add_dFour_le_sqrtScale {q : Estimates.Parameters}
     (hlambda : 0 < q.lambda) (hK : 1 ≤ q.K) (hrho : 0 ≤ q.rho)
     (hrhopi : 3 * q.rho < Real.pi) {C a p₁ p₂ : ℝ} (ha : 0 ≤ a) (hp₂ : |p₂| ≤ a)

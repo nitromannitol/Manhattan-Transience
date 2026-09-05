@@ -6,7 +6,7 @@ import Mathlib.Probability.ProbabilityMassFunction.Integrals
 /-!
 # Walsh characters of the fair-coin environment
 
-Paper: `manuscript.tex:701-741`. The formalization replaces symmetric tuple
+Paper: `manuscript.tex:701-741`.  replaces symmetric tuple
 coefficients by finite sets of distinct line indices.
 -/
 

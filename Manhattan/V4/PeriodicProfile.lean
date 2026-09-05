@@ -18,11 +18,11 @@ Two conventions collide in the Version 4 chain.
 `perProfile r0 delta t r := Frequency.profile r0 delta t (torusAbs r)` is the
 periodic representative: `Manhattan.V4.Frequency.profile` depends on the row
 frequency only through `|r|`, and `torusAbs r = |r|` on the torus, so the two
-agree there. All the Move 1 estimates are restated with the support hypothesis
+agree there.  All the Move 1 estimates are restated with the support hypothesis
 required only on the torus (`v4_cost_le`), which is what `perProfile`
 satisfies.
 
-`profileMass r0 delta` is the normalized torus mass of the unit profile. It
+`profileMass r0 delta` is the normalized torus mass of the unit profile.  It
 replaces `Manhattan.V4.Zdelta` in Move 2: the two substitution integrals
 `∫ φ = t·profileMass` and `∫ q φ² = t²·profileMass` are exact for it, and
 `Zdelta_le_profileMass` is all Move 3 needs, since Move 3 only uses a **lower**
@@ -35,7 +35,6 @@ open MeasureTheory Set
 namespace Manhattan.V4
 
 open Manhattan.V4.Frequency
-
 
 /-- Two integrands that agree on the torus have the same normalized torus
 integral. -/
@@ -63,7 +62,7 @@ theorem measurable_profile (r0 delta t : ℝ) : Measurable (profile r0 delta t) 
   exact (measurableSet_le measurable_const habs).inter
     (measurableSet_le habs measurable_const)
 
-/-- The `2π`-periodic version of the Version 4 competitor profile. It agrees
+/-- The `2π`-periodic version of the Version 4 competitor profile.  It agrees
 with `Manhattan.V4.Frequency.profile` on the torus, and is what the parity and
 Fourier machinery needs: `Manhattan.V4.ParityProfile` requires periodicity in
 the row frequency, and `Manhattan.V4.mixedRaising_rowFourier` needs it for the
@@ -241,21 +240,25 @@ theorem torusIntegral_effectiveWeight_perProfile {r0 delta : ℝ}
 
 variable {kappa delta : ℝ}
 
-/-- **The composed Version 4 competitor cost.** This is
+/-- **The composed Version 4 competitor cost.**  This is
 `Manhattan.V4.v4_competitor_cost_le` restated for the two summands that the
-Move 1 assembly actually produces, and with the support hypothesis needed only
-**on the torus**, which is what a `2π`-periodic competitor profile can
-satisfy. -/
-theorem v4_cost_le {r0 C1 C3 : ℝ} {q : Estimates.Parameters}
+Move 1 assembly actually produces, with the support hypothesis needed only
+**on the torus**, which is what a `2π`-periodic competitor profile can satisfy,
+and with the column bound `hJle` left as a hypothesis so that either evaluation
+of the `β` integral can be supplied. -/
+theorem v4_cost_le_of {r0 C1 C3 Cb : ℝ} {q : Estimates.Parameters}
     (hlam : 0 < q.lambda) (hkappa : 0 < kappa) (hdelta : 0 < delta) (hr0 : r0 ≤ 1 / 4)
-    (hC1 : 0 ≤ C1) (hC3 : 0 ≤ C3) {phi : ℝ → ℝ}
+    (hC1 : 0 ≤ C1) (hC3 : 0 ≤ C3) (hCb : 0 ≤ Cb)
+    (hJle : ∀ r : ℝ, Real.sqrt delta ≤ |r| → |r| ≤ 1 / 4 →
+      parityFibreJ q kappa delta r ≤ Cb / (|r| * Real.sqrt (Real.log (1 / |r|))))
+    {phi : ℝ → ℝ}
     (hsupp : ∀ r ∈ Estimates.torus, ¬ (Real.sqrt delta ≤ |r| ∧ |r| ≤ r0) → phi r = 0)
     (hint : Integrable (fun r => Energy.effectiveWeight r * phi r ^ 2)
       (volume.restrict Estimates.torus)) :
     C1 * Estimates.torusIntegral (fun r => (delta + r ^ 2) * phi r ^ 2)
         + C3 * Estimates.torusIntegral (fun r =>
             Real.sin r ^ 2 * parityFibreJ q kappa delta r * phi r ^ 2)
-      ≤ (C1 + C3 * (Real.pi ^ 2 + Real.pi ^ 3 * kappa / 2))
+      ≤ (C1 + C3 * Cb)
           * Estimates.torusIntegral (fun r => Energy.effectiveWeight r * phi r ^ 2) := by
   set E := Estimates.torusIntegral (fun r => Energy.effectiveWeight r * phi r ^ 2) with hE
   have hA : Estimates.torusIntegral (fun r => (delta + r ^ 2) * phi r ^ 2) ≤ E := by
@@ -273,8 +276,8 @@ theorem v4_cost_le {r0 C1 C3 : ℝ} {q : Estimates.Parameters}
         simp
   have hB : Estimates.torusIntegral (fun r =>
         Real.sin r ^ 2 * parityFibreJ q kappa delta r * phi r ^ 2)
-      ≤ (Real.pi ^ 2 + Real.pi ^ 3 * kappa / 2) * E := by
-    have hCnn : (0:ℝ) ≤ Real.pi ^ 2 + Real.pi ^ 3 * kappa / 2 := by positivity
+      ≤ Cb * E := by
+    have hCnn : (0:ℝ) ≤ Cb := hCb
     rw [hE, ← Estimates.torusIntegral_smul_left]
     refine Estimates.torusIntegral_mono_on ?_ (hint.const_mul _) ?_
     · intro x _
@@ -284,21 +287,21 @@ theorem v4_cost_le {r0 C1 C3 : ℝ} {q : Estimates.Parameters}
       by_cases hmem : Real.sqrt delta ≤ |x| ∧ |x| ≤ r0
       · have hxpos : 0 < |x| := lt_of_lt_of_le (Real.sqrt_pos.2 hdelta) hmem.1
         have hx14 : |x| ≤ 1 / 4 := le_trans hmem.2 hr0
-        have hJ := parityFibreJ_le_weight hlam hkappa hdelta hmem.1 hx14
+        have hJ := hJle x hmem.1 hx14
         have h1 : Real.sin x ^ 2 * parityFibreJ q kappa delta x
-            ≤ Real.sin x ^ 2 * ((Real.pi ^ 2 + Real.pi ^ 3 * kappa / 2)
+            ≤ Real.sin x ^ 2 * (Cb
                 / (|x| * Real.sqrt (Real.log (1 / |x|)))) :=
           mul_le_mul_of_nonneg_left hJ (sq_nonneg _)
-        have h2 := Energy.sin_sq_mul_betaBound_le (C := Real.pi ^ 2 + Real.pi ^ 3 * kappa / 2)
+        have h2 := Energy.sin_sq_mul_betaBound_le (C := Cb)
           hCnn hxpos hx14
         have h3 : Real.sin x ^ 2 * parityFibreJ q kappa delta x
-            ≤ (Real.pi ^ 2 + Real.pi ^ 3 * kappa / 2) * Energy.effectiveWeight x :=
+            ≤ Cb * Energy.effectiveWeight x :=
           le_trans h1 h2
         have := mul_le_mul_of_nonneg_right h3 (sq_nonneg (phi x))
         calc Real.sin x ^ 2 * parityFibreJ q kappa delta x * phi x ^ 2
-            ≤ (Real.pi ^ 2 + Real.pi ^ 3 * kappa / 2) * Energy.effectiveWeight x
+            ≤ Cb * Energy.effectiveWeight x
                 * phi x ^ 2 := this
-          _ = (Real.pi ^ 2 + Real.pi ^ 3 * kappa / 2)
+          _ = Cb
                 * (Energy.effectiveWeight x * phi x ^ 2) := by ring
       · rw [hsupp x hx hmem]
         simp
@@ -306,8 +309,23 @@ theorem v4_cost_le {r0 C1 C3 : ℝ} {q : Estimates.Parameters}
       ≤ C1 * E := mul_le_mul_of_nonneg_left hA hC1
   have h2 : C3 * Estimates.torusIntegral (fun r =>
         Real.sin r ^ 2 * parityFibreJ q kappa delta r * phi r ^ 2)
-      ≤ C3 * ((Real.pi ^ 2 + Real.pi ^ 3 * kappa / 2) * E) :=
+      ≤ C3 * (Cb * E) :=
     mul_le_mul_of_nonneg_left hB hC3
   nlinarith [h1, h2]
+
+/-- `v4_cost_le_of` at the column bound of `parityFibreJ_le_weight`. -/
+theorem v4_cost_le {r0 C1 C3 : ℝ} {q : Estimates.Parameters}
+    (hlam : 0 < q.lambda) (hkappa : 0 < kappa) (hdelta : 0 < delta) (hr0 : r0 ≤ 1 / 4)
+    (hC1 : 0 ≤ C1) (hC3 : 0 ≤ C3) {phi : ℝ → ℝ}
+    (hsupp : ∀ r ∈ Estimates.torus, ¬ (Real.sqrt delta ≤ |r| ∧ |r| ≤ r0) → phi r = 0)
+    (hint : Integrable (fun r => Energy.effectiveWeight r * phi r ^ 2)
+      (volume.restrict Estimates.torus)) :
+    C1 * Estimates.torusIntegral (fun r => (delta + r ^ 2) * phi r ^ 2)
+        + C3 * Estimates.torusIntegral (fun r =>
+            Real.sin r ^ 2 * parityFibreJ q kappa delta r * phi r ^ 2)
+      ≤ (C1 + C3 * (Real.pi ^ 2 + Real.pi ^ 3 * kappa / 2))
+          * Estimates.torusIntegral (fun r => Energy.effectiveWeight r * phi r ^ 2) :=
+  v4_cost_le_of hlam hkappa hdelta hr0 hC1 hC3 (by positivity)
+    (fun r h1 h2 => parityFibreJ_le_weight hlam hkappa hdelta h1 h2) hsupp hint
 
 end Manhattan.V4

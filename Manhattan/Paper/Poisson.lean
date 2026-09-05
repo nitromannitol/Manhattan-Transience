@@ -9,7 +9,7 @@ import Mathlib.Tactic
 # The rate-two Poisson clock, as a real-valued weight
 
 `poissonWeight t n = e^{-2t}(2t)^n/n!` is `P(N_t = n)` for the rate-two Poisson
-process of `manuscript.tex:200-226`. This file records what the two halves of
+process of `manuscript.tex:200-226`.  This file records what the two halves of
 `prop:time` need:
 
 * `hasSum_poissonWeight`, the total mass one;

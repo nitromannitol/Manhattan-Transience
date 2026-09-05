@@ -7,7 +7,7 @@ import Mathlib.Tactic
 # The quenched discrete-time kernel as a doubly stochastic chain
 
 The Manhattan jump chain moves along a fixed axis in the direction of the line
-through the current site, so each single step is a *bijection* of `ℤ²`. This
+through the current site, so each single step is a *bijection* of `ℤ²`.  This
 file records the consequences used by `prop:time` of `manuscript.tex`:
 
 * `flipEnv`, the environment with every line reversed, inverts each step;

@@ -6,20 +6,20 @@ import Manhattan.Glue.CubicDischargeProjection
 
 `Manhattan.Glue.lemma_distinct_of_concreteLowering` proves Lemma 5.3
 (`manuscript.tex:1212-1219`) for any raw type-`112` coefficient that satisfies
-the concrete lowering formula `Manhattan.Glue.ConcreteLoweringFormula`. Its
+the concrete lowering formula `Manhattan.Glue.ConcreteLoweringFormula`.  Its
 only previous instantiation,
 `Manhattan.Glue.lemma_distinct_shiftedRawCoefficient`, carries a
 diagonal-freeness hypothesis under which the coincident-row carrier vanishes
-identically, so it says nothing about the competitor. This file supplies the
+identically, so it says nothing about the competitor.  This file supplies the
 missing instance: the paper's explicit degree-three correction
 `Manhattan.Estimates.correctionCoefficient`, periodized in its second row
 frequency, satisfies the concrete lowering formula with both Finset
 normalizations equal to one.
 
-The two constants are `cTwoNorm = 1` and `cMixNorm = 1`. The manuscript's
+The two constants are `cTwoNorm = 1` and `cMixNorm = 1`.  The manuscript's
 `k̃` carries `i sin β / √2`, and the tuple-space `√2` of
 `Manhattan.Glue.rawD2StarMixed_shiftedRawCoefficient` is the ratio of the
-type-`112` normalization to the type-`12` one. The explicit formula
+type-`112` normalization to the type-`12` one.  The explicit formula
 `Manhattan.Estimates.correctionCoefficient` carries `i sin β` with no `√2`, so
 in these coordinates the mixed normalization is one; the computation below
 proves it rather than assuming it.
@@ -30,13 +30,13 @@ Two things are established.
   correction (`Manhattan.Glue.type112DStarTwoRow_correction`) and the raw
   two-row symbol (`Manhattan.Glue.rawD2StarTwoRow_correctionCoefficient`)
   vanish, because `k̃` is odd in the column frequency.
-* The **mixed** identity, which is the actual computation. The concrete
+* The **mixed** identity, which is the actual computation.  The concrete
   operator reads its input at `tripleToFinset (m, 0, n ± 1)`, and at `m = 0`
   that Finset is not a type-`112` index, so the concrete `D₂*` drops exactly
-  the coincident-row term that the raw `D̃₂*` keeps. On the raw side the same
+  the coincident-row term that the raw `D̃₂*` keeps.  On the raw side the same
   term is dropped by `Manhattan.Glue.rawOffDiagonalPart`, whose Fourier
   coefficients vanish on the coincident-row diagonal
-  (`Manhattan.Glue.rawFourierCoefficient_rawOffDiagonalPart`). Off the
+  (`Manhattan.Glue.rawFourierCoefficient_rawOffDiagonalPart`).  Off the
   diagonal the two sides agree up to the unimodular `(shift)` phase, exactly
   as in `Manhattan.Glue.twoRowFourierCoefficient_orderedFreqTwo_shift`.
 
@@ -210,9 +210,9 @@ theorem rawFourierCoefficient_pinned (k : ℝ → ℝ → ℝ → ℂ) (m j : �
     ring
   simp only [h]
 
-/-- **(D2b) on Fourier coefficients.** The mixed Fourier coefficient of the raw
+/-- **(D2b) on Fourier coefficients.**  The mixed Fourier coefficient of the raw
 mixed lowering symbol is one signed lattice step in the column index, with the
-second row index of the input pinned to the origin. This is the raw-side
+second row index of the input pinned to the origin.  This is the raw-side
 counterpart of `Manhattan.Glue.type112DStarMixed_eq`. -/
 theorem mixedFourierCoefficient_rawD2StarMixed {k : ℝ → ℝ → ℝ → ℂ}
     (hk : TorusBoundedThree k) (m n : ℤ) :
@@ -410,7 +410,7 @@ theorem integral_unitTorus_three_complex {F : ℝ → ℝ → ℝ → ℂ}
   · simpa using (Complex.reCLM.integral_comp_comm hint).symm.trans (key Complex.reCLM)
   · simpa using (Complex.imCLM.integral_comp_comm hint).symm.trans (key Complex.imCLM)
 
-/-- **The Fourier bridge.** The three-dimensional Fourier coefficients of the
+/-- **The Fourier bridge.**  The three-dimensional Fourier coefficients of the
 raw correction, taken on the abstract frequency torus where the competitor's
 `ℓ²` coefficient lives, are the iterated normalized torus integrals of the
 explicit formula. -/
@@ -506,10 +506,10 @@ theorem type112RawIndex_tripleToFinset_pinned {m j : ℤ} (hm : m ≠ 0)
 
 /-! ## The competitor's coefficient at a pinned mixed index -/
 
-/-- The competitor's degree-three coefficient at a pinned mixed index. Off the
+/-- The competitor's degree-three coefficient at a pinned mixed index.  Off the
 coincident-row diagonal it is the raw Fourier coefficient of the explicit
 formula, carrying the `(shift)` phase; on the diagonal the Finset index is not
-of type `112` and the coefficient is read as zero. This is the concrete side of
+of type `112` and the coefficient is read as zero.  This is the concrete side of
 the coincident-row drop. -/
 theorem type112CoefficientAt_shiftedCorrection_pinned {q : Estimates.Parameters}
     (hlambda : 0 < q.lambda) (a p₁ p₂ : ℝ) (m j : ℤ) :
@@ -551,10 +551,10 @@ theorem type112CoefficientAt_shiftedCorrection_pinned {q : Estimates.Parameters}
 
 /-! ## The mixed identity -/
 
-/-- **The mixed identity for the actual correction.** The `(m,n)` Fourier
+/-- **The mixed identity for the actual correction.**  The `(m,n)` Fourier
 coefficient of the raw mixed lowering symbol of `Pi_3 k̃` is the genuine mixed
 Walsh coefficient of `D₂* k_p`, read with the `(shift)` phase of
-`manuscript.tex:791-800`. Both sides drop the coincident-row term at `m = 0`:
+`manuscript.tex:791-800`.  Both sides drop the coincident-row term at `m = 0`:
 on the concrete side because `tripleToFinset (m, 0, j)` is then not a type-`112`
 index, on the raw side because `Manhattan.Glue.rawOffDiagonalPart` kills the
 diagonal Fourier coefficients. -/
@@ -650,7 +650,7 @@ theorem mixedFourierCoefficient_correction {q : Estimates.Parameters}
 /-! ## The two-row halves -/
 
 /-- **The concrete two-row component of `D₂*k_p` vanishes**, for the
-competitor's own coefficient carrying the `(shift)` phase. This is
+competitor's own coefficient carrying the `(shift)` phase.  This is
 `Manhattan.Glue.type112DStarTwoRow_correction` transported through the
 unimodular twist. -/
 theorem type112DStarTwoRow_shiftedCorrection_apply {q : Estimates.Parameters}
@@ -675,9 +675,6 @@ theorem type112DStarTwoRow_shiftedCorrection_apply {q : Estimates.Parameters}
   simp only [hcol] at hT
   simpa using hT
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem type112DStarTwoRow_shiftedCorrection {q : Estimates.Parameters}
     (hlambda : 0 < q.lambda) (a p₁ p₂ : ℝ) (p : Fin 2 → ℝ) :
     Manhattan.type112DStarTwoRow p
@@ -742,7 +739,7 @@ theorem twoRowFourierCoefficient_rawD2StarTwoRow_correction
 
 /-! ## The concrete lowering formula for the correction -/
 
-/-- **The closing statement.** The paper's explicit degree-three correction,
+/-- **The closing statement.**  The paper's explicit degree-three correction,
 periodized in its second row frequency, satisfies the concrete lowering formula
 of `Manhattan.Glue.ConcreteLoweringFormula` with both Finset normalizations
 equal to one.
@@ -751,7 +748,7 @@ The two-row datum is the genuine concrete two-row component of `D₂*k_p`, which
 is zero by `Manhattan.Glue.type112DStarTwoRow_shiftedCorrection`; the mixed
 datum is the raw mixed symbol, whose Fourier coefficients are the genuine mixed
 Walsh coefficients of `D₂*k_p` by
-`Manhattan.Glue.mixedFourierCoefficient_correction`. Nothing is defined by
+`Manhattan.Glue.mixedFourierCoefficient_correction`.  Nothing is defined by
 fiat, and no diagonal-freeness hypothesis is used. -/
 theorem concreteLoweringFormula_correction {q : Estimates.Parameters}
     (hlambda : 0 < q.lambda) (a : ℝ) (p : Fin 2 → ℝ) :
@@ -768,7 +765,7 @@ theorem concreteLoweringFormula_correction {q : Estimates.Parameters}
 
 /-! ## Lemma 5.3 for the actual correction -/
 
-/-- **Lemma 5.3** (`manuscript.tex:1212-1219`) for the competitor. Both clauses,
+/-- **Lemma 5.3** (`manuscript.tex:1212-1219`) for the competitor.  Both clauses,
 with no diagonal-freeness hypothesis and with the universal constant
 `‖1‖² = 1`: the raw/projected lowering difference of the paper's explicit
 correction has no two-row component, and its coincident-row projection error is
@@ -803,7 +800,7 @@ theorem lemma_distinct_correction {q : Estimates.Parameters}
   rw [hscale, norm_one, one_pow, one_mul] at hquant
   exact hquant
 
-/-- **Lemma 5.3 for the competitor, with the right-hand side evaluated.** The
+/-- **Lemma 5.3 for the competitor, with the right-hand side evaluated.**  The
 coincident-row projection error of the paper's explicit correction is at most
 twice the scalar energy of (30), and the raw/projected lowering difference has
 no two-row component. -/
@@ -823,15 +820,16 @@ theorem lemma_distinct_correction_sigmaEnergy {q : Estimates.Parameters}
     projectionErrorHMinusSq_correction_le_two_correctionSigmaEnergy hlambda hK
       hrho hrhopi ha hp⟩
 
-/-- **The instantiating data are the competitor's own Walsh coefficients.** The
+/-- **The instantiating data are the competitor's own Walsh coefficients.**  The
 two Finset data fed to `Manhattan.Glue.ConcreteLoweringFormula` above are not
 chosen by fiat: the two-row datum is the genuine two-row component of
 `D₂*k_p`, and the Fourier coefficients of the mixed datum are the genuine mixed
 Walsh coefficients of `D₂*k_p`, both read with the `(shift)` phase of
-`manuscript.tex:791-800`. This is the exact analogue of
+`manuscript.tex:791-800`.  This is the exact analogue of
 `Manhattan.Glue.shiftedTwoRowCoefficient_eq_loweringCoefficient` and
 `Manhattan.Glue.mixedLoweredKernel_eq_loweringCoefficient`, for the actual
-correction. -/
+correction.
+-/
 theorem concreteLoweringFormula_correction_certified {q : Estimates.Parameters}
     (hlambda : 0 < q.lambda) (a : ℝ) (p : Fin 2 → ℝ) :
     ConcreteLoweringFormula 1 1 (p 1)

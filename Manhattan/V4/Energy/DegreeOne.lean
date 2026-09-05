@@ -4,11 +4,11 @@ import Manhattan.V4.Energy.Weight
 /-!
 # Version 4, Move 1: the degree-one facts and the degree-one cost
 
-Ingredients (a) and (b) of Move 1 of the Version 4 argument.
+Ingredients (a) and (b) of Move 1.
 
 * (a) For the purely imaginary degree-one profile `f = -i φ` with `φ` real,
   `D₀* f = - sin(p₁) ∫ φ dm`, and the row symbol is `w(r) = sin(r) φ(r)`,
-  which is **odd** when `φ` is even. The first is a direct specialization of
+  which is **odd** when `φ` is even.  The first is a direct specialization of
   `Manhattan.Glue.dStarZero_degreeOneRealFrequency` (already proved in the sealed
   development, `Manhattan/Glue/ConcreteLowering.lean`); the minus sign is that
   lemma's and is not in dispute here.
@@ -32,8 +32,8 @@ theorem torusIntegral_ofReal (phi : ℝ → ℝ) :
   rw [integral_complex_ofReal]
   simp only [Complex.real_smul, smul_eq_mul, Complex.ofReal_mul]
 
-/-- **Version 4, degree-one fact (a).** For the purely imaginary profile
-`f = -i φ` with `φ` real, `D₀* f = - sin(p₁) ∫ φ dm`. This is the uncancelled
+/-- **Version 4, degree-one fact (a).**  For the purely imaginary profile
+`f = -i φ` with `φ` real, `D₀* f = - sin(p₁) ∫ φ dm`.  This is the uncancelled
 degree-zero component of the Version 4 competitor: it is what produces the
 numerator `1 - s ∫ φ dm` in Move 1 (1). -/
 theorem dStarZero_neg_I_mul (p : Fin 2 → ℝ) (phi : ℝ → ℝ)
@@ -66,9 +66,9 @@ theorem dStarZero_neg_I_mul (p : Fin 2 → ℝ) (phi : ℝ → ℝ)
 /-- The degree-one row symbol `w(r) = sin(r) φ(r)`. -/
 noncomputable def rowSymbol (phi : ℝ → ℝ) (r : ℝ) : ℝ := Real.sin r * phi r
 
-/-- **Version 4, degree-one fact (a), parity.** `w` is odd whenever `φ` is even.
+/-- **Version 4, degree-one fact (a), parity.**  `w` is odd whenever `φ` is even.
 This is the single hypothesis that drives all four parity cancellations of
-Step 3 of the Version 4 argument. -/
+Step 3. -/
 theorem rowSymbol_odd {phi : ℝ → ℝ} (h : ∀ r, phi (-r) = phi r) (r : ℝ) :
     rowSymbol phi (-r) = -rowSymbol phi r := by
   unfold rowSymbol
@@ -77,9 +77,9 @@ theorem rowSymbol_odd {phi : ℝ → ℝ} (h : ∀ r, phi (-r) = phi r) (r : ℝ
 
 /-! ## (b) the degree-one cost, estimate (4) -/
 
-/-- **Estimate (4) of Version 4, pointwise in the row frequency.** Here
+/-- **Estimate (4) of Version 4, pointwise in the row frequency.**  Here
 `mu = λ + d(p₁)`, `s = sin p₁`, and the third summand is the two-row contraction
-`2 s² J(mu)` with `J(mu) = 1/√(mu(mu+2))`. The hypotheses `mu ≤ δ²` and
+`2 s² J(mu)` with `J(mu) = 1/√(mu(mu+2))`.  The hypotheses `mu ≤ δ²` and
 `s² ≤ 2 mu` are the ones the manuscript records. -/
 theorem degreeOne_multiplier_le {mu delta s r : ℝ}
     (hmu : 0 < mu) (hdelta : 0 < delta) (hdelta1 : delta ≤ 1)

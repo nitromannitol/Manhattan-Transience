@@ -6,8 +6,8 @@ import Manhattan.Glue.SummandsMixed
 # Summand 3 of (22), discharged
 
 `Manhattan.Glue.summandThreeBound_of_sector_bounds` reduces summand 3 to two
-sector bounds. the formalization supplies the two-row one
-(`Manhattan.Glue.summandThreeTwoRowSectorBound`). This file supplies the mixed
+sector bounds.  The two-row one is supplied
+(`Manhattan.Glue.summandThreeTwoRowSectorBound`).  This file supplies the mixed
 one, from the frequency-function identification of
 `Manhattan/Glue/SummandThreeMixedFourier.lean` and the scalar estimates
 `Manhattan.Glue.mixedRawResidualHMinusSq_le_sqrtScale` (Lemma 5.4) and

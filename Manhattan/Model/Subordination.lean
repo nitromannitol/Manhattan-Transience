@@ -5,8 +5,8 @@ import Mathlib.Probability.Distributions.Poisson
 /-!
 # Rate-two Poisson subordination
 
-The continuous-time kernel is *defined* by Poisson
-subordination of the discrete jump chain. The generator calculation is the
+Following, the continuous-time kernel is *defined* by Poisson
+subordination of the discrete jump chain.  The generator calculation is the
 elementary lemma in `Manhattan.Model.Kernel`.
 
 Paper: `manuscript.tex:200-226` and `manuscript.tex:688-693`.
@@ -17,7 +17,7 @@ open scoped BigOperators ENNReal NNReal
 
 namespace Manhattan
 
-/-- The probability `P(N_t=n)` for a rate-two Poisson process. It is set to
+/-- The probability `P(N_t=n)` for a rate-two Poisson process.  It is set to
 zero at negative times so that ordinary Lebesgue integration on `ℝ` can be
 used without a separate subtype carrier. -/
 noncomputable def rateTwoPoissonWeight (t : ℝ) (n : ℕ) : ℝ≥0∞ :=

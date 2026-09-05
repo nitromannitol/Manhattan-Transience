@@ -4,14 +4,13 @@ import Manhattan.Glue.Discharge
 /-!
 # The four summands of (22), separately
 
-`Manhattan.Glue.concreteSectorEnergyBound_of_summands`
- reduces the paper's estimate (23),
+`Manhattan.Glue.concreteSectorEnergyBound_of_summands` reduces the paper's estimate (23),
 `E_p(f_p,k_p) ≤ C√L`, to four separate bounds, one for each summand of the
-four-sector form (22) at `manuscript.tex:769-772`. This file names those
+four-sector form (22) at `manuscript.tex:769-772`.  This file names those
 four bounds, discharges the first of them unconditionally, and re-assembles
 `ConcreteSectorEnergyBound` from the four.
 
-The naming follows the table :
+The naming follows the table of :
 
 | # | Term | Paper |
 |---|---|---|
@@ -133,10 +132,10 @@ theorem concreteSectorEnergyBound_of_four {C₁ C₂ C₃ C₄ : ℝ} (hC₁ : 0
 
 /-! ### Summand 1, unconditionally -/
 
-/-- **Summand 1 of (22).** With the `(shift)` phase of
+/-- **Summand 1 of (22).**  With the `(shift)` phase of
 `Manhattan.Glue.rowTorusShift` in place, the concrete degree-one energy
 `⟨f_p,H₁f_p⟩` of the competitor of `Glue/Correction.lean` is *exactly* the
-scalar `degreeOneEnergy` that Lemma 4.1 v3(b) bounds. Before the phase was
+scalar `degreeOneEnergy` that Lemma 4.1 v3(b) bounds.  Before the phase was
 installed the two weights `λ+d(p₁)+d(p₂+s)` and `λ+d(p₁)+d(r)` were only
 comparable, with the universal factor three of
 `Manhattan.Glue.rowWeight_le`. -/
@@ -152,7 +151,7 @@ theorem hEnergy_correctedRowVector_eq {q : Manhattan.Estimates.Parameters}
     correctedLowDegreeData_row_eq hlambda p hcert hnormalization,
     hEnergy_degreeOneRowShift, Manhattan.Estimates.degreeOneEnergy]
 
-/-- **Summand 1 is discharged.** Lemma 4.1 v3(b) supplies the constant. -/
+/-- **Summand 1 is discharged.**  Lemma 4.1 v3(b) supplies the constant. -/
 theorem summandOneBound_proved : ∃ C : ℝ, 0 ≤ C ∧ SummandOneBound C := by
   obtain ⟨c, C, hc, hC, hmain⟩ :=
     Manhattan.Estimates.lemmaFourTwoSuccessorV3Claim_proved

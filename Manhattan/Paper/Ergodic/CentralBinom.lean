@@ -2,13 +2,13 @@
 A sharp lower bound on the central binomial coefficient.
 
 Mathlib has `Nat.four_pow_le_two_mul_self_mul_centralBinom`, `4 ^ n ≤ 2 * n *
-centralBinom n`. That is a factor of `√n` weaker than what recurrence of the
+centralBinom n`.  That is a factor of `√n` weaker than what recurrence of the
 two dimensional walk needs: it gives `centralBinom n ^ 2 / 16 ^ n ≳ 1 / n ^ 2`,
 a convergent series, where the truth is `≳ 1 / n`, a divergent one.
 
 The sharp form below is proved by induction with exactly one unit of slack at
-each step, which is why the weaker bound cannot be pushed to give it. Written
-with GLM 5.3 on the sandbox fleet; verified here.
+each step, which is why the weaker bound cannot be pushed to give it.  Written
+Verified here.
 -/
 import Mathlib
 

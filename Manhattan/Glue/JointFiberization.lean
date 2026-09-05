@@ -3,7 +3,7 @@ import Manhattan.Operator.Fourier
 /-!
 # Joint-generator fiberization
 
-The operator module deliberately packages the model-specific Fourier transform
+The operator part deliberately packages the model-specific Fourier transform
 as a `JointFiberization` certificate. These lemmas expose its intertwining
 identity and conjugation consequence without adding a second transform API.
 

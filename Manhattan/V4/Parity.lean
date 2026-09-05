@@ -13,8 +13,8 @@ is `Manhattan.Glue.rawOffDiagonalPart`.
 
 The competitor is
 
-  `σ(r,β) = sin²β ∫ dm(r')/M(r,r',β)`, `B(r,β) = λ + d(r) + d(β)`,
-  `v = w/(B+σ)`, `K(r,r',β) = (i sin β/(√2 M)) (v(r,β) + v(r',β))`,
+  `σ(r,β) = sin²β ∫ dm(r')/M(r,r',β)`,   `B(r,β) = λ + d(r) + d(β)`,
+  `v = w/(B+σ)`,                          `K(r,r',β) = (i sin β/(√2 M)) (v(r,β) + v(r',β))`,
   `k = Π K`.
 
 Everything rests on three parities, proved first as named lemmas:
@@ -39,23 +39,23 @@ The four consequences are exact identities, not estimates:
   `∫ M|K|² = ∫ σ|v|²`.
 
 In the old proof (P1)--(P2) were the content of Lemma 5.3, an *estimate* with a
-long audit chain. Under parity they are identities.
+long audit chain.  Under parity they are identities.
 
 ## The one normalization discrepancy
 
 With the note's `K = (i sin β/(√2 M))(v + v')` and the **ordered** raw integrals
 of `Manhattan.Glue.rawMultiplierEnergy` (which is how the existing development
 normalizes the multiplier energy), (P4) holds exactly as the note states it,
-`∫ M|K|² = ∫ σ|v|²`, but (P1) gives `(D₂*K)₁₂ = (√2)⁻¹ σ v`, not `σ v`. The
+`∫ M|K|² = ∫ σ|v|²`, but (P1) gives `(D₂*K)₁₂ = (√2)⁻¹ σ v`, not `σ v`.  The
 two claims cannot both hold for one `K`: dropping the `√2` gives `(D₂*K)₁₂ = σ v`
-and `∫ M|K|² = 2 ∫ σ|v|²`. The factor is exactly the one the existing
+and `∫ M|K|² = 2 ∫ σ|v|²`.  The factor is exactly the one the existing
 development already carries as an identity in
 `Manhattan.Glue.rawCubicMultiplierEnergy_eq_two_correctionSigmaEnergy` ("the
 factor 2 is not slack: it is the two disjoint summands of the symmetrized
-coefficient"), i.e. it is ordered-versus-unordered row pairs. It is a
+coefficient"), i.e. it is ordered-versus-unordered row pairs.  It is a
 normalization, not a gap: the scalar completion of the square is applied with
 whichever constant the chosen normalization produces, and only the value of the
-absolute constant `C` in Move 1 changes. `parityKernel` is stated with a free
+absolute constant `C` in Move 1 changes.  `parityKernel` is stated with a free
 complex scale `c` so that both conventions are available; `c = (√2)⁻¹` is the
 note's.
 -/
@@ -144,7 +144,7 @@ theorem dispersion_neg (s : ℝ) : Estimates.dispersion (-s) = Estimates.dispers
 
 /-! ## The profile `v` -/
 
-/-- The parity data of the degree-one profile. `v` is odd in the row
+/-- The parity data of the degree-one profile.  `v` is odd in the row
 frequency and even in the column frequency, and is a bounded measurable
 `2π`-periodic function of the row frequency. -/
 structure ParityProfile where
@@ -174,9 +174,9 @@ theorem measurable_row (beta : ℝ) : Measurable fun r => v.toFun r beta :=
 
 end ParityProfile
 
-/-- The Version 4 degree-one profile `w(r) = sin r · φ(r)` of the Version 4 argument
+/-- The Version 4 degree-one profile `w(r) = sin r · φ(r)`
 (`VERSION 4`, verification of (1)) with `φ` real and even: it is odd in `r` and
-constant, hence even, in `β`. Recorded so that the parity hypotheses are
+constant, hence even, in `β`.  Recorded so that the parity hypotheses are
 visibly non-vacuous. -/
 def sineProfile (phi : ℝ → ℝ) (hmeas : Measurable phi) (B : ℝ)
     (hB : ∀ r, |phi r| ≤ B) (heven : ∀ r, phi (-r) = phi r)
@@ -431,7 +431,7 @@ theorem torusBounded₃_parityKernel (hkappa : 0 < kappa) (hdelta : 0 < delta)
 
 /-! ## (P1): the odd fibre integral vanishes -/
 
-/-- **(P1).** `∫ v(r',β)/M(r,r',β) dm(r') = 0`: the integrand is odd in `r'`
+/-- **(P1).**  `∫ v(r',β)/M(r,r',β) dm(r') = 0`: the integrand is odd in `r'`
 because `v` is odd in the row frequency and `M` is even in it. -/
 theorem parityJ_row_eq_zero (v : ParityProfile) (r beta : ℝ) :
     (Estimates.torusIntegral fun r' =>
@@ -503,7 +503,7 @@ theorem torusIntegral_parityKernelReal (hkappa : 0 < kappa) (hdelta : 0 < delta)
     rw [torusIntegral_real_smul, parityJ_row_eq_zero v r beta, mul_zero]
   rw [torusIntegral_add_of_bounded hmeas1 hmeas2 hb1 hb2, hI1, hI2, add_zero]
 
-/-- **(P1), the lowering consequence.** `(D₂* K)₁₂ = (√2)⁻¹ σ v`, an exact
+/-- **(P1), the lowering consequence.**  `(D₂* K)₁₂ = (√2)⁻¹ σ v`, an exact
 identity: the `v(r',β)` summand integrates to zero. -/
 theorem rawD2StarMixed_parityKernel (hkappa : 0 < kappa) (hdelta : 0 < delta)
     (v : ParityProfile) (r beta : ℝ) :
@@ -578,7 +578,7 @@ theorem parityFibreAverage_odd (v : ParityProfile) (beta s : ℝ) :
   unfold parityFibreAverage
   rw [h1, h2, torusIntegral_neg']
 
-/-- **(P2).** `∫ ((I - Π) K)(r,r',β) dm(r') = ∬ K = 0`. The translation
+/-- **(P2).**  `∫ ((I - Π) K)(r,r',β) dm(r') = ∬ K = 0`.  The translation
 `r' ↦ r + r'` is legitimate because `K` is a genuine function on the torus in
 its second row frequency, and the resulting integral vanishes by oddness. -/
 theorem torusIntegral_diagonalRawCarrier_eq_zero (v : ParityProfile)
@@ -594,8 +594,8 @@ theorem torusIntegral_diagonalRawCarrier_eq_zero (v : ParityProfile)
   rw [hrw, Glue.torusIntegral_comp_add_right (parityFibreAverage_periodic v beta) r]
   exact torusIntegral_of_odd fun s => parityFibreAverage_odd v beta s
 
-/-- **(P2), the lowering consequence.** `(D₂* k)₁₂ = (D₂* K)₁₂ = (√2)⁻¹ σ v`:
-the projection contributes nothing to the mixed component. In the old proof
+/-- **(P2), the lowering consequence.**  `(D₂* k)₁₂ = (D₂* K)₁₂ = (√2)⁻¹ σ v`:
+the projection contributes nothing to the mixed component.  In the old proof
 this was Lemma 5.3, an estimate; here it is an identity. -/
 theorem rawD2StarMixed_offDiagonalPart (hkappa : 0 < kappa) (hdelta : 0 < delta)
     (v : ParityProfile) (p₂ r beta : ℝ) :
@@ -649,7 +649,7 @@ theorem rawOffDiagonalPart_neg_col (v : ParityProfile) (p₂ r r' beta : ℝ) :
         (Glue.mixedAlpha p₂ r r' - t + p₂) beta))
   ring
 
-/-- **(P3).** `(D₂* k)₁₁ = 0`: the two-row component of the lowering of the
+/-- **(P3).**  `(D₂* k)₁₁ = 0`: the two-row component of the lowering of the
 projected kernel vanishes identically, because `K` is odd in `β`. -/
 theorem rawD2StarTwoRow_offDiagonalPart (v : ParityProfile) (p₂ r r' : ℝ) :
     Glue.rawD2StarTwoRow p₂
@@ -658,7 +658,6 @@ theorem rawD2StarTwoRow_offDiagonalPart (v : ParityProfile) (p₂ r r' : ℝ) :
     torusIntegral_of_odd (g := fun beta =>
       Glue.rawOffDiagonalPart p₂ (parityKernel kappa delta v.toFun) r r' beta)
       (fun beta => rawOffDiagonalPart_neg_col v p₂ r r' beta), mul_zero]
-
 
 /-! ## (P4): the energy cross term vanishes -/
 
@@ -846,8 +845,8 @@ theorem torusIntegral_energy_swap (hkappa : 0 < kappa) (hdelta : 0 < delta)
   rfl
 
 set_option maxHeartbeats 2000000 in
-/-- **(P4).** `∫ M |K|² = ∫ σ |v|²`: the cross term vanishes by (P1) and the
-two diagonal terms are equal by the `r ↔ r'` symmetry of `M`. This is an
+/-- **(P4).**  `∫ M |K|² = ∫ σ |v|²`: the cross term vanishes by (P1) and the
+two diagonal terms are equal by the `r ↔ r'` symmetry of `M`.  This is an
 identity, with the note's normalization `K = (i sin β/(√2 M))(v + v')` and the
 **ordered** raw integrals of `Manhattan.Glue.rawMultiplierEnergy`. -/
 theorem evenMajorantEnergy_parityKernel (hkappa : 0 < kappa) (hdelta : 0 < delta)
@@ -929,13 +928,12 @@ theorem evenMajorantEnergy_parityKernel (hkappa : 0 < kappa) (hdelta : 0 < delta
   rw [hfinal]
   ring
 
-
 /-! ## `L²` legitimacy
 
-The audit of the Version 4 argument flagged that the note never checks that its
-competitor lies in `L²`. For a fixed `λ > 0` the two bounds below close that
+The Version 4 argument does not check that its
+competitor lies in `L²`.  For a fixed `λ > 0` the two bounds below close that
 gap: `‖v‖₂ ≤ λ⁻¹ ‖w‖₂` because `B + σ ≥ λ`, and `‖K‖₂ ≤ (√2/(κδ)) ‖v‖₂`
-because `M ≥ κδ`. Together with `torusBounded₃_rawOffDiagonalPart` this says
+because `M ≥ κδ`.  Together with `torusBounded₃_rawOffDiagonalPart` this says
 that `k = Π K` is a genuine bounded measurable type-`112` coefficient, hence a
 degree-three element of the Walsh space. -/
 
@@ -1160,9 +1158,9 @@ theorem paritySigma_measurable (kappa delta : ℝ) :
   unfold paritySigma
   exact ((Real.measurable_sin.comp measurable_snd).pow_const 2).mul parityJ_measurable
 
-/-- **The competitor profile.** If `w` is odd in the row frequency and even in
+/-- **The competitor profile.**  If `w` is odd in the row frequency and even in
 the column frequency, then so is `v = w/(B+σ)`, because `B` and `σ` are even in
-both. This is the instance to which the four parity cancellations are
+both.  This is the instance to which the four parity cancellations are
 applied. -/
 def parityProfileV {q : Estimates.Parameters} (hlam : 0 < q.lambda)
     (hkappa : 0 < kappa) (hdelta : 0 < delta) (w : ParityProfile) : ParityProfile where
@@ -1211,9 +1209,9 @@ def parityProfileV {q : Estimates.Parameters} (hlam : 0 < q.lambda)
     (hkappa : 0 < kappa) (hdelta : 0 < delta) (w : ParityProfile) :
     (parityProfileV hlam hkappa hdelta w).bound = w.bound / q.lambda := rfl
 
-/-- **The Euler identity `w - σ v = B v`.** This is the exact cancellation
+/-- **The Euler identity `w - σ v = B v`.**  This is the exact cancellation
 that Step 4 of the note feeds into the scalar completion of the square
-(`Manhattan.V4.scalarCompletion_le` of the formalization). -/
+(`Manhattan.V4.scalarCompletion_le` of ). -/
 theorem parityV_euler {q : Estimates.Parameters} (hlam : 0 < q.lambda)
     (hkappa : 0 < kappa) (hdelta : 0 < delta) (w : ℝ → ℝ → ℝ) (r beta : ℝ) :
     w r beta - paritySigma kappa delta r beta * parityV q kappa delta w r beta

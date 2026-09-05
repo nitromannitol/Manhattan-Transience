@@ -4,7 +4,7 @@ import Manhattan.Glue.ProjectionDischargeTorus
 /-!
 # The degree-four raising energy bound
 
-Step 5 of the plan : the operator
+Step 5 of the plan of : the operator
 half of Lemma 5.2, for a *general* degree-three coefficient.
 
 Paper: `manuscript.tex:1196-1205` (Lemma 5.2), `manuscript.tex:1257-1272`
@@ -22,7 +22,7 @@ open UnitAddTorus
 /-! ### The multiplier weight is continuous
 
 `symbolWeight` is written through `torusLift = Quotient.out`, which carries no
-measurability of its own. It is nevertheless a continuous function of the
+measurability of its own.  It is nevertheless a continuous function of the
 torus point, because `lineSymbol_eq` identifies `theta` of the total frequency
 with the real part of a finite combination of characters. -/
 
@@ -55,7 +55,7 @@ theorem continuous_inv_symbolWeight (n : ℕ) {lam : ℝ} (hlam : 0 < lam) (p : 
 
 Equation (22), transported from the paper's normalized torus to the unit
 additive circle and in the shifted form in which the appended line's variable
-occurs. This section deliberately keeps Mathlib's own `MeasureSpace
+occurs.  This section deliberately keeps Mathlib's own `MeasureSpace
 UnitAddCircle` instance, so that `AddCircle.integral_haarAddCircle` and
 `AddCircle.integral_preimage` mean what they say; the statement names
 `AddCircle.haarAddCircle` explicitly and is therefore instance-independent. -/
@@ -131,9 +131,6 @@ and lets `P_{3-i}` range over `T`". -/
 /-- The index of the coordinate transverse to `i`. -/
 def otherAxisIndex (i : Fin 2) : Fin 2 := 1 - i
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem otherAxisIndex_ne (i : Fin 2) : otherAxisIndex i ≠ i := by
   fin_cases i <;> decide
 
@@ -183,7 +180,7 @@ section SlotIntegral
 
 attribute [local instance] Real.fact_zero_lt_one
 
-/-- **The slot integral.** Integrating the inverse degree-four weight over the
+/-- **The slot integral.**  Integrating the inverse degree-four weight over the
 appended line's frequency gives the closed form of equation (22) at the mass
 `lambda + d(P_i)`. -/
 theorem integral_haar_inv_symbolWeight_insertNth {n : ℕ} {lam : ℝ} (hlam : 0 < lam)
@@ -214,12 +211,12 @@ end SlotIntegral
 `sin^2(P_i)(\lambda+d(P_i))^{-1/2} \leq 2\sqrt2|\sin(P_i/2)|`, absorbed into the
 multiplier `M` with the universal constant `\kappa = 40`. -/
 
-theorem sin_sq_div_sqrt_le_multiplier_div {q : Estimates.Parameters}
-    (hlam : 0 ≤ q.lambda) (P : Fin 2 → ℝ) (i : Fin 2) :
+theorem sin_sq_div_sqrt_le_multiplier_div {q : Estimates.Parameters} {kappa : ℝ}
+    (hkappa : 12 ≤ kappa) (hlam : 0 ≤ q.lambda) (P : Fin 2 → ℝ) (i : Fin 2) :
     Real.sin (P i) ^ 2 / Real.sqrt (q.lambda + Estimates.dispersion (P i))
-      ≤ Estimates.multiplier 40 q P / 8 := by
+      ≤ Estimates.multiplier kappa q P / 8 := by
   have hcases : ∀ j : Fin 2, j = 0 ∨ j = 1 := by decide
-  have hcore := Estimates.fourEstimateCore_le_multiplier hlam P
+  have hcore := Estimates.fourEstimateCore_le_multiplier_of_twelve_le hkappa hlam P
   have hw : 0 ≤ Estimates.hWeight q P := by
     have := Estimates.theta_nonneg P
     simp only [Estimates.hWeight]
@@ -233,11 +230,12 @@ theorem sin_sq_div_sqrt_le_multiplier_div {q : Estimates.Parameters}
   · linarith
   · linarith
 
-theorem inv_sqrt_slot_mul_sin_sq_le {q : Estimates.Parameters} (hlam : 0 < q.lambda)
+theorem inv_sqrt_slot_mul_sin_sq_le {q : Estimates.Parameters} {kappa : ℝ}
+    (hkappa : 12 ≤ kappa) (hlam : 0 < q.lambda)
     (P : Fin 2 → ℝ) (i : Fin 2) :
     (Real.sqrt ((q.lambda + Estimates.dispersion (P i)) *
         ((q.lambda + Estimates.dispersion (P i)) + 2)))⁻¹ * Real.sin (P i) ^ 2
-      ≤ Estimates.multiplier 40 q P / 8 := by
+      ≤ Estimates.multiplier kappa q P / 8 := by
   have hd := Estimates.dispersion_nonneg (P i)
   have hmupos : 0 < q.lambda + Estimates.dispersion (P i) := by linarith
   have hsq : 0 < Real.sqrt (q.lambda + Estimates.dispersion (P i)) := Real.sqrt_pos.2 hmupos
@@ -254,7 +252,7 @@ theorem inv_sqrt_slot_mul_sin_sq_le {q : Estimates.Parameters} (hlam : 0 < q.lam
       ≤ Real.sin (P i) ^ 2 / Real.sqrt (q.lambda + Estimates.dispersion (P i)) := by
     rw [div_eq_inv_mul]
     exact mul_le_mul_of_nonneg_right hinv (sq_nonneg _)
-  exact hstep.trans (sin_sq_div_sqrt_le_multiplier_div hlam.le P i)
+  exact hstep.trans (sin_sq_div_sqrt_le_multiplier_div hkappa hlam.le P i)
 
 /-! ### Inserting a line in a fixed slot
 
@@ -346,7 +344,7 @@ theorem insertLineIndex_injective (n : ℕ) (r : Fin (n + 1)) (i : Fin 2) :
   have := congrArg (fun v => Fin.removeNth r v) h
   simpa [insertLineIndex, Fin.removeNth_insertNth] using this
 
-/-- **The fixed-slot raising map.** Extension by zero along the placement of
+/-- **The fixed-slot raising map.**  Extension by zero along the placement of
 the origin line of type `i` in slot `r`. -/
 def insertLine (n : ℕ) (r : Fin (n + 1)) (i : Fin 2) :
     OrderedCoefficient n →L[ℂ] OrderedCoefficient (n + 1) :=
@@ -370,7 +368,7 @@ theorem insertLine_apply_of_notMem (n : ℕ) (r : Fin (n + 1)) (i : Fin 2)
   intro t hc
   exact hu (by rw [← hc]; simp [insertLineIndex])
 
-/-- **The line-frequency coefficient of the fixed-slot raising map.** It lives
+/-- **The line-frequency coefficient of the fixed-slot raising map.**  It lives
 in the single axis sector whose slot `r` entry is the appended line's axis, and
 there it is the degree-`n` coefficient read after deleting that slot: constant
 in the appended line's torus variable. -/
@@ -462,7 +460,7 @@ theorem integral_weight_zero_lp (n : ℕ) (w : UnitAddTorus (Fin n) → ℝ) :
     simp
   rw [hzero, integral_zero]
 
-/-- **Fubini in the appended slot.** The degree-`(n+1)` energy of a function
+/-- **Fubini in the appended slot.**  The degree-`(n+1)` energy of a function
 that does not depend on the appended line's variable is the degree-`n` energy
 against the slot integral of the weight. -/
 theorem integral_insertNth_energy (n : ℕ) {lam : ℝ} (hlam : 0 < lam) (p : Fin 2 → ℝ)
@@ -517,7 +515,7 @@ theorem integral_insertNth_energy (n : ℕ) {lam : ℝ} (hlam : 0 < lam) (p : Fi
   congr 1
   exact integral_haar_inv_symbolWeight_insertNth hlam p i r σ s
 
-/-- **The energy of the fixed-slot raising map.** Summing over axis patterns
+/-- **The energy of the fixed-slot raising map.**  Summing over axis patterns
 collapses to the patterns whose slot `r` entry is the appended line's axis, and
 Fubini in that slot leaves the degree-`n` energy against the line integral of
 equation (22). -/
@@ -868,8 +866,9 @@ theorem continuous_multiplier_totalFrequency (n : ℕ) (kappa : ℝ) (q : Estima
   · exact (continuous_const.mul (continuous_dispersion_totalFrequency n p σ 0)).sqrt
   · exact (continuous_const.mul (continuous_dispersion_totalFrequency n p σ 1)).sqrt
 
-theorem multiplier_le_bound {q : Estimates.Parameters} (hlam : 0 ≤ q.lambda) (P : Fin 2 → ℝ) :
-    ‖Estimates.multiplier 40 q P‖ ≤ 40 * (q.lambda + 8) := by
+theorem multiplier_le_bound {q : Estimates.Parameters} {kappa : ℝ} (hkappa : 0 ≤ kappa)
+    (hlam : 0 ≤ q.lambda) (P : Fin 2 → ℝ) :
+    ‖Estimates.multiplier kappa q P‖ ≤ kappa * (q.lambda + 8) := by
   have hd0 : Estimates.dispersion (P 0) ≤ 2 := by
     have := Real.neg_one_le_cos (P 0)
     simp only [Estimates.dispersion]
@@ -880,40 +879,64 @@ theorem multiplier_le_bound {q : Estimates.Parameters} (hlam : 0 ≤ q.lambda) (
     linarith
   have hs0 : |Real.sin (P 0 / 2)| ≤ 1 := Real.abs_sin_le_one _
   have hs1 : |Real.sin (P 1 / 2)| ≤ 1 := Real.abs_sin_le_one _
-  have hnn : 0 ≤ Estimates.multiplier 40 q P :=
-    Estimates.multiplier_nonneg (by norm_num) hlam P
+  have hnn : 0 ≤ Estimates.multiplier kappa q P :=
+    Estimates.multiplier_nonneg hkappa hlam P
   rw [Real.norm_eq_abs, abs_of_nonneg hnn, Estimates.multiplier, Estimates.theta]
-  linarith
+  nlinarith [hkappa, hd0, hd1, hs0, hs1, hlam]
 
-theorem integrable_multiplier_norm_sq {q : Estimates.Parameters} (hlam : 0 ≤ q.lambda)
+theorem integrable_multiplier_norm_sq {q : Estimates.Parameters} {kappa : ℝ}
+    (hkappa : 0 ≤ kappa) (hlam : 0 ≤ q.lambda)
     (n : ℕ) (p : Fin 2 → ℝ) (σ : Fin n → Axis) (v : Lp ℂ 2 (LineTorusMeasure n)) :
-    Integrable (fun t => Estimates.multiplier 40 q (totalFrequency n p σ t) *
+    Integrable (fun t => Estimates.multiplier kappa q (totalFrequency n p σ t) *
       ‖(v : UnitAddTorus (Fin n) → ℂ) t‖ ^ 2) (LineTorusMeasure n) := by
-  refine (integrable_norm_sq_lp n v).bdd_mul (c := 40 * (q.lambda + 8))
-    (continuous_multiplier_totalFrequency n 40 q p σ).aestronglyMeasurable ?_
-  exact Filter.Eventually.of_forall fun t => multiplier_le_bound hlam _
+  refine (integrable_norm_sq_lp n v).bdd_mul (c := kappa * (q.lambda + 8))
+    (continuous_multiplier_totalFrequency n kappa q p σ).aestronglyMeasurable ?_
+  exact Filter.Eventually.of_forall fun t => multiplier_le_bound hkappa hlam _
 
 end Multiplier
 
+/-! ### Scaling in the multiplier constant
+
+The multiplier is linear in its constant, so an identity or an inequality
+between multiplier integrals proved at one constant holds at every other. -/
+
+theorem integral_multiplier_eq_smul {α : Type*} [MeasurableSpace α]
+    (kappa : ℝ) (q : Estimates.Parameters) (mu : MeasureTheory.Measure α)
+    (F : α → Fin 2 → ℝ) (g : α → ℝ) :
+    (∫ t, Estimates.multiplier kappa q (F t) * g t ∂mu)
+      = kappa * ∫ t, Estimates.multiplier 1 q (F t) * g t ∂mu := by
+  rw [← MeasureTheory.integral_const_mul]
+  refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun t => ?_)
+  simp only [Estimates.multiplier]; ring
+
+theorem tsum_integral_multiplier_eq_smul {ι α : Type*} [MeasurableSpace α]
+    (kappa : ℝ) (q : Estimates.Parameters) (mu : MeasureTheory.Measure α)
+    (F : ι → α → Fin 2 → ℝ) (g : ι → α → ℝ) :
+    (∑' i : ι, ∫ t, Estimates.multiplier kappa q (F i t) * g i t ∂mu)
+      = kappa * ∑' i : ι, ∫ t, Estimates.multiplier 1 q (F i t) * g i t ∂mu := by
+  rw [← tsum_mul_left]
+  exact tsum_congr fun i => integral_multiplier_eq_smul kappa q mu (F i) (g i)
+
 /-! ### The pointwise comparison, sector by sector -/
 
-theorem integral_slot_le_multiplier {q : Estimates.Parameters} (hlam : 0 < q.lambda)
+theorem integral_slot_le_multiplier {q : Estimates.Parameters} {kappa : ℝ}
+    (hkappa : 12 ≤ kappa) (hlam : 0 < q.lambda)
     (p : Fin 2 → ℝ) (i : Fin 2) (g : DegreeCoefficient 3) (σ : Fin 3 → Axis) :
     (∫ s, (Real.sqrt ((q.lambda + Estimates.dispersion (totalFrequency 3 p σ s i)) *
           ((q.lambda + Estimates.dispersion (totalFrequency 3 p σ s i)) + 2)))⁻¹ *
         ‖((lineIndexFourier 3 (degreeRaiseSymbol p i g)) σ :
           UnitAddTorus (Fin 3) → ℂ) s‖ ^ 2 ∂(LineTorusMeasure 3))
-      ≤ (8 : ℝ)⁻¹ * ∫ s, Estimates.multiplier 40 q (totalFrequency 3 p σ s) *
+      ≤ (8 : ℝ)⁻¹ * ∫ s, Estimates.multiplier kappa q (totalFrequency 3 p σ s) *
           ‖((lineIndexFourier 3 g) σ : UnitAddTorus (Fin 3) → ℂ) s‖ ^ 2
           ∂(LineTorusMeasure 3) := by
   rw [← integral_const_mul]
   refine integral_mono_of_nonneg ?_ ?_ ?_
   · filter_upwards with s
     positivity
-  · exact (integrable_multiplier_norm_sq hlam.le 3 p σ ((lineIndexFourier 3 g) σ)).const_mul _
+  · exact (integrable_multiplier_norm_sq (by linarith : (0:ℝ) ≤ kappa) hlam.le 3 p σ ((lineIndexFourier 3 g) σ)).const_mul _
   · filter_upwards [coeFn_lineIndexFourier_degreeRaiseSymbol p i g σ] with s hs
     rw [hs, norm_mul, norm_raisingSymbol, mul_pow, sq_abs]
-    have hkey := inv_sqrt_slot_mul_sin_sq_le hlam (totalFrequency 3 p σ s) i
+    have hkey := inv_sqrt_slot_mul_sin_sq_le hkappa hlam (totalFrequency 3 p σ s) i
     calc (Real.sqrt ((q.lambda + Estimates.dispersion (totalFrequency 3 p σ s i)) *
             ((q.lambda + Estimates.dispersion (totalFrequency 3 p σ s i)) + 2)))⁻¹ *
           (Real.sin (totalFrequency 3 p σ s i) ^ 2 *
@@ -922,10 +945,10 @@ theorem integral_slot_le_multiplier {q : Estimates.Parameters} (hlam : 0 < q.lam
               ((q.lambda + Estimates.dispersion (totalFrequency 3 p σ s i)) + 2)))⁻¹ *
             Real.sin (totalFrequency 3 p σ s i) ^ 2) *
             ‖((lineIndexFourier 3 g) σ : UnitAddTorus (Fin 3) → ℂ) s‖ ^ 2 := by ring
-      _ ≤ (Estimates.multiplier 40 q (totalFrequency 3 p σ s) / 8) *
+      _ ≤ (Estimates.multiplier kappa q (totalFrequency 3 p σ s) / 8) *
             ‖((lineIndexFourier 3 g) σ : UnitAddTorus (Fin 3) → ℂ) s‖ ^ 2 :=
           mul_le_mul_of_nonneg_right hkey (sq_nonneg _)
-      _ = (8 : ℝ)⁻¹ * (Estimates.multiplier 40 q (totalFrequency 3 p σ s) *
+      _ = (8 : ℝ)⁻¹ * (Estimates.multiplier kappa q (totalFrequency 3 p σ s) *
             ‖((lineIndexFourier 3 g) σ : UnitAddTorus (Fin 3) → ℂ) s‖ ^ 2) := by ring
 
 /-! ### The degree-four raising energy bound -/
@@ -936,33 +959,35 @@ attribute [local instance] Real.fact_zero_lt_one
 attribute [local instance] orderedInverseUnitAddCircleMeasureSpace
 attribute [local instance] orderedInverseUnitAddCircleIsProbabilityMeasure
 
-theorem re_inner_orderedHInv_insertLine_le {q : Estimates.Parameters} (hlam : 0 < q.lambda)
+theorem re_inner_orderedHInv_insertLine_le {q : Estimates.Parameters} {kappa : ℝ}
+    (hkappa : 12 ≤ kappa) (hlam : 0 < q.lambda)
     (p : Fin 2 → ℝ) (i : Fin 2) (r : Fin 4) (g : DegreeCoefficient 3) :
     RCLike.re (inner ℂ
         (orderedHInv 4 hlam p (insertLine 3 r i (walshOrdered 3 (degreeRaiseSymbol p i g))))
         (insertLine 3 r i (walshOrdered 3 (degreeRaiseSymbol p i g))))
       ≤ (8 : ℝ)⁻¹ * ∑' σ : Fin 3 → Axis, ∫ t,
-          Estimates.multiplier 40 q (totalFrequency 3 p σ t) *
+          Estimates.multiplier kappa q (totalFrequency 3 p σ t) *
             ‖((lineIndexFourier 3 g) σ : UnitAddTorus (Fin 3) → ℂ) t‖ ^ 2
             ∂(LineTorusMeasure 3) := by
   rw [re_inner_orderedHInv_eq_integral 4 hlam p _,
     tsum_integral_inv_symbolWeight_insertLine 3 hlam p i r _,
     tsum_fintype, tsum_fintype, Finset.mul_sum]
   refine Finset.sum_le_sum fun σ _ => ?_
-  exact integral_slot_le_multiplier hlam p i g σ
+  exact integral_slot_le_multiplier hkappa hlam p i g σ
 
-/-- **The degree-four raising energy bound.** The operator half of Lemma 5.2,
+/-- **The degree-four raising energy bound.**  The operator half of Lemma 5.2,
 for a general degree-three coefficient: the `H^{-1}` energy of the raised
 degree-four coefficient is at most twice the degree-three multiplier energy at
-the same momentum, with the universal constant `kappa = 40`. No momentum
+the same momentum, with the universal constant `kappa = 40`.  No momentum
 comparison is used. -/
 theorem tsum_integral_inv_symbolWeight_degreeRaiseDir_le {q : Estimates.Parameters}
+    {kappa : ℝ} (hkappa : 12 ≤ kappa)
     (hlam : 0 < q.lambda) (p : Fin 2 → ℝ) (i : Fin 2) (g : DegreeCoefficient 3) :
     (∑' σ : Fin 4 → Axis, ∫ t, (symbolWeight 4 q.lambda p σ t)⁻¹ *
         ‖((lineIndexFourier 4 (degreeRaiseDir p i g)) σ :
           UnitAddTorus (Fin 4) → ℂ) t‖ ^ 2 ∂(LineTorusMeasure 4))
       ≤ 2 * ∑' σ : Fin 3 → Axis, ∫ t,
-          Estimates.multiplier 40 q (totalFrequency 3 p σ t) *
+          Estimates.multiplier kappa q (totalFrequency 3 p σ t) *
             ‖((lineIndexFourier 3 g) σ : UnitAddTorus (Fin 3) → ℂ) t‖ ^ 2
             ∂(LineTorusMeasure 3) := by
   have hstep0 : (∑' σ : Fin 4 → Axis, ∫ t, (symbolWeight 4 q.lambda p σ t)⁻¹ *
@@ -976,24 +1001,14 @@ theorem tsum_integral_inv_symbolWeight_degreeRaiseDir_le {q : Estimates.Paramete
   rw [Fin.sum_univ_four]
   refine le_trans (re_inner_add_four_le (orderedHInv 4 hlam p)
     (re_inner_orderedHInv_nonneg 4 hlam p) _ _ _ _) ?_
-  have h0 := re_inner_orderedHInv_insertLine_le hlam p i 0 g
-  have h1 := re_inner_orderedHInv_insertLine_le hlam p i 1 g
-  have h2 := re_inner_orderedHInv_insertLine_le hlam p i 2 g
-  have h3 := re_inner_orderedHInv_insertLine_le hlam p i 3 g
+  have h0 := re_inner_orderedHInv_insertLine_le hkappa hlam p i 0 g
+  have h1 := re_inner_orderedHInv_insertLine_le hkappa hlam p i 1 g
+  have h2 := re_inner_orderedHInv_insertLine_le hkappa hlam p i 2 g
+  have h3 := re_inner_orderedHInv_insertLine_le hkappa hlam p i 3 g
   linarith
 
 end Final
 
 end Manhattan.Glue
-
-
-
-
-
-
-
-
-
-
 
 

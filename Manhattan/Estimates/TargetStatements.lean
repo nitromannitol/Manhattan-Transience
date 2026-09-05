@@ -7,7 +7,7 @@ import Manhattan.Estimates.FinsetRaising
 
 These proposition-valued definitions record the exact remaining analytic
 obligations without introducing axioms or unregistered placeholders. They are
-intended to become frozen theorem blocks when the stage manifest owner
+intended to become frozen theorem blocks when the wave-2 manifest owner
 registers the corresponding `DRAFT_SORRY` nodes.
 -/
 
@@ -92,18 +92,18 @@ def PropositionFiveTwoClaim (K rho : ℝ) : Prop :=
       DenominatorBound 40 c q a ∧ BetaIntegralBound 40 C q a ∧
         PropositionFiveTwoIntegralBound 40 C q a
 
-/-- The direct formulation of the full Lemma 5.2 interface: the
+/-- The direct the Finset convention formulation of the full Lemma 5.2 interface: the
 operator-side energy is bounded by the explicit multiplier quadratic form.
-The actual operators and coefficient carrier are supplied by the Walsh layer.
+The actual operators and coefficient carrier are supplied by the Walsh part.
 -/
--- INTERFACE: the Walsh layer supplies the concrete coefficient carrier and forms.
+-- INTERFACE: the Walsh part supplies the concrete coefficient carrier and forms.
 def LemmaSixTwoInterface {E : Type*}
     (hThree dFour multiplierForm : E → ℝ) : Prop :=
   ∀ k : E, hThree k + dFour k ≤ multiplierForm k
 
-/-- The four claims established in Lemma 5.4. Under this convention, the fourth claim is
+/-- The four claims established in Lemma 5.4. In the Finset convention, the fourth claim is
 the direct reduction estimate: there is no projection-error term or Lemma 5.3. -/
--- INTERFACE: the Walsh layer replaces these fields by concrete Finset identities.
+-- INTERFACE: the Walsh part replaces these fields by concrete Finset identities.
 structure LemmaSixFourCertificate where
   supportDisjoint : Prop
   twoRowComponentVanishes : Prop

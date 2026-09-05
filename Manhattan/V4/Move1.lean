@@ -8,11 +8,11 @@ This file assembles the four sector identifications into the Move 1 inequality
 of the Version 4 argument, in the exact shape
 `Manhattan.V4.Frequency.move2_bound` consumes:
 
-  `r_λ(p) ≤ (1 - s ∫ φ dm)²/h₀ + C ∫ q φ² dm`, `h₀ = λ + θ(p)`, `s = sin p₁`.
+  `r_λ(p) ≤ (1 - s ∫ φ dm)²/h₀ + C ∫ q φ² dm`,  `h₀ = λ + θ(p)`, `s = sin p₁`.
 
 The competitor is the pair `(f_p, k_p)` with
 `f_p = axisDegreeOneSynthesis horizontal (fourierBasis.repr (rowTorusShift (p 1)
-(realTorusL2 (-iφ))))` and `k_p = Π₃ K` at the parity kernel of the formalization, built
+(realTorusL2 (-iφ))))` and `k_p = Π₃ K` at the parity kernel, built
 from the profile `v = √2 w/(B+σ)`, `w(r) = sin(r) φ(r)`.
 
 The four pieces are
@@ -39,7 +39,6 @@ namespace Manhattan.V4
 
 open Manhattan.Glue Manhattan.Operator
 
-
 /-- The purely imaginary degree-one profile of a bounded measurable real profile
 is square integrable on the torus. -/
 theorem memLp_neg_I_mul {phi : ℝ → ℝ} (hm : Measurable phi) {K : ℝ}
@@ -61,7 +60,7 @@ theorem norm_neg_I_mul_sq (phi : ℝ → ℝ) (r : ℝ) :
   rw [norm_mul, norm_neg, Complex.norm_I, one_mul, Complex.norm_real, Real.norm_eq_abs,
     sq_abs]
 
-/-- **The Version 4 degree-zero coefficient at the shifted row synthesis.** The
+/-- **The Version 4 degree-zero coefficient at the shifted row synthesis.**  The
 row shift of `(shift)` does not move the degree-zero Fourier coefficient
 (`Manhattan.Glue.fourierBasis_repr_rowTorusShift_zero`), so the numerator of
 Move 1 is unchanged: it is `1 - sin(p₁) ∫ φ dm`. -/
@@ -151,7 +150,7 @@ theorem scaleProfile_periodic_col (cs : ℝ) (v : ParityProfile)
 
 /-! ## Move 1 as a competitor objective -/
 
-/-- **Move 1 of Version 4, as a competitor objective.** This is
+/-- **Move 1 of Version 4, as a competitor objective.**  This is
 `Manhattan.V4.resolventQuadratic_le_v4Move1` one step earlier, before
 `Manhattan.Operator.DissipativeSkewPair.resolventQuadratic_le` is applied, so
 that the bound can be transported through the axis swap
@@ -257,7 +256,7 @@ theorem sin_sq_le_two_dispersion (x : ℝ) :
 /-! ## Move 1 of Version 4, assembled -/
 
 open Manhattan.V4.Frequency in
-/-- **Move 1 of Version 4, at the parity competitor.** For every `t` the
+/-- **Move 1 of Version 4, at the parity competitor.**  For every `t` the
 Version 4 competitor `(f_p, k_p)` built from the profile
 `φ = perProfile r0 delta t` obeys the effective-energy inequality with
 `h₀ = λ + θ(p)`, `s = sin p₁` and the absolute constant

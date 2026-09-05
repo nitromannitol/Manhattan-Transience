@@ -109,6 +109,41 @@ def fourEstimateCore (q : Parameters) (P : Fin 2 → ℝ) : ℝ :=
     (Real.sin (P 0) ^ 2 / Real.sqrt (q.lambda + dispersion (P 0)) +
      Real.sin (P 1) ^ 2 / Real.sqrt (q.lambda + dispersion (P 1)))
 
+/-- The multiplier is linear in its constant. -/
+theorem multiplier_eq_smul (kappa : ℝ) (q : Parameters) (P : Fin 2 → ℝ) :
+    multiplier kappa q P = kappa * multiplier 1 q P := by
+  simp only [multiplier]; ring
+
+/-- The multiplier is monotone in its constant. -/
+theorem multiplier_mono {q : Parameters} {kappa kappa' : ℝ} (hle : kappa ≤ kappa')
+    (hlam : 0 ≤ q.lambda) (P : Fin 2 → ℝ) :
+    multiplier kappa q P ≤ multiplier kappa' q P := by
+  have hth := theta_nonneg P
+  have h0 := abs_nonneg (Real.sin (P 0 / 2))
+  have h1 := abs_nonneg (Real.sin (P 1 / 2))
+  simp only [multiplier]
+  nlinarith [hle, hlam, hth, h0, h1]
+
+/-- The scalar step bounds each `sin²(Pᵢ)/√(λ+d(Pᵢ))` by `2√2 |sin(Pᵢ/2)|`, so
+`fourEstimateCore` is under `8√2 = 11.31…` times the multiplier and `κ = 12`
+suffices where the universal choice below takes `40`. -/
+theorem fourEstimateCore_le_multiplier_twelve {q : Parameters} (hlam : 0 ≤ q.lambda)
+    (P : Fin 2 → ℝ) : fourEstimateCore q P ≤ multiplier 12 q P := by
+  have hzero := sine_sq_div_sqrt_le q.lambda (P 0) hlam
+  have hone := sine_sq_div_sqrt_le q.lambda (P 1) hlam
+  have hsqrt : Real.sqrt 2 ≤ 3/2 := by linarith [Real.sqrt_two_lt_three_halves]
+  have habs0 : 0 ≤ |Real.sin (P 0 / 2)| := abs_nonneg _
+  have habs1 : 0 ≤ |Real.sin (P 1 / 2)| := abs_nonneg _
+  have hth := theta_nonneg P
+  simp only [fourEstimateCore, multiplier, hWeight] at *
+  nlinarith [hzero, hone, hsqrt, habs0, habs1, hth, hlam]
+
+/-- The scalar step at any constant at least `12`. -/
+theorem fourEstimateCore_le_multiplier_of_twelve_le {q : Parameters} {kappa : ℝ}
+    (hkappa : 12 ≤ kappa) (hlam : 0 ≤ q.lambda) (P : Fin 2 → ℝ) :
+    fourEstimateCore q P ≤ multiplier kappa q P :=
+  (fourEstimateCore_le_multiplier_twelve hlam P).trans (multiplier_mono hkappa hlam P)
+
 /-- Lemma 5.2's scalar `κ` bound, with the universal choice `κ = 40`. -/
 theorem fourEstimateCore_le_multiplier {q : Parameters} (hlam : 0 ≤ q.lambda)
     (P : Fin 2 → ℝ) : fourEstimateCore q P ≤ multiplier 40 q P := by

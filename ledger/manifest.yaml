@@ -15,7 +15,7 @@
 #   state            DRAFT_SORRY | PROVED | SEALED
 #                    for theorems; FROZEN for definitions
 #   superseded_by    optional approved successor id; the predecessor remains
-#                    historical and is excluded from the headline imports
+#                    historical and is excluded from the main imports
 #   frozen_sha256    SHA-256 of the exact bytes between the frozen markers
 #   closure_sha256   optional SHA-256 of the explicit local support closure
 #   provider         sealed provider export, or intended provider for a draft
@@ -870,7 +870,7 @@ nodes:
   - id: lem-distinct-concrete-frequency
     version: 1
     kind: theorem
-    source: manuscript.tex:1212-1221 (D-031; raw/frequency side only, AUD-2 action 2 open)
+    source: manuscript.tex:1212-1221 (raw/frequency side only; the operator-level bridge is open)
     file: Manhattan/Frozen/Glue/LemmaDistinctConcreteFrequency.lean
     export: Manhattan.Frozen.Glue.lemma_distinct_concrete_frequency
     state: PROVED

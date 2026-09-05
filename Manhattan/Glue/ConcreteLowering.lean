@@ -6,12 +6,11 @@ import Manhattan.Walsh.LowDegreeSectors
 
 `A_p = D - D*` is skew-adjoint, so for every `x` in `Manhattan.WalshL2` the
 Walsh coefficient of `D* x` at a Finset index `S` is the inner product
-`⟪A_p (walshL2 S), x⟫`. This file computes that pairing from the actual
+`⟪A_p (walshL2 S), x⟫`.  This file computes that pairing from the actual
 concrete operator: one signed lattice step along each axis followed by the
-toggle of the line of that type through the origin. No factorial and no
+toggle of the line of that type through the origin.  No factorial and no
 tuple normalization is imported; every constant below is the one forced by
-the literal Finset isometry (17) of `Manhattan.Walsh.Coefficients`
-.
+the literal Finset isometry (17) of `Manhattan.Walsh.Coefficients`.
 
 Specializing to `S = ∅` gives the first formula of (D1),
 `manuscript.tex:827-840`, and then `D_0^* f_p = -b_p` of Lemma 4.1(a),
@@ -42,7 +41,7 @@ coefficient: this is (17) with no factorial. -/
     Finsupp.sum_single_index (by simp)]
   simp
 
-/-- The `S`-coefficient of `D* x`. Because `A_p` is skew-adjoint and
+/-- The `S`-coefficient of `D* x`.  Because `A_p` is skew-adjoint and
 `A_p = D - D*`, this is the inner product of `x` against the raising image of
 the Walsh character `S`. -/
 def loweringCoefficient (p : Fin 2 → ℝ) (x : WalshL2) (S : Finset LineIndex) : ℂ :=
@@ -84,8 +83,8 @@ theorem concreteFiberA_walshL2_expand (p : Fin 2 → ℝ) (S : Finset LineIndex)
   simp only [walshSynthesis_sub, walshSynthesis_single, Finset.smul_sum,
     smul_sub, smul_smul]
 
-/-- **Lemma 5.1, adjoint side.** The Walsh coefficients of `D* x` in the
-Finset isometry. Each axis contributes the two signed lattice steps, with
+/-- **Lemma 5.1, adjoint side.**  The Walsh coefficients of `D* x` in the
+Finset isometry.  Each axis contributes the two signed lattice steps, with
 the phase conjugated by the adjoint. -/
 theorem loweringCoefficient_eq (p : Fin 2 → ℝ) (x : WalshL2)
     (S : Finset LineIndex) :
@@ -140,7 +139,7 @@ theorem loweringCoefficient_empty (p : Fin 2 → ℝ) (x : WalshL2) :
     (walshCoefficientAt x {(Axis.horizontal, 0)}) * half_exp_neg_sub_half_exp (p 0) +
       (walshCoefficientAt x {(Axis.vertical, 0)}) * half_exp_neg_sub_half_exp (p 1)
 
-/-- **(D1), first formula, on the complete degree-one row sector.** Only the
+/-- **(D1), first formula, on the complete degree-one row sector.**  Only the
 zero line frequency survives, so `D_0^*` reads off the zero Fourier
 coefficient. -/
 theorem dStarZero_axisDegreeOne (p : Fin 2 → ℝ) (c : RowLineCoefficient) :
@@ -152,7 +151,7 @@ theorem dStarZero_axisDegreeOne (p : Fin 2 → ℝ) (c : RowLineCoefficient) :
   ring
 
 /-- **(D1), first formula, in the paper's normalized torus integral**:
-`D_0^* f = -i sin(p₁) ∫_𝕋 f dm` (`manuscript.tex:827-840`). The factor
+`D_0^* f = -i sin(p₁) ∫_𝕋 f dm` (`manuscript.tex:827-840`).  The factor
 `(2π)⁻¹` is the normalization of `dm`; no factorial appears. -/
 theorem dStarZero_degreeOneRealFrequency (p : Fin 2 → ℝ) (f : ℝ → ℂ)
     (hf : MemLp f 2 (volume.restrict (Set.Ioc (-Real.pi) Real.pi))) :
@@ -204,7 +203,7 @@ theorem dStarZero_degreeOneCoefficient_eq_neg_normalization
         (if r ∈ q.supportInterval |p 0| then (Real.sin r)⁻¹ else 0) : ℝ) : ℝ) : ℂ)) *
     Complex.I_mul_I
 
-/-- `D₂*` is genuinely the adjoint of the raising operator `D₂`. On a
+/-- `D₂*` is genuinely the adjoint of the raising operator `D₂`.  On a
 degree-three vector the signed lowering part of `A_p (walshL2 S)` is
 orthogonal, so the pairing sees only the raising part. -/
 theorem loweringCoefficient_type112_eq_inner_raising (p : Fin 2 → ℝ)
@@ -228,13 +227,13 @@ theorem loweringCoefficient_type112_eq_inner_raising (p : Fin 2 → ℝ)
     simp [type112CoefficientAt, hnot]
   rw [hzero, sub_zero]
 
-/-- Bridge to the W7A two-row lowering coefficient. -/
+/-- Bridge to the two-row lowering coefficient. -/
 theorem type112DStarTwoRow_eq_loweringCoefficient (p : Fin 2 → ℝ)
     (c : ℓ²(Type112Index, ℂ)) (T : Type11Index) :
     type112DStarTwoRow p c T = loweringCoefficient p (type112WalshSynthesis c) T.1 :=
   type112DStarTwoRow_apply p c T
 
-/-- Bridge to the W7A mixed lowering coefficient. -/
+/-- Bridge to the mixed lowering coefficient. -/
 theorem type112DStarMixed_eq_loweringCoefficient (p : Fin 2 → ℝ)
     (c : ℓ²(Type112Index, ℂ)) (T : Type12Index) :
     type112DStarMixed p c T = loweringCoefficient p (type112WalshSynthesis c) T.1 :=

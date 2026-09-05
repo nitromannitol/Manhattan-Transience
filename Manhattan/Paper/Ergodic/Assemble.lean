@@ -2,9 +2,9 @@
 Assembling Pólya in two dimensions.
 
 Given the one dimensional count and the divergence of the harmonic series, the
-planar Green series diverges. The factor that decides it is the sharp bound
+planar Green series diverges.  The factor that decides it is the sharp bound
 `16 ^ m ≤ 4 * m * centralBinom m ^ 2`: it makes the `m`-th even term at least
-`1 / (4 * m)`, and that series diverges. With Mathlib's weaker central
+`1 / (4 * m)`, and that series diverges.  With Mathlib's weaker central
 binomial bound the terms would only be `≳ 1 / m ^ 2` and the sum would converge,
 which is exactly the difference between recurrence and transience.
 -/

@@ -10,8 +10,8 @@ degree-three `H` quadratic form of the corrected coefficient `k_p` at the
 *shifted* momentum `(0,-p₂)`, because `Manhattan.correctionType112Coefficients`
 takes the Fourier coefficients of the manuscript's `k̃` in the shifted
 variables `(r,r',β)` of `manuscript.tex:812-814` without the compensating
-unimodular phase. Summand 2 of (22) is the same quadratic form at the actual
-momentum `p`. This file bridges the two: the two symbols differ by the fixed
+unimodular phase.  Summand 2 of (22) is the same quadratic form at the actual
+momentum `p`.  This file bridges the two: the two symbols differ by the fixed
 shift `(p₁, p₂+p₂)` of the total frequency, and `dispersion_add_le` turns that
 into a universal comparison with an additive error `O(|p₁|²)‖k‖²`.
 
@@ -147,7 +147,7 @@ theorem integrable_symbolWeight_mul {lam : ℝ} (hlam : 0 ≤ lam) (p : Fin 2 �
     abs_of_nonneg (mul_nonneg (by linarith) hgnn)]
   exact mul_le_mul_of_nonneg_right hWle hgnn
 
-/-- **The momentum bridge.** The degree-three `H` energy of a type-`(1,1,2)`
+/-- **The momentum bridge.**  The degree-three `H` energy of a type-`(1,1,2)`
 Walsh vector at the true momentum `p` is controlled by its energy at the
 shifted momentum `(0,-p₂)`, with an
 additive error proportional to `‖k‖²`. -/
@@ -225,8 +225,8 @@ theorem correctionInterval_bounds {q : Manhattan.Estimates.Parameters}
   · rw [if_neg hcond] at h
     exact absurd h (Set.notMem_empty _)
 
-/-- **The frequency separation.** Wherever the manuscript's `k̃` is nonzero,
-the multiplier of (28) dominates `a²`. This is the quantitative form of
+/-- **The frequency separation.**  Wherever the manuscript's `k̃` is nonzero,
+the multiplier of (28) dominates `a²`.  This is the quantitative form of
 `manuscript.tex:1040-1063`: the two `α`-intervals sit at distance at least
 `4Kδ ≥ 4Ka` from the origin. -/
 theorem sq_le_multiplier_of_ne_zero {q : Manhattan.Estimates.Parameters}
@@ -415,13 +415,9 @@ theorem rawCubicHWeightEnergy_le_core {q : Manhattan.Estimates.Parameters}
     exact mul_nonneg (by linarith) (sq_nonneg _)
   linarith [rawCubicCoreEnergy_eq_add hlambda a p₂, hraise]
 
-/-- **Summand 2 of (22) for the concrete correction.** The degree-three `H`
+/-- **Summand 2 of (22) for the concrete correction.**  The degree-three `H`
 energy of `k_p` at the true momentum `p` is `≤ 14 C √L`.
-
-the (shift) phase installed (E-009)
-lets summand 2 be discharged at `2 C √L` through
-`Manhattan.Glue.hThreeForm_type112ShiftTwist_frozen`, so nothing consumes this
-weaker unshifted bound any more. -/
+-/
 theorem hThreeForm_correctionWalsh_le {q : Manhattan.Estimates.Parameters}
     (hlambda : 0 < q.lambda) (hK : 1 ≤ q.K) (hrho : 0 ≤ q.rho)
     (hrhopi : 3 * q.rho < Real.pi) {C : ℝ} (p : Fin 2 → ℝ)
@@ -465,11 +461,11 @@ theorem hThreeForm_correctionWalsh_le {q : Manhattan.Estimates.Parameters}
   rw [hk]
   nlinarith [hbridge, hshift, hcore, hmass, hweight, hcnn]
 
-/-- **Summand 2 of (22) for the concrete competitor.** With the `(shift)`
+/-- **Summand 2 of (22) for the concrete competitor.**  With the `(shift)`
 phase in place the momentum bridge is an identity rather than a factor-two
 comparison: the degree-three `H` energy of `k_p` at the true momentum `p` is
 exactly energy at the frozen momentum `(0,-p₂)`, and Lemma 5.2 then
-gives `2C√L`. Compare `hThreeForm_correctionWalsh_le`, which is the same
+gives `2C√L`.  Compare `hThreeForm_correctionWalsh_le`, which is the same
 bound for the *unshifted* coefficient and pays a factor seven plus an
 `O(|p₁|²)‖k‖²` error for the missing phase. -/
 theorem hThreeForm_shiftedCorrectionWalsh_le
@@ -499,7 +495,7 @@ theorem hThreeForm_shiftedCorrectionWalsh_le
 
 /-! ### Summand 2, discharged -/
 
-/-- In the high-logarithmic regime the support interval is nonempty. (The formalization
+/-- In the high-logarithmic regime the support interval is nonempty.  (
 proves the same statement as `support_of_logThreshold` in
 `Manhattan/Glue/FinalDischarge.lean`; it is repeated here so that this file
 does not import that one.) -/

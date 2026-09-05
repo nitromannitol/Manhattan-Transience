@@ -4,7 +4,7 @@ import Manhattan.Paper.HeatKernel
 # The time derivative of the return probability
 
 This is the second half of `manuscript.tex:1449-1480` (`prop:time`,
-equation `eq:time-derivative`). The Poisson clock supplies the `t^{-1/2}`
+equation `eq:time-derivative`).  The Poisson clock supplies the `t^{-1/2}`
 gain: `tsum_abs_dPoissonWeight_le` is the manuscript's `E|N/t - 2| ≤ √(2/t)`,
 proved from the exact Poisson mean and variance, and the heat-kernel bound of
 `Manhattan.Paper.HeatKernel` supplies the remaining `t^{-1}` after the

@@ -4,4 +4,4 @@ import Manhattan.Glue.ConcreteFiberization
 import Manhattan.Glue.Competitor
 import Manhattan.Glue.Assembly
 
-/-! Cross-module operator and theorem assembly. -/
+/-! Shared operator and theorem assembly. -/

@@ -6,17 +6,17 @@ import Manhattan.Glue.PropositionFrequency
 
 `Manhattan/Glue/DischargeSectors.lean` proves, unconditionally, that the
 unnormalized objective of (24) is at most twice the paper's four-sector form
-`E_p(f,k)` of (22). Combining that with Lemma 4.1 v3 and the normalization
+`E_p(f,k)` of (22).  Combining that with Lemma 4.1 v3 and the normalization
 identity (25), the whole remaining content of Proposition 2.2 is the single
 paper estimate (23),
 `E_p(f_p,k_p) ≤ C √L`,
 for the explicit competitor `(f_p,k_p)` built in `Glue/Correction.lean`.
 
-This file states (23) as the one named cross-module hypothesis
+This file states (23) as the one named shared hypothesis
 `ConcreteSectorEnergyBound` and discharges every downstream interface from
 it: `CorrectedUnnormalizedEnergyInterface`,
 `CorrectedHorizontalEnergyInterface`, the horizontal high-logarithmic
-conclusion, `PropositionFrequencyClaim`, and the two headline providers.
+conclusion, `PropositionFrequencyClaim`, and the two providers of the main theorems.
 
 Paper: `manuscript.tex:762-790` and `manuscript.tex:1134-1165`.
 -/
@@ -77,13 +77,13 @@ theorem inner_empty_unnormalizedResidual_eq_zero (d : LowDegreeCompetitorData)
   rw [← hkey]
   ring
 
-/-- `-- CROSS-LANE`: the paper's estimate (23), `E_p(f_p,k_p) ≤ C √L`, for
-the concrete competitor of `Glue/Correction.lean`. The four summands of
+/-- `-- SHARED`: the paper's estimate (23), `E_p(f_p,k_p) ≤ C √L`, for
+the concrete competitor of `Glue/Correction.lean`.  The four summands of
 `sectorObjective` are exactly the four summands of (22):
 `⟨f,H₁f⟩`, `⟨k,H₃k⟩`, `‖D₁f-D₂^*k‖²_{-1}` and `‖D₃k‖²_{-1}`.
 
-This is the sole remaining hypothesis of the whole formalization. It is
-supplied by the concrete raising/lowering/multiplier/projection/cubic modules
+This is the sole remaining hypothesis of the whole formalization.  It is
+supplied by the concrete raising/lowering/multiplier/projection/cubic parts
 together with the already-proved scalar bounds
 `Manhattan.Estimates.lemmaFourTwoSuccessorV3Claim_proved` and
 `Manhattan.Estimates.PropositionFiveTwoIntegralBound`. -/
@@ -115,8 +115,8 @@ theorem one_le_scaleLog (q : Manhattan.Estimates.Parameters) (a : ℝ) :
     le_max_left _ _
   linarith
 
-/-- The four summands of (22), bounded separately, give (23). Each row of
-the table supplies one conjunct. -/
+/-- The four summands of (22), bounded separately, give (23).  Each row of
+the table in supplies one conjunct. -/
 theorem concreteSectorEnergyBound_of_summands {C₁ C₂ C₃ C₄ : ℝ}
     (hC₁ : 0 ≤ C₁)
     (h : ∀ {lambda : ℝ}, ∀ hlambda : 0 < lambda,
@@ -202,14 +202,14 @@ theorem correctedUnnormalizedEnergyInterface_of_sectorEnergy {M : ℝ}
       _ = 2 * M * Real.sqrt (q.scaleLog |p 0|) := by ring
   exact hgoal
 
-/-- `Glue/PropositionFrequency.lean:28` from the single cross-module bound. -/
+/-- `Glue/PropositionFrequency.lean:28` from the single shared bound. -/
 theorem correctedUnnormalizedEnergySupply_of_sectorEnergy {M : ℝ}
     (hM : 0 ≤ M) (h : ConcreteSectorEnergyBound M) :
     CorrectedUnnormalizedEnergySupply :=
   ⟨2 * M, by linarith, correctedUnnormalizedEnergyInterface_of_sectorEnergy h⟩
 
 /-- `Glue/EnergyAssembly.lean:90` and `Glue/PropositionFrequency.lean:23`
-from the single cross-module bound. -/
+from the single shared bound. -/
 theorem correctedHorizontalEnergySupply_of_sectorEnergy {M : ℝ}
     (hM : 0 ≤ M) (h : ConcreteSectorEnergyBound M) :
     CorrectedHorizontalEnergySupply :=
@@ -245,19 +245,19 @@ theorem correctedLowDegreeData_energy_horizontal_of_sectorEnergy {M : ℝ}
   obtain ⟨C, hC, hinterface⟩ := correctedHorizontalEnergySupply_of_sectorEnergy hM h
   exact ⟨C, hC, fun hlambda => hinterface hlambda⟩
 
-/-- Proposition 2.2 version 2 from the single cross-module bound. -/
+/-- Proposition 2.2 version 2 from the single shared bound. -/
 theorem proposition_frequency_v2_of_sectorEnergy {M : ℝ} (hM : 0 ≤ M)
     (h : ConcreteSectorEnergyBound M) : PropositionFrequencyClaim :=
   proposition_frequency_v2_of_horizontalEnergy
     (correctedHorizontalEnergySupply_of_sectorEnergy hM h)
 
-/-- Theorem 1.2 from the single cross-module bound. -/
+/-- Theorem 1.2 from the single shared bound. -/
 theorem theorem_1_2_proved_of_sectorEnergy {M : ℝ} (hM : 0 ≤ M)
     (h : ConcreteSectorEnergyBound M) : Manhattan.AnnealedGreenBound :=
   theorem_1_2_of_proposition_frequency
     (proposition_frequency_v2_of_sectorEnergy hM h)
 
-/-- Theorem 1.1 from the single cross-module bound. -/
+/-- Theorem 1.1 from the single shared bound. -/
 theorem theorem_1_1_proved_of_sectorEnergy {M : ℝ} (hM : 0 ≤ M)
     (h : ConcreteSectorEnergyBound M) :
     ∀ᵐ omega ∂Manhattan.environmentLaw,

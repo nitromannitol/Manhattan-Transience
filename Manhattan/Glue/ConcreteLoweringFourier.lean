@@ -5,7 +5,7 @@ import Manhattan.Glue.ConcreteLowering
 
 The Walsh carrier is Finset-indexed, so the manuscript's tuple
 normalizations `sqrt 2`, `2`, `sqrt 18` of `manuscript.tex:822-825` are not
-imported. Instead the ordered coefficient functions of the manuscript are
+imported.  Instead the ordered coefficient functions of the manuscript are
 *defined* from the Finset coefficients here, and the constants relating the
 two are derived from the literal Finset isometry (17).
 
@@ -135,7 +135,7 @@ theorem strictType112Kernel_apply {k : (ℤ × ℤ × ℤ) →₀ ℂ} {t : ℤ 
   simp
 
 /-- The Finset-indexed degree-three Walsh coefficient of a normalized ordered
-type-`112` kernel. The constant `sqrt 2` is not imported from the manuscript:
+type-`112` kernel.  The constant `sqrt 2` is not imported from the manuscript:
 it is exactly the constant that makes the Finset isometry (17) agree with the
 ordered square-summable norm, because each unordered index is represented by
 two ordered triples. -/
@@ -167,9 +167,9 @@ theorem type112FinsetCoefficient_apply_strict (k : (ℤ × ℤ × ℤ) →₀ �
     rw [if_pos rfl]
     exact Finsupp.notMem_support_iff.mp hts
 
-/-- **The derived type-`112` normalization.** For a kernel symmetric in its
+/-- **The derived type-`112` normalization.**  For a kernel symmetric in its
 two row indices, the Finset coefficient at an off-diagonal index is
-`sqrt 2` times the ordered kernel. This is the manuscript's `sqrt 18`
+`sqrt 2` times the ordered kernel.  This is the manuscript's `sqrt 18`
 normalization of `manuscript.tex:822-825` rewritten in Finset coordinates. -/
 theorem type112FinsetCoefficient_apply (k : (ℤ × ℤ × ℤ) →₀ ℂ)
     (hsymm : ∀ a b c : ℤ, k (b, a, c) = k (a, b, c))
@@ -271,9 +271,9 @@ theorem not_isType112_toggle_vertical_mixedPair (m n : ℤ) :
 
 /-! ## (D2a) and (D2b) in line-index (spatial) coordinates -/
 
-/-- **(D2a), spatial form.** Only the column axis contributes to the two-row
+/-- **(D2a), spatial form.**  Only the column axis contributes to the two-row
 component of `D₂*`, and it does so by one signed lattice step in both row
-indices. The overall `sqrt 2` is the derived type-`112` normalization; after
+indices.  The overall `sqrt 2` is the derived type-`112` normalization; after
 dividing by the equal type-`11` normalization it disappears, exactly as in the
 manuscript's (D2a). -/
 theorem loweringCoefficient_rowPair (p : Fin 2 → ℝ) (k : (ℤ × ℤ × ℤ) →₀ ℂ)
@@ -305,16 +305,16 @@ theorem loweringCoefficient_rowPair (p : Fin 2 → ℝ) (k : (ℤ × ℤ × ℤ)
       (by simpa using fun h => hne (by omega))]
   ring
 
-/-- **(D2b), spatial form.** Only the row axis contributes to the mixed
+/-- **(D2b), spatial form.**  Only the row axis contributes to the mixed
 component of `D₂*`, and it does so by one signed lattice step in the column
 index while the second row index is pinned to the origin.
 
 **Domain restriction**: this establishes (28) only for
-DIAGONAL-FREE kernels -- the hypothesis `hdiag`. The frequency-side statements
+DIAGONAL-FREE kernels -- the hypothesis `hdiag`.  The frequency-side statements
 `Manhattan.Glue.frequency_D2a` and `Manhattan.Glue.frequency_D2b` below are
 themselves unconditional; it is this spatial identification of the concrete
-`D₂*` with the raw mixed symbol that needs `hdiag`. For the paper's actual
-competitor, whose `k̃` does carry coincident rows, the mixed identity is module
+`D₂*` with the raw mixed symbol that needs `hdiag`.  For the paper's actual
+competitor, whose `k̃` does carry coincident rows, the mixed identity is part
 A8's `Manhattan.Glue.mixedFourierCoefficient_correction`, packaged as
 `Manhattan.Glue.concreteLoweringFormula_correction_certified`
 (`Manhattan/Glue/CorrectionLowering.lean`). -/
@@ -359,7 +359,7 @@ theorem loweringCoefficient_mixedPair (p : Fin 2 → ℝ) (k : (ℤ × ℤ × �
 
 /-! ## Line characters and the normalized torus mean -/
 
-/-- The character of one line frequency, `e^{i n x}`. The frequency variable
+/-- The character of one line frequency, `e^{i n x}`.  The frequency variable
 is the *unshifted* line frequency: the manuscript's `r`, `r'`, `beta` are
 `p₂ + s`, `p₂ + s'`, `p₁ + u` in these variables (`manuscript.tex:797-806`). -/
 def lineCharacter (n : ℤ) (x : ℝ) : ℂ :=
@@ -549,7 +549,7 @@ def twoRowLoweredKernel (p : Fin 2 → ℝ) (k : (ℤ × ℤ × ℤ) →₀ ℂ)
       Finsupp.mapDomain (twoRowShift 1)
         (Finsupp.filter (fun t : ℤ × ℤ × ℤ => t.2.2 = 0) k)
 
-/-- The normalized mixed coefficient of `D₂*` as an ordered kernel. The
+/-- The normalized mixed coefficient of `D₂*` as an ordered kernel.  The
 `sqrt 2` here is the ratio of the derived type-`112` and type-`12`
 normalizations; it is the manuscript's `sqrt 2` in (D2b). -/
 def mixedLoweredKernel (p : Fin 2 → ℝ) (k : (ℤ × ℤ × ℤ) →₀ ℂ) : (ℤ × ℤ) →₀ ℂ :=
@@ -638,7 +638,7 @@ theorem mixedLoweredKernel_apply (p : Fin 2 → ℝ) (k : (ℤ × ℤ × ℤ) �
 
 /-- The two-row Walsh coefficient of `D₂*` is `sqrt 2` times the normalized
 ordered kernel, exactly as the type-`112` coefficient is `sqrt 2` times its
-own ordered kernel. The two `sqrt 2`s cancel, which is why (D2a) carries no
+own ordered kernel.  The two `sqrt 2`s cancel, which is why (D2a) carries no
 constant. -/
 theorem loweringCoefficient_rowPair_eq_kernel (p : Fin 2 → ℝ)
     (k : (ℤ × ℤ × ℤ) →₀ ℂ) (hsymm : ∀ a b c : ℤ, k (b, a, c) = k (a, b, c))
@@ -691,9 +691,9 @@ theorem orderedFreqTwo_mapDomain_mixedShift (c : ℤ) (k : (ℤ × ℤ × ℤ) �
     ring
   · rw [if_neg h, if_neg h, mul_zero]
 
-/-- **(D2a).** In the unshifted line frequencies `s`, `s'` this is the
+/-- **(D2a).**  In the unshifted line frequencies `s`, `s'` this is the
 manuscript's `-i sin(alpha) ∫ k dm(beta)` with `alpha = p₂ + s + s'`
-(`manuscript.tex:797-806`, `manuscript.tex:827-834`). No factorial and no
+(`manuscript.tex:797-806`, `manuscript.tex:827-834`).  No factorial and no
 extra constant appears: the type-`112` and type-`11` normalizations are equal
 and cancel. -/
 theorem frequency_D2a (p : Fin 2 → ℝ) (k : (ℤ × ℤ × ℤ) →₀ ℂ) (s s' : ℝ) :
@@ -723,8 +723,8 @@ theorem frequency_D2a (p : Fin 2 → ℝ) (k : (ℤ × ℤ × ℤ) →₀ ℂ) (
   linear_combination (columnZeroFreq k s s') * hA -
     (columnZeroFreq k s s') * hB + (columnZeroFreq k s s') * hC
 
-/-- **(D2b).** In the unshifted line frequencies `s`, `u` this is the
-manuscript's `-i sqrt 2 sin(beta) ∫ k dm(r')` with `beta = p₁ + u`. The
+/-- **(D2b).**  In the unshifted line frequencies `s`, `u` this is the
+manuscript's `-i sqrt 2 sin(beta) ∫ k dm(r')` with `beta = p₁ + u`.  The
 `sqrt 2` is *derived*: it is the ratio of the type-`112` normalization
 (`sqrt 2`) to the type-`12` normalization (`1`) in the Finset isometry. -/
 theorem frequency_D2b (p : Fin 2 → ℝ) (k : (ℤ × ℤ × ℤ) →₀ ℂ) (s u : ℝ) :
@@ -784,7 +784,7 @@ theorem sum_normSq_mapDomain {α β : Type*} [DecidableEq β] (f : α → β)
     simp
 
 /-- A coefficient which is invariant under an involution exchanging the two
-halves of its support has twice the squared norm of either half. This is the
+halves of its support has twice the squared norm of either half.  This is the
 combinatorial content of the manuscript's tuple normalizations. -/
 theorem sum_normSq_eq_two_mul_of_involution {α : Type*} (v : α →₀ ℂ)
     (σ : α → α) (P : α → Prop) [DecidablePred P]
@@ -830,7 +830,7 @@ theorem support_strictType112Kernel (k : (ℤ × ℤ × ℤ) →₀ ℂ) :
   rw [strictType112Kernel, Finsupp.support_filter, Finsupp.support_smul_eq hne]
 
 /-- The squared norm of the synthesized type-`112` element, in ordered
-coordinates. Every unordered index carries two ordered triples: this is the
+coordinates.  Every unordered index carries two ordered triples: this is the
 `sqrt 2` of `type112FinsetCoefficient`, derived rather than imported. -/
 theorem norm_sq_type112Synthesis (k : (ℤ × ℤ × ℤ) →₀ ℂ) :
     ‖walshSynthesis (type112FinsetCoefficient k)‖ ^ 2 =
@@ -849,9 +849,10 @@ theorem norm_sq_type112Synthesis (k : (ℤ × ℤ × ℤ) →₀ ℂ) :
   rw [Complex.norm_real, Real.norm_of_nonneg (Real.sqrt_nonneg 2), mul_pow,
     Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)]
 
-/-- **The type-`112` normalization is exactly `sqrt 2`.** With it the Finset
+/-- **The type-`112` normalization is exactly `sqrt 2`.**  With it the Finset
 isometry reproduces the ordered square-summable norm of the manuscript's
-coefficient `k`, so no `sqrt 18` (equivalently, no `3!`) is imported. -/
+coefficient `k`, so no `sqrt 18` (equivalently, no `3!`) is imported.
+-/
 theorem norm_sq_type112Synthesis_eq_ordered (k : (ℤ × ℤ × ℤ) →₀ ℂ)
     (hsymm : ∀ a b c : ℤ, k (b, a, c) = k (a, b, c))
     (hdiag : ∀ a c : ℤ, k (a, a, c) = 0) :
@@ -903,7 +904,7 @@ theorem rowPairFinset_swap (a b : ℤ) :
   simp only [rowPairFinset, Finset.mem_insert, Finset.mem_singleton]
   tauto
 
-/-- The Finset coefficient of a mixed (type-`12`) ordered kernel. Its
+/-- The Finset coefficient of a mixed (type-`12`) ordered kernel.  Its
 normalization is one: the row and the column index are distinguishable, so
 each Finset index has a single ordered representative. -/
 def type12FinsetCoefficient (e : (ℤ × ℤ) →₀ ℂ) : WalshCoefficient :=
@@ -943,7 +944,7 @@ theorem support_strictType11Kernel (d : (ℤ × ℤ) →₀ ℂ) :
     positivity
   rw [strictType11Kernel, Finsupp.support_filter, Finsupp.support_smul_eq hne]
 
-/-- The Finset coefficient of a two-row (type-`11`) ordered kernel. Its
+/-- The Finset coefficient of a two-row (type-`11`) ordered kernel.  Its
 normalization is `sqrt 2`, the same as for type `112`. -/
 def type11FinsetCoefficient (d : (ℤ × ℤ) →₀ ℂ) : WalshCoefficient :=
   Finsupp.mapDomain rowPairFinset (strictType11Kernel d)
@@ -1013,7 +1014,7 @@ theorem twoRowLoweredKernel_symm (p : Fin 2 → ℝ) (k : (ℤ × ℤ × ℤ) �
   rw [twoRowLoweredKernel_apply, twoRowLoweredKernel_apply,
     hsymm (a + 1) (b + 1) 0, hsymm (a - 1) (b - 1) 0]
 
-/-- **(D2a) as a Walsh coefficient identity.** The two-row Walsh coefficient
+/-- **(D2a) as a Walsh coefficient identity.**  The two-row Walsh coefficient
 of `D₂* k` is the type-`11` Finset coefficient of `twoRowLoweredKernel`, whose
 frequency function is the manuscript's `-i sin(alpha) ∫ k dm(beta)`. -/
 theorem loweringCoefficient_eq_type11FinsetCoefficient (p : Fin 2 → ℝ)
@@ -1026,7 +1027,7 @@ theorem loweringCoefficient_eq_type11FinsetCoefficient (p : Fin 2 → ℝ)
     type11FinsetCoefficient_apply _
       (fun a b => twoRowLoweredKernel_symm p k hsymm a b) hne]
 
-/-- **(D2b) as a Walsh coefficient identity.** The mixed Walsh coefficient of
+/-- **(D2b) as a Walsh coefficient identity.**  The mixed Walsh coefficient of
 `D₂* k` is the type-`12` Finset coefficient of `mixedLoweredKernel`, whose
 frequency function is the manuscript's `-i sqrt 2 sin(beta) ∫ k dm(r')`. -/
 theorem loweringCoefficient_eq_type12FinsetCoefficient (p : Fin 2 → ℝ)

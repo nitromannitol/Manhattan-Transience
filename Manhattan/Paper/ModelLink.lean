@@ -5,7 +5,7 @@ import Manhattan.Model.Subordination
 # The real kernel of this development is the model's subordinated kernel
 
 `Manhattan.continuousKernel` is `ℝ≥0∞`-valued; `Manhattan.Paper.ck` is the same
-object read as a real number. This file records the identification, the
+object read as a real number.  This file records the identification, the
 measurability in the environment, and the `ℝ≥0∞` form of `eq:heat-kernel`.
 -/
 

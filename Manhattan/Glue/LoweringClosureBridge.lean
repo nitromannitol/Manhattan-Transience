@@ -4,40 +4,39 @@ import Manhattan.Glue.ProjectionDischarge
 /-!
 # The bridge from the concrete lowering formulas to the projection discharge
 
-The formalization discharged the first projection-error interface
+The first projection-error interface is discharged
 (`Manhattan.Glue.rawProjectionDifferenceIdentification_of_lowering`) modulo one
 named hypothesis, `Manhattan.Glue.ConcreteLoweringFormula`, carrying the two
-Finset normalization constants of the type-`11` and type-`12` sectors. This
+Finset normalization constants of the type-`11` and type-`12` sectors.  This
 file instantiates that hypothesis from the concrete lowering formulas (D2a),
 (D2b) of `Manhattan.Glue.ConcreteLoweringFourier`, with
 
-* `cTwoNorm = 1` (the type-`112` and type-`11` normalizations are both `sqrt 2`
+* `cTwoNorm = 1`  (the type-`112` and type-`11` normalizations are both `sqrt 2`
   and cancel), and
-* `cMixNorm = sqrt 2` (the type-`12` normalization is one).
+* `cMixNorm = sqrt 2`  (the type-`12` normalization is one).
 
 The raw frequency coefficient is the ordered kernel written in the manuscript's
 shifted variables `r = p₂ + s`, `r' = p₂ + s'`, `beta = p₁ + u`
-(`manuscript.tex:797-814`). Since the kernel is diagonal-free in its two row
+(`manuscript.tex:797-814`).  Since the kernel is diagonal-free in its two row
 indices, the coincident-row projection `Pi_3` acts trivially on it, which is why
 `rawOffDiagonalPart` disappears from the two clauses.
 
-**Domain restriction of (D2b)**. That diagonal-freeness is a
+**Domain restriction of (D2b)**.  That diagonal-freeness is a
 genuine restriction, not a convenience: `Manhattan.Glue.loweringCoefficient_mixedPair`
 establishes (28) only for diagonal-free kernels, so everything this file derives
-from it inherits the hypothesis. The frequency-side identities
+from it inherits the hypothesis.  The frequency-side identities
 `Manhattan.Glue.frequency_D2a` and `Manhattan.Glue.frequency_D2b` are themselves
-UNCONDITIONAL. The paper's actual competitor is not diagonal-free, so nothing
-here reaches it; the mixed identity for the competitor is the formalizations
+UNCONDITIONAL.  The paper's actual competitor is not diagonal-free, so nothing
+here reaches it; the mixed identity for the competitor is
 `Manhattan.Glue.mixedFourierCoefficient_correction`, packaged as
 `Manhattan.Glue.concreteLoweringFormula_correction_certified`
 (`Manhattan/Glue/CorrectionLowering.lean`), and Lemma 5.3 for the competitor is
-`Manhattan.Glue.lemma_distinct_correction` there. Consequently
+`Manhattan.Glue.lemma_distinct_correction` there.  Consequently
 `Manhattan.Glue.lemma_distinct_shiftedRawCoefficient` below is vacuous as a
-rendering of Lemma 5.3 and must not be sealed as one (the audit action 1, the audit
-`VERDICT VACUITY: CONFIRMED`); its honest content is that `Pi_3` acts trivially
+rendering of Lemma 5.3 and must not be sealed as one; its honest content is that `Pi_3` acts trivially
 on diagonal-free kernels.
 
-The missing bookkeeping step named is
+The missing bookkeeping step named in is
 `twoRowFourierCoefficient_orderedFreqTwo_shift`: the two-row Walsh coefficient
 at a `Manhattan.Type11Index` of a shifted degree-two frequency function is the
 ordered kernel read at the increasing pair of row indices, times the shift
@@ -168,7 +167,7 @@ theorem shiftedRawCoefficient_periodic (p : Fin 2 → ℝ) (k : (ℤ × ℤ × �
 /-! ## The coincident-row part of a diagonal-free kernel vanishes -/
 
 /-- A kernel that vanishes on coincident row indices has no coincident-row
-part: in the frequency picture the fibre average is zero. This is the exact
+part: in the frequency picture the fibre average is zero.  This is the exact
 statement that `Pi_3` acts as the identity on such a kernel. -/
 theorem rawDiagonalPart_shiftedRawCoefficient (p : Fin 2 → ℝ)
     {k : (ℤ × ℤ × ℤ) →₀ ℂ} (hdiag : ∀ a c : ℤ, k (a, a, c) = 0) :
@@ -220,7 +219,7 @@ theorem rawOffDiagonalPart_shiftedRawCoefficient (p : Fin 2 → ℝ)
 /-! ## (D2a) and (D2b) in the shifted raw variables -/
 
 /-- The raw two-row lowering symbol of the shifted ordered kernel is the
-shifted degree-two frequency function of the two-row lowered kernel. This is
+shifted degree-two frequency function of the two-row lowered kernel.  This is
 (D2a) after the change of variables `r = p₂ + s`, `r' = p₂ + s'`. -/
 theorem rawD2StarTwoRow_shiftedRawCoefficient (p : Fin 2 → ℝ)
     (k : (ℤ × ℤ × ℤ) →₀ ℂ) (r r' : ℝ) :
@@ -240,7 +239,7 @@ theorem rawD2StarTwoRow_shiftedRawCoefficient (p : Fin 2 → ℝ)
 
 /-- The raw mixed lowering symbol of the shifted ordered kernel, times the
 type-`112` normalization `sqrt 2`, is the shifted degree-two frequency function
-of the mixed lowered kernel. This is (D2b) after the change of variables
+of the mixed lowered kernel.  This is (D2b) after the change of variables
 `r = p₂ + s`, `beta = p₁ + u`; the `sqrt 2` is the ratio of the type-`112`
 normalization to the type-`12` normalization. -/
 theorem rawD2StarMixed_shiftedRawCoefficient (p : Fin 2 → ℝ)
@@ -262,10 +261,10 @@ theorem rawD2StarMixed_shiftedRawCoefficient (p : Fin 2 → ℝ)
 
 /-! ## The two-row Walsh coefficient of a shifted degree-two symbol -/
 
-/-- **The bridge asked for by.** Reading a
+/-- **The two-row bridge.**  Reading a
 shifted degree-two frequency function at a genuine two-element row index is
 reading its ordered kernel at the increasing pair of row indices, times the
-phase of the frequency shift. This is the passage from the formalizations
+phase of the frequency shift.  This is the passage from
 `orderedFreqTwo` to the `Manhattan.Type11Index` Walsh coefficient. -/
 theorem twoRowFourierCoefficient_orderedFreqTwo_shift (a : ℝ)
     (v : (ℤ × ℤ) →₀ ℂ) (T : Type11Index) :
@@ -366,8 +365,8 @@ def shiftedMixedCoefficient (p : Fin 2 → ℝ) (k : (ℤ × ℤ × ℤ) →₀ 
     (r beta : ℝ) : ℂ :=
   orderedFreqTwo (mixedLoweredKernel p k) (r - p 1) (beta - p 0)
 
-/-- **The concrete lowering formula, instantiated.** For a diagonal-free
-ordered type-`112` kernel the shifted raw coefficient satisfies the formalizations
+/-- **The concrete lowering formula, instantiated.**  For a diagonal-free
+ordered type-`112` kernel the shifted raw coefficient satisfies s
 `ConcreteLoweringFormula` with `cTwoNorm = 1` and `cMixNorm = sqrt 2`. -/
 theorem concreteLoweringFormula_shiftedRawCoefficient (p : Fin 2 → ℝ)
     {k : (ℤ × ℤ × ℤ) →₀ ℂ} (hdiag : ∀ a c : ℤ, k (a, a, c) = 0) :
@@ -390,7 +389,7 @@ theorem concreteLoweringFormula_shiftedRawCoefficient (p : Fin 2 → ℝ)
 
 /-- The two-row datum fed to `ConcreteLoweringFormula` is the genuine Walsh
 coefficient of `D₂*` at the two-row Finset index, up to the shift phase and the
-type-`11` Finset normalization `sqrt 2`. Nothing is defined by fiat. -/
+type-`11` Finset normalization `sqrt 2`.  Nothing is defined by fiat. -/
 theorem shiftedTwoRowCoefficient_eq_loweringCoefficient (p : Fin 2 → ℝ)
     (k : (ℤ × ℤ × ℤ) →₀ ℂ) (hsymm : ∀ a b c : ℤ, k (b, a, c) = k (a, b, c))
     (T : Type11Index) :
@@ -417,7 +416,7 @@ theorem mixedLoweredKernel_eq_loweringCoefficient (p : Fin 2 → ℝ)
 
 /-! ## The two projection consequences, unconditional -/
 
-/-- **Interface (a) of `Manhattan.Glue.ProjectionError`, unconditional.** The
+/-- **Interface (a) of `Manhattan.Glue.ProjectionError`, unconditional.**  The
 raw/projected lowering difference of the shifted ordered kernel is the
 projection-error carrier of its coincident-row part. -/
 theorem rawProjectionDifferenceIdentification_shiftedRawCoefficient
@@ -433,21 +432,20 @@ theorem rawProjectionDifferenceIdentification_shiftedRawCoefficient
     (shiftedRawCoefficient_periodic p k)
     (concreteLoweringFormula_shiftedRawCoefficient p hdiag)
 
-/-- **Π₃ acts trivially on diagonal-free kernels.** NOT a rendering of Lemma 5.3
+/-- **Π₃ acts trivially on diagonal-free kernels.**  NOT a rendering of Lemma 5.3
 (`manuscript.tex:1212-1221`), despite the shape of the conclusion: the
-hypothesis `hdiag` makes the statement vacuous as such. Under `hdiag`,
+hypothesis `hdiag` makes the statement vacuous as such.  Under `hdiag`,
 `rawDiagonalPart_shiftedRawCoefficient` forces the coincident-row carrier to
 zero, so the quantitative clause reads `0 ≤ 2 * energy` and the qualitative
-clause is definitional. Lemma 5.3 is precisely about a `k̃` WITH coincident
-rows, so this must never be sealed or cited as Lemma 5.3 (the audit action 1,
-the audit `VERDICT VACUITY: CONFIRMED`).
+clause is definitional.  Lemma 5.3 is precisely about a `k̃` WITH coincident
+rows, so this must never be sealed or cited as Lemma 5.3.
 
 Lemma 5.3 itself is `Manhattan.Glue.lemma_distinct_of_concreteLowering`, which
-is not vacuous, and for the paper's actual competitor it is the formalizations
+is not vacuous, and for the paper's actual competitor it is
 `Manhattan.Glue.lemma_distinct_correction` and
 `Manhattan.Glue.lemma_distinct_correction_sigmaEnergy`
 (`Manhattan/Glue/CorrectionLowering.lean`), both with no diagonal-freeness
-hypothesis. The universal constant here is `‖sqrt 2‖² = 2`. -/
+hypothesis.  The universal constant here is `‖sqrt 2‖² = 2`. -/
 theorem lemma_distinct_shiftedRawCoefficient {q : Estimates.Parameters}
     (hlambda : 0 < q.lambda) (p : Fin 2 → ℝ) {k : (ℤ × ℤ × ℤ) →₀ ℂ}
     (hdiag : ∀ a c : ℤ, k (a, a, c) = 0) :

@@ -19,7 +19,7 @@ argument.
   coefficient `b` nor a separate `sin p₁ = 0` case.
 
 Each is stated three ways: an exact algebraic identity for the difference,
-the pointwise inequality (the form a later module integrates), and the value of
+the pointwise inequality (the form a later part integrates), and the value of
 the infimum together with its minimizer.
 -/
 

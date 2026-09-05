@@ -31,7 +31,7 @@ import Manhattan.V4.SupplyWitnesses
 /-!
 # Version 4
 
-The second, independent route to Theorem 1.1. `Manhattan.V4.theorem_1_1_v4`
+The second, independent route to Theorem 1.1.  `Manhattan.V4.theorem_1_1_v4`
 proves the statement of `Manhattan.Frozen.Main.theorem_1_1` from the Version 4
 Move 1 / Move 2 / Move 3 chain; the two developments share the model, the Walsh
 layer and the operator layer, and diverge at the competitor construction.

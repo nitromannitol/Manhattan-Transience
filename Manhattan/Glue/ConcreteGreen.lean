@@ -10,9 +10,9 @@ import Mathlib.MeasureTheory.Function.Holder
 # The concrete Green identity
 
 This module connects the Poisson-subordinated return kernel to the resolvent
-of the concrete Walsh fiber. The support proof is deliberately kept in the
-Glue module: the model layer constructs the fair-coin environment and its Walsh
-operators, while the Operator module supplies the bounded resolvent theory.
+of the concrete Walsh fiber.  The support proof is deliberately kept in the
+Glue part: the Model part constructs the fair-coin environment and its Walsh
+operators, while the Operator part supplies the bounded resolvent theory.
 
 Paper: `manuscript.tex:555-607`.
 -/

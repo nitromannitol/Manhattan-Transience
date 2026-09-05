@@ -6,14 +6,14 @@ import Mathlib.Algebra.Ring.NegOnePow
 
 The remark of `manuscript.tex` preceding `\begin{problem}\label{prob:which}`
 exhibits a law that is stationary and ergodic for the full `ℤ²` translation
-action, has fair one-point marginals, and is nevertheless recurrent. Its
+action, has fair one-point marginals, and is nevertheless recurrent.  Its
 environments are
 
 ```
-  ω((x,y),1) = U·(-1)^y, ω((x,y),2) = V·(-1)^x
+  ω((x,y),1) = U·(-1)^y,      ω((x,y),2) = V·(-1)^x
 ```
 
-for two signs `U, V`. This file builds the four environments `altEnv (U,V)`,
+for two signs `U, V`.  This file builds the four environments `altEnv (U,V)`,
 records that the paper's raw field really is constant along lines (part (i) of
 the remark), and computes the translation action on the family.
 

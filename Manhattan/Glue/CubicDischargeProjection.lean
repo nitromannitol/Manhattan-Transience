@@ -48,7 +48,6 @@ theorem projectionErrorHMinusSq_le_sqrtScale
   have h := correctionSigmaEnergy_le_sqrtScale hlambda hfive
   nlinarith [Real.sqrt_nonneg (q.scaleLog a)]
 
-
 /-! ### Equation (30) in the shifted frequency variables of Lemma 5.3 -/
 
 theorem torusIntegral_congr_on {f g : ℝ → ℝ}
@@ -226,25 +225,23 @@ theorem rawMultiplierEnergy_correctionCoefficient
     (integrable_of_bound hsigmaMeas (C := _)
       (fun w => hsigmaBound w.2 w.1))
 
-
 /-- **The scalar right-hand side of Lemma 5.3, evaluated for the correction.**
 The squared `H⁻¹` norm of the coincident-row projection error of the paper's raw
 type-`112` coefficient is at most twice the scalar energy of (30).
 
 This is NOT Lemma 5.3 for the actual correction: the object bounded here lives
 entirely on the frequency side, and this statement alone does not prove it equal
-to `‖Π₂ D̃₂* k̃ - D₂* k‖²_{H⁻¹}` for that `k̃` (the audit action 2, confirmed by
-the audit). Lemma 5.3 for the competitor is the formalizations
+to `‖Π₂ D̃₂* k̃ - D₂* k‖²_{H⁻¹}` for that `k̃`.  Lemma 5.3 for the competitor is
 `Manhattan.Glue.lemma_distinct_correction` and
 `Manhattan.Glue.lemma_distinct_correction_sigmaEnergy`
 (`Manhattan/Glue/CorrectionLowering.lean`), which supply both clauses with no
 diagonal-freeness hypothesis; the identification of the instantiating data with
 the competitor's own Walsh coefficients is
-`Manhattan.Glue.concreteLoweringFormula_correction_certified`. Cite that
+`Manhattan.Glue.concreteLoweringFormula_correction_certified`.  Cite that
 PACKAGED theorem: the bare instance
 `Manhattan.Glue.concreteLoweringFormula_correction` discharges its mixed clause
 definitionally and must not be cited alone, the content being
-`Manhattan.Glue.mixedFourierCoefficient_correction`. The qualitative clause is
+`Manhattan.Glue.mixedFourierCoefficient_correction`.  The qualitative clause is
 also covered independently by `Manhattan.Glue.type112DStarTwoRow_correction`. -/
 theorem projectionErrorHMinusSq_correction_le_two_correctionSigmaEnergy
     {q : Estimates.Parameters} (hlambda : 0 < q.lambda) (hK : 1 ≤ q.K)
@@ -317,7 +314,6 @@ theorem correctedCompetitor_cubicMultiplierScalarIdentification {lambda : ℝ}
     (q := ⟨lambda, correctedCompetitorK, correctedCompetitorRho⟩)
     hlambda correctedCompetitorK_one_le correctedCompetitorRho_nonneg
     correctedCompetitorRho_three_lt_pi ha hp₂
-
 
 /-- Lemma 5.3 for the corrected competitor's parameters. -/
 theorem correctedCompetitor_projectionErrorHMinusSq_le {lambda : ℝ}

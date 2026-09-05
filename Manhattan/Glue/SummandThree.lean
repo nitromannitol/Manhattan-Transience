@@ -9,12 +9,12 @@ import Manhattan.Estimates.KernelBoundError
 # The degree-two transport, for summand 3 of (22)
 
 Summand 3 of the four-sector form (22) is the squared `H⁻¹` norm of the
-degree-two Walsh sector of the residual, `‖D₁f-D₂^*k‖²_{-1}`. Every
+degree-two Walsh sector of the residual, `‖D₁f-D₂^*k‖²_{-1}`.  Every
 ingredient of Lemma 5.4 that bounds it is already available on the scalar
 side (`Manhattan.Estimates.errorHMinusSq_le_rowOrder`,
 `Manhattan.Glue.correctionSigmaEnergy_le_sqrtScale`,
 `Manhattan.Glue.correctionBEnergy_le_sqrtScale`) and on the coefficient side
-(`Manhattan.Glue.type112DStarMixed_eq`, and the formalizations
+(`Manhattan.Glue.type112DStarMixed_eq`, and s
 `Manhattan.Glue.lemma_distinct_correction` /
 `Manhattan.Glue.lemma_distinct_correction_sigmaEnergy` for the actual
 correction, certified by
@@ -25,20 +25,19 @@ definitionally and must not be cited alone; the content of that clause is
 `Manhattan.Glue.mixedFourierCoefficient_correction`).
 `Manhattan.Glue.lemma_distinct_shiftedRawCoefficient` is NOT an ingredient
 here: it assumes a diagonal-free kernel, under which `Π₃` acts trivially, so it
-is vacuous as a rendering of Lemma 5.3 (the audit action 1, the audit
-`VERDICT VACUITY: CONFIRMED`). What was missing was
+is vacuous as a rendering of Lemma 5.3.  What was missing was
 the transport that turns a degree-two Walsh vector into the weighted torus
-integral those statements are written in. The docstrings of
+integral those statements are written in.  The docstrings of
 `Manhattan/Glue/ScalarIdentification.lean` and
 `Manhattan/Glue/FinalDischarge.lean` name exactly the two gaps this file
 closes:
 
 * the `H⁻¹` half of the transport in *every* degree
-  (`hMinusEnergy_homogeneousWalshSynthesis`). The formalizations
+  (`hMinusEnergy_homogeneousWalshSynthesis`).  The
   `Manhattan.Glue.re_inner_coeffH_inv_type112Extend` computes the dual form
   only for a coefficient `d` supplied by hand; `coeffH_bijective` supplies
   it, so the dual energy of any homogeneous Walsh vector is the explicit
-  weighted integral of (Hsym). This is what lets `hMinusEnergy` be computed
+  weighted integral of (Hsym).  This is what lets `hMinusEnergy` be computed
   at all, in degree two and in degree four alike;
 * the degree-two analogue of `Manhattan.Glue.integral_unitTorus_three`
   (`integral_unitTorus_two`), together with the mixed (type-`12`) sector's
@@ -79,22 +78,22 @@ The second half of the file proves Steps 2--4 of Lemma 5.4 on the scalar
 The last section carries the first clause of Step 2 to the actual
 competitor: `type112DStarTwoRow_correction` shows that the two-row component
 of `D₂*k_p` vanishes for the `ℓ²` coefficient `Π₃k̃` of
-`Manhattan.correctionType112Coefficients`, at every frozen momentum. The
+`Manhattan.correctionType112Coefficients`, at every frozen momentum.  The
 route is the `L²` lowering formula (D2a) of
 `Manhattan.Glue.type112DStarTwoRow_eq`, which reads the two-row coefficient
 off two Walsh coefficients of the input at *column index zero*, together with
 `mFourierCoeff_rawCorrection_eq_zero`: `k̃` is odd in `β`, so all its
 three-dimensional Fourier coefficients at column index zero vanish.
 
-The last section carries out the *structural* half of summand 3. The
+The last section carries out the *structural* half of summand 3.  The
 degree-two Walsh sector of `A_p(f_p+k_p)` has no two-column part
 (`inner_verticalPair_walshRaise_axisDegreeOne`,
 `inner_verticalPair_concreteFiberA_type112`), so it splits into its two-row
 and mixed halves (`walshSectorComponent_two_concreteFiberA_eq`); the two-row
 half is `(D₁f_p)₁₁` alone, because `type112DStarTwoRow_correctedLowDegreeData`
-kills the competitor's contribution there. `summandThreeBound_of_sector_bounds`
+kills the competitor's contribution there.  `summandThreeBound_of_sector_bounds`
 is the resulting reduction: `SummandThreeBound` follows from one bound on the
-two-row sector and one bound on the mixed sector. Both sectors are given
+two-row sector and one bound on the mixed sector.  Both sectors are given
 explicit Walsh coefficients
 (`inner_rowPair_walshRaise_axisDegreeOne`,
 `type12WalshAnalysis_sub_type112DStarMixed_apply`, the Walsh form of `(onI)`),
@@ -127,9 +126,9 @@ local instance summandThreePropDecidable (p : Prop) : Decidable p :=
 
 /-! ### The `H⁻¹` transport in every degree -/
 
-/-- **The dual half of the transport (T).** The `H⁻¹` energy of a
+/-- **The dual half of the transport (T).**  The `H⁻¹` energy of a
 homogeneous degree-`n` Walsh vector is the weighted integral of (Hsym) with
-the reciprocal symbol. The inverting coefficient is supplied by
+the reciprocal symbol.  The inverting coefficient is supplied by
 `Manhattan.Glue.coeffH_bijective`, so no competitor has to be produced by
 hand. -/
 theorem hMinusEnergy_homogeneousWalshSynthesis (n : ℕ) {lam : ℝ} (hlam : 0 < lam)
@@ -492,7 +491,7 @@ theorem integral_unitTorus_two (F : ℝ → ℝ → ℝ)
     (fun s => Estimates.torusIntegral fun u => F s u)
 
 /-- **The mixed degree-two dual energy as the paper's iterated torus
-integral.** If the frequency function of a mixed degree-two Walsh vector is
+integral.**  If the frequency function of a mixed degree-two Walsh vector is
 a bounded function `G` of the row angle `s` and the column angle `u`, then its
 squared `H⁻¹` norm is the iterated normalized torus integral of
 `Manhattan.Estimates.mixedHMinusWeight` at the shifted frequencies
@@ -730,11 +729,12 @@ theorem walshSectorComponent_eq_homogeneous (n : ℕ) (x : WalshL2) :
       homogeneousWalshSynthesis n (Manhattan.walshSectorAnalysis
         (fun S : Finset LineIndex => S.card = n) x) := rfl
 
-/-- **The dual energy of a Walsh degree sector.** This is the form in which
+/-- **The dual energy of a Walsh degree sector.**  This is the form in which
 summands 3 and 4 of (22) are stated: the squared `H⁻¹` norm of the degree-`n`
 component of a residual is the weighted integral of (Hsym) with reciprocal
 symbol, taken on the line-frequency transform of its degree-`n` Walsh
-coefficients. -/
+coefficients.
+-/
 theorem hMinusEnergy_walshSectorComponent (n : ℕ) {lam : ℝ} (hlam : 0 < lam)
     (p : Fin 2 → ℝ) (x : WalshL2) :
     (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hMinusEnergy hlam
@@ -746,13 +746,11 @@ theorem hMinusEnergy_walshSectorComponent (n : ℕ) {lam : ℝ} (hlam : 0 < lam)
           ∂(LineTorusMeasure n) := by
   rw [walshSectorComponent_eq_homogeneous, hMinusEnergy_homogeneousWalshSynthesis]
 
-
 /-! ## Steps 2--4 of Lemma 5.4, on the scalar (frequency) side -/
 
 section ScalarStepTwo
 
 open Manhattan.Estimates Set
-
 
 /-- The scalar integrand of (D2b) applied to the explicit correction. -/
 def mixedRawIntegrand (q : Parameters) (a p₂ r r' beta : ℝ) : ℝ :=
@@ -778,9 +776,6 @@ def errorUAt (q : Parameters) (a p₂ r beta : ℝ) : ℝ :=
         (multiplier 40 q (mixedTotalFrequency beta (r + t - p₂)))⁻¹
     else 0)
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem errorUAt_neg (q : Parameters) (a p₂ s beta : ℝ) :
     errorUAt q a p₂ (-s) beta = errorU q a p₂ s beta := rfl
 
@@ -1001,7 +996,7 @@ theorem sin_sq_torusIntegral_self {q : Parameters} (hq : q.Admissible)
     rw [hv]
     ring
 
-/-- **Step 2 of Lemma 5.4.** The mixed component of `D̃₂*k̃` is `σ v + U`. -/
+/-- **Step 2 of Lemma 5.4.**  The mixed component of `D̃₂*k̃` is `σ v + U`. -/
 theorem rawD2StarMixed_correction_eq {q : Parameters} (hq : q.Admissible)
     {a p₂ : ℝ} (ha : 0 ≤ a) (hp₂ : |p₂| ≤ a) (r beta : ℝ) :
     rawD2StarMixed (correctionCoefficient 40 q a p₂) r beta =
@@ -1121,7 +1116,7 @@ def mixedRawResidual (q : Parameters) (a p₂ r beta : ℝ) : ℂ :=
   ((rawMixedTarget q a r : ℝ) : ℂ) -
     rawD2StarMixed (correctionCoefficient 40 q a p₂) r beta
 
-/-- **Equation (onI).** The mixed residual is `Bv - U`. -/
+/-- **Equation (onI).**  The mixed residual is `Bv - U`. -/
 theorem mixedRawResidual_eq {q : Parameters} (hq : q.Admissible)
     {a p₂ : ℝ} (ha : 0 ≤ a) (hp₂ : |p₂| ≤ a) (r beta : ℝ) :
     mixedRawResidual q a p₂ r beta =
@@ -1388,7 +1383,7 @@ theorem torusIntegral₂_mixedErrorEnergyIntegrand {q : Parameters}
   unfold errorHMinusSq
   simp only [mixedErrorEnergy_inner_eq hq ha hp₂]
 
-/-- **Steps 2--4 of Lemma 5.4, scalar form.** The squared `H⁻¹` norm of the
+/-- **Steps 2--4 of Lemma 5.4, scalar form.**  The squared `H⁻¹` norm of the
 mixed residual `w - D̃₂*k̃` is at most twice the on-support term `∫∫B|v|²` plus
 twice the error term `‖U‖²_{-1}`. -/
 theorem mixedRawResidualHMinusSq_le_energies {q : Parameters} (hq : q.Admissible)
@@ -1441,7 +1436,8 @@ theorem mixedRawResidualHMinusSq_le_energies {q : Parameters} (hq : q.Admissible
   exact hmono
 
 /-- **Equation (reduce)** for the mixed residual: both scalar energies are at
-most the single reduced integral `∫_I∫ dm/(B+σ)` of `manuscript.tex:1409-1418`. -/
+most the single reduced integral `∫_I∫ dm/(B+σ)` of `manuscript.tex:1409-1418`.
+-/
 theorem mixedRawResidualHMinusSq_le_reducedIntegral {q : Parameters}
     (hq : q.Admissible) {a p₂ : ℝ} (ha : 0 ≤ a) (hp₂ : |p₂| ≤ a) :
     mixedRawResidualHMinusSq q a p₂ ≤
@@ -1455,7 +1451,7 @@ theorem mixedRawResidualHMinusSq_le_reducedIntegral {q : Parameters}
   have hk : 0 ≤ errorKernelConstant q := (errorKernelConstant_pos hq).le
   nlinarith [h1, h2, h3, h4, hk]
 
-/-- **Lemma 5.4 for the raw mixed residual.** Proposition 4.2 turns the two
+/-- **Lemma 5.4 for the raw mixed residual.**  Proposition 4.2 turns the two
 scalar energies into `C √L`. -/
 theorem mixedRawResidualHMinusSq_le_sqrtScale {q : Parameters} (hq : q.Admissible)
     {C a p₂ : ℝ} (ha : 0 ≤ a) (hp₂ : |p₂| ≤ a)
@@ -1472,7 +1468,6 @@ theorem mixedRawResidualHMinusSq_le_sqrtScale {q : Parameters} (hq : q.Admissibl
     correctionSigmaEnergy_le_sqrtScale hq.1 hfive
   have hk : 0 ≤ errorKernelConstant q := (errorKernelConstant_pos hq).le
   nlinarith [h1, h2, h3, h4, hk]
-
 
 /-! ### The two-row component of `D̃₂*k̃` vanishes -/
 
@@ -1531,8 +1526,9 @@ theorem correctionCoefficient_neg_beta (q : Parameters) (a p₂ r r' beta : ℝ)
   push_cast
   ring
 
-/-- **Step 2 of Lemma 5.4, first clause.** `D̃₂*k̃` has no two-row
-component. -/
+/-- **Step 2 of Lemma 5.4, first clause.**  `D̃₂*k̃` has no two-row
+component.
+-/
 theorem rawD2StarTwoRow_correctionCoefficient (q : Parameters) (a p₂ r r' : ℝ) :
     rawD2StarTwoRow p₂ (correctionCoefficient 40 q a p₂) r r' = 0 := by
   rw [rawD2StarTwoRow,
@@ -1544,16 +1540,16 @@ end ScalarStepTwo
 /-! ## The two-row Walsh component of `D₂*k_p`
 
 The frequency-side statement `rawD2StarTwoRow_correctionCoefficient` above is
-Step 2's first clause for the *scalar* kernel. This section carries it to the
+Step 2's first clause for the *scalar* kernel.  This section carries it to the
 actual competitor: the Walsh vector `k_p` of `Glue/Correction.lean` is the
 type-`112` synthesis of `Manhattan.correctionType112Coefficients`, an `ℓ²`
 element obtained as `Π₃` of the three-dimensional Fourier coefficients of
 `Manhattan.rawCorrectionFunction`, so the finitely supported statements of
-`Manhattan/Glue/ConcreteLoweringFourier.lean` do not apply to it. What does
+`Manhattan/Glue/ConcreteLoweringFourier.lean` do not apply to it.  What does
 apply is the `L²` lowering formula (D2a),
 `Manhattan.Glue.type112DStarTwoRow_eq`, which expresses the two-row
 coefficient of `D₂*` through two Walsh coefficients of the input whose
-*column* index is zero. Since `k̃` is odd in the column frequency `β`
+*column* index is zero.  Since `k̃` is odd in the column frequency `β`
 (`correctionCoefficient_neg_beta`), every Fourier coefficient of the raw
 correction at column index zero vanishes, and with it the whole two-row
 component of `D₂*k_p`.
@@ -1789,9 +1785,9 @@ theorem type112CoefficientAt_correction_col_zero {q : Parameters}
       (type112RawIndex_two_tripleToFinset h)
   · rw [dif_neg h]
 
-/-- **Step 2 of Lemma 5.4, first clause, at the Walsh level.** The concrete
+/-- **Step 2 of Lemma 5.4, first clause, at the Walsh level.**  The concrete
 degree-two two-row component of `D₂*k_p` vanishes identically, for the
-competitor's `ℓ²` coefficient `Π₃k̃` and at every frozen momentum. The
+competitor's `ℓ²` coefficient `Π₃k̃` and at every frozen momentum.  The
 frequency-side statement is `rawD2StarTwoRow_correctionCoefficient`; this is
 its counterpart for the actual Walsh vector, obtained from the `L²` lowering
 formula (D2a) of `Manhattan.Glue.type112DStarTwoRow_eq`. -/
@@ -1804,9 +1800,6 @@ theorem type112DStarTwoRow_correction_apply {q : Parameters}
     type112CoefficientAt_correction_col_zero]
   ring
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem type112DStarTwoRow_correction {q : Parameters}
     (hlambda : 0 < q.lambda) (a p₂ : ℝ) (p : Fin 2 → ℝ) :
     Manhattan.type112DStarTwoRow p
@@ -1816,7 +1809,8 @@ theorem type112DStarTwoRow_correction {q : Parameters}
   funext T
   simpa using type112DStarTwoRow_correction_apply hlambda a p₂ p T
 
-/-- The two-row Walsh coefficients of `A_p k_p` all vanish. -/
+/-- The two-row Walsh coefficients of `A_p k_p` all vanish.
+-/
 theorem inner_type11_concreteFiberA_correctionWalsh {q : Parameters}
     (hlambda : 0 < q.lambda) (a p₂ : ℝ) (p : Fin 2 → ℝ) (T : Type11Index) :
     inner ℂ (Manhattan.walshL2 T.1)
@@ -1889,25 +1883,25 @@ end TwoRowWalsh
 Summand 3 is the dual energy of the degree-two Walsh sector of
 `b_p·1-A_p(f_p+k_p)`, which by
 `Manhattan.Glue.walshSectorComponent_two_unnormalizedResidual` is the
-degree-two sector of `-A_p(f_p+k_p)`. This section splits that sector into
+degree-two sector of `-A_p(f_p+k_p)`.  This section splits that sector into
 the two axis patterns which actually occur.
 
 A two-element Walsh index is two rows, one row and one column, or two
-columns. The last case never occurs here: raising a row-supported degree-one
+columns.  The last case never occurs here: raising a row-supported degree-one
 vector always keeps the row it started from
 (`inner_verticalPair_walshRaise_axisDegreeOne`), and lowering a type-`(1,1,2)`
 vector always leaves at least one row
-(`inner_verticalPair_concreteFiberA_type112`). So the sector is the
+(`inner_verticalPair_concreteFiberA_type112`).  So the sector is the
 orthogonal sum of a two-row and a mixed Walsh vector
 (`walshSectorComponent_two_eq_type11_add_type12`), and the parallelogram
 bound `Manhattan.Glue.hMinusEnergy_add_le` reduces summand 3 to one bound per
 sector (`summandThreeBound_of_sector_bounds`).
 
-Both sectors are computed here at the level of Walsh coefficients. The
+Both sectors are computed here at the level of Walsh coefficients.  The
 two-row coefficient is `i sin(p₁)` times a single degree-one coefficient
 (`inner_rowPair_walshRaise_axisDegreeOne`): in the Finset convention of
 the manuscript's symmetrization `f(r)+f(r')` in (D2a) is
-replaced by the term whose omitted line is the origin row. The mixed
+replaced by the term whose omitted line is the origin row.  The mixed
 coefficient is the Walsh form of the manuscript's `(onI)`
 (`type12WalshAnalysis_sub_type112DStarMixed_apply`): the raising half lives
 entirely at column index zero, which is the statement that `w(r,β)=i sin(r)f(r)`
@@ -1956,9 +1950,6 @@ theorem a7_originLine_one : Manhattan.originLine 1 = (Manhattan.Axis.vertical, 0
 theorem a7_axisShift_one_vertical : axisShift 1 Manhattan.Axis.vertical = 0 := by
   simp [axisShift, finAxis]
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem a7_axisShift_zero_vertical : axisShift 0 Manhattan.Axis.vertical = 1 := by
   simp [axisShift, finAxis]
 
@@ -2218,7 +2209,7 @@ theorem inner_verticalPair_concreteFiberA_add (p : Fin 2 → ℝ)
     norm_num
   rw [hlow, sub_zero]
 
-/-- **The degree-two Walsh sector of `A_p(f+k)`.** There is no two-column
+/-- **The degree-two Walsh sector of `A_p(f+k)`.**  There is no two-column
 part; the two-row part comes from `D₁f` alone once the two-row lowering
 component of `k` vanishes; and the mixed part is `(D₁f)₁₂-(D₂*k)₁₂`. -/
 theorem walshSectorComponent_two_concreteFiberA_eq (p : Fin 2 → ℝ)
@@ -2266,7 +2257,7 @@ theorem hMinusEnergy_sectorTwo_le {lam : ℝ} (hlam : 0 < lam) (p : Fin 2 → �
   exact hMinusEnergy_add_le _ hlam _ _
 
 open Manhattan.Estimates in
-/-- **The reduction of summand 3 of (22).** `SummandThreeBound` follows from
+/-- **The reduction of summand 3 of (22).**  `SummandThreeBound` follows from
 one bound on the two-row degree-two sector of `D₁f_p` and one bound on the
 mixed degree-two sector of `D₁f_p-D₂*k_p`. -/
 theorem summandThreeBound_of_sector_bounds {C11 C12 : ℝ}
@@ -2325,7 +2316,7 @@ theorem a7_axisShift_zero_horizontal : axisShift 0 Manhattan.Axis.horizontal = 0
 theorem a7_axisShift_one_horizontal : axisShift 1 Manhattan.Axis.horizontal = 1 := by
   simp [axisShift, finAxis]
 
-/-- **The mixed degree-two coefficient of `D₁f`.** It is carried entirely by
+/-- **The mixed degree-two coefficient of `D₁f`.**  It is carried entirely by
 the origin column: the paper's `w(r,β)=i sin(r)f(r)` does not depend on `β`. -/
 theorem inner_mixedPair_walshRaise_axisDegreeOne (p : Fin 2 → ℝ)
     (c : Manhattan.RowLineCoefficient) (m n : ℤ) :
@@ -2398,7 +2389,7 @@ theorem inner_mixedPair_walshRaise_axisDegreeOne (p : Fin 2 → ℝ)
       exact hn (congrArg Prod.snd hcon).symm
     rw [if_neg hmem, if_neg hn]
 
-/-- **The two-row degree-two coefficient of `D₁f`.** In the Finset
+/-- **The two-row degree-two coefficient of `D₁f`.**  In the Finset
 convention the symmetrization `f(r)+f(r')` of (D2a) is replaced by the single
 term whose omitted line is the origin row. -/
 theorem inner_rowPair_walshRaise_axisDegreeOne (p : Fin 2 → ℝ)
@@ -2471,11 +2462,12 @@ theorem type11WalshAnalysis_walshRaise_rowPair (p : Fin 2 → ℝ)
   rw [Manhattan.type11WalshAnalysis, Manhattan.walshSectorAnalysis_apply]
   exact inner_rowPair_walshRaise_axisDegreeOne p c hne
 
-/-- **Equation (onI) at the Walsh level.** The mixed degree-two coefficient
+/-- **Equation (onI) at the Walsh level.**  The mixed degree-two coefficient
 of the concrete residual `D₁f_p-D₂*k_p` at the line pair `(m,n)`: the raising
 half is carried by the origin column alone, and the lowering half reads the
 degree-three coefficient at the two column neighbours of `n` with the second
-row index pinned to the origin. -/
+row index pinned to the origin.
+-/
 theorem type12WalshAnalysis_sub_type112DStarMixed_apply (p : Fin 2 → ℝ)
     (c : Manhattan.RowLineCoefficient) (kc : ℓ²(Manhattan.Type112Index, ℂ)) (m n : ℤ) :
     (Manhattan.type12WalshAnalysis
@@ -2534,7 +2526,7 @@ theorem l2Extend_apply_eq_zero {ι κ : Type*} [DecidableEq ι] [DecidableEq κ]
 /-- **The Fourier identification of a mixed degree-two frequency function.**
 An `L²` function of the two line frequencies whose two-dimensional Fourier
 coefficients are the mixed Walsh coefficients, and which vanishes off the
-mixed carrier, *is* the frequency function of that Walsh vector. This is the
+mixed carrier, *is* the frequency function of that Walsh vector.  This is the
 hypothesis `hG` of `hMinusEnergy_type12WalshSynthesis_torusIntegral`. -/
 theorem type12FreqFun_eq_of_mFourierCoeff (cc : ℓ²(Manhattan.Type12Index, ℂ))
     (G : Lp ℂ 2 (LineTorusMeasure 2))
@@ -2556,7 +2548,8 @@ theorem type12FreqFun_eq_of_mFourierCoeff (cc : ℓ²(Manhattan.Type12Index, ℂ
   show (UnitAddTorus.mFourierBasis (d := Fin 2)).repr.symm (type12RawExtend cc) = G
   rw [← hrepr, LinearIsometryEquiv.symm_apply_apply]
 
-/-- The same identification for the two-row degree-two sector. -/
+/-- The same identification for the two-row degree-two sector.
+-/
 theorem type11FreqFun_eq_of_mFourierCoeff (cc : ℓ²(Manhattan.Type11Index, ℂ))
     (G : Lp ℂ 2 (LineTorusMeasure 2))
     (hon : ∀ S : Manhattan.Type11Index,

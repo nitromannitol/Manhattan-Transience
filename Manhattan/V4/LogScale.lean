@@ -8,12 +8,12 @@ annulus `Γ_δ = {√δ ≤ |r| ≤ r₀}`, for which both `∫ phi dm` and the 
 energy `∫ q phi² dm` (with weight `q(r) = |r|/√(log(1/|r|))`) equal `t` resp.
 `t²` times the single number
 
-  `Z_δ = ∫_{√δ ≤ |r| ≤ r₀} √(log(1/|r|))/|r| dm(r)`, `dm = dr/(2π)`.
+  `Z_δ = ∫_{√δ ≤ |r| ≤ r₀} √(log(1/|r|))/|r| dm(r)`,   `dm = dr/(2π)`.
 
 This file evaluates that integral by the substitution `u = log(1/r)`, whose
 antiderivative is `-(2/3) u^{3/2}`, and derives explicit two-sided constants:
 
-  `L √L / (6 √2 π) ≤ Z_δ ≤ L √L / (3 √2 π)`, `L = log(1/δ)`,
+  `L √L / (6 √2 π) ≤ Z_δ ≤ L √L / (3 √2 π)`,   `L = log(1/δ)`,
 
 valid whenever `0 < r₀ ≤ 1/4` and `0 < δ ≤ r₀⁴`. The upper bound needs only
 `δ ≤ r₀²`; the lower bound is where `δ ≤ r₀⁴` (the manuscript's standing
@@ -150,7 +150,6 @@ theorem logSqrtNormalized_bounds {r0 delta : ℝ} (hr0 : 0 < r0) (hr01 : r0 ≤ 
     exact mul_le_mul_of_nonneg_left hIlower (by positivity)
   · rw [hsplit3]
     exact mul_le_mul_of_nonneg_left hIupper (by positivity)
-
 
 /-- `Z_δ = ∫_{√δ ≤ |r| ≤ r₀} √(log(1/|r|))/|r| dm(r)` with `dm = dr/(2π)`, written as the
 two interval integrals over the two components of the annulus. -/

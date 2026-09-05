@@ -5,8 +5,8 @@ import Manhattan.Model.LowDegree
 # Concrete low-degree competitor boundary
 
 The degree-one and type-`(1,1,2)` coefficient spaces are synthesized into
-the actual concrete Walsh fiber here. The driftless branch is discharged
-by `g=0`. The remaining proposition-valued interface is deliberately the
+the actual concrete Walsh fiber here.  The driftless branch is discharged
+by `g=0`.  The remaining proposition-valued interface is deliberately the
 paper-specific corrected energy estimate; it cannot be manufactured from
 the scalar denominator statements alone.
 
@@ -96,7 +96,7 @@ theorem concrete_driftless_competitor (lambda : ℝ) (hlambda : 0 < lambda)
     Operator.DissipativeSkewPair.H]
 
 /-- Exact cancellation of the constant Walsh component in the corrected
-high-frequency branch. It is a construction invariant, not a requirement
+high-frequency branch.  It is a construction invariant, not a requirement
 on the separate `g=0` branch. -/
 def LowDegreeCompetitorData.CancelsAt (d : LowDegreeCompetitorData)
     (p : Fin 2 → ℝ) : Prop :=
@@ -114,10 +114,10 @@ theorem not_all_frequency_exactCancellation :
     inner_empty_residual_zero_frequency] at hd
   norm_num at hd
 
-/-- Retired interface. It demands a *horizontal* degree-one plus type-(1,1,2)
+/-- Retired interface.  It demands a *horizontal* degree-one plus type-(1,1,2)
 competitor at every frequency, whereas the paper exchanges rows and columns
-first (`manuscript.tex:1156`). It is unsatisfiable: see
-`Manhattan.Glue.not_correctedLowDegreeCertificate`. New consumers must use
+first (`manuscript.tex:1156`).  It is unsatisfiable: see
+`Manhattan.Glue.not_correctedLowDegreeCertificate`.  New consumers must use
 `CorrectedCompetitorCertificate` below. -/
 def CorrectedLowDegreeCertificate (r0 C : ℝ) : Prop :=
   0 < r0 ∧ r0 < 1 ∧ 1 ≤ C ∧
@@ -150,7 +150,7 @@ theorem competitorBoundClaimV2_of_correctedLowDegreeCertificate
 
 /-- The corrected certificate: the competitor is an arbitrary Walsh vector,
 exactly as in Proposition 2.2 and as the row/column exchange at
-`manuscript.tex:1156` requires. This is the version that is provable. -/
+`manuscript.tex:1156` requires.  This is the version that is provable. -/
 def CorrectedCompetitorCertificate (r0 C : ℝ) : Prop :=
   0 < r0 ∧ r0 < 1 ∧ 1 ≤ C ∧
     ∀ (lambda : ℝ), ∀ hlambda : 0 < lambda, lambda ≤ 1 →

@@ -10,7 +10,7 @@ This file proves the paper's equation (Hsym) for the concrete fair-coin fiber
 `Manhattan.concreteFiberEnvironment`: on the homogeneous Walsh subspace of
 degree `n`, the operator `H = lambda - S_p` is, after the line-index Fourier
 transform (20), multiplication by `lambda + theta P` with
-`P = p + q_1 +... + q_n` the total frequency.
+`P = p + q_1 + ... + q_n` the total frequency.
 
 Paper: `manuscript.tex:692-760` and `manuscript.tex:576-600`.
 -/
@@ -24,7 +24,7 @@ namespace Manhattan.Glue
 
 /-! ### A translation-compatible linear order on line indices
 
-Equation (20) needs an ordering of the `n` lines of a Walsh index. Sorting by
+Equation (20) needs an ordering of the `n` lines of a Walsh index.  Sorting by
 axis first and transverse coordinate second is preserved by every lattice
 translation, which is what makes the resulting enumeration equivariant. -/
 
@@ -45,7 +45,7 @@ private theorem lineKey_injective : Function.Injective lineKey := by
   rw [axisNum_injective h1]
 
 /-- The translation-compatible linear order on line indices: axis first,
-transverse coordinate second. Exported (as a non-instance) so that other
+transverse coordinate second.  Exported (as a non-instance) so that other
 files can compute the sorted enumeration `degreeEnum`. -/
 abbrev lineOrder : LinearOrder LineIndex :=
   LinearOrder.lift' lineKey lineKey_injective
@@ -161,7 +161,7 @@ theorem tuple_ext {n : ℕ} {t u : Fin n → LineIndex}
 
 /-- The exponential monomial attached to an ordered tuple of lines: the
 character of the tuple's transverse coordinates, placed in the sector of the
-tuple's axis pattern. This is the elementary vector of equation (20). -/
+tuple's axis pattern.  This is the elementary vector of equation (20). -/
 def orderedFreqFamily (n : ℕ) (t : Fin n → LineIndex) : LineFreqL2 n :=
   lp.single 2 (tuplePattern t) (mFourierLp 2 (tupleCoord t))
 
@@ -679,7 +679,8 @@ theorem fiberH_mem_walshDegree (n : ℕ) (lam : ℝ) (p : Fin 2 → ℝ)
   obtain ⟨c, rfl⟩ := hF
   exact ⟨coeffH n lam p c, (fiberH_homogeneousWalshSynthesis n lam p c).symm⟩
 
-/-- `H_n` is bounded below by `lambda`. -/
+/-- `H_n` is bounded below by `lambda`.
+-/
 theorem coeffH_energy_lower (n : ℕ) (lam : ℝ) (p : Fin 2 → ℝ)
     (c : DegreeCoefficient n) :
     lam * ‖c‖ ^ 2 ≤ RCLike.re (inner ℂ (coeffH n lam p c) c) :=
@@ -741,13 +742,13 @@ theorem mFourier_eq_exp {n : ℕ} (m : Fin n → ℤ) (t : UnitAddTorus (Fin n))
   simp only [div_one, Finset.mul_sum]
   exact Finset.sum_congr rfl fun a _ => by ring
 
-/-- The line-frequency contribution `q_1 +... + q_n` to the total frequency,
+/-- The line-frequency contribution `q_1 + ... + q_n` to the total frequency,
 in physical units. -/
 def lineFrequency (n : ℕ) (σ : Fin n → Axis) (t : UnitAddTorus (Fin n)) (i : Fin 2) : ℝ :=
   2 * Real.pi *
     ∑ a : Fin n, ((lineShiftVector n (Operator.axisVector i) σ a : ℤ) : ℝ) * torusLift (t a)
 
-/-- Equation (19): the total frequency `P = p + q_1 +... + q_n`. -/
+/-- Equation (19): the total frequency `P = p + q_1 + ... + q_n`. -/
 def totalFrequency (n : ℕ) (p : Fin 2 → ℝ) (σ : Fin n → Axis)
     (t : UnitAddTorus (Fin n)) : Fin 2 → ℝ :=
   fun i => p i + lineFrequency n σ t i
@@ -955,7 +956,7 @@ theorem coeFn_freqFiberS (n : ℕ) (p : Fin 2 → ℝ) (f : LineFreqL2 n)
   rw [ht, lineSymbolMap_apply]
 
 /-- (Hsym) in the model: after equation (20), `H_n` is multiplication by
-`lambda + theta P`, with `P = p + q_1 +... + q_n`. -/
+`lambda + theta P`, with `P = p + q_1 + ... + q_n`. -/
 theorem coeFn_freqH (n : ℕ) (lam : ℝ) (p : Fin 2 → ℝ) (f : LineFreqL2 n)
     (σ : Fin n → Axis) :
     ((freqH n lam p f) σ : UnitAddTorus (Fin n) → ℂ) =ᵐ[LineTorusMeasure n]
@@ -1061,7 +1062,7 @@ theorem re_inner_coeffH_inv_eq_integral (n : ℕ) {lam : ℝ} (hlam : 0 < lam)
 multiplier
 
 In the ordered picture the paper's `Pi_n` is multiplication by the indicator of
-the tuples with distinct entries. Lattice translations permute those tuples,
+the tuples with distinct entries.  Lattice translations permute those tuples,
 so every operator assembled from translations, in particular the multiplier by
 `lambda + theta P`, commutes with the projection. -/
 
@@ -1223,7 +1224,7 @@ theorem orderedFiberS_comm_offDiagonalProjection (n : ℕ) (p : Fin 2 → ℝ)
 
 /-- The commutation of Lemma 5.1's last sentence, **for the single multiplier
 `lambda + theta(P)` only** -- not for every function of `P`, which is what the
-lemma claims (`manuscript.tex:1189-1190`). `orderedH` IS that one multiplier,
+lemma claims (`manuscript.tex:1189-1190`).  `orderedH` IS that one multiplier,
 so nothing here covers the general form.
 
 The two other multipliers the formalization needs are handled separately and
@@ -1233,8 +1234,8 @@ directly, neither of them through this theorem:
   `Manhattan.Glue.diagonalMultiplierEnergy_le_rawMultiplierEnergy`
   (`Manhattan/Glue/ProjectionDischarge.lean`), a fibrewise argument -- and it is
   precisely because `M` is not a trigonometric polynomial that the paper's own
-  justification at `manuscript.tex:1233-1235` does not cover it (E-010);
-* the raw weight of the ordered representatives
+  justification at `manuscript.tex:1233-1235` does not cover it;
+* the raw weight of the ordered representative, s
   `Manhattan.Glue.rawOrderedProjection_comm_rawWeightOp`
   (`Manhattan/Glue/SummandFourAssembly.lean`). -/
 theorem orderedH_comm_offDiagonalProjection (n : ℕ) (lam : ℝ) (p : Fin 2 → ℝ)

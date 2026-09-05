@@ -42,8 +42,7 @@ noncomputable def correctionV (kappa : ℝ) (q : Parameters) (a r beta : ℝ) : 
   else 0
 
 /-- The symmetric degree-three coefficient (without any tuple projection).
-
-Under this convention the actual coefficient is indexed by a three-element Finset, so
+The actual coefficient is indexed by a three-element Finset, so
 distinctness is part of its type. This frequency formula records the two
 row-frequency contributions that remain after that bookkeeping change.
 -/
@@ -112,7 +111,7 @@ theorem correctionSigma_nonneg {kappa : ℝ} {q : Parameters}
   · exact (inv_pos.2 (multiplier_pos hkappa hlambda _)).le
   · exact le_rfl
 
-/-- Joint measurability of the logarithmic correction. This is needed to
+/-- Joint measurability of the logarithmic correction.  This is needed to
 certify that Proposition 4.2 integrates an honest finite function rather than
 using the undefined-integral convention. -/
 theorem correctionSigma_measurable (kappa : ℝ) (q : Parameters) (a : ℝ) :

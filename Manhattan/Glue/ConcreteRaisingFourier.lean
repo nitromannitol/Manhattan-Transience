@@ -5,20 +5,20 @@ import Mathlib.Analysis.Fourier.AddCircleMulti
 # Equation (45) in line-frequency coordinates
 
 `Manhattan/Glue/ConcreteRaising.lean` proves the exact Walsh coefficient of the
-concrete raising operator. Here that coefficient is rewritten in the line
+concrete raising operator.  Here that coefficient is rewritten in the line
 frequencies of `manuscript.tex:743-750`.
 
 A degree-`n` coefficient is indexed by a *pattern* `j : d -> Axis` of line types
-together with the transverse integer coordinates `n : d -> Z`. Translating the
+together with the transverse integer coordinates `n : d -> Z`.  Translating the
 environment by `axisVector i` moves a line of type `a` by `axisShift i a`, which
-is `0` exactly when `a` is the type of the translation. Consequently the
+is `0` exactly when `a` is the type of the translation.  Consequently the
 raising operator is, in the Fourier variables, multiplication by the symbol
 
   `(1/2) (e^{i p_i} chi_sigma - e^{-i p_i} conj chi_sigma) = i sin(P_i)`,
 
 where `P_i` is the `i`-th coordinate of the total frequency of the *output*.
 The appended line has type `i` and therefore contributes nothing to `P_i`; this
-is the manuscript's `P'_{j_a} = P_{j_a}` (`manuscript.tex:1197-1198`). Its site
+is the manuscript's `P'_{j_a} = P_{j_a}` (`manuscript.tex:1197-1198`).  Its site
 is the origin, so its own Fourier factor is `1` and the symbol does not depend
 on the new frequency.
 
@@ -35,7 +35,7 @@ noncomputable section
 /-! ### Line patterns -/
 
 /-- The transverse displacement of a line of type `a` under the lattice
-translation by `axisVector i`. It vanishes exactly when the line is parallel
+translation by `axisVector i`.  It vanishes exactly when the line is parallel
 to the translation. -/
 def axisShift (i : Fin 2) (a : Axis) : ℤ := if a = finAxis i then 0 else 1
 
@@ -106,7 +106,7 @@ theorem translateWalshIndex_patternLines_neg {d : Type} [Fintype d] (i : Fin 2)
 
 /-! ### Equation (45) in the line frequencies -/
 
-/-- **Lemma 5.1 / equation (45)** in line-frequency coordinates. Raising by
+/-- **Lemma 5.1 / equation (45)** in line-frequency coordinates.  Raising by
 the line of type `i` through the origin is the difference quotient whose Fourier
 symbol is `i sin(P_i)`: the coefficient at the frequency index `n` of the output
 is built from the coefficients of the input at `n - sigma` and `n + sigma`,
@@ -129,7 +129,7 @@ theorem originLine_ne (i i' : Fin 2) (h : i ≠ i') :
     originLine i ≠ originLine i' := by
   fin_cases i <;> fin_cases i' <;> simp_all [originLine, finAxis]
 
-/-- The same formula for the full raising operator `D`. Only the direction
+/-- The same formula for the full raising operator `D`.  Only the direction
 whose origin line is appended contributes. -/
 theorem inner_walshL2_walshRaise_patternLines {d : Type} [Fintype d]
     (j : d → Axis) (p : Fin 2 → ℝ) (i : Fin 2) (x : WalshL2) (n : d → ℤ)
@@ -170,7 +170,7 @@ local instance concreteRaisingUnitAddCircleIsProbabilityMeasure :
 
 open UnitAddTorus
 
-/-- The Fourier symbol of the direction-`i` raising operator. Written out, it
+/-- The Fourier symbol of the direction-`i` raising operator.  Written out, it
 is `i sin(P_i)`; see `raisingSymbol_apply`. -/
 def raisingSymbol (p : Fin 2 → ℝ) (i : Fin 2) {d : Type} [Fintype d]
     (j : d → Axis) : UnitAddTorus d → ℂ := fun t =>
@@ -179,7 +179,7 @@ def raisingSymbol (p : Fin 2 → ℝ) (i : Fin 2) {d : Type} [Fintype d]
       Complex.exp (-Complex.I * p i) * mFourier (-patternShift i j) t)
 
 /-- The symbol is exactly the manuscript's `i sin(P_i)`, where `P_i` is the
-`i`-th coordinate of the total frequency. Only the frequencies of the lines
+`i`-th coordinate of the total frequency.  Only the frequencies of the lines
 *not* parallel to `i` occur, which is the manuscript's `P'_{j_a} = P_{j_a}`. -/
 theorem raisingSymbol_apply (p : Fin 2 → ℝ) (i : Fin 2) {d : Type} [Fintype d]
     (j : d → Axis) (θ : d → ℝ) :
@@ -309,7 +309,7 @@ theorem mFourierCoeff_raisingSymbol_mul {d : Type} [Fintype d]
 
 /-! ### Equation (45) as a Fourier multiplier -/
 
-/-- **Lemma 5.1 / equation (45), frequency form.** If the line-frequency
+/-- **Lemma 5.1 / equation (45), frequency form.**  If the line-frequency
 coefficient of `x` along the pattern `j` is the Fourier coefficient sequence of
 `F`, then the coefficient of the raised vector at the index set obtained by
 appending the origin line of type `i` is the Fourier coefficient sequence of

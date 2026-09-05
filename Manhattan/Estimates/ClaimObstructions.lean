@@ -1,9 +1,9 @@
 import Manhattan.Estimates.TargetStatements
 
 /-!
-# Audited obstructions in the stage candidate surface
+# Audited obstructions in the wave-1 candidate surface
 
-These theorems make two statement defects kernel-checkable. They do not
+These theorems make two statement defects kernel-checkable.  They do not
 alter the candidate statements.
 -/
 

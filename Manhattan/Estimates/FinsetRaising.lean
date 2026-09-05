@@ -3,12 +3,12 @@ import Manhattan.Estimates.RankOne
 /-!
 # Fourier--Walsh raising in Finset coordinates
 
-The formalization indexes a degree-`n` coefficient directly by an `n`-element Finset of
+A degree-`n` coefficient is indexed directly by an `n`-element Finset of
 line indices. Consequently no tuple symmetrization, factorial normalization,
 projection `Π_n`, raw tilde operator, or distinct-index correction lemma is
 present in this module.
 
-Paper: `manuscript.tex:1179-1205`; the formalization replaces the bookkeeping in
+Paper: `manuscript.tex:1179-1205`; The Finset convention replaces the bookkeeping in
 `manuscript.tex:1212-1235`.
 -/
 
@@ -23,8 +23,7 @@ class HasDirection (ι : Type*) where
 /-- The degree of a coefficient indexed by a Finset of distinct line indices. -/
 def coefficientDegree {ι : Type*} (S : Finset ι) : ℕ := S.card
 
-/-- The raising formula in Finset form.
-
+/-- The raising formula in the Finset convention Finset form.
 The output is evaluated on the resulting Finset `S`; deleting `j` supplies
 the input coefficient. Since `S` is a Finset, coincident line indices are
 unrepresentable and no projection is required. The tuple formula's

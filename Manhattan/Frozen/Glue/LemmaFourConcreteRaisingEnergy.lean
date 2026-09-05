@@ -19,4 +19,4 @@ theorem Manhattan.Frozen.Glue.lemma_four_concrete_raising_energy
             ‖((lineIndexFourier 3 g) σ : UnitAddTorus (Fin 3) → ℂ) t‖ ^ 2
             ∂(LineTorusMeasure 3)
 -- FROZEN-STATEMENT-END
-:= Manhattan.Glue.tsum_integral_inv_symbolWeight_degreeRaiseDir_le hlam p i g
+:= Manhattan.Glue.tsum_integral_inv_symbolWeight_degreeRaiseDir_le (by norm_num : (12:ℝ) ≤ 40) hlam p i g

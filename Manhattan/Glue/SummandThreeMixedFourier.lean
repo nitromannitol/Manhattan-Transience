@@ -5,7 +5,7 @@ import Manhattan.Glue.SummandThreeMixed
 
 This module supplies the Fourier-side machinery that identifies the frequency
 function of the mixed (type-`12`) degree-two sector of the residual
-`D₁f_p - D₂*k_p`. It is what
+`D₁f_p - D₂*k_p`.  It is what
 `Manhattan.Glue.type12FreqFun_eq_of_mFourierCoeff` consumes and what
 `Manhattan.Glue.hMinusEnergy_type12WalshSynthesis_torusIntegral` needs in order
 to turn the sector energy into the scalar integral bounded by
@@ -204,7 +204,7 @@ theorem torusBounded₂_character_mul {G : ℝ → ℝ → ℂ} (hG : TorusBound
   · rw [norm_mul, norm_mul, norm_intCharacter, norm_intCharacter, one_mul, one_mul]
     exact hC r b
 
-/-- **The two-dimensional Fourier bridge.** The Fourier coefficients of a
+/-- **The two-dimensional Fourier bridge.**  The Fourier coefficients of a
 bounded measurable mixed symbol, read on the abstract frequency torus, are the
 iterated normalized torus integrals of the paper. -/
 theorem mFourierCoeff_mixedAngleL2 {G : ℝ → ℝ → ℂ} (hG : TorusBoundedTwo G)
@@ -236,7 +236,6 @@ theorem mFourierCoeff_mixedAngleL2 {G : ℝ → ℝ → ℂ} (hG : TorusBoundedT
   rw [hcoeff, integral_unitTorus_two_complex hFB]
 
 end TorusTwoComplex
-
 
 /-! ## Translating the normalized torus integral -/
 
@@ -424,7 +423,6 @@ theorem mixedRawResidual_eq_zero_of_row {q : Parameters} (hq : q.Admissible)
     rawD2StarMixed_correction_eq_zero_of_row hq ha hp₂ hr]
   simp
 
-
 /-! ## The coincident-row mode dropped by the concrete lowering -/
 
 theorem rawD2StarMixed_periodizeRow (k : ℝ → ℝ → ℝ → ℂ) (r beta : ℝ) :
@@ -435,7 +433,7 @@ theorem rawD2StarMixed_periodizeRow (k : ℝ → ℝ → ℝ → ℂ) (r beta : 
   intro r' hr'
   exact periodizeRow_eq hr' r beta
 
-/-- **The projected mixed lowering symbol.** It differs from the raw one by
+/-- **The projected mixed lowering symbol.**  It differs from the raw one by
 the coincident-row mode of Lemma 5.3, which does not depend on the row
 frequency. -/
 theorem rawD2StarMixed_rawOffDiagonalPart_eq {k : ℝ → ℝ → ℝ → ℂ}
@@ -611,7 +609,6 @@ theorem torusIntegral_translate_row_sub_const {A : ℝ → ℝ → ℂ}
     show intCharacter (-m) (r + 2 * Real.pi) * K = intCharacter (-m) r * K
     rw [intCharacter_periodic]
 
-
 /-! ## The raising half of the mixed sector -/
 
 theorem degreeOneCoefficient_eq_zero_of_row {q : Parameters} (hq : q.Admissible)
@@ -704,8 +701,7 @@ theorem mixedResidual_rowFourier {q : Parameters} (hq : q.Admissible)
     ring
   linear_combination (-(2 : ℂ)⁻¹ * X) * e1 + ((2 : ℂ)⁻¹ * Y) * e2
 
-
-/-- **The raising half of the mixed sector coefficient.** The `(m,n)` Fourier
+/-- **The raising half of the mixed sector coefficient.**  The `(m,n)` Fourier
 coefficient of the mixed component of `D₁f_p`, read in the shifted frequency
 variables of (shift). -/
 theorem raisingHalf_fourierCoeff {q : Parameters} (hq : q.Admissible)
@@ -764,7 +760,6 @@ theorem raisingHalf_fourierCoeff {q : Parameters} (hq : q.Admissible)
   rw [torusIntegral_mul_const, mixedResidual_rowFourier hq hwin hf m]
   by_cases hn : n = 0 <;> simp [hn]
 
-
 /-! ## The lowering half of the mixed sector -/
 
 theorem torusBounded₁_projectionMixedError {ell : ℝ → ℝ → ℂ}
@@ -819,7 +814,7 @@ theorem rho_div_le_rho {q : Parameters} (hq : q.Admissible) :
   rw [div_le_iff₀ (by linarith)]
   nlinarith
 
-/-- **The lowering half of the mixed sector coefficient.** The `(m,n)`
+/-- **The lowering half of the mixed sector coefficient.**  The `(m,n)`
 Fourier coefficient of the raw projected lowering symbol, read in the shifted
 frequency variables of (shift), is the genuine mixed Walsh coefficient of
 `D₂*` on the competitor's degree-three coefficient. -/
@@ -909,7 +904,6 @@ theorem loweringHalf_fourierCoeff {q : Parameters} (hq : q.Admissible)
     ⟨mixedPairFinset (m, n), isType12Index_mixedPairFinset m n⟩ with hZ
   linear_combination (intCharacter n (p 0) * intCharacter (-n) (p 0) * Z) * hone +
     Z * htwo
-
 
 /-! ## The mixed sector symbol and its Fourier coefficients -/
 
@@ -1230,7 +1224,6 @@ theorem hMinusEnergy_mixedSector {q : Parameters} (hq : q.Admissible)
   rw [type12FreqFun_mixedSector hq hp₂ hwin1 hwin2 hcert hnormalization]
   exact coeFn_mixedAngleL2 (torusBounded₂_mixedSectorSymbol hq p)
 
-
 /-! ## The mixed `H⁻¹` weight and translation of energies -/
 
 theorem mixedHMinusWeight_periodic_left (q : Parameters) (beta : ℝ) :
@@ -1425,7 +1418,6 @@ theorem mixedRawResidual_energy_translate (hq : q.Admissible)
 
 end EnergyTranslate
 
-
 /-- **The `(s,u) → (r,β)` translation of the coincident-row energy.** -/
 theorem projectionError_energy_translate {q : Parameters} (hq : q.Admissible)
     {a p₂ c1 c2 : ℝ} (ha : 0 ≤ a) (hw2 : q.rho + |c2| < Real.pi) :
@@ -1550,7 +1542,6 @@ theorem norm_mixedSectorSymbol_sq_le {q : Parameters} (hq : q.Admissible)
   nlinarith [norm_nonneg (mixedSectorSymbol q p s u), norm_nonneg X, norm_nonneg Y,
     sq_nonneg (‖X‖ - ‖Y‖)]
 
-
 /-- Pointwise domination of iterated normalized torus integrals. -/
 theorem torusIntegral₂_le_of_pointwise {S A B : ℝ → ℝ → ℝ}
     (hmA : Measurable fun z : ℝ × ℝ => A z.1 z.2)
@@ -1639,7 +1630,6 @@ theorem measurable_weight_norm_sq_shift {F : ℝ → ℝ → ℂ}
     (measurable_const.add measurable_fst).prodMk (measurable_const.add measurable_snd)
   exact (measurable_mixedHMinusWeight_shift q c1 c2).mul
     ((hF.comp hshift).norm.pow_const 2)
-
 
 /-- **The mixed sector energy is dominated by the scalar residual energy and
 the coincident-row energy.** -/

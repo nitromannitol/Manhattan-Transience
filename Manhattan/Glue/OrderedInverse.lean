@@ -6,37 +6,37 @@ import Manhattan.Walsh.LowDegreeSectors
 /-!
 # The inverse of the ordered multiplier, and the symmetrized Fourier representative
 
-Two prerequisites that the formalization found missing for the degree-four
-raising sector, both stated for a general coefficient. (The first of them was
+Two prerequisites that were missing for the degree-four
+raising sector, both stated for a general coefficient.  (The first of them was
 in the end not consumed by that sector; see the correction on
 `re_inner_image_orderedRestrict_orderedHInv_le` below.)
 
-## 1. The inverse of `orderedH`
+## 1.  The inverse of `orderedH`
 
 `Manhattan.Glue.re_inner_image_orderedRestrict_le` compares the `N`-energy of
 an image before and after the passage to the ordered representative, for any
-nonnegative `N` commuting with the projection. The weight the paper's `H^{-1}`
+nonnegative `N` commuting with the projection.  The weight the paper's `H^{-1}`
 step needs is `N = (orderedH n lam p)^{-1}`, and only the Finset picture had an
-inverse (`Manhattan.Glue.coeffH_bijective`). This file supplies the ordered
+inverse (`Manhattan.Glue.coeffH_bijective`).  This file supplies the ordered
 one, by the same route: the ordered symmetric part `orderedFiberS` is
 self-adjoint and dissipative, so it assembles into a
 `Manhattan.Operator.DissipativeSkewPair`, whose `H` is *definitionally*
-`orderedH` and whose coercive form is invertible by Lax--Milgram. The inverse
+`orderedH` and whose coercive form is invertible by Lax--Milgram.  The inverse
 is bounded by `lambda^{-1}`, is nonnegative, and commutes with both the
 coincident-row projection and the choice of ordered representative, so it feeds
-straight into (46). The `H^{-1}` quadratic form is then the explicit weighted
+straight into (46).  The `H^{-1}` quadratic form is then the explicit weighted
 integral `int (lambda + theta P)^{-1} |k|^2` of (20).
 
-## 2. The symmetrized Fourier representative
+## 2.  The symmetrized Fourier representative
 
 `Manhattan.Glue.inner_walshL2_walshRaiseDir_mFourierCoeff` requires its
 frequency function `F` to reproduce the Walsh coefficient at *every* frequency
-index `m`, ordered or not. The Walsh coefficient at
+index `m`, ordered or not.  The Walsh coefficient at
 `patternLines type112Pattern m` is symmetric under exchanging `m 0` and `m 1`,
 because the two horizontal lines enter a `Finset`
 (`patternLines_type112Pattern_rawSwap`), whereas
 `mFourierCoeff (type112FreqFun c) m = rawExtend c m` vanishes as soon as
-`m 0 >= m 1`. So `type112FreqFun` is not admissible. The admissible
+`m 0 >= m 1`.  So `type112FreqFun` is not admissible.  The admissible
 representative is the symmetrization `type112SymmFreqFun`, whose Fourier
 coefficient at `m` is `rawExtend c m + rawExtend c (rawSwap m)`; on the
 diagonal `m 0 = m 1` both sides vanish, because there
@@ -135,22 +135,16 @@ def orderedPair (n : ℕ) (p : Fin 2 → ℝ) :
   nonpositive_S := re_inner_orderedFiberS_nonpos n p
   skewAdjoint_A := by simp
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem orderedPair_H (n : ℕ) (lam : ℝ) (p : Fin 2 → ℝ) :
     (orderedPair n p).H lam = orderedH n lam p := rfl
 
-/-- Bijectivity of `orderedH`.  The route through this file runs on
-`Manhattan.Glue.orderedHInv` and
+/-- The route through this file
+runs on `Manhattan.Glue.orderedHInv` and
 `Manhattan.Glue.re_inner_orderedHInv_eq_integral` instead. -/
 theorem orderedH_bijective (n : ℕ) {lam : ℝ} (hlam : 0 < lam) (p : Fin 2 → ℝ) :
     Function.Bijective (orderedH n lam p) :=
   (orderedPair n p).H_bijective hlam
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem orderedH_selfAdjoint (n : ℕ) (lam : ℝ) (p : Fin 2 → ℝ) :
     IsSelfAdjoint (orderedH n lam p) :=
   (orderedPair n p).H_selfAdjoint lam
@@ -205,9 +199,6 @@ theorem orderedHInv_comm_orderedRepresentativeProjection (n : ℕ) {lam : ℝ}
     (orderedH_orderedHInv n hlam p)
     (orderedH_comm_orderedRepresentativeProjection n lam p) c
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem orderedHInv_comm_offDiagonalProjection (n : ℕ) {lam : ℝ}
     (hlam : 0 < lam) (p : Fin 2 → ℝ) (c : OrderedCoefficient n) :
     offDiagonalProjection n (orderedHInv n hlam p c)
@@ -237,10 +228,13 @@ theorem re_inner_orderedHInv_orderedRepresentativeProjection_le (n : ℕ)
 /-- The image form with the `H⁻¹` weight, for a general intertwining map `A`.
 Correct and non-trivial as stated, but UNUSED: contrary to the earlier wording
 here and in the module docstring above, the degree-four raising step does NOT
-consume it. Its only instantiation anywhere in the tree is
+consume it.  Its only instantiation anywhere in the tree is
 `Manhattan.Glue.re_inner_orderedHInv_orderedRaise_le`
-(`Manhattan/Glue/OrderedRaising.lean`), which is vacuous,
-so this lemma has zero external consumers. -/
+(`Manhattan/Glue/OrderedRaising.lean`), which shows is vacuous,
+so this lemma has zero external consumers.
+
+MUST NOT SEAL: not
+load-bearing.  -/
 theorem re_inner_image_orderedRestrict_orderedHInv_le (m n : ℕ) {lam : ℝ}
     (hlam : 0 < lam) (p : Fin 2 → ℝ)
     (A : OrderedCoefficient m →L[ℂ] OrderedCoefficient n)
@@ -364,14 +358,14 @@ theorem norm_orderedH_lower (n : ℕ) (lam : ℝ) (p : Fin 2 → ℝ)
     simp
   · nlinarith [hlow, hup]
 
-/-- The inverse is bounded by `lambda⁻¹`. -/
+/-- The inverse is bounded by `lambda⁻¹`.
+-/
 theorem norm_orderedHInv_le (n : ℕ) {lam : ℝ} (hlam : 0 < lam) (p : Fin 2 → ℝ)
     (c : OrderedCoefficient n) : ‖orderedHInv n hlam p c‖ ≤ lam⁻¹ * ‖c‖ := by
   have h := norm_orderedH_lower n lam p (orderedHInv n hlam p c)
   rw [orderedH_orderedHInv] at h
   rw [inv_mul_eq_div, le_div_iff₀ hlam]
   linarith [h]
-
 
 /-! ## Part 2: the symmetrized Fourier representative -/
 
@@ -420,10 +414,11 @@ theorem patternLines_type112Pattern (m : Fin 3 → ℤ) :
   rw [patternLines, huniv]
   simp [type112Pattern]
 
-/-- **Obstruction (a).** The Walsh index carried by the type-`(1,1,2)` pattern
+/-- **Obstruction (a).**  The Walsh index carried by the type-`(1,1,2)` pattern
 is symmetric under exchanging the two row frequencies: the two horizontal lines
-enter a `Finset`. Any admissible frequency function must therefore have
-symmetric Fourier coefficients, which `type112FreqFun` does not. -/
+enter a `Finset`.  Any admissible frequency function must therefore have
+symmetric Fourier coefficients, which `type112FreqFun` does not.
+-/
 theorem patternLines_type112Pattern_rawSwap (m : Fin 3 → ℤ) :
     patternLines type112Pattern (rawSwap m) = patternLines type112Pattern m := by
   rw [patternLines_type112Pattern, patternLines_type112Pattern, rawSwap_zero,
@@ -478,7 +473,7 @@ theorem type112CoefficientAt_patternLines (c : ℓ²(Manhattan.Type112Index, ℂ
 
 /-- The symmetrized line-frequency function of a type-`(1,1,2)` coefficient:
 the extension by zero to the raw coordinates, symmetrized in the two row
-frequencies. Unlike `type112FreqFun`, whose Fourier coefficients vanish off
+frequencies.  Unlike `type112FreqFun`, whose Fourier coefficients vanish off
 the strictly ordered row pairs, this is the representative whose Fourier
 coefficient sequence *is* the Walsh coefficient sequence of the pattern. -/
 def type112SymmFreqFun (c : ℓ²(Manhattan.Type112Index, ℂ)) :
@@ -521,7 +516,7 @@ theorem integrable_type112SymmFreqFun (c : ℓ²(Manhattan.Type112Index, ℂ)) :
     Integrable (type112SymmFreqFun c : UnitAddTorus (Fin 3) → ℂ) volume :=
   (Lp.memLp (type112SymmFreqFun c)).integrable (by norm_num)
 
-/-- **The admissible representative works.** With the symmetrized frequency
+/-- **The admissible representative works.**  With the symmetrized frequency
 function the degree-four raising identity applies to a type-`(1,1,2)`
 synthesis: the Walsh coefficient of the raised vector at the index obtained by
 appending the origin line of type `i` is the Fourier coefficient of

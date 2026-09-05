@@ -6,21 +6,21 @@ import Manhattan.Glue.TransportDischarge
 /-!
 # Summand 4 of (22), assembled
 
-the formalization proved the operator half of Lemma 5.2 for a general
+The operator half of Lemma 5.2 is proved for a general
 degree-three coefficient (`tsum_integral_inv_symbolWeight_degreeRaiseDir_le`),
-and the formalization reduced summand 4 of (22) to that bound
-(`sectorDFourForm_le_dir_integrals`, `summandFourBound_of_sectorDFour`). Two
+and summand 4 of (22) is reduced to that bound
+(`sectorDFourForm_le_dir_integrals`, `summandFourBound_of_sectorDFour`).  Two
 things stood between them and `SummandFourBound`, and this file supplies both.
 
 * The **synthesis identity** `homogeneousWalshSynthesis 4 (degreeRaiseDir p i g)
-  = walshRaiseDir p i (homogeneousWalshSynthesis 3 g)`, which says that module
+  = walshRaiseDir p i (homogeneousWalshSynthesis 3 g)`, which says that part
   A5's coefficient-side raising map realises the operator `D` in degree four.
   It is `degreeRaiseDir_apply` together with the vanishing of the
   Walsh coefficients of a degree-four vector off cardinality four.
 * **Equation (46) for the multiplier weight**
-  (`multiplier_integral_type112DiagonalProjection_le`). The manuscript's
+  (`multiplier_integral_type112DiagonalProjection_le`).  The manuscript's
   `Pi_3` is realised on the raw type-`(1,1,2)` Fourier coefficients by the
-  restriction to the strictly ordered row pairs, and the formalization proved that any
+  restriction to the strictly ordered row pairs, and  proved that any
   nonnegative operator commuting with that restriction has smaller energy after
   it (`re_inner_rawOrderedProjection_le`); what was missing was the operator.
   The multiplier `M(P)` of `eq:M` = (35) (`manuscript.tex:983`) is
@@ -29,20 +29,20 @@ things stood between them and `SummandFourBound`, and this file supplies both.
   coefficients are carried by the vectors with equal row entries, and those
   shifts preserve the strict order of the two rows
   (`inner_mFourierLp_contMul_eq_zero`,
-  `rawOrderedProjection_comm_rawWeightOp`). That is an argument from `M`'s own
+  `rawOrderedProjection_comm_rawWeightOp`).  That is an argument from `M`'s own
   Fourier support, and it deliberately does **not** invoke the manuscript's
   closing justification for Lemma 5.1, "a multiplier depending on `P` is a
   linear combination of simultaneous translations of all line indices"
-  (`manuscript.tex:1233-1235`). Finite combinations of those translations are
+  (`manuscript.tex:1233-1235`).  Finite combinations of those translations are
   exactly the trigonometric polynomials in `P`, and the terms `2|sin(P_i/2)|` of
   `M` are not: their Fourier coefficients are `O(n^{-2})` and none vanishes.
   The conclusion of Lemma 5.1 is true in full generality all the same; ruling
-  The stated reason is recorded as the underspecification E-010,
+  The stated reason is recorded as the underspecification E-010, ERRATA-only,
   with no paper edit.
 
 With the `(shift)` phase of `Manhattan.type112ShiftTwist` in place the momentum
 bridge is an identity (`multiplier_integral_type112ShiftTwist_frozen`), exactly
-as for summand 2, so no momentum comparison is needed. The chain closes at
+as for summand 2, so no momentum comparison is needed.  The chain closes at
 `rawCubicMultiplierEnergy`, which Proposition 4.2 bounds by `2C√L`, and summand
 4 is discharged with the constant `16 C`
 (`sectorDFourForm_shiftedCorrectionWalsh_le`, `summandFourBound_proved`).
@@ -163,7 +163,7 @@ theorem mFourier_antiShift (v : RawType112Index) (r : ℝ) :
   push_cast
   ring_nf
 
-/-- **The Fourier support of the multiplier weight.** The weight depends on
+/-- **The Fourier support of the multiplier weight.**  The weight depends on
 the two row frequencies only through their sum, so its Fourier coefficients
 vanish off the vectors with equal row entries. -/
 theorem inner_mFourierLp_contMul_eq_zero (q : Estimates.Parameters) (P : Fin 2 → ℝ)
@@ -269,7 +269,6 @@ def contMulL (n : ℕ) (g : C(UnitAddTorus (Fin n), ℂ)) :
 
 @[simp] theorem contMulL_apply (n : ℕ) (g : C(UnitAddTorus (Fin n), ℂ))
     (u : Lp ℂ 2 (LineTorusMeasure n)) : contMulL n g u = contMul n g u := rfl
-
 
 /-! ### The multiplier weight transported to the raw type-`(1,1,2)` carrier -/
 
@@ -390,7 +389,7 @@ theorem rawOrderedProjection_comm_rawWeightOp (q : Estimates.Parameters) (P : Fi
     · rw [Set.indicator_of_notMem hn]
       rfl
 
-/-- **Equation (46) for the multiplier weight.** Restricting the raw
+/-- **Equation (46) for the multiplier weight.**  Restricting the raw
 type-`(1,1,2)` Fourier coefficients to the strictly ordered row pairs cannot
 increase the multiplier energy. -/
 theorem multiplier_integral_rawOrderedProjection_le {q : Estimates.Parameters}
@@ -647,8 +646,8 @@ theorem sectorDFourForm_shiftedCorrectionWalsh_le {q : Estimates.Parameters}
       ≤ rawCubicMultiplierEnergy q |p 0| (p 1) := by
     rw [hg, tsum_multiplier_type112Extend, hct, hc]
     exact multiplier_integral_shiftedCorrection_le hlambda p
-  have h0 := tsum_integral_inv_symbolWeight_degreeRaiseDir_le hlambda p 0 g
-  have h1 := tsum_integral_inv_symbolWeight_degreeRaiseDir_le hlambda p 1 g
+  have h0 := tsum_integral_inv_symbolWeight_degreeRaiseDir_le (by norm_num : (12:ℝ) ≤ 40) hlambda p 0 g
+  have h1 := tsum_integral_inv_symbolWeight_degreeRaiseDir_le (by norm_num : (12:ℝ) ≤ 40) hlambda p 1 g
   linarith
 
 /-- **Summand 4 is discharged.** -/
@@ -676,10 +675,11 @@ theorem summandFourBound_proved : ∃ C : ℝ, 0 ≤ C ∧ SummandFourBound C :=
     (hfive hlambda hlambdaOne |p 0| (abs_nonneg _) hlog)
   linarith
 
-/-- **The grouped cubic pair, unconditionally.** This is the statement the
+/-- **The grouped cubic pair, unconditionally.**  This is the statement the
 discharge chain of `Manhattan/Glue/FinalDischarge.lean` needs: it replaces
 `summandTwoFourBound_of_cubicSectors`, whose degree-four hypothesis
-`ConcreteDThreeRaisingBound` is no longer required. -/
+`ConcreteDThreeRaisingBound` is no longer required.
+-/
 theorem exists_summandTwoFourBound : ∃ C : ℝ, 0 ≤ C ∧ SummandTwoFourBound C := by
   obtain ⟨C₂, hC₂, h2⟩ := summandTwoBound_proved
   obtain ⟨C₄, hC₄, h4⟩ := summandFourBound_proved

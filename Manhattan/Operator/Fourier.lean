@@ -6,10 +6,10 @@ import Mathlib.Analysis.Complex.Trigonometric
 # Fourier transform in position and certified fiber operators
 
 The scalar position transform uses Mathlib's multivariate Fourier Hilbert
-basis. The environment-side transform remains abstract in stage. Its
+basis. The environment-side transform remains abstract here. Its
 operator family carries the exact formulas and the elementary Hilbert-space
 properties required by Proposition 2.1; a concrete probability-space model
-must supply this certificate in stage.
+must supply this certificate.
 
 Paper: manuscript.tex:543-608.
 -/
@@ -46,11 +46,10 @@ theorem positionFourier_single (z : Lattice) :
 def axisVector (i : Fin 2) : Lattice := Pi.single i 1
 
 /-- -- INTERFACE: certified abstract form of Proposition 2.1.
-
 The formula fields prevent a concrete model from hiding a different
 operator behind the certificate. The five property fields are the precise
 elementary unitary-shift obligations to be discharged when the probability
-space is connected in stage. -/
+space is connected. -/
 structure FiberEnvironment (E : Type*) [NormedAddCommGroup E]
     [InnerProductSpace ℂ E] [CompleteSpace E] where
   shift : Lattice → E →L[ℂ] E
@@ -121,7 +120,7 @@ def dissipativeSkewPair (p : Fin 2 → ℝ) : DissipativeSkewPair E where
 end FiberEnvironment
 
 /-- -- INTERFACE: vector-valued Fourier fiberization required from the
-concrete environment module in stage. -/
+concrete environment files. -/
 structure JointFiberization (E J K : Type*) [NormedAddCommGroup E]
     [InnerProductSpace ℂ E] [CompleteSpace E] [NormedAddCommGroup J]
     [InnerProductSpace ℂ J] [CompleteSpace J] [NormedAddCommGroup K]

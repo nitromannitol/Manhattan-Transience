@@ -5,7 +5,7 @@ import Mathlib.Probability.Distributions.Uniform
 # Sites, directed lines, and the fair-coin environment
 
 The paper records a line orientation redundantly as `omega (z,i)`, subject
-to independence of the `i`th coordinate. We use the equivalent irredundant
+to independence of the `i`th coordinate.  We use the equivalent irredundant
 index `(i,k)`, where `k` is the transverse coordinate.
 
 Paper: `manuscript.tex:167-184`.

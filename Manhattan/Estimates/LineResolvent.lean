@@ -4,7 +4,7 @@ import Mathlib.Analysis.SpecialFunctions.Trigonometric.ArctanDeriv
 /-!
 # The one-dimensional resolvent integral
 
-This module proves equation (22) by a tangent half-angle antiderivative. The
+This module proves equation (22) by a tangent half-angle antiderivative.  The
 one-sided endpoint limits are kept explicit because `tan (r / 2)` is singular
 at `r = ±π`.
 

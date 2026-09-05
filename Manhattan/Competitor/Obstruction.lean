@@ -5,8 +5,8 @@ import Manhattan.Operator.Frequency
 # Obstruction to the raw-frequency competitor claim
 
 The paper states Proposition 2.2 for a torus frequency
-`p ∈ (-π, π]²` (`manuscript.tex:640-660`). The frozen Lean claim instead
-quantifies over every raw real representative. This module proves that the
+`p ∈ (-π, π]²` (`manuscript.tex:640-660`).  The frozen Lean claim instead
+quantifies over every raw real representative.  This module proves that the
 resulting statement is false: the concrete fiber is `2π`-periodic, whereas
 the raw `maxFrequency` appearing in the asserted upper bound is unbounded.
 
@@ -237,7 +237,7 @@ theorem not_competitorBoundClaim_of_raw_frequency
   linarith
 
 /-- Consequently, the current frozen Proposition 2.2 statement has no
-witness. A successor must restrict frequencies to torus representatives (or
+witness.  A successor must restrict frequencies to torus representatives (or
 make the radius periodic) before the analytic hypotheses can be used. -/
 theorem not_proposition_frequency :
     ¬ (∃ D : Operator.FiberEnvironment WalshL2,

@@ -6,11 +6,11 @@ import Manhattan.Glue.CubicDischarge
 
 The type-`(1,1,2)` Walsh synthesis of `Manhattan/Walsh/Correction.lean` is
 identified with degree-three line-frequency picture under the
-line-index Fourier transform (20). The sorted enumeration of a type-`(1,1,2)`
+line-index Fourier transform (20).  The sorted enumeration of a type-`(1,1,2)`
 Finset index is the two horizontal lines in increasing order followed by the
 vertical line, so the whole sector sits in the single axis pattern
 `(horizontal, horizontal, vertical)` and its frequency side is one honest `L²`
-function of the three line frequencies. Consequently the degree-three `H` and
+function of the three line frequencies.  Consequently the degree-three `H` and
 `H⁻¹` quadratic forms of a type-`(1,1,2)` coefficient are the explicit weighted
 integrals `∫ (λ + θ(P)) |k̂|²` and `∫ (λ + θ(P))⁻¹ |k̂|²`.
 
@@ -199,9 +199,6 @@ theorem type112FreqFun_single (S : Manhattan.Type112Index) (a : ℂ) :
     HilbertBasis.repr_symm_single]
   simp
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem mFourierCoeff_type112FreqFun (c : ℓ²(Manhattan.Type112Index, ℂ))
     (n : Manhattan.RawType112Index) :
     UnitAddTorus.mFourierCoeff (type112FreqFun c) n = rawExtend c n := by
@@ -266,7 +263,7 @@ theorem tsum_single_integral
     exact integral_weight_zero w σ
   · rw [lp.single_apply_self (E := lineFreqFamily) 2 type112Pattern F]
 
-/-- **The transport (T), `H` form.** The degree-three `H` quadratic form of a
+/-- **The transport (T), `H` form.**  The degree-three `H` quadratic form of a
 type-`(1,1,2)` coefficient is the explicit weighted integral of the squared
 modulus of its line-frequency function. -/
 theorem re_inner_coeffH_type112Extend (lam : ℝ) (p : Fin 2 → ℝ)
@@ -279,7 +276,8 @@ theorem re_inner_coeffH_type112Extend (lam : ℝ) (p : Fin 2 → ℝ)
     lineIndexFourier_type112Extend]
   exact tsum_single_integral (fun σ t => symbolWeight 3 lam p σ t) (type112FreqFun c)
 
-/-- **The transport (T), `H⁻¹` form.** -/
+/-- **The transport (T), `H⁻¹` form.**
+-/
 theorem re_inner_coeffH_inv_type112Extend {lam : ℝ} (hlam : 0 < lam)
     (p : Fin 2 → ℝ) (c d : ℓ²(Manhattan.Type112Index, ℂ))
     (hd : coeffH 3 lam p (type112Extend d) = type112Extend c) :
@@ -425,7 +423,7 @@ open MeasureTheory UnitAddTorus Set
 
 /-! ### The corrected coefficient of `Walsh/Correction.lean` -/
 
-/-- **The transport for the actual corrected coefficient `k_p`.** The
+/-- **The transport for the actual corrected coefficient `k_p`.**  The
 degree-three `H` quadratic form of `correctionWalsh` at the shifted momentum
 `(0,-p₂)` is the manuscript's weighted integral
 `∫ (λ + θ(P)) |k̂|²` with `P = (β, r+r'-p₂)`. -/
@@ -500,9 +498,6 @@ theorem exists_type112RawIndex {n : Manhattan.RawType112Index} (h : n 0 < n 1) :
       (Manhattan.orderedType112Equiv ⟨n, h⟩)).1 = n
     rw [Equiv.symm_apply_apply]⟩
 
-
---; do not present it as
--- load-bearing when sealing.
 theorem range_type112RawIndex :
     Set.range Manhattan.type112RawIndex =
       {n : Manhattan.RawType112Index | n 0 < n 1} := by
@@ -515,7 +510,8 @@ theorem range_type112RawIndex :
 
 /-- The Fourier-coefficient description of the coincident-row projection:
 `Π₃` restricts the raw coefficient sequence to the strictly ordered row
-pairs. -/
+pairs.
+-/
 theorem rawExtend_type112DiagonalProjection_apply
     (d : ℓ²(Manhattan.RawType112Index, ℂ)) (n : Manhattan.RawType112Index) :
     rawExtend (Manhattan.type112DiagonalProjection d) n =
@@ -543,11 +539,11 @@ open MeasureTheory UnitAddTorus
 /-! ### The `(shift)` phase as a translation of the frequency torus
 
 `Manhattan.type112ShiftTwist` multiplies the type-`(1,1,2)` coefficients by the
-character `e^{i(m+m')p₂+inp₁}` of `manuscript.tex:791-800`. On the frequency
+character `e^{i(m+m')p₂+inp₁}` of `manuscript.tex:791-800`.  On the frequency
 side that character is a translation of the three-dimensional line-frequency
 torus by `Manhattan.shiftTorusPoint`, so the degree-three `H` quadratic form of
 a twisted coefficient at the momentum `P` is the form of the untwisted one at
-the momentum `P` moved by `(p₁, 2p₂)`. At the true frozen momentum `p`, with
+the momentum `P` moved by `(p₁, 2p₂)`.  At the true frozen momentum `p`, with
 `p₁ = p 0` and `p₂ = p 1`, the moved momentum is exactly `(0,-p₂)`:
 the factor-two comparison of `hThreeForm_type112_le` becomes an identity.
 -/
@@ -722,7 +718,7 @@ theorem hThreeForm_type112ShiftTwist (lam : ℝ) (P : Fin 2 → ℝ) (p₁ p₂ 
     (type112FreqFun c)] with t ht
   rw [ht, hsymb t]
 
-/-- **The exact form of the momentum bridge at the true frozen momentum.** The
+/-- **The exact form of the momentum bridge at the true frozen momentum.**  The
 degree-three `H` quadratic form of the competitor's phase-twisted coefficient at
 the momentum `p` is exactly form at the frozen momentum `(0,-p₂)`. -/
 theorem hThreeForm_type112ShiftTwist_frozen (lam : ℝ) (p : Fin 2 → ℝ)

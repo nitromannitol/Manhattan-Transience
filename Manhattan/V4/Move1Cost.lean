@@ -6,14 +6,14 @@ import Manhattan.V4.PeriodicProfile
 Everything Move 1 needs about the Version 4 competitor, other than the four
 sector identifications themselves.
 
-* `type112DStarTwoRow_rawShiftTwist` is **(P3) at the Walsh level**: the formalizations
+* `type112DStarTwoRow_rawShiftTwist` is **(P3) at the Walsh level**: 's
   `rawD2StarTwoRow_offDiagonalPart` is a statement about the *raw* lowering
   symbol, and `Manhattan.Glue.walshSectorComponent_two_concreteFiberA_eq` needs
-  the *Walsh* statement `type112DStarTwoRow p k_p = 0`. The bridge is
+  the *Walsh* statement `type112DStarTwoRow p k_p = 0`.  The bridge is
   `Manhattan.Glue.type112DStarTwoRow_eq`, which reads the competitor at column
   index zero, together with the oddness of the parity kernel in the column
   frequency.
-* `scaleProfile` is the `√2` rescaling of the scalar minimizer that the formalizations
+* `scaleProfile` is the `√2` rescaling of the scalar minimizer that 's
   kernel normalization forces.
 * `degreeOne_cost_le` and `twoRow_cost_le` are the two halves of estimate (4)
   against the effective weight `q(r) = |r|/√(log(1/|r|))`.
@@ -33,7 +33,6 @@ open MeasureTheory Set
 namespace Manhattan.V4
 
 open Manhattan.Glue
-
 
 /-- A raw kernel that is odd in the column frequency has vanishing Fourier
 coefficients at column index zero. -/
@@ -90,7 +89,7 @@ theorem type112RawIndex_tripleToFinset_col {m m' j : ℤ} (hm : m ≠ m')
     Subtype.ext hset
   rw [Manhattan.type112RawIndex, ← hequiv, Equiv.symm_apply_apply, hn]
 
-/-- **(P3) at the Walsh level.** The two-row component of `D₂*` at the Version 4
+/-- **(P3) at the Walsh level.**  The two-row component of `D₂*` at the Version 4
 competitor vanishes identically, because the parity kernel is odd in the column
 frequency and `(D2a)` reads its input at column index zero. -/
 theorem type112CoefficientAt_rawShiftTwist_col_zero {k : ℝ → ℝ → ℝ → ℂ}
@@ -110,7 +109,7 @@ theorem type112CoefficientAt_rawShiftTwist_col_zero {k : ℝ → ℝ → ℝ →
     rw [rawFourierCoefficient_col_zero hodd (n := ![min m m', max m m', 0]) rfl, mul_zero]
   · rw [dif_neg h112]
 
-/-- **(P3) at the Walsh level.** The two-row lowering component of the Version 4
+/-- **(P3) at the Walsh level.**  The two-row lowering component of the Version 4
 degree-three competitor vanishes identically. -/
 theorem type112DStarTwoRow_rawShiftTwist {k : ℝ → ℝ → ℝ → ℂ}
     (hk : TorusBoundedThree k) (hodd : ∀ r r' b, k r r' (-b) = -k r r' b)
@@ -130,8 +129,8 @@ theorem type112DStarTwoRow_rawShiftTwist {k : ℝ → ℝ → ℝ → ℂ}
 
 /-! ## A scaled parity profile -/
 
-/-- A constant multiple of a parity profile is a parity profile. The Version 4
-competitor is `√2` times the scalar minimizer `v = w/(B+σ)`, because the formalization
+/-- A constant multiple of a parity profile is a parity profile.  The Version 4
+competitor is `√2` times the scalar minimizer `v = w/(B+σ)`, because
 put the `(√2)⁻¹` into the kernel. -/
 def scaleProfile (c : ℝ) (v : ParityProfile) : ParityProfile where
   toFun := fun r beta => c * v.toFun r beta
@@ -238,7 +237,7 @@ theorem twoRow_cost_le {mu delta r0 s : ℝ} (hmu : 0 < mu) (hdelta : 0 < delta)
 /-! ## The scalar bounds at the Version 4 competitor `v = √2 w/(B+σ)` -/
 
 /-- The degree-three density at the Version 4 competitor is twice the density at
-the unscaled minimizer: the `√2` of normalization squares. -/
+the unscaled minimizer: the `√2` normalization squares. -/
 theorem paritySigma_scaled_sq (sigma x : ℝ) :
     sigma * (Real.sqrt 2 * x) ^ 2 = 2 * (sigma * x ^ 2) := by
   rw [mul_pow, Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)]
@@ -250,9 +249,9 @@ theorem inv_sqrt_two_mul_scaled (sigma x : ℝ) :
   have h2ne : Real.sqrt 2 ≠ 0 := ne_of_gt (Real.sqrt_pos.mpr (by norm_num))
   field_simp
 
-/-- **The degree-two residual density at the scalar minimizer.** With
+/-- **The degree-two residual density at the scalar minimizer.**  With
 `u = w/(B+σ)` the residual is `w²B/(B+σ)²`, which is at most the Move 1 density
-`w²/(B+σ)`. No completion of the square is needed: the weight `4` of the sector
+`w²/(B+σ)`.  No completion of the square is needed: the weight `4` of the sector
 splitting is absorbed directly. -/
 theorem v4_residual_le {B sigma w : ℝ} (hB : 0 < B) (hsigma : 0 ≤ sigma) :
     (w - sigma * (w / (B + sigma))) ^ 2 / B ≤ w ^ 2 / (B + sigma) := by
@@ -278,7 +277,7 @@ theorem v4_sigmaEnergy_le {B sigma w : ℝ} (hB : 0 < B) (hsigma : 0 ≤ sigma) 
 
 variable {kappa delta : ℝ}
 
-/-- **The degree-two residual density, integrated.** At the Version 4
+/-- **The degree-two residual density, integrated.**  At the Version 4
 competitor the residual `(w - σv/√2)²/B` integrates to at most the Move 1
 density `∫ w² J₃`. -/
 theorem mixedResidual_integral_le {q : Estimates.Parameters} (hlam : 0 < q.lambda)
@@ -357,7 +356,7 @@ theorem mixedResidual_integral_le {q : Estimates.Parameters} (hlam : 0 < q.lambd
             exact mul_le_mul hnum hJ hJ0 (by positivity)
         _ = Kw ^ 2 / q.lambda := by rw [div_eq_mul_inv]
 
-/-- **The degree-three energy at the Version 4 competitor.** The `√2` of module
+/-- **The degree-three energy at the Version 4 competitor.**  The `√2` of part
 V4-2's normalization doubles the density; the result is still at most twice the
 Move 1 density. -/
 theorem paritySigmaEnergy_scaled_le {q : Estimates.Parameters} (hlam : 0 < q.lambda)
@@ -383,7 +382,7 @@ theorem paritySigmaEnergy_scaled_le {q : Estimates.Parameters} (hlam : 0 < q.lam
   exact mul_le_mul_of_nonneg_left
     (paritySigmaEnergy_le_density hlam hkappa hdelta hmw hbw) (by norm_num)
 
-/-- **The Version 4 mixed symbol is real.** For the purely imaginary degree-one
+/-- **The Version 4 mixed symbol is real.**  For the purely imaginary degree-one
 profile `g = -iφ` the raising half `i sin(r) g(r)` is the real row symbol
 `w(r) = sin(r) φ(r)`, so the whole mixed symbol is
 `w - (√2)⁻¹ σ v`. -/

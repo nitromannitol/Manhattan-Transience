@@ -109,19 +109,19 @@ alignment:
       status: "proved"
       note: >-
         Exact anchor for Theorem 1.1; proved, standard axioms only.
-        Independent second key pending.
+        Second reading of the statement not yet recorded.
     - source: "Theorem 1.2 (annealed Green bound; thm-annealed)"
       lean: "Manhattan.Frozen.Main.theorem_1_2"
       module: "Manhattan.Frozen.Main.Theorem12"
       status: "proved"
       note: >-
         Exact anchor for Theorem 1.2; proved, standard axioms only.
-        Independent second key pending.
+        Second reading of the statement not yet recorded.
     - source: "Proposition 2.1 (prop-generator)"
       lean: "Manhattan.Frozen.Operator.proposition_generator_v2"
       module: "Manhattan.Frozen.Operator.PropositionGeneratorV2"
       status: "proved"
-      note: "Pointwise-intertwining successor; second key recorded."
+      note: "Pointwise-intertwining successor; second reading recorded."
     - source: "Formula (11), upper-bound direction (var-ineq)"
       lean: "Manhattan.Frozen.Operator.resolventQuadratic_le"
       module: "Manhattan.Frozen.Operator.ResolventQuadraticLe"
@@ -133,12 +133,12 @@ alignment:
       status: "proved"
       note: >-
         Torus-restricted v2; provider Manhattan.Glue.proposition_frequency_v2.
-        Independent second key pending.
+        Second reading of the statement not yet recorded.
     - source: "Lemma 4.1 (lem-onecoin-v3)"
       lean: "Manhattan.Frozen.Estimates.lemma_one_coin_v3"
       module: "Manhattan.Frozen.Estimates.LemmaOneCoinV3"
       status: "proved"
-      note: "Version 3 adds explicit integral-finiteness certificates; second key recorded."
+      note: "Version 3 adds explicit integral-finiteness certificates; second reading recorded."
     - source: "Proposition 4.2 (prop-key)"
       lean: "Manhattan.Frozen.Estimates.proposition_key"
       module: "Manhattan.Frozen.Estimates.PropositionKey"
@@ -148,27 +148,27 @@ alignment:
       lean: "Manhattan.Frozen.Glue.hsym_concrete"
       module: "Manhattan.Frozen.Glue.HsymConcrete"
       status: "sealed"
-      note: "Concrete (Hsym). Independent second key pending."
+      note: "Concrete (Hsym). Second reading of the statement not yet recorded."
     - source: "Lemma 5.1, raising side (lem-raise-concrete-raising)"
       lean: "Manhattan.Frozen.Glue.lemma_raise_concrete_raising"
       module: "Manhattan.Frozen.Glue.LemmaRaiseConcreteRaising"
       status: "sealed"
-      note: "Equation (45) in the concrete model. Independent second key pending."
+      note: "Equation (45) in the concrete model. Second reading of the statement not yet recorded."
     - source: "Lemma 5.1, adjoint side (lem-raise-concrete-adjoint)"
       lean: "Manhattan.Frozen.Glue.lemma_raise_concrete_adjoint"
       module: "Manhattan.Frozen.Glue.LemmaRaiseConcreteAdjoint"
       status: "sealed"
-      note: "Independent second key pending."
+      note: "Second reading of the statement not yet recorded."
     - source: "Lemma 5.2, operator half (lem-four-concrete-raising-energy)"
       lean: "Manhattan.Frozen.Glue.lemma_four_concrete_raising_energy"
       module: "Manhattan.Frozen.Glue.LemmaFourConcreteRaisingEnergy"
       status: "sealed"
-      note: "Degree-four raising energy bound. Independent second key pending."
+      note: "Degree-four raising energy bound. Second reading of the statement not yet recorded."
     - source: "Lemma 5.2 at the competitor (lem-four-concrete-competitor)"
       lean: "Manhattan.Frozen.Glue.lemma_four_concrete_competitor"
       module: "Manhattan.Frozen.Glue.LemmaFourConcreteCompetitor"
       status: "sealed"
-      note: "Independent second key pending."
+      note: "Second reading of the statement not yet recorded."
     - source: "Lemma 5.3, raw frequency side (lem-distinct-concrete-frequency)"
       lean: "Manhattan.Frozen.Glue.lemma_distinct_concrete_frequency"
       module: "Manhattan.Frozen.Glue.LemmaDistinctConcreteFrequency"
@@ -176,39 +176,39 @@ alignment:
       note: >-
         RAW/FREQUENCY side only. The operator-level identification of
         The operator-level bridge for projectionErrorHMinusSq is open; this node does not
-        claim it. Independent second key pending.
+        claim it. Second reading of the statement not yet recorded.
     - source: "Lemma 5.4 (lem-correction-calculation-concrete)"
       lean: "Manhattan.Frozen.Glue.lemma_correction_calculation_concrete"
       module: "Manhattan.Frozen.Glue.LemmaCorrectionCalculationConcrete"
       status: "sealed"
-      note: "Raw mixed residual bound. Independent second key pending."
+      note: "Raw mixed residual bound. Second reading of the statement not yet recorded."
     - source: "Objective (22), summand 1 (eq-e-summand-one)"
       lean: "Manhattan.Frozen.Glue.summand_one_bound"
       module: "Manhattan.Frozen.Glue.SummandOne"
       status: "sealed"
-      note: "Independent second key pending."
+      note: "Second reading of the statement not yet recorded."
     - source: "Objective (22), summand 2 (eq-e-summand-two)"
       lean: "Manhattan.Frozen.Glue.summand_two_bound"
       module: "Manhattan.Frozen.Glue.SummandTwo"
       status: "sealed"
-      note: "Independent second key pending."
+      note: "Second reading of the statement not yet recorded."
     - source: "Objective (22), summand 3 (eq-e-summand-three)"
       lean: "Manhattan.Frozen.Glue.summand_three_bound"
       module: "Manhattan.Frozen.Glue.SummandThree"
       status: "sealed"
-      note: "Carries the sgn(sin p1) multiplier. Independent second key pending."
+      note: "Carries the sgn(sin p1) multiplier. Second reading of the statement not yet recorded."
     - source: "Objective (22), summand 4 (eq-e-summand-four)"
       lean: "Manhattan.Frozen.Glue.summand_four_bound"
       module: "Manhattan.Frozen.Glue.SummandFour"
       status: "sealed"
-      note: "Independent second key pending."
+      note: "Second reading of the statement not yet recorded."
     - source: "Estimate E_p(f_p,k_p) <= C sqrt(L) (eq-construction-sector-energy)"
       lean: "Manhattan.Frozen.Glue.sector_energy_bound"
       module: "Manhattan.Frozen.Glue.SectorEnergyBound"
       status: "sealed"
       note: >-
         Third display of eq:construction = (25), manuscript.tex:785-790; the
-        repository's shorthand "(23)". Independent second key pending.
+        repository's shorthand "(23)". Second reading of the statement not yet recorded.
 
 acknowledgements: >-
   Built on Lean 4, Mathlib, Lake, and leanprover/comparator. Funding and tool

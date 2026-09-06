@@ -144,6 +144,7 @@ completing-the-square bound `Manhattan.Operator.DissipativeSkewPair.resolventQua
 which holds for every `g` and therefore does not use the mean-zero hypothesis
 at all. The completing-the-square statement is the stronger primitive; the
 Cauchy-Schwarz proof above is the shorter route to it. -/
+@[nolint unusedArguments]
 theorem resolventQuadratic_le_cauchySchwarz_of_completingSquare {lambda : ℝ}
     (hlambda : 0 < lambda) (V g : E) (_hg : re ⟪V, g⟫_ℂ = 0) :
     P.resolventQuadratic hlambda V

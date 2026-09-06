@@ -21,6 +21,7 @@ noncomputable section
 def torus : Set ℝ := Set.Ioc (-Real.pi) Real.pi
 
 /-- Normalized Haar integration on `𝕋 = (-π, π]`, represented using Lebesgue measure. -/
+@[nolint unusedArguments]
 noncomputable def torusIntegral {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
     [CompleteSpace E] (f : ℝ → E) : E :=
   (2 * Real.pi)⁻¹ • ∫ r in torus, f r
@@ -36,8 +37,11 @@ def logPos (x : ℝ) : ℝ := max 0 (Real.log x)
 
 /-- The fixed parameters of the explicit competitor construction. -/
 structure Parameters where
+  /-- The spectral parameter `λ` of the resolvent. -/
   lambda : ℝ
+  /-- The constant `K` of the support condition on the competitor profile. -/
   K : ℝ
+  /-- The radius `ρ` bounding the frequency in the kernel comparison. -/
   rho : ℝ
 
 /-- The parameter range fixed at the start of Section 4. -/

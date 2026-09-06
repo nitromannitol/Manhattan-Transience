@@ -37,7 +37,9 @@ namespace DissipativeSkewPair
 
 variable (P : DissipativeSkewPair E)
 
+/-- The complex space read as a real normed space. -/
 local instance : NormedSpace ℝ E := NormedSpace.restrictScalars ℝ ℂ E
+/-- The real inner product is the real part of the complex one. -/
 local instance : InnerProductSpace ℝ E := InnerProductSpace.rclikeToReal ℂ E
 
 /-- `H = lambda I - S`, from (12). -/

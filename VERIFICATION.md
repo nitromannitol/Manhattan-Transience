@@ -1,8 +1,8 @@
 # Statement verification: does the Lean say what the paper says?
 
 Checked 2026-09-05 against `paper/manuscript-current.tex`
-(SHA-256 `27829b7aceda2e0d…`, the text carrying the
-Formalization subsection).
+(SHA-256 `2086d1bb3b15665c…`, the text with the
+existential constant in Lemma 4.2).
 
 A formalization is only worth what its statements say. This file records, for
 every numbered statement of the paper, whether the Lean statement is the same
@@ -121,29 +121,28 @@ The construction is formalized (`rawMultiplierEnergy_le_evenMajorantEnergy`,
 `operatorEstimate`, `effectiveWeight`), and `effectiveWeight r = |r|/√(log(1/|r|))`
 is the paper's `q(r)` exactly.
 
-**WEAKER in the value of the constant.** The paper's `lem:effective-energy`
-states the constant **16**:
+**EXACT.** `lem:effective-energy` asserts a universal `C < ∞` with
 
-    r_λ(p) ≤ (1 - s ∫ φ)²/H₀ + 16 ∫ q(r) φ(r)² dm(r).
+    r_λ(p) ≤ (1 - s ∫ φ)²/H₀ + C ∫ q(r) φ(r)² dm(r),
 
-Lean proves the same inequality with the explicit constant
-`Manhattan.V4.v4ConstantSplit`, certified below `670` by
-`v4ConstantSplit_lt`. The shape of the lemma is certified exactly; the
-constant is larger than the paper's.
+and records in its proof that `C = 16` works. Lean witnesses the statement with
+`Manhattan.V4.v4ConstantSplit`, certified below `670` by `v4ConstantSplit_lt`.
+Both constants are universal and independent of `λ`, `p` and `φ`, so the Lean
+statement is the paper's.
 
 ## The explicit constants
 
-* `lem:effective-energy` prints `16`. Lean proves the same inequality with
-  `v4ConstantSplit < 670` (`Manhattan/V4/SplitConstant.lean`), down from
-  `20,028` and from the `74,869` of the first assembly.
-* The proof of `prop:frequency` says "We verify that `C = 2048` suffices".
-  The *statement* is existential and is certified. The value `2048` is not:
-  the formalized route carries `max(max(1, 8π³ · v4ConstantSplit),
-  outerRegionConstant(1/4))` instead.
+Neither of the paper's two numerals occurs in a statement, so no formalized
+statement claims a value it does not prove.
 
-Nothing here contradicts the paper. Anyone citing this development should say
-that every statement is machine-checked, and that the two displayed numerical
-constants are proved with larger explicit values.
+* `lem:effective-energy` and `prop:frequency` both quantify their constant
+  existentially. Lean discharges the first with `v4ConstantSplit < 670`
+  (`Manhattan/V4/SplitConstant.lean`), down from `20,028` and from the `74,869`
+  of the first assembly, and the second with
+  `max(max(1, 8π³ · v4ConstantSplit), outerRegionConstant(1/4))`.
+* The values `16` and `2048` appear in the paper's *proofs*. The formalized
+  proofs reach the same statements along a lossier route and produce larger
+  values; that difference is confined to proofs.
 
 ### Where the remaining gap is
 

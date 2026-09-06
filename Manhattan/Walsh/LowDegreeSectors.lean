@@ -21,6 +21,7 @@ namespace Manhattan
 
 noncomputable section
 
+/-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
 local instance lowDegreeSectorsPropDecidable (p : Prop) : Decidable p :=
   Classical.propDecidable p
 
@@ -80,11 +81,11 @@ noncomputable def type11WalshSynthesis : ℓ²(Type11Index, ℂ) →ₗᵢ[ℂ] 
 noncomputable def type12WalshSynthesis : ℓ²(Type12Index, ℂ) →ₗᵢ[ℂ] WalshL2 :=
   orthonormal_type12WalshFamily.orthogonalFamily.linearIsometry
 
-@[simp] theorem norm_type11WalshSynthesis (c : ℓ²(Type11Index, ℂ)) :
+theorem norm_type11WalshSynthesis (c : ℓ²(Type11Index, ℂ)) :
     ‖type11WalshSynthesis c‖ = ‖c‖ :=
   type11WalshSynthesis.norm_map c
 
-@[simp] theorem norm_type12WalshSynthesis (c : ℓ²(Type12Index, ℂ)) :
+theorem norm_type12WalshSynthesis (c : ℓ²(Type12Index, ℂ)) :
     ‖type12WalshSynthesis c‖ = ‖c‖ :=
   type12WalshSynthesis.norm_map c
 

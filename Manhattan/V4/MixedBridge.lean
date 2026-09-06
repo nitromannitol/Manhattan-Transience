@@ -66,10 +66,12 @@ open MeasureTheory UnitAddTorus
 
 namespace Manhattan.V4
 
+/-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
 local instance (p : Prop) : Decidable p := Classical.propDecidable p
 
 attribute [local instance] Real.fact_zero_lt_one
 
+/-- The unit circle carries its normalized Haar measure throughout this file. -/
 local instance : MeasureSpace UnitAddCircle :=
   ⟨AddCircle.haarAddCircle⟩
 

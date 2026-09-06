@@ -18,6 +18,7 @@ noncomputable section
 
 /-- A line index has a direction (`0` for a row, `1` for a column). -/
 class HasDirection (ι : Type*) where
+  /-- The axis, horizontal or vertical, that the index lies along. -/
   direction : ι → Fin 2
 
 /-- The degree of a coefficient indexed by a Finset of distinct line indices. -/

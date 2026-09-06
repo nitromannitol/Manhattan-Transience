@@ -48,6 +48,7 @@ def patternLines {d : Type} [Fintype d] (j : d → Axis) (n : d → ℤ) :
   Finset.image (fun a => (j a, n a)) Finset.univ
 
 /-- The frequency displacement vector of the translation by `axisVector i`. -/
+@[nolint unusedArguments]
 def patternShift {d : Type} [Fintype d] (i : Fin 2) (j : d → Axis) : d → ℤ :=
   fun a => axisShift i (j a)
 
@@ -161,6 +162,7 @@ theorem inner_walshL2_walshRaise_patternLines {d : Type} [Fintype d]
 
 attribute [local instance] Real.fact_zero_lt_one
 
+/-- The unit circle carries its normalized Haar measure throughout this file. -/
 local instance concreteRaisingUnitAddCircleMeasureSpace :
     MeasureSpace UnitAddCircle := ⟨AddCircle.haarAddCircle⟩
 

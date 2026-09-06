@@ -136,8 +136,11 @@ into the small square, logarithmic square annuli, and the outer region.
 `middleCoefficient` includes the harmless square-annulus Jacobian and the
 constant in the frequency bound. -/
 structure RegionalIntegralBounds (green : ℝ → ℝ) where
+  /-- The contribution of the small square around the origin. -/
   smallBound : ℝ
+  /-- The coefficient of the logarithmic tail over the square annuli, including the Jacobian and the constant in the frequency bound. -/
   middleCoefficient : ℝ
+  /-- The contribution of the outer region. -/
   outerBound : ℝ
   small_nonneg : 0 ≤ smallBound
   middle_nonneg : 0 ≤ middleCoefficient

@@ -40,8 +40,11 @@ open Manhattan.Glue Manhattan.Operator
 
 /-! ## Explicit admissible data -/
 
+/-- The radius used by the non-degeneracy witnesses. -/
 def witnessR0 : ℝ := 1 / 4
+/-- The spectral parameter used by the non-degeneracy witnesses. -/
 def witnessLambda : ℝ := 1 / 1000000
+/-- The frequency used by the non-degeneracy witnesses. -/
 def witnessP : Fin 2 → ℝ := ![1 / 1000, 0]
 
 theorem witnessLambda_pos : 0 < witnessLambda := by
@@ -162,6 +165,7 @@ theorem strict_v4_beats_driftless :
 /-! ## (B-1b) instantiated at a nonzero coefficient -/
 
 /-- The constant row profile, a legitimate `2π`-periodic degree-one profile. -/
+@[nolint unusedArguments]
 def unitProfile : ℝ → ℂ := fun _ => 1
 
 theorem unitProfile_periodic : Function.Periodic unitProfile (2 * Real.pi) :=

@@ -39,7 +39,7 @@ noncomputable def homogeneousWalshSynthesis (n : ℕ) :
   (orthonormal_homogeneousWalshFamily n).orthogonalFamily.linearIsometry
 
 /-- The complete homogeneous synthesis is an isometry. -/
-@[simp] theorem norm_homogeneousWalshSynthesis (n : ℕ)
+theorem norm_homogeneousWalshSynthesis (n : ℕ)
     (c : ℓ²(WalshDegreeIndex n, ℂ)) :
     ‖homogeneousWalshSynthesis n c‖ = ‖c‖ :=
   (homogeneousWalshSynthesis n).norm_map c
@@ -102,7 +102,7 @@ noncomputable def type112WalshSynthesis :
   orthonormal_type112WalshFamily.orthogonalFamily.linearIsometry
 
 /-- The type-`(1,1,2)` synthesis is the exact no-factorial form of (17). -/
-@[simp] theorem norm_type112WalshSynthesis (c : ℓ²(Type112Index, ℂ)) :
+theorem norm_type112WalshSynthesis (c : ℓ²(Type112Index, ℂ)) :
     ‖type112WalshSynthesis c‖ = ‖c‖ :=
   type112WalshSynthesis.norm_map c
 
@@ -176,7 +176,7 @@ noncomputable def axisDegreeOneSynthesis (i : Axis) :
       intro k l h
       simpa using h)).orthogonalFamily.linearIsometry
 
-@[simp] theorem norm_axisDegreeOneSynthesis (i : Axis) (c : RowLineCoefficient) :
+theorem norm_axisDegreeOneSynthesis (i : Axis) (c : RowLineCoefficient) :
     ‖axisDegreeOneSynthesis i c‖ = ‖c‖ :=
   (axisDegreeOneSynthesis i).norm_map c
 
@@ -230,7 +230,7 @@ noncomputable def degreeOneFrequencySynthesis (i : Axis) :
         ≃ₗᵢ[ℂ] RowLineCoefficient).toLinearIsometry
 
 /-- Plancherel and (17) make the degree-one frequency synthesis isometric. -/
-@[simp] theorem norm_degreeOneFrequencySynthesis (i : Axis)
+theorem norm_degreeOneFrequencySynthesis (i : Axis)
     (f : Lp ℂ 2 (AddCircle.haarAddCircle : Measure (AddCircle torusPeriod))) :
     ‖degreeOneFrequencySynthesis i f‖ = ‖f‖ := by
   simp [degreeOneFrequencySynthesis]

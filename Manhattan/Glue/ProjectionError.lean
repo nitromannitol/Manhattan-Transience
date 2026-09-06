@@ -47,7 +47,9 @@ noncomputable def diagonalMultiplierEnergy (kappa : ℝ)
 
 /-- The degree-two error carrier has no two-row component. -/
 structure ProjectionErrorComponents where
+  /-- The two-row component, which vanishes for the error carrier. -/
   twoRow : Type11Index → ℂ
+  /-- The mixed component, as a function of the two frequencies. -/
   mixed : ℝ → ℝ → ℂ
 
 /-- The frequency-space projection error associated with a discarded

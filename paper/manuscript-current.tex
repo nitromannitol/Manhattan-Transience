@@ -573,8 +573,9 @@ Lemma~\ref{lem:effective-energy} gives
 \[
   r_\lambda(p)\leq
   \frac{\left(1-s\int_{\Gamma_\delta}\varphi\dd m\right)^2}{H_0}
-  +16\int_{\Gamma_\delta}q(r)\varphi(r)^2\dd m(r)\, .
+  +C\int_{\Gamma_\delta}q(r)\varphi(r)^2\dd m(r)\, ,
 \]
+with $C=16$.
 The first term charges the constant residual, and the second bounds
 every other contribution to the candidate's cost.
 
@@ -628,17 +629,16 @@ in two dimensions is not available in Mathlib, so the recurrence in
 Problem~\ref{prob:which} is proved there from the factorization of the walk
 into two independent one-dimensional walks rather than quoted.
 
-One point affects what the formalization asserts.  The two displayed numerical
-constants are proved with larger explicit values.  The formalized
-Lemma~\ref{lem:effective-energy} carries a constant certified below $670$ in
-place of $16$, and the constant of Proposition~\ref{prop:frequency} is
-correspondingly larger than $2048$.  Every statement is formalized as
-displayed, and the constant of Proposition~\ref{prop:frequency} is existential
-there, so no formalized statement claims a numerical value it does not prove.
-The loss is in the passage from Lemma~\ref{lem:parity} to
-\eqref{eq:energy-reduction}, where the formalization splits the residual by
-Cauchy--Schwarz and bounds the degree-three form by a majorant instead of
-minimizing it exactly.
+Every numbered statement is formalized as displayed.  The two constants
+$C$ of Lemma~\ref{lem:effective-energy} and $C$ of
+Proposition~\ref{prop:frequency} are universal but unspecified in those
+statements, and the values $16$ and $2048$ recorded in the proofs are the ones
+the arguments here produce.  The formalized proofs reach the same statements
+along a lossier route and produce larger values, below $670$ in place of $16$
+and correspondingly larger in place of $2048$: they split the residual by
+Cauchy--Schwarz in the passage from Lemma~\ref{lem:parity} to
+\eqref{eq:energy-reduction} and bound the degree-three form by a majorant
+rather than minimizing it exactly.
 
 \subsection{Notation and conventions}\label{ssec:notation}
 
@@ -1247,18 +1247,19 @@ We integrate the mixed weight in the column frequency to obtain the
 weight $q$ of \eqref{eq:q}.
 
 \begin{lemma}\label{lem:effective-energy}
-For every $\lambda\in(0,1]$, $p\in\T^2$ with
+There is a universal $C<\infty$ such that, for every
+$\lambda\in(0,1]$, $p\in\T^2$ with
 $\abs{p_2}\leq\abs{p_1}$ and
 $\delta=\sqrt\lambda+\abs{p_1}<1/256$, and every real even
 $\varphi\in L^2(\T,m)$ vanishing off $\Gamma_\delta$,
 \begin{equation}\label{eq:effective-energy}
   r_\lambda(p)\leq
   \frac{\left(1-s\int_{\Gamma_\delta}\varphi\dd m\right)^2}{H_0}
-  +16\int_{\Gamma_\delta}q(r)\varphi(r)^2\dd m(r)\, .
+  +C\int_{\Gamma_\delta}q(r)\varphi(r)^2\dd m(r)\, .
 \end{equation}
 The full cost now depends only on the integral of $\varphi$ and its
-weighted square integral, with coefficient $16$ independent of $\lambda$,
-$p$, and $\varphi$.
+weighted square integral, with a coefficient independent of $\lambda$,
+$p$, and $\varphi$.  The proof gives $C=16$.
 \end{lemma}
 
 For each fixed $\delta$, the weight $q$ is bounded above and away from
@@ -1351,7 +1352,8 @@ logarithm in the denominator.  The tail is absorbed using
 $\rho\log(1/\rho)\leq1$ and
 $(\pi^{5/2}+\pi)/2<11$.
 Since $\sin^2r\leq r^2$, equations~\eqref{eq:energy-reduction} and
-\eqref{eq:beta} give $E_p(f,k)\leq16\int_{\Gamma_\delta}q\varphi^2\dd m$.
+\eqref{eq:beta} give $E_p(f,k)\leq16\int_{\Gamma_\delta}q\varphi^2\dd m$,
+so $C=16$ suffices.
 Apply \eqref{eq:uncancelled} and Lemma~\ref{lem:variational-bound}.
 \end{proof}
 
@@ -1383,8 +1385,8 @@ where $t\in\R$.  This function belongs to $L^2(\T,m)$ because
 $\Gamma_\delta$ stays away from zero.  Then
 $\int\varphi\dd m=tZ_\delta$ and
 $\int q\varphi^2\dd m=t^2Z_\delta$.
-Substitution into \eqref{eq:effective-energy} leaves one scalar to
-minimize.  Completion of the square gives
+Substitution into \eqref{eq:effective-energy}, at the value $C=16$
+produced by its proof, leaves one scalar to minimize.  Completion of the square gives
 \begin{equation}\label{eq:scalar-minimum}
   \inf_{t\in\R}\left\{\frac{(1-stZ_\delta)^2}{H_0}
     +16t^2Z_\delta\right\}

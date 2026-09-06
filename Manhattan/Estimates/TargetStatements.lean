@@ -105,9 +105,13 @@ def LemmaSixTwoInterface {E : Type*}
 the direct reduction estimate: there is no projection-error term or Lemma 5.3. -/
 -- INTERFACE: the Walsh part replaces these fields by concrete Finset identities.
 structure LemmaSixFourCertificate where
+  /-- The two supports are disjoint. -/
   supportDisjoint : Prop
+  /-- The two-row component of the residual vanishes. -/
   twoRowComponentVanishes : Prop
+  /-- The negative-frequency error is bounded. -/
   negativeFrequencyErrorBound : Prop
+  /-- The direct reduction estimate, which in the Finset convention replaces the projection-error term. -/
   directReductionBound : Prop
 
 end

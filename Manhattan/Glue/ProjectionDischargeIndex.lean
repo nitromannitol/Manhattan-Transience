@@ -17,6 +17,7 @@ namespace Manhattan.Glue
 
 noncomputable section
 
+/-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
 local instance projectionDischargeIndexDecidable (p : Prop) : Decidable p :=
   Classical.propDecidable p
 

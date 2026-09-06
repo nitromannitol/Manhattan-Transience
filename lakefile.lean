@@ -9,7 +9,7 @@ require mathlib from git
 
 @[default_target]
 lean_lib «Manhattan» where
-  globs := #[.submodules `Manhattan]
+  globs := #[.andSubmodules `Manhattan]
   leanOptions := #[
     ⟨`autoImplicit, false⟩,
     ⟨`relaxedAutoImplicit, false⟩,

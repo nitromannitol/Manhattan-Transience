@@ -24,6 +24,7 @@ open ComplexConjugate InnerProductSpace RCLike
 
 namespace Manhattan.Glue
 
+/-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
 local instance dischargePropDecidable (p : Prop) : Decidable p :=
   Classical.propDecidable p
 

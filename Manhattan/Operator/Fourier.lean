@@ -52,9 +52,13 @@ elementary unitary-shift obligations to be discharged when the probability
 space is connected. -/
 structure FiberEnvironment (E : Type*) [NormedAddCommGroup E]
     [InnerProductSpace ℂ E] [CompleteSpace E] where
+  /-- The unitary translation of the environment by a lattice vector. -/
   shift : Lattice → E →L[ℂ] E
+  /-- Multiplication by the orientation sign of each axis. -/
   omega : Fin 2 → E →L[ℂ] E
+  /-- The symmetric part `S_p` of the fibered generator. -/
   fiberS : (Fin 2 → ℝ) → E →L[ℂ] E
+  /-- The skew part `A_p` of the fibered generator. -/
   fiberA : (Fin 2 → ℝ) → E →L[ℂ] E
   fiberS_formula : ∀ p,
     fiberS p = (2 : ℂ)⁻¹ • ∑ i,
@@ -125,9 +129,13 @@ structure JointFiberization (E J K : Type*) [NormedAddCommGroup E]
     [InnerProductSpace ℂ E] [CompleteSpace E] [NormedAddCommGroup J]
     [InnerProductSpace ℂ J] [CompleteSpace J] [NormedAddCommGroup K]
     [InnerProductSpace ℂ K] [CompleteSpace K] where
+  /-- The fibered environment being transformed. -/
   environment : FiberEnvironment E
+  /-- The vector-valued Fourier isometry. -/
   transform : J ≃ₗᵢ[ℂ] K
+  /-- The generator on the joint space, before the transform. -/
   jointGenerator : J →L[ℂ] J
+  /-- The operator that the transform conjugates the generator into. -/
   fiberOperator : K →L[ℂ] K
   transformed_generator : ∀ F : J,
     transform (jointGenerator F) = fiberOperator (transform F)

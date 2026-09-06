@@ -75,10 +75,10 @@ def axisSwapFrequency (p : Fin 2 → ℝ) : Fin 2 → ℝ :=
 @[simp] theorem axisSwapFrequency_apply (p : Fin 2 → ℝ) (i : Fin 2) :
     axisSwapFrequency p i = p (axisSwapFin i) := rfl
 
-@[simp] theorem axisSwapFrequency_zero (p : Fin 2 → ℝ) :
+theorem axisSwapFrequency_zero (p : Fin 2 → ℝ) :
     axisSwapFrequency p 0 = p 1 := by simp
 
-@[simp] theorem axisSwapFrequency_one (p : Fin 2 → ℝ) :
+theorem axisSwapFrequency_one (p : Fin 2 → ℝ) :
     axisSwapFrequency p 1 = p 0 := by simp
 
 @[simp] theorem axisSwapFrequency_involutive (p : Fin 2 → ℝ) :
@@ -174,7 +174,7 @@ noncomputable def axisSwapUnitary : Manhattan.WalshL2 ≃ₗᵢ[ℂ] Manhattan.W
   rw [HilbertBasis.coe_mk]
   rfl
 
-@[simp] theorem axisSwapUnitary_empty :
+theorem axisSwapUnitary_empty :
     axisSwapUnitary (Manhattan.walshL2 ∅) = Manhattan.walshL2 ∅ := by
   rw [axisSwapUnitary_walshL2, axisSwapWalshIndexEquiv_empty]
 

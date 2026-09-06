@@ -37,6 +37,7 @@ private theorem orthonormal_l2Single' (ι : Type*) [DecidableEq ι] :
   · simp [lp.single_apply, h]
 
 /-- Extension by zero along an injection, as a linear isometry of `l²` spaces. -/
+@[nolint unusedArguments]
 def l2Extend {ι κ : Type*} [DecidableEq ι] [DecidableEq κ] (f : ι → κ)
     (hf : Function.Injective f) : ℓ²(ι, ℂ) →ₗᵢ[ℂ] ℓ²(κ, ℂ) :=
   ((orthonormal_l2Single' κ).comp f hf).orthogonalFamily.linearIsometry
@@ -171,6 +172,7 @@ theorem type112WalshSynthesis_eq_homogeneous (c : ℓ²(Manhattan.Type112Index, 
 theorem two_pos_ennreal : (0 : ENNReal) < 2 := by norm_num
 
 /-- The constant family of `L²` spaces indexed by axis patterns. -/
+@[nolint unusedArguments]
 abbrev lineFreqFamily : (Fin 3 → Axis) → Type :=
   fun _ => Lp ℂ 2 (LineTorusMeasure 3)
 

@@ -171,7 +171,7 @@ set_option maxHeartbeats 800000 in
 /-- After the negative-phase transform, the elementary shift changes the
 Fourier monomial from `-z` to `-(z-x)=-z+x`, hence has the paper's positive
 shift phase. -/
-@[simp] theorem jointPositionFourier_jointTranslatedStep_single
+theorem jointPositionFourier_jointTranslatedStep_single
     (x : Operator.Lattice) (S : Finset LineIndex) (z : Operator.Lattice) :
     jointPositionFourier
         (jointTranslatedStep x

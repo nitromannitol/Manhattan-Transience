@@ -37,13 +37,12 @@ Two files answer the two questions a reader has.
   definition chain spelled out where the correspondence is not immediate.
 
 One caveat belongs up front, because it is the place where a reader could
-over-read this development.  The paper's *displayed numerical constants are
-proved with larger explicit values*.  Lemma 4.2 prints the constant `16`;
-`Manhattan.V4.v4ConstantSplit_lt` certifies the formalized version of that
-lemma below `670`.  The proof of Proposition 5.1 states that `C = 2048`
-suffices; the statement there is existential and is certified, but the value is
-not.  Every statement is machine-checked; the sharp constant bookkeeping is
-not.  `VERIFICATION.md` says exactly where the remaining factor lives.
+over-read this development.  Every numbered statement is machine-checked, but
+the paper's *numerals are not*.  Lemma 4.2 and Proposition 5.1 both assert a
+universal constant and record the values `16` and `2048` in their proofs; the
+formalized proofs reach the same statements along a lossier route, discharging
+the first with `Manhattan.V4.v4ConstantSplit_lt`, below `670`.  The difference
+is confined to proofs, and `VERIFICATION.md` says exactly where it lives.
 
 ## Status
 

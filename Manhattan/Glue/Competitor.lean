@@ -22,9 +22,12 @@ namespace Manhattan.Glue
 
 /-- Coefficient data for the concrete `g=(f+k)/b` construction. -/
 structure LowDegreeCompetitorData where
+  /-- The degree-one row profile, an `L²` function of the row frequency. -/
   rowFrequency :
     Lp ℂ 2 (AddCircle.haarAddCircle : Measure (AddCircle torusPeriod))
+  /-- The degree-three coefficient carried by the type-`(1,1,2)` sector. -/
   mixedCoefficient : ℓ²(Type112Index, ℂ)
+  /-- The scalar `b` normalizing `g = (f + k)/b`. -/
   normalization : ℝ
   normalization_ne : normalization ≠ 0
 

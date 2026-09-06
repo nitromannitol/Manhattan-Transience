@@ -83,6 +83,7 @@ theorem homogeneousWalshSynthesis_degreeRaiseDir (p : Fin 2 → ℝ) (i : Fin 2)
       inner_walshL2_walshRaiseDir_eq_zero p i
         (homogeneousWalshSynthesis_mem_degree 3 g) hU]
 
+/-- The degree-three frequency triple `(c, -c, 0)` at which the transported energy is read. -/
 def antiShift (c : UnitAddCircle) : UnitAddTorus (Fin 3) := ![c, -c, 0]
 
 private theorem exists_int_eq {r : ℝ} (h : ((r : ℝ) : UnitAddCircle) = 0) :

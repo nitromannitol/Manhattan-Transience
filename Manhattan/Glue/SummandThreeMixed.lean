@@ -55,6 +55,7 @@ noncomputable section
 
 open Manhattan.Estimates
 
+/-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
 local instance summandThreeMixedPropDecidable (P : Prop) : Decidable P :=
   Classical.propDecidable P
 

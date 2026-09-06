@@ -22,6 +22,7 @@ open ComplexConjugate InnerProductSpace RCLike
 
 namespace Manhattan.Glue
 
+/-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
 local instance (p : Prop) : Decidable p := Classical.propDecidable p
 
 /-- Quadratic homogeneity of the positive energy. -/
@@ -201,6 +202,7 @@ modulus and no `L²` norm moves.
 -/
 
 /-- The multiplicative character is multiplicative in its argument. -/
+@[nolint unusedArguments]
 theorem fourier_add_arg {T : ℝ} [Fact (0 < T)] (n : ℤ) (x y : AddCircle T) :
     fourier n (x + y) = fourier n x * fourier n y := by
   rw [fourier_apply, fourier_apply, fourier_apply, smul_add,

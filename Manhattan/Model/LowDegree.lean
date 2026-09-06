@@ -68,19 +68,19 @@ theorem toggleOriginWalshIndex_eq_ite (i : Fin 2)
     Finset.notMem_empty, Finset.mem_singleton]
   tauto
 
-@[simp] theorem environmentShift_walshL2_public (x : Operator.Lattice)
+theorem environmentShift_walshL2_public (x : Operator.Lattice)
     (S : Finset LineIndex) :
     environmentShift x (walshL2 S) = walshL2 (translateWalshIndex x S) := by
   rw [environmentShift_walshL2]
   rfl
 
-@[simp] theorem originSignMultiplier_walshL2_public (i : Fin 2)
+theorem originSignMultiplier_walshL2_public (i : Fin 2)
     (S : Finset LineIndex) :
     originSignMultiplier i (walshL2 S) = walshL2 (toggleOriginWalshIndex i S) := by
   rw [originSignMultiplier_walshL2]
   rfl
 
-@[simp] theorem originSignMultiplier_smul_walshL2 (i : Fin 2) (a : ℂ)
+theorem originSignMultiplier_smul_walshL2 (i : Fin 2) (a : ℂ)
     (S : Finset LineIndex) :
     originSignMultiplier i (a • walshL2 S) =
       a • walshL2 (toggleOriginWalshIndex i S) := by

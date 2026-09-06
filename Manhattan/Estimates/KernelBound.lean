@@ -25,6 +25,7 @@ namespace Manhattan.Estimates
 
 noncomputable section
 
+/-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
 local instance kernelBoundPropDecidable (p : Prop) : Decidable p :=
   Classical.propDecidable p
 

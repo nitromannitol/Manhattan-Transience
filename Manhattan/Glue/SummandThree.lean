@@ -121,6 +121,7 @@ namespace Manhattan.Glue
 
 noncomputable section
 
+/-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
 local instance summandThreePropDecidable (p : Prop) : Decidable p :=
   Classical.propDecidable p
 
@@ -264,6 +265,7 @@ theorem tupleCoord_degreeEnum_type12 (S : Type12Index) :
 /-! ### The mixed sector inside degree two -/
 
 /-- The constant family of frequency `L²` spaces in degree `n`. -/
+@[nolint unusedArguments]
 abbrev lineFreqFamilyOf (n : ℕ) : (Fin n → Axis) → Type :=
   fun _ => Lp ℂ 2 (LineTorusMeasure n)
 

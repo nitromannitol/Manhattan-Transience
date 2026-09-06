@@ -46,7 +46,7 @@ noncomputable def negativePositionFourier :
     Operator.PositionL2 ≃ₗᵢ[ℂ] PositionFrequencyL2 :=
   (negativeMFourierBasis).repr.symm
 
-@[simp] theorem negativePositionFourier_norm (f : Operator.PositionL2) :
+theorem negativePositionFourier_norm (f : Operator.PositionL2) :
     ‖negativePositionFourier f‖ = ‖f‖ :=
   negativePositionFourier.norm_map f
 
@@ -153,7 +153,7 @@ noncomputable def jointPositionFourier :
     JointPositionL2 ≃ₗᵢ[ℂ] JointFrequencyL2 :=
   l2CongrRight negativePositionFourier
 
-@[simp] theorem jointPositionFourier_norm (F : JointPositionL2) :
+theorem jointPositionFourier_norm (F : JointPositionL2) :
     ‖jointPositionFourier F‖ = ‖F‖ :=
   jointPositionFourier.norm_map F
 

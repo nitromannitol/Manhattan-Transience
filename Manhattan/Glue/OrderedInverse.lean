@@ -505,6 +505,7 @@ theorem inner_walshL2_patternLines_type112WalshSynthesis
 
 attribute [local instance] Real.fact_zero_lt_one
 
+/-- The unit circle carries its normalized Haar measure throughout this file. -/
 local instance orderedInverseUnitAddCircleMeasureSpace :
     MeasureSpace UnitAddCircle := ⟨AddCircle.haarAddCircle⟩
 

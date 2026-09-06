@@ -101,5 +101,8 @@ jobs:
       # Batteries/Mathlib environment linters over the whole library.  Kept in
       # its own job so that a slow lint never delays the build, certificate and
       # axiom results.
+      - name: Build the library
+        run: lake build Manhattan
+
       - name: Run the environment linters
         run: lake exe runLinter Manhattan

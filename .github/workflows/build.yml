@@ -80,3 +80,26 @@ jobs:
             echo "Expected exactly $EXPECTED_AXIOM_REPORTS standard-axiom reports, saw $count."
             exit 1
           fi
+
+  lint:
+    name: Mathlib environment linters
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Lean and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          build: false
+          use-mathlib-cache: true
+
+      # Runs `docBlame`, `simpNF`, `unusedArguments` and the rest of the
+      # Batteries/Mathlib environment linters over the whole library.  Kept in
+      # its own job so that a slow lint never delays the build, certificate and
+      # axiom results.
+      - name: Run the environment linters
+        run: lake exe runLinter Manhattan

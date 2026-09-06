@@ -4,10 +4,13 @@ on:
   push:
     branches: [main]
   pull_request:
+  schedule:
+    # the environment linters take over an hour, so they run nightly
+    - cron: "0 4 * * *"
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
 env:
@@ -83,8 +86,11 @@ jobs:
 
   lint:
     name: Mathlib environment linters
+    # `runLinter` takes over an hour on a two-core runner, so it runs on the
+    # nightly schedule and on demand rather than on every push.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 180
     permissions:
       contents: read
     steps:

@@ -9,7 +9,7 @@
 #   id               stable node id (normally a paper label)
 #   version          integer, bumped only by an approved successor
 #   kind             theorem | definition
-#   source           pinned manuscript.tex line range plus ruling ids
+#   source           pinned manuscript.tex line range
 #   file             repository-relative path of the single frozen file
 #   export           fully qualified Lean name of the frozen declaration
 #   state            DRAFT_SORRY | PROVED | SEALED
@@ -147,7 +147,7 @@ nodes:
   - id: op-frequency-resolvent-le-of-competitor
     version: 1
     kind: theorem
-    source: manuscript.tex:640-666 (D-004)
+    source: manuscript.tex:640-666
     file: Manhattan/Frozen/Operator/FrequencyResolventLeOfCompetitor.lean
     export: Manhattan.Frozen.Operator.frequency_resolvent_le_of_competitor
     state: PROVED
@@ -160,7 +160,7 @@ nodes:
   - id: op-frequency-resolvent-le-of-competitor-v2
     version: 2
     kind: theorem
-    source: manuscript.tex:640-666 (D-004/D-020/D-024/E-007)
+    source: manuscript.tex:640-666
     file: Manhattan/Frozen/Operator/FrequencyResolventLeOfCompetitorV2.lean
     export: Manhattan.Frozen.Operator.frequency_resolvent_le_of_competitor_v2
     state: PROVED
@@ -184,7 +184,7 @@ nodes:
   - id: op-h-bijective
     version: 1
     kind: theorem
-    source: manuscript.tex:610-638 (D-004/D-005)
+    source: manuscript.tex:610-638
     file: Manhattan/Frozen/Operator/HBijective.lean
     export: Manhattan.Frozen.Operator.H_bijective
     state: PROVED
@@ -256,7 +256,7 @@ nodes:
   - id: op-minus-bijective
     version: 1
     kind: theorem
-    source: manuscript.tex:610-638 (D-004/D-005)
+    source: manuscript.tex:610-638
     file: Manhattan/Frozen/Operator/MinusBijective.lean
     export: Manhattan.Frozen.Operator.minus_bijective
     state: PROVED
@@ -280,7 +280,7 @@ nodes:
   - id: op-plus-bijective
     version: 1
     kind: theorem
-    source: manuscript.tex:610-638 (D-004/D-005)
+    source: manuscript.tex:610-638
     file: Manhattan/Frozen/Operator/PlusBijective.lean
     export: Manhattan.Frozen.Operator.plus_bijective
     state: PROVED
@@ -316,7 +316,7 @@ nodes:
   - id: op-real-form-h-coercive
     version: 1
     kind: theorem
-    source: manuscript.tex:610-638 (D-004/D-005)
+    source: manuscript.tex:610-638
     file: Manhattan/Frozen/Operator/RealFormHCoercive.lean
     export: Manhattan.Frozen.Operator.realForm_H_coercive
     state: PROVED
@@ -328,7 +328,7 @@ nodes:
   - id: op-real-form-minus-coercive
     version: 1
     kind: theorem
-    source: manuscript.tex:610-638 (D-004/D-005)
+    source: manuscript.tex:610-638
     file: Manhattan/Frozen/Operator/RealFormMinusCoercive.lean
     export: Manhattan.Frozen.Operator.realForm_minus_coercive
     state: PROVED
@@ -340,7 +340,7 @@ nodes:
   - id: op-real-form-plus-coercive
     version: 1
     kind: theorem
-    source: manuscript.tex:610-638 (D-004/D-005)
+    source: manuscript.tex:610-638
     file: Manhattan/Frozen/Operator/RealFormPlusCoercive.lean
     export: Manhattan.Frozen.Operator.realForm_plus_coercive
     state: PROVED
@@ -400,7 +400,7 @@ nodes:
   - id: var-ineq
     version: 1
     kind: theorem
-    source: manuscript.tex:626-638 (D-004/D-005)
+    source: manuscript.tex:626-638
     file: Manhattan/Frozen/Operator/ResolventQuadraticLe.lean
     export: Manhattan.Frozen.Operator.resolventQuadratic_le
     state: PROVED
@@ -412,7 +412,7 @@ nodes:
   - id: op-resolvent-quadratic-le-h-minus-energy
     version: 1
     kind: theorem
-    source: manuscript.tex:610-638 (D-004/D-005)
+    source: manuscript.tex:610-638
     file: Manhattan/Frozen/Operator/ResolventQuadraticLeHMinusEnergy.lean
     export: Manhattan.Frozen.Operator.resolventQuadratic_le_hMinusEnergy
     state: PROVED
@@ -448,7 +448,7 @@ nodes:
   - id: est-coefficient-degree-erase
     version: 1
     kind: theorem
-    source: manuscript.tex:1179-1191 (D-003/E-001)
+    source: manuscript.tex:1179-1191
     file: Manhattan/Frozen/Estimates/CoefficientDegreeErase.lean
     export: Manhattan.Frozen.Estimates.coefficientDegree_erase
     state: PROVED
@@ -628,7 +628,7 @@ nodes:
   - id: est-raising-formula-finset
     version: 1
     kind: theorem
-    source: manuscript.tex:1179-1191 (D-003/E-001)
+    source: manuscript.tex:1179-1191
     file: Manhattan/Frozen/Estimates/RaisingFormulaFinset.lean
     export: Manhattan.Frozen.Estimates.raising_formula_finset
     state: PROVED
@@ -688,7 +688,7 @@ nodes:
   - id: est-total-frequency-multiplier-apply
     version: 1
     kind: theorem
-    source: manuscript.tex:1188-1190 (D-003/E-001)
+    source: manuscript.tex:1188-1190
     file: Manhattan/Frozen/Estimates/TotalFrequencyMultiplierApply.lean
     export: Manhattan.Frozen.Estimates.totalFrequencyMultiplier_apply
     state: PROVED
@@ -700,7 +700,7 @@ nodes:
   - id: thm-main
     version: 1
     kind: theorem
-    source: manuscript.tex:192-198 (D-001)
+    source: manuscript.tex:192-198
     file: Manhattan/Frozen/Main/Theorem11.lean
     export: Manhattan.Frozen.Main.theorem_1_1
     state: PROVED
@@ -712,7 +712,7 @@ nodes:
   - id: prop-generator
     version: 1
     kind: theorem
-    source: manuscript.tex:576-597 (D-002/D-005/D-014/D-018)
+    source: manuscript.tex:576-597
     file: Manhattan/Frozen/Operator/PropositionGenerator.lean
     export: Manhattan.Frozen.Operator.proposition_generator
     state: PROVED
@@ -725,7 +725,7 @@ nodes:
   - id: prop-generator-v2
     version: 2
     kind: theorem
-    source: manuscript.tex:555-607 (D-002/D-005/D-014/D-018/D-030/D-027)
+    source: manuscript.tex:555-607
     file: Manhattan/Frozen/Operator/PropositionGeneratorV2.lean
     export: Manhattan.Frozen.Operator.proposition_generator_v2
     state: PROVED
@@ -737,7 +737,7 @@ nodes:
   - id: prop-frequency
     version: 2
     kind: theorem
-    source: manuscript.tex:644-661 (D-003/D-004/D-014/D-017/D-020/E-007)
+    source: manuscript.tex:644-661
     file: Manhattan/Frozen/Estimates/PropositionFrequency.lean
     export: Manhattan.Frozen.Estimates.proposition_frequency
     state: PROVED
@@ -749,7 +749,7 @@ nodes:
   - id: thm-annealed
     version: 1
     kind: theorem
-    source: manuscript.tex:207-214 (D-001/D-002)
+    source: manuscript.tex:207-214
     file: Manhattan/Frozen/Main/Theorem12.lean
     export: Manhattan.Frozen.Main.theorem_1_2
     state: PROVED
@@ -761,7 +761,7 @@ nodes:
   - id: thm-annealed-model-interface
     version: 1
     kind: theorem
-    source: manuscript.tex:207-214 (D-001/D-002/D-013)
+    source: manuscript.tex:207-214
     file: Manhattan/Model/Theorem12.lean
     export: theorem_1_2
     state: PROVED
@@ -773,7 +773,7 @@ nodes:
   - id: lem-onecoin
     version: 2
     kind: theorem
-    source: manuscript.tex:907-917 (D-003/D-015/D-019/E-006)
+    source: manuscript.tex:907-917
     file: Manhattan/Frozen/Estimates/LemmaOneCoin.lean
     export: Manhattan.Frozen.Estimates.lemma_one_coin
     state: PROVED
@@ -786,7 +786,7 @@ nodes:
   - id: lem-onecoin-v3
     version: 3
     kind: theorem
-    source: manuscript.tex:907-958 (D-003/D-019/D-029/E-006)
+    source: manuscript.tex:907-958
     file: Manhattan/Frozen/Estimates/LemmaOneCoinV3.lean
     export: Manhattan.Frozen.Estimates.lemma_one_coin_v3
     state: PROVED
@@ -798,7 +798,7 @@ nodes:
   - id: prop-key
     version: 1
     kind: theorem
-    source: manuscript.tex:1007-1018 (D-003)
+    source: manuscript.tex:1007-1018
     file: Manhattan/Frozen/Estimates/PropositionKey.lean
     export: Manhattan.Frozen.Estimates.proposition_key
     state: PROVED
@@ -810,7 +810,7 @@ nodes:
   - id: lem-raise-concrete-raising
     version: 1
     kind: theorem
-    source: manuscript.tex:1179-1191 (eq:raise = (45) at :1182; D-003)
+    source: manuscript.tex:1179-1191 (eq:raise = (45) at :1182)
     file: Manhattan/Frozen/Glue/LemmaRaiseConcreteRaising.lean
     export: Manhattan.Frozen.Glue.lemma_raise_concrete_raising
     state: PROVED
@@ -822,7 +822,7 @@ nodes:
   - id: lem-raise-concrete-adjoint
     version: 1
     kind: theorem
-    source: manuscript.tex:1179-1191 (D-003)
+    source: manuscript.tex:1179-1191
     file: Manhattan/Frozen/Glue/LemmaRaiseConcreteAdjoint.lean
     export: Manhattan.Frozen.Glue.lemma_raise_concrete_adjoint
     state: PROVED
@@ -858,7 +858,7 @@ nodes:
   - id: lem-four-concrete-competitor
     version: 1
     kind: theorem
-    source: manuscript.tex:1200-1207 (D-034/E-010)
+    source: manuscript.tex:1200-1207
     file: Manhattan/Frozen/Glue/LemmaFourConcreteCompetitor.lean
     export: Manhattan.Frozen.Glue.lemma_four_concrete_competitor
     state: PROVED
@@ -906,7 +906,7 @@ nodes:
   - id: eq-e-summand-two
     version: 1
     kind: theorem
-    source: manuscript.tex:765-772 (eq:E = (22); D-033/E-009)
+    source: manuscript.tex:765-772 (eq:E = (22))
     file: Manhattan/Frozen/Glue/SummandTwo.lean
     export: Manhattan.Frozen.Glue.summand_two_bound
     state: PROVED
@@ -918,7 +918,7 @@ nodes:
   - id: eq-e-summand-three
     version: 1
     kind: theorem
-    source: manuscript.tex:765-772 (eq:E = (22); D-035/E-011)
+    source: manuscript.tex:765-772 (eq:E = (22))
     file: Manhattan/Frozen/Glue/SummandThree.lean
     export: Manhattan.Frozen.Glue.summand_three_bound
     state: PROVED

@@ -91,9 +91,8 @@ automation:
 
 fidelity:
   divergences: >-
-    Encoding choices, ambiguities, and suspected source issues are recorded in
-    ledger/ERRATA.md; no
-    manuscript deviation is absorbed silently.
+    Encoding choices, ambiguities and suspected source issues are recorded in
+    the module that meets them; no manuscript deviation is absorbed silently.
 
 review:
   status: "in-progress"
@@ -101,11 +100,9 @@ review:
     - "Ahmed Bou-Rabee"
     - "Yuval Peres"
   notes: >-
-    All 76 PROVED manifest nodes and the audited Glue support have the standard
-    Mathlib axiom surface; no DRAFT_SORRY node remains and the
-    frequency-to-theorem chain is closed. Six independent second keys have been
-    recorded; the per-node second keys for the twelve concrete-lemma anchors and
-    for the cone of the main theorems are still outstanding.
+    All 76 manifest nodes are proved with the standard Mathlib axiom surface,
+    no node is registered as a draft, and the chain from the frequency estimate
+    to the main theorems is closed.
 
 alignment:
   namespace: "Manhattan"

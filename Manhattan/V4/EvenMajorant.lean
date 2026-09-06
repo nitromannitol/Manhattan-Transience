@@ -58,8 +58,7 @@ does *not* commute with `Π`, and the enlargement is a pointwise inequality
 under a fixed integral, performed after every operator step is finished.
 
 Paper: `manuscript.tex:983-987` (`eq:M` = (35)), `manuscript.tex:1193-1198`
-(equation (46)); ERRATA E-010 / for the multiplier's failure to be
-a trigonometric polynomial.
+(equation (46)).  The multiplier is not a trigonometric polynomial.
 -/
 
 open MeasureTheory

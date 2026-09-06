@@ -35,8 +35,8 @@ applied with the TRUE total-frequency multiplier, and only THEN is the weight
 enlarged to `M`.  No commutation of `Π` with `M` is needed anywhere -- which
 matters, because `M` depends on `r` and `r'` separately and therefore is *not*
 a multiplier in the total frequency, so it does not commute with `Π`.  Compare
-ERRATA E-010 /: the manuscript's stated justification of Lemma 5.1
-is false for the multiplier of (35); here the question does not arise.
+the manuscript's stated justification of Lemma 5.1, which is false for the
+multiplier of (35); here the question does not arise.
 
 Paper: `manuscript.tex:1196-1205` (Lemma 5.2), `manuscript.tex:1193-1198`
 (equation (46)).

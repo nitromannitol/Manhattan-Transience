@@ -9,7 +9,7 @@ import Mathlib.Analysis.InnerProductSpace.l2Space
 
 The finite-sign expansion is elementary, but passing to the countable product
 requires the cylinder-density argument omitted at `manuscript.tex:711-715`.
-The exact remaining interface is isolated here; see erratum E-004.
+The exact remaining interface is isolated here.
 -/
 
 namespace Manhattan

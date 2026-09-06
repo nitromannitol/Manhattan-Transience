@@ -252,7 +252,7 @@ noncomputable def correctedRowFrequency {q : Estimates.Parameters}
 certificates apply.
 
 `mixedCoefficient` carries the manuscript's multiplier `sgn(sin p₁)`
-(`manuscript.tex:1138-1141`, E-011).  `Real.sign 0 = 0`, so that
+(`manuscript.tex:1138-1141`).  `Real.sign 0 = 0`, so that
 factor would empty the whole degree-three part at `sin (p 0) = 0`; the guard
 `Manhattan.Estimates.sin_ne_zero_of_degreeOneNormalization_ne_zero` shows the
 hypothesis `hnormalization` already excludes that point, and

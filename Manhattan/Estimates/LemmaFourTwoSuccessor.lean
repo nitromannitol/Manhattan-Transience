@@ -5,8 +5,7 @@ import Mathlib.MeasureTheory.Integral.Prod
 /-!
 # Corrected successor to Lemma 4.1
 
-Erratum E-006 shows that the frozen version-one candidate is false at zero
-frequency.  This file leaves that candidate untouched and proves the exact
+The frozen version-one candidate is false at zero frequency.  This file leaves that candidate untouched and proves the exact
 successor used by the paper: the sole new hypothesis is `0 < |p₁|`.
 
 Paper: `manuscript.tex:907-958`, with the application-side positivity

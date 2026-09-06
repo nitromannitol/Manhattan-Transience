@@ -97,8 +97,7 @@ on Mathlib alone.
 
 ## Verification discipline
 
-- The paper is the specification. Statement-level interpretations and
-  corrections are recorded in [`ledger/ERRATA.md`](ledger/ERRATA.md).
+- The paper is the specification.
 - Every public definition or theorem has one row in
   [`CORRESPONDENCE.md`](CORRESPONDENCE.md) and one node in
   [`ledger/manifest.yaml`](ledger/manifest.yaml).
@@ -137,10 +136,7 @@ The manifest checker requires Python 3.8 or newer and PyYAML.
 ```text
 Manhattan/             Lean sources
 paper/                 pinned manuscript and source checksum
-ledger/                manifest and errata
+ledger/                the frozen-statement manifest
 tools/                 manifest and warning gates
 CORRESPONDENCE.md      complete paper-to-Lean public-statement map
-ROADMAP.md             dependency-ordered formalization phases
 ```
-
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing statements or proofs.

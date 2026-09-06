@@ -32,8 +32,7 @@ noncomputable def degreeOneNormalization (q : Parameters) (p₁ : ℝ) : ℝ :=
     exact |Real.sin p₁| * torusIntegral (fun r : ℝ =>
       if r ∈ q.supportInterval |p₁| then (Real.sin r)⁻¹ else 0)
 
-/-- **Guard lemma for**, against the hazard
-Erratum E-011.  The manuscript's `k_p` carries the
+/-- **Guard lemma** against the following hazard.  The manuscript's `k_p` carries the
 multiplier `sgn(sin p₁)` (`manuscript.tex:1138-1141`), and `Real.sign 0 = 0`, so
 a caller who dropped the hypothesis `hnormalization` could silently zero the
 whole degree-three part of the competitor while every energy bound on it stayed

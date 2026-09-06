@@ -36,9 +36,8 @@ things stood between them and `SummandFourBound`, and this file supplies both.
   (`manuscript.tex:1233-1235`).  Finite combinations of those translations are
   exactly the trigonometric polynomials in `P`, and the terms `2|sin(P_i/2)|` of
   `M` are not: their Fourier coefficients are `O(n^{-2})` and none vanishes.
-  The conclusion of Lemma 5.1 is true in full generality all the same; ruling
-  The stated reason is recorded as the underspecification E-010, ERRATA-only,
-  with no paper edit.
+  The conclusion of Lemma 5.1 is true in full generality all the same; only the
+  stated reason does not apply here.
 
 With the `(shift)` phase of `Manhattan.type112ShiftTwist` in place the momentum
 bridge is an identity (`multiplier_integral_type112ShiftTwist_frozen`), exactly

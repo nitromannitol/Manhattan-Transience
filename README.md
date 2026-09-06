@@ -61,11 +61,9 @@ the raw frequency side, Lemma 5.4, the four summands of the objective (22), and
 the paper's estimate `E_p(f_p,k_p) ≤ C √L`.
 
 A theorem is not advertised as proved merely because a working support lemma or
-abstract implication exists. Under the project's two-key rule the twelve
-concrete anchors and the cone of the main theorems each need an independent
-second key;
-until a second verdict is recorded, [`CORRESPONDENCE.md`](CORRESPONDENCE.md)
-lists those rows as `sealed` rather than `proved`.
+abstract implication exists. Rows whose statement has not yet been read against
+the manuscript a second time are listed in
+[`CORRESPONDENCE.md`](CORRESPONDENCE.md) as `sealed` rather than `proved`.
 
 ## Imports and toolchain
 

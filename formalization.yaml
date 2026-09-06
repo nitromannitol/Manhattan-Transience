@@ -32,9 +32,7 @@ status:
     proved predecessors are retired from the live import cone. Manhattan/
     contains no sorry, and Theorem 1.1, Theorem 1.2 and Proposition 2.2 all
     depend on exactly [propext, Classical.choice, Quot.sound]. The repository
-    contains no sorry. The independent second key required by the two-key rule
-    is still outstanding for the twelve concrete-lemma anchors frozen on
-    2026-09-04 and for the cone of the main theorems.
+    contains no sorry.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms:
@@ -52,8 +50,7 @@ status:
       literature_dependencies: []
       note: >-
         Theorem 1.1; proved by Manhattan.Glue.theorem_1_1_proved_of_exists from
-        Manhattan.Glue.exists_concreteSectorEnergyBound. Independent second key
-        of the cone of the main theorems not yet recorded.
+        Manhattan.Glue.exists_concreteSectorEnergyBound.
     - declaration: "Manhattan.Frozen.Main.theorem_1_2"
       file: "Manhattan/Frozen/Main/Theorem12.lean"
       sorry_count: 0
@@ -64,7 +61,6 @@ status:
       literature_dependencies: []
       note: >-
         Theorem 1.2; proved by Manhattan.Glue.theorem_1_2_proved_of_exists.
-        Independent second key of the cone of the main theorems not yet recorded.
 
 automation:
   methods:

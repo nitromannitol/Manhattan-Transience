@@ -9,7 +9,14 @@ independent of the Manhattan model.
 Each is verified against
 the stated form before landing.
 -/
-import Mathlib
+import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
+import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
+import Mathlib.Analysis.SpecialFunctions.Integrability.Basic
+import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
+import Mathlib.Analysis.Real.Pi.Bounds
+import Mathlib.MeasureTheory.Function.JacobianOneDim
+import Mathlib.MeasureTheory.Integral.IntegralEqImproper
+import Mathlib.MeasureTheory.Measure.Lebesgue.Integral
 
 namespace Manhattan.V4.Beta
 
@@ -184,8 +191,9 @@ theorem pi_rpow_five_halves_add_pi_lt :
   have hpi' : Real.pi < 81 / 25 := by linarith [hpi]
   have hsqrt : Real.sqrt Real.pi < 9 / 5 := by
     have hmono := Real.sqrt_lt_sqrt Real.pi_pos.le hpi'
-    norm_num at hmono ⊢
-    exact hmono
+    have h95 : Real.sqrt (81 / 25 : ℝ) = 9 / 5 := by
+      rw [show (81 / 25 : ℝ) = (9 / 5) ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]
+    rwa [h95] at hmono
   have hid : Real.pi ^ (5 / 2 : ℝ) = Real.pi ^ 2 * Real.sqrt Real.pi := by
     rw [show ((5 : ℝ) / 2) = 2 + 1 / 2 from by norm_num,
       Real.rpow_add Real.pi_pos 2 (1 / 2), Real.rpow_two, ← Real.sqrt_eq_rpow]

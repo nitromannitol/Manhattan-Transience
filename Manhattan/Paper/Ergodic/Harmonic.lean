@@ -2,7 +2,9 @@
 Divergence of the harmonic series in the extended nonnegative reals, where a
 divergent series is simply equal to `⊤`.
 -/
-import Mathlib
+import Mathlib.Analysis.PSeries
+import Mathlib.Topology.Instances.ENNReal.Lemmas
+import Mathlib.Topology.Instances.NNReal.Lemmas
 
 namespace Manhattan.Paper.Ergodic
 

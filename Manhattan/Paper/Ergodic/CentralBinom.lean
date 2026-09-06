@@ -10,7 +10,9 @@ The sharp form below is proved by induction with exactly one unit of slack at
 each step, which is why the weaker bound cannot be pushed to give it.  Written
 Verified here.
 -/
-import Mathlib
+import Mathlib.Data.Nat.Choose.Central
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.Tactic.Positivity
 
 namespace Manhattan.Paper.Ergodic
 

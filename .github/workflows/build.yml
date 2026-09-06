@@ -4,9 +4,6 @@ on:
   push:
     branches: [main]
   pull_request:
-  schedule:
-    # the environment linters take over an hour, so they run nightly
-    - cron: "0 4 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -41,6 +38,11 @@ jobs:
 
       - name: Build and enforce the registered warning multiset
         run: python3 tools/check_warnings.py
+
+      - name: Environment linters
+        run: |
+          lake env lean tools/lint_fast.lean
+          lake env lean tools/lint_simpnf.lean
 
       - name: Check the certificate
         shell: bash
@@ -83,32 +85,3 @@ jobs:
             echo "Expected exactly $EXPECTED_AXIOM_REPORTS standard-axiom reports, saw $count."
             exit 1
           fi
-
-  lint:
-    name: Mathlib environment linters
-    # `runLinter` takes over an hour on a two-core runner, so it runs on the
-    # nightly schedule and on demand rather than on every push.
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
-    timeout-minutes: 180
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Set up Lean and Mathlib cache
-        uses: leanprover/lean-action@v1
-        with:
-          build: false
-          use-mathlib-cache: true
-
-      # Runs `docBlame`, `simpNF`, `unusedArguments` and the rest of the
-      # Batteries/Mathlib environment linters over the whole library.  Kept in
-      # its own job so that a slow lint never delays the build, certificate and
-      # axiom results.
-      - name: Build the library
-        run: lake build Manhattan
-
-      - name: Run the environment linters
-        run: lake exe runLinter Manhattan

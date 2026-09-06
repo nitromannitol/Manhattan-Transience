@@ -1,8 +1,7 @@
 # Statement verification: does the Lean say what the paper says?
 
-Checked 2026-09-05 against `paper/manuscript-current.tex`
-(SHA-256 `2086d1bb3b15665c…`, the text with the
-existential constant in Lemma 4.2).
+Checked 2026-09-06 against `paper/manuscript-current.tex`
+(SHA-256 `c0efa368ff451b89…`).
 
 A formalization is only worth what its statements say. This file records, for
 every numbered statement of the paper, whether the Lean statement is the same

@@ -36,13 +36,12 @@ Two files answer the two questions a reader has.
   says.**  Statement by statement, marked EXACT, EQUIVALENT or WEAKER, with the
   definition chain spelled out where the correspondence is not immediate.
 
-One caveat belongs up front, because it is the place where a reader could
-over-read this development.  Every numbered statement is machine-checked, but
-the paper's *numerals are not*.  Lemma 4.2 and Proposition 5.1 both assert a
-universal constant and record the values `16` and `2048` in their proofs; the
-formalized proofs reach the same statements along a lossier route, discharging
-the first with `Manhattan.V4.v4ConstantSplit_lt`, below `670`.  The difference
-is confined to proofs, and `VERIFICATION.md` says exactly where it lives.
+The formalization proves the quantitative bounds with larger universal
+constants than those displayed in the current paper. In particular, the
+paper states `16` in Lemma 5.1 and `2048` in Theorem 1.2 and Proposition 6.1;
+these numerical values are not certified by this development. The
+almost-sure transience conclusion is unchanged. See
+[`VERIFICATION.md`](VERIFICATION.md) for the precise comparison.
 
 ## Status
 

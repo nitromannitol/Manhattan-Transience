@@ -1,7 +1,10 @@
 # Statement verification: does the Lean say what the paper says?
 
-Checked 2026-09-06 against `paper/manuscript-current.tex`
-(SHA-256 `c0efa368ff451b89…`).
+The statement correspondence was checked on 2026-09-06 against the version
+then in `paper/manuscript-current.tex`. The numerical-constant comparison and
+result numbering below were updated on 2026-09-07 against the author's
+current manuscript (SHA-256 `08089661c62ee8676aa7a34bc4ee32a1f93f62b2336a0cd906a98be465d5b87c`).
+The frozen Lean specification remains unchanged.
 
 A formalization is only worth what its statements say. This file records, for
 every numbered statement of the paper, whether the Lean statement is the same
@@ -35,11 +38,11 @@ like it:
 Proved twice, by independent routes: `Frozen.Main.theorem_1_1` and
 `V4.theorem_1_1_v4`.
 
-## Theorem 1.2 (`thm:annealed`) — EXACT
+## Theorem 1.2 (`thm:annealed`) — WEAKER in the constant
 
-Both conjuncts are present, with the same range `λ ∈ (0,1]`, and the closing
-"and hence" is a conjunct rather than a remark. The constant is existential in
-the paper too, so nothing numeric is claimed by the statement.
+Lean proves a universal bound for all `λ ∈ (0,1]` and finiteness of the
+undamped annealed Green function. The current paper specifies `2048` in the
+statement. The formalization does not certify this numerical value.
 
 ## Proposition 2.1 (`prop:generator`) — EXACT
 
@@ -65,7 +68,7 @@ proof replaced by the unrestricted argument. In the other direction the Lean
 had only the upper bound, so `resolventQuadratic_nonneg` was added to supply
 the `0 ≤` half the paper asserts. The two now say the same thing.
 
-## Proposition 5.1 (`prop:frequency`) — EXACT
+## Proposition 6.1 (`prop:frequency`) — WEAKER in the constant
 
 `V4FrequencyBound C` is `r_λ(p) ≤ C · v4Majorant λ p` for `λ ∈ (0,1]` and `p`
 on the torus, with
@@ -74,11 +77,11 @@ on the torus, with
     maxFrequency p = max |p₀| |p₁| = a(p).
 
 The exponent `3/2` is real division, confirmed by the accompanying lemma
-`x ^ (3/2 : ℝ) = x * √x`. The paper's constant is existential ("there is a
-universal `C`"), so the statement matches; see the caveat below about the
-explicit value `2048`, which appears in the proof rather than the statement.
+`x ^ (3/2 : ℝ) = x * √x`. The current paper specifies `2048` in the
+statement. Lean proves the same frequency dependence with a larger universal
+constant; it does not certify `2048`.
 
-## Proposition 6.1 (`prop:time`) — EXACT, both equations
+## Proposition 6.2 (`prop:time`) — EXACT, both equations
 
 `eq:heat-kernel` is `Paper.ck_le_two_div : ck ω t x y ≤ 2/(t+2)`, quantified
 over every environment and both sites, as the paper states.
@@ -114,34 +117,36 @@ printed averaged form at general `n` is not itself a Lean statement.
   factors are pinned by strict inequalities in `MixedBridgeWitnesses.lean`, so
   neither can be silently doubled or halved. Consistent, but not verbatim.
 
-## Lemma 4.1 (`lem:parity`) and Lemma 4.2 (`lem:effective-energy`)
+## Lemma 4.1 (`lem:parity`) and Lemma 5.1 (`lem:effective-energy`)
 
 The construction is formalized (`rawMultiplierEnergy_le_evenMajorantEnergy`,
 `operatorEstimate`, `effectiveWeight`), and `effectiveWeight r = |r|/√(log(1/|r|))`
 is the paper's `q(r)` exactly.
 
-**EXACT.** `lem:effective-energy` asserts a universal `C < ∞` with
+**WEAKER in the constant for Lemma 5.1.** The current paper states
 
-    r_λ(p) ≤ (1 - s ∫ φ)²/H₀ + C ∫ q(r) φ(r)² dm(r),
+    r_λ(p) ≤ (1 - s ∫ φ)²/H₀ + 16 ∫ q(r) φ(r)² dm(r).
 
-and records in its proof that `C = 16` works. Lean witnesses the statement with
-`Manhattan.V4.v4ConstantSplit`, certified below `670` by `v4ConstantSplit_lt`.
-Both constants are universal and independent of `λ`, `p` and `φ`, so the Lean
-statement is the paper's.
+Lean proves this form of bound with `Manhattan.V4.v4ConstantSplit`, certified
+below `670` by `v4ConstantSplit_lt`, in place of `16`.
 
 ## The explicit constants
 
-Neither of the paper's two numerals occurs in a statement, so no formalized
-statement claims a value it does not prove.
+The paper now puts the numerical constants in its statements. The Lean
+bounds retain larger universal constants. Consequently the three quantitative
+statements identified above are weaker in the formalization, although the
+almost-sure transience and Green-function finiteness conclusions are unchanged.
 
-* `lem:effective-energy` and `prop:frequency` both quantify their constant
-  existentially. Lean discharges the first with `v4ConstantSplit < 670`
-  (`Manhattan/V4/SplitConstant.lean`), down from `20,028` and from the `74,869`
-  of the first assembly, and the second with
+* Lemma 5.1: the paper gives `16`; the formalization gives
+  `v4ConstantSplit < 670` (`Manhattan/V4/SplitConstant.lean`).
+* Proposition 6.1: the paper gives `2048`; the split-constant route gives
   `max(max(1, 8π³ · v4ConstantSplit), outerRegionConstant(1/4))`.
-* The values `16` and `2048` appear in the paper's *proofs*. The formalized
-  proofs reach the same statements along a lossier route and produce larger
-  values; that difference is confined to proofs.
+* Theorem 1.2: the paper gives `2048`; the formalized theorem asserts a
+  universal bound and finiteness. Its statement does not certify `2048`.
+
+Earlier versions of the paper placed these numerals only in the proofs.
+The previous comparison on this page applied to those existential statements;
+it does not certify the stronger numerical statements in the current paper.
 
 ### Where the remaining gap is
 
@@ -183,5 +188,5 @@ gives `60 + 8·C_β(κ)` with `κ = A·κ`. Even a perfect operator step, `A·κ
 would leave `60 + 8·5.94 ≈ 108`: the `2`/`4` Cauchy–Schwarz multipliers of
 `objective_le_v4Move1` are the binding constraint, not the operator estimate.
 Closing the rest means replacing that splitting, and the majorant comparison,
-by the paper's exact minimization of the degree-three form. Neither affects any
-statement, only the value of the constant.
+by the paper's exact minimization of the degree-three form. This would be
+needed to certify the current paper's numerical constants as well.

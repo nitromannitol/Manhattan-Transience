@@ -1,10 +1,9 @@
 # Statement verification: does the Lean say what the paper says?
 
-The statement correspondence was checked on 2026-09-06 against the version
-then in `paper/manuscript-current.tex`. The numerical-constant comparison and
-result numbering below were updated on 2026-09-07 against the author's
-current manuscript (SHA-256 `08089661c62ee8676aa7a34bc4ee32a1f93f62b2336a0cd906a98be465d5b87c`).
-The frozen Lean specification remains unchanged.
+The statement correspondence and result numbering below use
+`paper/manuscript-current.tex` (SHA-256 `c0efa368ff451b8901cf950d69bd3c17f9e70d175d90c29814705dc445bca835`).
+The pinned source is `paper/manuscript.tex`, whose checksum is recorded in
+`paper/SOURCE_PIN.txt`.
 
 A formalization is only worth what its statements say. This file records, for
 every numbered statement of the paper, whether the Lean statement is the same
@@ -38,11 +37,14 @@ like it:
 Proved twice, by independent routes: `Frozen.Main.theorem_1_1` and
 `V4.theorem_1_1_v4`.
 
-## Theorem 1.2 (`thm:annealed`) — WEAKER in the constant
+## Theorem 1.2 (`thm:annealed`) — EXACT
 
-Lean proves a universal bound for all `λ ∈ (0,1]` and finiteness of the
-undamped annealed Green function. The current paper specifies `2048` in the
-statement. The formalization does not certify this numerical value.
+Paper and Lean assert the existence of a finite constant bounding the damped
+integral for all `λ ∈ (0,1]`, together with finiteness of the undamped annealed
+Green function. This is `AnnealedGreenBound`, proved by
+`Frozen.Main.theorem_1_2`, and matches Theorem 1.2 in both supplied manuscripts.
+The proof of Theorem 1.2 in `paper/manuscript-current.tex` gives `2048`.
+The formalization does not certify this numerical value.
 
 ## Proposition 2.1 (`prop:generator`) — EXACT
 
@@ -68,7 +70,7 @@ proof replaced by the unrestricted argument. In the other direction the Lean
 had only the upper bound, so `resolventQuadratic_nonneg` was added to supply
 the `0 ≤` half the paper asserts. The two now say the same thing.
 
-## Proposition 6.1 (`prop:frequency`) — WEAKER in the constant
+## Proposition 6.1 (`prop:frequency`) — EXACT
 
 `V4FrequencyBound C` is `r_λ(p) ≤ C · v4Majorant λ p` for `λ ∈ (0,1]` and `p`
 on the torus, with
@@ -77,9 +79,9 @@ on the torus, with
     maxFrequency p = max |p₀| |p₁| = a(p).
 
 The exponent `3/2` is real division, confirmed by the accompanying lemma
-`x ^ (3/2 : ℝ) = x * √x`. The current paper specifies `2048` in the
-statement. Lean proves the same frequency dependence with a larger universal
-constant; it does not certify `2048`.
+`x ^ (3/2 : ℝ) = x * √x`. The paper states a universal `C < ∞`; its proof
+gives `C = 2048`. Lean proves the same frequency dependence with a universal
+constant; it does not certify the proof's `2048`.
 
 ## Proposition 6.2 (`prop:time`) — EXACT, both equations
 
@@ -123,30 +125,33 @@ The construction is formalized (`rawMultiplierEnergy_le_evenMajorantEnergy`,
 `operatorEstimate`, `effectiveWeight`), and `effectiveWeight r = |r|/√(log(1/|r|))`
 is the paper's `q(r)` exactly.
 
-**WEAKER in the constant for Lemma 5.1.** The current paper states
+**EXACT for the existential constant in Lemma 5.1.** The current paper states
 
-    r_λ(p) ≤ (1 - s ∫ φ)²/H₀ + 16 ∫ q(r) φ(r)² dm(r).
+    r_λ(p) ≤ (1 - s ∫ φ)²/H₀ + C ∫ q(r) φ(r)² dm(r).
 
-Lean proves this form of bound with `Manhattan.V4.v4ConstantSplit`, certified
-below `670` by `v4ConstantSplit_lt`, in place of `16`.
+The lemma text also says “The proof gives `C=16`.” Lean proves this form of
+bound with `Manhattan.V4.v4ConstantSplit`, certified below `670` by
+`v4ConstantSplit_lt`; it does not certify `16`.
 
 ## The explicit constants
 
-The paper now puts the numerical constants in its statements. The Lean
-bounds retain larger universal constants. Consequently the three quantitative
-statements identified above are weaker in the formalization, although the
-almost-sure transience and Green-function finiteness conclusions are unchanged.
+The displayed bounds in Theorem 1.2, Lemma 5.1 and Proposition 6.1 of
+`paper/manuscript-current.tex` use existential constants. Lean proves these
+existential bounds. The paper's proofs give the numerical values below,
+which the development does not certify.
 
-* Lemma 5.1: the paper gives `16`; the formalization gives
+* Lemma 5.1: the lemma text and proof give `16`; the formalization gives
   `v4ConstantSplit < 670` (`Manhattan/V4/SplitConstant.lean`).
-* Proposition 6.1: the paper gives `2048`; the split-constant route gives
+* Proposition 6.1: the proof gives `2048`; the split-constant route gives
   `max(max(1, 8π³ · v4ConstantSplit), outerRegionConstant(1/4))`.
-* Theorem 1.2: the paper gives `2048`; the formalized theorem asserts a
-  universal bound and finiteness. Its statement does not certify `2048`.
+* Theorem 1.2: both manuscripts state an existential finite bound and
+  finiteness. The proof in `manuscript-current.tex` gives `2048`;
+  `Manhattan.Paper.Constant.annealed_green_le_numeral` proves that the
+  undamped integral is at most `275000000`.
 
-Earlier versions of the paper placed these numerals only in the proofs.
-The previous comparison on this page applied to those existential statements;
-it does not certify the stronger numerical statements in the current paper.
+In the pinned `paper/manuscript.tex`, the frequency bound is Proposition 2.2
+and its statement uses existential constants. Its Lemma 5.1 is `lem:raise`;
+`lem:effective-energy` is not a labeled result there.
 
 ### Where the remaining gap is
 

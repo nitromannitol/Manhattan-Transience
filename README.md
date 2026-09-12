@@ -36,11 +36,13 @@ Two files answer the two questions a reader has.
   says.**  Statement by statement, marked EXACT, EQUIVALENT or WEAKER, with the
   definition chain spelled out where the correspondence is not immediate.
 
-The formalization proves the quantitative bounds with larger universal
-constants than those displayed in the current paper. In particular, the
-paper states `16` in Lemma 5.1 and `2048` in Theorem 1.2 and Proposition 6.1;
-these numerical values are not certified by this development. The
-almost-sure transience conclusion is unchanged. See
+Theorem 1.2 states a bound with an existential finite constant in both
+supplied manuscripts, and the Lean statement matches it. In
+`paper/manuscript-current.tex`, Proposition 6.1 also states an existential
+constant; its proof and the proof of Theorem 1.2 give `2048`. Lemma 5.1 in
+that manuscript displays a universal `C` and adds “The proof gives `C=16`.”
+The formalization does not certify `16` or `2048`. The almost-sure
+transience conclusion is proved. See
 [`VERIFICATION.md`](VERIFICATION.md) for the precise comparison.
 
 ## Status

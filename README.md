@@ -6,6 +6,14 @@ is [`paper/manuscript.tex`](paper/manuscript.tex), whose SHA-256 is recorded in
 [`paper/SOURCE_PIN.txt`](paper/SOURCE_PIN.txt) and
 [`ledger/manifest.yaml`](ledger/manifest.yaml).
 
+**The main theorems are proved unconditionally.** Nothing is assumed: the
+development contains no `sorry`, adds no axiom of its own, and takes no result on
+faith from the literature. Every theorem's transitive axiom closure is exactly
+Lean's three standard axioms, `propext`, `Classical.choice` and `Quot.sound`,
+which is what any ordinary use of classical mathematics in Lean rests on. One
+scope limitation is stated below: the paper's explicit numerical constants are
+not certified.
+
 The target is a statement-faithful, kernel-checked Lean 4 development of the
 paper's almost-sure transience theorem. The formalization uses Lean 4 v4.26.0
 and Mathlib v4.26.0 only. In particular, the continuous-time kernel is built by
@@ -60,11 +68,6 @@ Proposition 2.1 v2. Twelve of the records are the concrete-lemma anchors frozen
 on 2026-09-04: Lemma 5.1 on both sides, (Hsym), Lemma 5.2 twice, Lemma 5.3 on
 the raw frequency side, Lemma 5.4, the four summands of the objective (22), and
 the paper's estimate `E_p(f_p,k_p) ≤ C √L`.
-
-A theorem is not advertised as proved merely because a working support lemma or
-abstract implication exists. Rows whose statement has not yet been read against
-the manuscript a second time are listed in
-[`CORRESPONDENCE.md`](CORRESPONDENCE.md) as `sealed` rather than `proved`.
 
 ## Imports and toolchain
 

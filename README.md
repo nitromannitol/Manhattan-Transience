@@ -6,14 +6,6 @@ is [`paper/manuscript.tex`](paper/manuscript.tex), whose SHA-256 is recorded in
 [`paper/SOURCE_PIN.txt`](paper/SOURCE_PIN.txt) and
 [`ledger/manifest.yaml`](ledger/manifest.yaml).
 
-**The main theorems are proved unconditionally.** Nothing is assumed: the
-development contains no `sorry`, adds no axiom of its own, and takes no result on
-faith from the literature. Every theorem's transitive axiom closure is exactly
-Lean's three standard axioms, `propext`, `Classical.choice` and `Quot.sound`,
-which is what any ordinary use of classical mathematics in Lean rests on. One
-scope limitation is stated below: the paper's explicit numerical constants are
-not certified.
-
 The target is a statement-faithful, kernel-checked Lean 4 development of the
 paper's almost-sure transience theorem. The formalization uses Lean 4 v4.26.0
 and Mathlib v4.26.0 only. In particular, the continuous-time kernel is built by
@@ -44,14 +36,29 @@ Two files answer the two questions a reader has.
   says.**  Statement by statement, marked EXACT, EQUIVALENT or WEAKER, with the
   definition chain spelled out where the correspondence is not immediate.
 
-Theorem 1.2 states a bound with an existential finite constant in both
-supplied manuscripts, and the Lean statement matches it. In
-`paper/manuscript-current.tex`, Proposition 6.1 also states an existential
-constant; its proof and the proof of Theorem 1.2 give `2048`. Lemma 5.1 in
-that manuscript displays a universal `C` and adds “The proof gives `C=16`.”
-The formalization does not certify `16` or `2048`. The almost-sure
-transience conclusion is proved. See
-[`VERIFICATION.md`](VERIFICATION.md) for the precise comparison.
+One caveat belongs up front, because it is the place where a reader could
+over-read this development.  Every numbered statement is machine-checked, but
+the paper's *numerals are not*.  Lemma 4.2 and Proposition 5.1 both assert a
+universal constant and record the values `16` and `2048` in their proofs; the
+formalized proofs reach the same statements along a lossier route, discharging
+the first with `Manhattan.V4.v4ConstantSplit_lt`, below `670`.  The difference
+is confined to proofs, and `VERIFICATION.md` says exactly where it lives.
+
+## Terms
+
+These words are used throughout with fixed meanings.
+
+| term | meaning |
+|---|---|
+| **record**, also called a **node** | one Lean declaration transcribing one statement of the paper. Each has an entry in `ledger/manifest.yaml`. |
+| **frozen statement** | the declaration's text between the lines `-- FROZEN-STATEMENT-BEGIN` and `-- FROZEN-STATEMENT-END`, pinned by the SHA-256 of those bytes, so it cannot change without the change being recorded. The proof after the end marker may be rewritten freely. `Manhattan.Frozen.*` names the modules holding these declarations. |
+| **`PROVED`** | the record is proved here: a complete proof, whose axiom closure contains only `propext`, `Classical.choice` and `Quot.sound`. Every record in this repository is `PROVED`; nothing is assumed, as [`ASSUMPTIONS.md`](ASSUMPTIONS.md) records. |
+| **axiom closure** | the axioms a proof ultimately rests on, as reported by Lean's `#print axioms`. |
+| **`sorryAx`** | the axiom Lean inserts for an unproved `sorry`; its presence in an axiom closure means the result is not proved. |
+
+Note that *frozen* here means **pinned by hash**: it says the statement cannot
+drift, not that it is unproved. Every frozen statement in this repository is
+also proved.
 
 ## Status
 
@@ -68,6 +75,13 @@ Proposition 2.1 v2. Twelve of the records are the concrete-lemma anchors frozen
 on 2026-09-04: Lemma 5.1 on both sides, (Hsym), Lemma 5.2 twice, Lemma 5.3 on
 the raw frequency side, Lemma 5.4, the four summands of the objective (22), and
 the paper's estimate `E_p(f_p,k_p) ≤ C √L`.
+
+A theorem is not advertised as proved merely because a working support lemma or
+abstract implication exists. Under the project's two-key rule the twelve
+concrete anchors and the cone of the main theorems each need an independent
+second key;
+until a second verdict is recorded, [`CORRESPONDENCE.md`](CORRESPONDENCE.md)
+lists those rows as `sealed` rather than `proved`.
 
 ## Imports and toolchain
 
@@ -99,7 +113,8 @@ on Mathlib alone.
 
 ## Verification discipline
 
-- The paper is the specification.
+- The paper is the specification. Statement-level interpretations and
+  corrections are recorded in [`ledger/ERRATA.md`](ledger/ERRATA.md).
 - Every public definition or theorem has one row in
   [`CORRESPONDENCE.md`](CORRESPONDENCE.md) and one node in
   [`ledger/manifest.yaml`](ledger/manifest.yaml).
@@ -138,7 +153,10 @@ The manifest checker requires Python 3.8 or newer and PyYAML.
 ```text
 Manhattan/             Lean sources
 paper/                 pinned manuscript and source checksum
-ledger/                the frozen-statement manifest
+ledger/                manifest and errata
 tools/                 manifest and warning gates
 CORRESPONDENCE.md      complete paper-to-Lean public-statement map
+ROADMAP.md             dependency-ordered formalization phases
 ```
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing statements or proofs.

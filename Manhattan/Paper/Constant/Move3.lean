@@ -3,14 +3,13 @@ import Manhattan.V4.Move2Supply
 /-!
 # The paper's constant, part 1: tightening Move 3
 
-`results/01-transience/manuscript.tex` asserts the explicit Green bound
+The arXiv version (`paper/arxiv/main.tex`) asserts the explicit Green bound
 `∫₀^∞ p̄_t(0,0) dt ≤ 2048` (`eq:green-explicit`), proved from the
 fixed-frequency bound `prop:frequency` with `C = 2048`.  The Version 4 Lean
 chain proves the same two statements with much larger constants.  This file
 removes the part of the discrepancy that is a pure loss in the scalar
 arithmetic of Move 3; the rest is analysed in
-`Manhattan/Paper/Constant/GreenConstant.lean` and in
-.
+`Manhattan/Paper/Constant/GreenConstant.lean`.
 
 Two steps are tightened, both downstream of `Manhattan.V4.v4Constant`, and
 neither touches `Manhattan/V4/`.

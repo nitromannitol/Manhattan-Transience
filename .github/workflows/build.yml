@@ -1,9 +1,7 @@
 name: CI
 
+# Manual trigger only: these builds are Mathlib-scale, so they run on request.
 on:
-  push:
-    branches: [main]
-  pull_request:
   workflow_dispatch:
 
 concurrency:
@@ -12,7 +10,7 @@ concurrency:
 
 env:
   # Bump with each added or removed `#print axioms` sentinel.
-  EXPECTED_AXIOM_REPORTS: "116"
+  EXPECTED_AXIOM_REPORTS: "118"
 
 jobs:
   build:
@@ -23,6 +21,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
+      # Lattice-Probability is private: read it with the repository's deploy key.
+      - name: Read access to Lattice-Probability
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.LP_DEPLOY_KEY }}
+      - name: Fetch Lattice-Probability over SSH
+        run: |
+          git config --global url."git@github.com:nitromannitol/Lattice-Probability".insteadOf "https://github.com/nitromannitol/Lattice-Probability"
 
       - name: Set up Lean and Mathlib cache
         uses: leanprover/lean-action@v1

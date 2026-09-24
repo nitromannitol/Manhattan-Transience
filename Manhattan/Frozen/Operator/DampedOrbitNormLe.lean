@@ -1,4 +1,4 @@
-import Manhattan.Operator.Semigroup
+import Manhattan.Library
 
 /-! Frozen proved semigroup statement. -/
 
@@ -15,4 +15,4 @@ theorem Manhattan.Frozen.Operator.dampedOrbit_norm_le : ∀ {E : Type u_1} [_ins
   (∀ (t : ℝ), 0 ≤ t → ‖Manhattan.Operator.operatorSemigroup G t‖ ≤ 1) →
     ∀ {t : ℝ}, 0 ≤ t → ‖Manhattan.Operator.dampedOrbit G lambda u t‖ ≤ Real.exp (-lambda * t) * ‖u‖
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.dampedOrbit_norm_le
+:= @LatticeProb.Analysis.dampedOrbit_norm_le

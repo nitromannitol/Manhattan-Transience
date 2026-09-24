@@ -12,6 +12,7 @@ the homogeneous degree, so coincident line indices cannot occur.
 Paper: `manuscript.tex:701-758`.
 -/
 
+open scoped lp
 open MeasureTheory Set
 open scoped ENNReal
 
@@ -208,16 +209,15 @@ theorem inner_axisDegreeOneSynthesis_of_ne (i j : Axis) (hij : j ≠ i)
           simpa using h)).1 k)
   have hs : HasSum (fun k : ℤ => c k • walshL2 {(i, k)})
       (axisDegreeOneSynthesis i c) := by
-    simpa only [axisDegreeOneSynthesis, V,
-      LinearIsometry.toSpanSingleton_apply] using
-      ((orthonormal_walshL2.comp
+    have h := ((orthonormal_walshL2.comp
         (fun m : ℤ => ({(i, m)} : Finset LineIndex)) (by
           intro m n h
           simpa using h)).orthogonalFamily.hasSum_linearIsometry c)
+    simp only [axisDegreeOneSynthesis, LinearIsometry.toSpanSingleton_apply] at h ⊢
+    exact h
   have hm := hs.mapL (innerSL ℂ (walshL2 {(j, l)}))
-  have hz : HasSum (fun _ : ℤ => (0 : ℂ)) 0 := hasSum_zero
   apply hm.unique
-  simpa [innerSL_apply_apply, inner_smul_right, inner_walshL2, hij] using hz
+  simp [innerSL_apply_apply, inner_walshL2, hij]
 
 /-- Fourier-series synthesis followed by degree-one Walsh synthesis.  The
 input is an honest `L²` frequency function on the paper's `2π`-torus. -/
@@ -273,10 +273,10 @@ theorem fourierBasis_repr_realTorusL2_zero (f : ℝ → ℂ)
     (coeFn_realTorusL2 f hf)) 0
   rw [hcongr, fourierCoeff_liftIoc_eq,
     fourierCoeffOn_eq_integral]
-  simp only [neg_zero, fourier_zero, torusPeriod]
+  simp only [neg_zero, fourier_zero, one_smul]
+  simp only [torusPeriod]
   rw [show -Real.pi + 2 * Real.pi = Real.pi by ring]
   rw [show Real.pi - -Real.pi = 2 * Real.pi by ring]
-  simp only [one_smul]
   rw [intervalIntegral.integral_of_le (by linarith [Real.pi_pos])]
   simp only [one_div, Complex.real_smul]
 

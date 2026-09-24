@@ -1,4 +1,4 @@
-import Manhattan.Operator.Semigroup
+import Manhattan.Library
 
 /-! Frozen proved semigroup statement. -/
 
@@ -15,4 +15,4 @@ theorem Manhattan.Frozen.Operator.resolventEquiv_symm_apply : ∀ {E : Type u_1}
   (u : E) (hcontract : ∀ (t : ℝ), 0 ≤ t → ‖Manhattan.Operator.operatorSemigroup G t‖ ≤ 1),
   (Manhattan.Operator.resolventEquiv G hlambda hcontract).symm u = Manhattan.Operator.laplaceVector G lambda u
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.resolventEquiv_symm_apply
+:= @LatticeProb.Analysis.resolventEquiv_symm_apply

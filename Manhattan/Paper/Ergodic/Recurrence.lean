@@ -1,5 +1,6 @@
 import Manhattan.Paper.Ergodic.Alternating
 import Manhattan.Model.MainTheorem
+import LatticeProb.Walk.PolyaRecurrence
 
 /-!
 # Recurrence of the alternating environment
@@ -29,6 +30,7 @@ and the alternating environment of Section 1.
 namespace Manhattan.Paper.Ergodic
 
 open scoped ENNReal NNReal
+open LatticeProb (Step srwCount srwCount_zero srwCount_succ srwKernel SimpleRandomWalkRecurrent)
 
 /-! ### One step of the alternating walk -/
 
@@ -53,18 +55,6 @@ theorem step_vertical (x y : ℤ) :
 
 /-! ### The four steps of the simple random walk -/
 
-/-- The four unit steps of the two-dimensional simple random walk. -/
-inductive Step
-  | east | north | west | south
-  deriving DecidableEq, Fintype, Inhabited
-
-/-- The displacement of a step. -/
-def Step.vec : Step → ℤ × ℤ
-  | .east => (1, 0)
-  | .north => (0, 1)
-  | .west => (-1, 0)
-  | .south => (0, -1)
-
 /-- The reversed step. -/
 def Step.neg : Step → Step
   | .east => .west
@@ -80,12 +70,12 @@ def Step.corner : Step → Bool
   | .west => true
   | .south => true
 
-@[simp] theorem Step.neg_neg (s : Step) : s.neg.neg = s := by cases s <;> rfl
+@[simp] theorem Step.neg_neg (s : Step) : Step.neg (Step.neg s) = s := by cases s <;> rfl
 
-@[simp] theorem Step.vec_neg (s : Step) : s.neg.vec = -s.vec := by
+@[simp] theorem Step.vec_neg (s : Step) : (Step.neg s).vec = -s.vec := by
   cases s <;> simp [Step.vec, Step.neg]
 
-@[simp] theorem Step.corner_neg (s : Step) : s.neg.corner = !s.corner := by
+@[simp] theorem Step.corner_neg (s : Step) : Step.corner (Step.neg s) = !Step.corner s := by
   cases s <;> rfl
 
 theorem sum_axis {M : Type*} [AddCommMonoid M] (g : Axis → M) :
@@ -102,9 +92,9 @@ theorem sum_step {M : Type*} [AddCommMonoid M] (f : Step → M) :
   abel
 
 theorem sum_step_neg {M : Type*} [AddCommMonoid M] (f : Step → M) :
-    ∑ s : Step, f s.neg = ∑ s : Step, f s :=
+    ∑ s : Step, f (Step.neg s) = ∑ s : Step, f s :=
   Fintype.sum_equiv (Function.Involutive.toPerm Step.neg Step.neg_neg)
-    (fun s => f s.neg) f fun _ => rfl
+    (fun s => f (Step.neg s)) f fun _ => rfl
 
 /-! ### Blocks -/
 
@@ -157,7 +147,7 @@ move the block by one simple-random-walk step, and the corner reached is a
 function of that step alone. -/
 theorem two_step (S : ℤ × ℤ) (c : Bool) (i j : Axis) :
     directedNeighbor altBase (directedNeighbor altBase (sitePos S c) i) j =
-      sitePos (S + (blockStep c i j).vec) (blockStep c i j).corner := by
+      sitePos (S + (blockStep c i j).vec) (Step.corner (blockStep c i j)) := by
   obtain ⟨a, b⟩ := S
   cases c <;> cases i <;> cases j <;>
     simp only [sitePos, cornerVal, blockStep, Step.vec, Step.corner, step_horizontal,
@@ -209,29 +199,6 @@ theorem pathCount_succ (ω : Environment) (n : ℕ) (z z' : Site) :
   rw [List.ofFn_succ]
   simp
 
-/-- The number of `n`-step simple-random-walk paths carrying `T` to the origin. -/
-def srwCount (n : ℕ) (T : ℤ × ℤ) : ℕ :=
-  ∑ e : Fin n → Step, if T + ∑ k, (e k).vec = 0 then 1 else 0
-
-theorem srwCount_zero (T : ℤ × ℤ) : srwCount 0 T = if T = 0 then 1 else 0 := by
-  simp [srwCount]
-
-theorem srwCount_succ (n : ℕ) (T : ℤ × ℤ) :
-    srwCount (n + 1) T = ∑ s : Step, srwCount n (T + s.vec) := by
-  have hsplit :
-      ∑ e : Fin (n + 1) → Step, (if T + ∑ k, (e k).vec = 0 then 1 else 0) =
-        ∑ p : Step × (Fin n → Step),
-          (if T + ∑ k, ((Fin.cons p.1 p.2 : Fin (n + 1) → Step) k).vec = 0 then 1 else 0) :=
-    (Fintype.sum_equiv (Fin.consEquiv fun _ : Fin (n + 1) => Step)
-      (fun p => if T + ∑ k, ((Fin.cons p.1 p.2 : Fin (n + 1) → Step) k).vec = 0 then 1 else 0)
-      (fun e => if T + ∑ k, (e k).vec = 0 then 1 else 0) fun _ => rfl).symm
-  rw [srwCount, hsplit, Fintype.sum_prod_type]
-  refine Finset.sum_congr rfl fun s _ => ?_
-  rw [srwCount]
-  refine Finset.sum_congr rfl fun g _ => ?_
-  rw [Fin.sum_univ_succ]
-  simp [← add_assoc]
-
 /-! ### The two-step recursion -/
 
 /-- The number of `2n`-letter words carrying the block `S` at corner `c` to the
@@ -251,17 +218,17 @@ theorem blockCount_zero_add (T : ℤ × ℤ) (c : Bool) :
 
 /-- The two-step recursion: the block performs a simple random walk. -/
 theorem blockCount_succ (n : ℕ) (S : ℤ × ℤ) (c : Bool) :
-    blockCount (n + 1) S c = ∑ s : Step, blockCount n (S + s.vec) s.corner := by
+    blockCount (n + 1) S c = ∑ s : Step, blockCount n (S + s.vec) (Step.corner s) := by
   rw [blockCount, show 2 * (n + 1) = 2 * n + 1 + 1 by ring, pathCount_succ]
   have hinner : ∀ i : Axis,
       pathCount altBase (2 * n + 1) (directedNeighbor altBase (sitePos S c) i) 0 =
-        ∑ j : Axis, blockCount n (S + (blockStep c i j).vec) (blockStep c i j).corner := by
+        ∑ j : Axis, blockCount n (S + (blockStep c i j).vec) (Step.corner (blockStep c i j)) := by
     intro i
     rw [pathCount_succ]
     refine Finset.sum_congr rfl fun j _ => ?_
     rw [blockCount, two_step]
   simp only [hinner]
-  exact sum_blockStep c fun s => blockCount n (S + s.vec) s.corner
+  exact sum_blockStep c fun s => blockCount n (S + s.vec) (Step.corner s)
 
 /-- Past the first block step the count no longer depends on the corner. -/
 def blockReturn (n : ℕ) (S : ℤ × ℤ) : ℕ := blockCount (n + 1) S false
@@ -273,7 +240,7 @@ theorem blockCount_succ_corner (n : ℕ) (S : ℤ × ℤ) (c : Bool) :
 theorem blockReturn_succ (n : ℕ) (S : ℤ × ℤ) :
     blockReturn (n + 1) S = ∑ s : Step, blockReturn n (S + s.vec) := by
   rw [blockReturn, blockCount_succ]
-  exact Finset.sum_congr rfl fun s _ => blockCount_succ_corner n (S + s.vec) s.corner
+  exact Finset.sum_congr rfl fun s _ => blockCount_succ_corner n (S + s.vec) (Step.corner s)
 
 /-- The reflection `S ↦ -S` removes the constraint that the last block step be
 positive: the two counts add up to the plain simple-random-walk count. -/
@@ -281,11 +248,11 @@ theorem blockReturn_add_neg : ∀ (n : ℕ) (S : ℤ × ℤ),
     blockReturn n S + blockReturn n (-S) = srwCount (n + 1) S
   | 0, S => by
       rw [blockReturn, blockReturn, blockCount_succ, blockCount_succ, srwCount_succ,
-        ← sum_step_neg fun s => blockCount 0 (-S + s.vec) s.corner, ← Finset.sum_add_distrib]
+        ← sum_step_neg fun s => blockCount 0 (-S + s.vec) (Step.corner s), ← Finset.sum_add_distrib]
       refine Finset.sum_congr rfl fun s _ => ?_
       rw [srwCount_zero, Step.vec_neg, Step.corner_neg,
         show -S + -s.vec = -(S + s.vec) by abel]
-      exact blockCount_zero_add (S + s.vec) s.corner
+      exact blockCount_zero_add (S + s.vec) (Step.corner s)
   | n + 1, S => by
       rw [blockReturn_succ, blockReturn_succ, srwCount_succ,
         ← sum_step_neg fun s => blockReturn n (-S + s.vec), ← Finset.sum_add_distrib]
@@ -309,13 +276,6 @@ theorem nStepKernel_eq_pathCount (ω : Environment) (n : ℕ) (z z' : Site) :
   congr 1
   exact Finset.sum_congr rfl fun path _ => by split <;> simp
 
-/-- The return probability of the two-dimensional simple random walk. -/
-noncomputable def srwKernel (n : ℕ) : ℝ≥0 := (4 : ℝ≥0)⁻¹ ^ n * (srwCount n 0 : ℝ≥0)
-
-theorem srwKernel_zero : srwKernel 0 = 1 := by
-  rw [srwKernel, srwCount_zero]
-  simp
-
 theorem two_mul_nStepKernel (n : ℕ) :
     2 * nStepKernel altBase (2 * (n + 1)) 0 0 = srwKernel (n + 1) := by
   rw [nStepKernel_eq_pathCount, srwKernel,
@@ -326,11 +286,6 @@ theorem two_mul_nStepKernel (n : ℕ) :
   rw [show ((2 : ℝ≥0) : ℝ≥0) = ((2 : ℕ) : ℝ≥0) by norm_num, ← Nat.cast_mul, two_mul_pathCount]
 
 /-! ### Recurrence -/
-
-/-- Pólya's theorem in two dimensions: the Green series of the simple random
-walk on `ℤ²` diverges.  This is the single named input that is not proved here;
-Mathlib has no recurrence theorem for random walks. -/
-def SimpleRandomWalkRecurrent : Prop := ∑' n : ℕ, (srwKernel n : ℝ≥0∞) = ⊤
 
 /-- The alternating environment is recurrent. -/
 theorem discreteGreen_altBase_eq_top (h : SimpleRandomWalkRecurrent) :

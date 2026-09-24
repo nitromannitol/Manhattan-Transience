@@ -1,4 +1,4 @@
-import Manhattan.Operator.Semigroup
+import Manhattan.Library
 
 /-! Frozen proved semigroup statement. -/
 
@@ -15,4 +15,4 @@ theorem Manhattan.Frozen.Operator.dampedOrbit_hasDerivAt : ∀ {E : Type u_1} [_
   HasDerivAt (Manhattan.Operator.dampedOrbit G lambda u)
     (-(Manhattan.Operator.resolventOperator G lambda) (Manhattan.Operator.dampedOrbit G lambda u t)) t
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.dampedOrbit_hasDerivAt
+:= @LatticeProb.Analysis.dampedOrbit_hasDerivAt

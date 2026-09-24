@@ -23,14 +23,14 @@ open ComplexConjugate InnerProductSpace RCLike
 namespace Manhattan.Glue
 
 /-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
-local instance (p : Prop) : Decidable p := Classical.propDecidable p
+local instance instDecidableGlueCorrection (p : Prop) : Decidable p := Classical.propDecidable p
 
 /-- Quadratic homogeneity of the positive energy. -/
 theorem hEnergy_smul {E : Type*} [NormedAddCommGroup E]
     [InnerProductSpace ℂ E] [CompleteSpace E]
-    (P : Operator.DissipativeSkewPair E) (lambda : ℝ) (a : ℂ) (x : E) :
+    (P : LatticeProb.Analysis.DissipativeSkewPair E) (lambda : ℝ) (a : ℂ) (x : E) :
     P.hEnergy lambda (a • x) = ‖a‖ ^ 2 * P.hEnergy lambda x := by
-  unfold Operator.DissipativeSkewPair.hEnergy
+  unfold LatticeProb.Analysis.DissipativeSkewPair.hEnergy
   rw [map_smul, inner_smul_left, inner_smul_right, ← mul_assoc,
     RCLike.conj_mul]
   rw [← ofReal_pow, mul_re, ofReal_re, ofReal_im, zero_mul, sub_zero]
@@ -38,11 +38,11 @@ theorem hEnergy_smul {E : Type*} [NormedAddCommGroup E]
 /-- Quadratic homogeneity of the dual energy. -/
 theorem hMinusEnergy_smul {E : Type*} [NormedAddCommGroup E]
     [InnerProductSpace ℂ E] [CompleteSpace E]
-    (P : Operator.DissipativeSkewPair E) {lambda : ℝ}
+    (P : LatticeProb.Analysis.DissipativeSkewPair E) {lambda : ℝ}
     (hlambda : 0 < lambda) (a : ℂ) (x : E) :
     P.hMinusEnergy hlambda (a • x) =
       ‖a‖ ^ 2 * P.hMinusEnergy hlambda x := by
-  unfold Operator.DissipativeSkewPair.hMinusEnergy
+  unfold LatticeProb.Analysis.DissipativeSkewPair.hMinusEnergy
   rw [map_smul, inner_smul_left, inner_smul_right, ← mul_assoc,
     RCLike.conj_mul]
   rw [← ofReal_pow, mul_re, ofReal_re, ofReal_im, zero_mul, sub_zero]
@@ -51,7 +51,7 @@ theorem hMinusEnergy_smul {E : Type*} [NormedAddCommGroup E]
 `H`-preimage. -/
 theorem hMinusEnergy_nonneg {E : Type*} [NormedAddCommGroup E]
     [InnerProductSpace ℂ E] [CompleteSpace E]
-    (P : Operator.DissipativeSkewPair E) {lambda : ℝ}
+    (P : LatticeProb.Analysis.DissipativeSkewPair E) {lambda : ℝ}
     (hlambda : 0 < lambda) (u : E) :
     0 ≤ P.hMinusEnergy hlambda u := by
   have hpre := P.hEnergy_nonneg hlambda.le ((P.hEquiv hlambda).symm u)
@@ -67,7 +67,7 @@ theorem norm_ofReal_sign_sq_le_one (x : ℝ) :
 /-- Multiplying by `sgn(sin p₁)` does not increase the positive energy. -/
 theorem hEnergy_ofReal_sign_smul_le {E : Type*} [NormedAddCommGroup E]
     [InnerProductSpace ℂ E] [CompleteSpace E]
-    (P : Operator.DissipativeSkewPair E) {lambda : ℝ} (hlambda : 0 ≤ lambda)
+    (P : LatticeProb.Analysis.DissipativeSkewPair E) {lambda : ℝ} (hlambda : 0 ≤ lambda)
     (x : ℝ) (v : E) :
     P.hEnergy lambda (((Real.sign x : ℝ) : ℂ) • v) ≤ P.hEnergy lambda v := by
   rw [hEnergy_smul]
@@ -78,7 +78,7 @@ theorem hEnergy_ofReal_sign_smul_le {E : Type*} [NormedAddCommGroup E]
 /-- Exact scaling identity behind (24)--(25). -/
 theorem normalizedObjective_eq {E : Type*} [NormedAddCommGroup E]
     [InnerProductSpace ℂ E] [CompleteSpace E]
-    (P : Operator.DissipativeSkewPair E) (V x : E) {lambda b : ℝ}
+    (P : LatticeProb.Analysis.DissipativeSkewPair E) (V x : E) {lambda b : ℝ}
     (hlambda : 0 < lambda) (hb : 0 < b) :
     P.hEnergy lambda (((b : ℂ)⁻¹) • x) +
         P.hMinusEnergy hlambda (V - P.A (((b : ℂ)⁻¹) • x)) =

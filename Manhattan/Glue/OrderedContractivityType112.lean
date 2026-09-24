@@ -24,6 +24,8 @@ equal row entries, and such a shift preserves the strict order of the two row
 indices.
 -/
 
+open scoped lp
+
 noncomputable section
 
 namespace Manhattan.Glue

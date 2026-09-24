@@ -51,11 +51,12 @@ proof), `manuscript.tex:1193-1198` (equation (46), `eq:contract`), `manuscript.t
 (`eq:shift`).
 -/
 
+open scoped lp
+
 noncomputable section
 open MeasureTheory UnitAddTorus Set
 open ComplexConjugate InnerProductSpace RCLike
 namespace Manhattan.Glue
-attribute [local instance] Real.fact_zero_lt_one
 
 private theorem walshVector_ext' {x y : WalshL2}
     (h : ∀ S : Finset LineIndex,

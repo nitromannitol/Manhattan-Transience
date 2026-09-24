@@ -126,7 +126,7 @@ theorem norm_orderedFreqThree_le (k : (ℤ × ℤ × ℤ) →₀ ℂ) (s s' u : 
 theorem continuous_orderedFreqThree (k : (ℤ × ℤ × ℤ) →₀ ℂ) :
     Continuous fun z : ℝ × ℝ × ℝ => orderedFreqThree k z.1 z.2.1 z.2.2 := by
   simp only [orderedFreqThree_eq_sum]
-  refine continuous_finset_sum _ fun t _ => ?_
+  refine continuous_finsetSum _ fun t _ => ?_
   unfold lineCharacter
   fun_prop
 
@@ -149,7 +149,7 @@ theorem torusBounded₃_shiftedRawCoefficient (p : Fin 2 → ℝ)
         shiftedRawCoefficient p k z.1 z.2.1 z.2.2 := by
       unfold shiftedRawCoefficient
       simp only [orderedFreqThree_eq_sum]
-      refine continuous_finset_sum _ fun t _ => ?_
+      refine continuous_finsetSum _ fun t _ => ?_
       unfold lineCharacter
       fun_prop
     exact hcont.measurable

@@ -51,6 +51,7 @@ Paper: `eq:D2a` = (27) (`manuscript.tex:829`), `lem:onecoin` = Lemma 4.1(d)
 (`manuscript.tex:1305`).
 -/
 
+open scoped lp
 open MeasureTheory Set UnitAddTorus
 open scoped ENNReal
 
@@ -80,7 +81,7 @@ theorem lp_norm_le_of_apply_le {ι κ : Type*} (a : ℓ²(ι, ℂ)) (b : ℓ²(�
       ((memℓp_gen_iff (by norm_num)).1 (lp.memℓp b))
   rw [← ha, ← hb] at hsum
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   have hlt := Real.rpow_lt_rpow (norm_nonneg b) hcon
     (by norm_num : (0 : ℝ) < (2 : ℝ≥0∞).toReal)
   linarith
@@ -480,8 +481,7 @@ theorem twoRowRaiseCoeff_apply (p : Fin 2 → ℝ) (c : Manhattan.RowLineCoeffic
 
 theorem memlp_scaled_row (p : Fin 2 → ℝ) (c : Manhattan.RowLineCoefficient) :
     Memℓp (fun k : ℤ => Complex.I * (Real.sin (p 0) : ℂ) * c k) 2 := by
-  have h := lp.memℓp ((Complex.I * (Real.sin (p 0) : ℂ)) • c)
-  simpa using h
+  exact lp.memℓp ((Complex.I * (Real.sin (p 0) : ℂ)) • c)
 
 /-- The positive-frequency half of the two-row coefficient vector, read on the
 first slice. -/

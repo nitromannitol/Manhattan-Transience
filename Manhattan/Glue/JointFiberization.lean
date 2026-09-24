@@ -15,6 +15,7 @@ noncomputable section
 namespace Manhattan.Glue
 
 open Manhattan.Operator
+open LatticeProb.Analysis
 
 variable {E J K : Type*} [NormedAddCommGroup E]
   [InnerProductSpace ℂ E] [CompleteSpace E]

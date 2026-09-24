@@ -14,6 +14,8 @@ Paper: `manuscript.tex:640-661`, `manuscript.tex:773-822`, and
 `manuscript.tex:1120-1128`.
 -/
 
+open scoped lp
+
 noncomputable section
 
 open MeasureTheory Set
@@ -95,8 +97,8 @@ theorem concrete_driftless_competitor (lambda : ℝ) (hlambda : 0 < lambda)
         Operator.driftlessMajorant lambda p := by
   refine ⟨0, ?_⟩
   rw [map_zero, sub_zero, concrete_hMinusEnergy_empty hlambda p]
-  simp [Operator.DissipativeSkewPair.hEnergy,
-    Operator.DissipativeSkewPair.H]
+  simp [LatticeProb.Analysis.DissipativeSkewPair.hEnergy,
+    LatticeProb.Analysis.DissipativeSkewPair.H]
 
 /-- Exact cancellation of the constant Walsh component in the corrected
 high-frequency branch.  It is a construction invariant, not a requirement

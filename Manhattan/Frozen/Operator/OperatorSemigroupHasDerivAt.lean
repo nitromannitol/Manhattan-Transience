@@ -1,4 +1,4 @@
-import Manhattan.Operator.Semigroup
+import Manhattan.Library
 
 /-! Frozen proved semigroup statement. -/
 
@@ -15,4 +15,4 @@ theorem Manhattan.Frozen.Operator.operatorSemigroup_hasDerivAt : ∀ {E : Type u
   HasDerivAt (fun s => (Manhattan.Operator.operatorSemigroup G s) u) (G ((Manhattan.Operator.operatorSemigroup G t) u))
     t
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.operatorSemigroup_hasDerivAt
+:= @LatticeProb.Analysis.operatorSemigroup_hasDerivAt

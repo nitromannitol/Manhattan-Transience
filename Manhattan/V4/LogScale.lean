@@ -37,11 +37,14 @@ theorem logSqrt_hasDerivAt {x : ℝ} (hx : 0 < x) (hx1 : x < 1) :
     have := Real.log_neg hx hx1
     linarith
   have hlog : HasDerivAt (fun y : ℝ => -Real.log y) (-1 / x) x := by
-    simpa [neg_div] using (Real.hasDerivAt_log hx.ne').neg
+    rw [neg_div]
+    exact (Real.hasDerivAt_log hx.ne').neg.congr_deriv (by rw [one_div])
   have hs := hlog.sqrt hu.ne'
   have hp := hlog.mul hs
   have hfinal := hp.const_mul (-(2 / 3) : ℝ)
-  convert hfinal using 1
+  refine hfinal.congr_deriv ?_
+  symm
+  have hx0 : x ≠ 0 := hx.ne'
   have hspos : 0 < Real.sqrt (-Real.log x) := Real.sqrt_pos.2 hu
   have hsq : Real.sqrt (-Real.log x) * Real.sqrt (-Real.log x) = -Real.log x :=
     Real.mul_self_sqrt hu.le

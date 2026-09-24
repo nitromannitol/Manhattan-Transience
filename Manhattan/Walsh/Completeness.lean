@@ -12,6 +12,8 @@ requires the cylinder-density argument omitted at `manuscript.tex:711-715`.
 The exact remaining interface is isolated here.
 -/
 
+open scoped lp
+
 namespace Manhattan
 
 open MeasureTheory Set
@@ -56,7 +58,7 @@ private theorem walshPolynomial_atomCoefficient (s : Finset LineIndex)
   · rw [if_pos hagree]
     exact Finset.prod_eq_one fun l hl => if_pos (hagree l hl)
   · rw [if_neg hagree]
-    push_neg at hagree
+    push Not at hagree
     obtain ⟨l, hl, hne⟩ := hagree
     exact Finset.prod_eq_zero hl (if_neg hne)
 

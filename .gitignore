@@ -1,13 +1,12 @@
 /.lake/
 ledger/*.log
-*_logs/
+codex_logs/
 scratch/
 bootstrap.log
 Scratch/
 tools/__pycache__/
-tools/*.sh
-run_*.sh
-Audit/
+tools/glm.sh
+run_codex.sh
 ledger/briefs/
 ledger/decisions-archive/
 ledger/WORK_IN_PROGRESS.md

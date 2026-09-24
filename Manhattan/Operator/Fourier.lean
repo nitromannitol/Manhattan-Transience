@@ -1,4 +1,4 @@
-import Manhattan.Operator.Variational
+import LatticeProb.Analysis.DissipativeSkewOperator
 import Mathlib.Analysis.Fourier.AddCircleMulti
 import Mathlib.Analysis.Complex.Trigonometric
 
@@ -14,12 +14,16 @@ must supply this certificate.
 Paper: manuscript.tex:543-608.
 -/
 
+open scoped lp
+
 noncomputable section
 
 open ComplexConjugate InnerProductSpace MeasureTheory RCLike UnitAddTorus
 open scoped BigOperators ComplexConjugate InnerProduct
 
 namespace Manhattan.Operator
+
+open LatticeProb.Analysis (DissipativeSkewPair)
 
 /-- The lattice used for position Fourier transform. -/
 abbrev Lattice := Fin 2 → ℤ

@@ -1,0 +1,13 @@
+{
+  "challenge_module": "Audit.Transience.Challenge",
+  "solution_module": "Audit.Transience.Solution",
+  "theorem_names": [
+    "ManhattanAudit.transience"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": false
+}

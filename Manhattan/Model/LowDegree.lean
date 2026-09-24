@@ -13,6 +13,7 @@ Paper: `manuscript.tex:719-758`, `manuscript.tex:793-822`, and
 `manuscript.tex:1179-1205`.
 -/
 
+open scoped lp
 open ComplexConjugate InnerProductSpace RCLike
 open MeasureTheory
 open scoped BigOperators ComplexConjugate InnerProduct symmDiff
@@ -195,8 +196,8 @@ theorem isWalshDegree_fiberDStarLoweringSpatialCoefficient {n : ℕ}
 theorem concreteFiberS_walshL2 (p : Fin 2 → ℝ) (S : Finset LineIndex) :
     concreteFiberS p (walshL2 S) = walshSynthesis (fiberSSpatialCoefficient p S) := by
   rw [concreteFiberS_formula]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sum_apply,
-    ContinuousLinearMap.sub_apply, ContinuousLinearMap.add_apply,
+  simp only [smul_apply, sum_apply,
+    sub_apply, add_apply,
     ContinuousLinearMap.id_apply,
     environmentShift_walshL2_public]
   rw [fiberSSpatialCoefficient, walshSynthesis_smul,
@@ -234,8 +235,8 @@ theorem operatorTheta_nonneg (p : Fin 2 → ℝ) :
 theorem concreteH_empty (lambda : ℝ) (p : Fin 2 → ℝ) :
     (concreteFiberEnvironment.dissipativeSkewPair p).H lambda (walshL2 ∅) =
       ((lambda + Operator.theta p : ℝ) : ℂ) • walshL2 ∅ := by
-  rw [Operator.DissipativeSkewPair.H]
-  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+  rw [LatticeProb.Analysis.DissipativeSkewPair.H]
+  simp only [sub_apply, smul_apply,
     ContinuousLinearMap.id_apply]
   change (lambda : ℂ) • walshL2 ∅ - concreteFiberS p (walshL2 ∅) = _
   rw [concreteFiberS_empty]
@@ -262,7 +263,7 @@ theorem concrete_hMinusEnergy_empty {lambda : ℝ} (hlambda : 0 < lambda)
     (p : Fin 2 → ℝ) :
     (concreteFiberEnvironment.dissipativeSkewPair p).hMinusEnergy
         hlambda (walshL2 ∅) = Operator.driftlessMajorant lambda p := by
-  rw [Operator.DissipativeSkewPair.hMinusEnergy]
+  rw [LatticeProb.Analysis.DissipativeSkewPair.hMinusEnergy]
   calc
     re ⟪walshL2 ∅,
         ((concreteFiberEnvironment.dissipativeSkewPair p).hEquiv hlambda).symm
@@ -284,8 +285,8 @@ theorem concrete_hMinusEnergy_empty {lambda : ℝ} (hlambda : 0 < lambda)
 theorem concreteFiberA_walshL2 (p : Fin 2 → ℝ) (S : Finset LineIndex) :
     concreteFiberA p (walshL2 S) = walshSynthesis (fiberASpatialCoefficient p S) := by
   rw [concreteFiberA_formula]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sum_apply,
-    ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply,
+  simp only [smul_apply, sum_apply,
+    sub_apply, ContinuousLinearMap.comp_apply,
     environmentShift_walshL2_public]
   simp only [map_sub, originSignMultiplier_smul_walshL2]
   rw [fiberASpatialCoefficient, walshSynthesis_smul,
@@ -392,7 +393,7 @@ theorem inner_empty_concreteFiberA_axisDegreeOne (p : Fin 2 → ℝ)
       (concreteFiberA p (axisDegreeOneSynthesis Axis.horizontal c)) =
         Complex.I * (Real.sin (p 0) : ℂ) * c 0 := by
   rw [← (concreteFiberA p).adjoint_inner_left]
-  rw [concreteFiberA_skewAdjoint, ContinuousLinearMap.neg_apply,
+  rw [concreteFiberA_skewAdjoint, neg_apply,
     concreteFiberA_empty]
   rw [inner_neg_left, inner_add_left, inner_smul_left, inner_smul_left,
     inner_axisDegreeOneSynthesis,
@@ -426,7 +427,7 @@ theorem inner_empty_concreteFiberA_type112 (p : Fin 2 → ℝ)
     inner ℂ (walshL2 ∅)
       (concreteFiberA p (type112WalshSynthesis c)) = 0 := by
   rw [← (concreteFiberA p).adjoint_inner_left]
-  rw [concreteFiberA_skewAdjoint, ContinuousLinearMap.neg_apply,
+  rw [concreteFiberA_skewAdjoint, neg_apply,
     concreteFiberA_empty, inner_neg_left, inner_add_left,
     inner_smul_left, inner_smul_left,
     inner_type112WalshSynthesis_eq_zero,

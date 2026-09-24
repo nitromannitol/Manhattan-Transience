@@ -8,7 +8,8 @@ it and the verbatim Lean proposition that is assumed.
     python3 tools/assumptions.py            # write ASSUMPTIONS.md
     python3 tools/assumptions.py --check    # fail if the file on disk is stale
 """
-import pathlib, re, sys
+import pathlib
+import re, re, sys
 
 try:
     import yaml
@@ -24,9 +25,44 @@ def frozen_block(path):
     return t[t.index(BEGIN) + len(BEGIN):t.index(END)].strip("\n")
 
 
+def companions(nodes):
+    """Assumed propositions for which this repository also supplies a proof.
+
+    The proof lives beside the proposition in a `*Proved.lean` companion; some
+    prove it outright and some under hypotheses the paper's setting satisfies.
+    """
+    out = {}
+    for n in nodes:
+        if n.get("state") in ("SEALED", "PROVED") and n["file"].endswith("Proved.lean"):
+            out[pathlib.Path(n["file"]).name[: -len("Proved.lean")]] = n
+    return out
+
+
+def bridge_proof(n):
+    """A theorem outside `External/` and `Frozen/` whose type is exactly the assumed proposition.
+
+    Such a theorem discharges the hypothesis unconditionally, wherever it lives (for example a
+    `Bridge/` module proving the proposition from a library).
+    """
+    export = n["export"]
+    short = export.split(".")[-1]
+    names = {re.escape(export), r"External\." + re.escape(short)}
+    pat = re.compile(r"^theorem\s+(\S+)\s*:\s*(?:" + "|".join(names) + r")\s*:=", re.M)
+    pkg = pathlib.Path(n["file"]).parts[0]
+    for f in sorted((ROOT / pkg).rglob("*.lean")):
+        rel = f.relative_to(ROOT)
+        if "External" in rel.parts or "Frozen" in rel.parts:
+            continue
+        m = pat.search(f.read_text(encoding="utf-8"))
+        if m:
+            return {"id": m.group(1), "file": str(rel)}
+    return None
+
+
 def render():
     man = yaml.safe_load((ROOT / "ledger" / "manifest.yaml").read_text(encoding="utf-8"))
     assumed = [n for n in man["nodes"] if n.get("state") == "FROZEN"]
+    comp = companions(man["nodes"])
     out = ["# What this development assumes", ""]
     if not assumed:
         out += ["Nothing.  Every registered statement in this repository is proved here,",
@@ -46,11 +82,29 @@ def render():
         "`ledger/manifest.yaml` and the Lean sources; do not edit it by hand.",
         "",
     ]
+    for n in assumed:
+        stem = pathlib.Path(n["file"]).stem
+        if stem not in comp:
+            b = bridge_proof(n)
+            if b:
+                comp[stem] = b
+    withproof = [n for n in assumed if pathlib.Path(n["file"]).stem in comp]
+    if withproof:
+        out += [(f"Of these, **{len(withproof)} are also proved in this repository** and so need not "
+                 "be taken on trust; each is marked below with the theorem that proves it. "
+                 if len(withproof) > 1 else
+                 "Of these, **one is also proved in this repository** and so need not "
+                 "be taken on trust; it is marked below with the theorem that proves it. ") +
+                f"The remaining **{len(assumed) - len(withproof)}** are assumed outright.", ""]
     for n in sorted(assumed, key=lambda x: x["id"]):
+        c = comp.get(pathlib.Path(n["file"]).stem)
         out += [f"## `{n['id']}`", "",
                 f"* **Lean name** `{n['export']}`",
                 f"* **File** `{n['file']}`",
                 f"* **Cited at** {n['source']}",
+                (f"* **Also proved here** by `{c['id']}` in `{c['file']}`, so this hypothesis "
+                 "can be discharged rather than assumed" if c else
+                 "* **Not proved here**: this one is assumed outright"),
                 "",
                 "```lean",
                 frozen_block(n["file"]),

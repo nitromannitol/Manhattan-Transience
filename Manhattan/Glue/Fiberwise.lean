@@ -13,6 +13,8 @@ direct-integral realization of `p ↦ G_p`.
 Paper: `manuscript.tex:555-597`.
 -/
 
+open scoped lp
+
 noncomputable section
 
 open MeasureTheory UnitAddTorus
@@ -398,8 +400,8 @@ private theorem jointPositionFourier_jointSymmetricTerm (i : Fin 2)
     jointPositionFourier (jointSymmetricTerm i F) =
       fiberwiseSymmetricTerm i (jointPositionFourier F) := by
   simp only [jointSymmetricTerm, fiberwiseSymmetricTerm,
-    ContinuousLinearMap.sub_apply, ContinuousLinearMap.add_apply,
-    ContinuousLinearMap.smul_apply, ContinuousLinearMap.id_apply,
+    sub_apply, add_apply,
+    smul_apply, ContinuousLinearMap.id_apply,
     map_sub, map_add, map_smul]
   change jointPositionFourier
       (jointTranslatedStep (Manhattan.Operator.axisVector i) F) +
@@ -419,7 +421,7 @@ private theorem jointPositionFourier_jointSkewTerm (i : Fin 2)
     jointPositionFourier (jointSkewTerm i F) =
       fiberwiseSkewTerm i (jointPositionFourier F) := by
   simp only [jointSkewTerm, fiberwiseSkewTerm,
-    ContinuousLinearMap.comp_apply, ContinuousLinearMap.sub_apply, map_sub]
+    ContinuousLinearMap.comp_apply, sub_apply, map_sub]
   change jointPositionFourier
       (jointOriginSign i
         (jointTranslatedStep (Manhattan.Operator.axisVector i) F)) -
@@ -443,8 +445,8 @@ theorem jointPositionFourier_concreteJointGenerator (F : JointPositionL2) :
     jointPositionFourier (concreteJointGenerator F) =
       concreteFiberDirectIntegral (jointPositionFourier F) := by
   simp only [concreteJointGenerator, concreteFiberDirectIntegral,
-    ContinuousLinearMap.smul_apply, ContinuousLinearMap.sum_apply,
-    ContinuousLinearMap.add_apply, map_smul, map_sum, map_add]
+    smul_apply, sum_apply,
+    add_apply, map_smul, map_sum, map_add]
   congr 1
   apply Finset.sum_congr rfl
   intro i _

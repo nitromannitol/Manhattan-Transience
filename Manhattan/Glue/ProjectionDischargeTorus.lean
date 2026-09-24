@@ -246,7 +246,7 @@ theorem stronglyMeasurable_torusIntegral {X E : Type*} [MeasurableSpace X]
     (hF : StronglyMeasurable F) :
     StronglyMeasurable fun x : X => torusIntegral (fun y => F (x, y)) := by
   have h := hF.integral_prod_right' (ν := volume.restrict Estimates.torus)
-  simpa only [Estimates.torusIntegral] using h.const_smul ((2 * Real.pi)⁻¹)
+  exact h.const_smul ((2 * Real.pi)⁻¹)
 
 /-- Bounded measurable functions are integrable for the product of two copies
 of the fundamental domain. -/

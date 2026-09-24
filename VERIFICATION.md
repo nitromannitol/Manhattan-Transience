@@ -1,9 +1,9 @@
 # Statement verification: does the Lean say what the paper says?
 
-The statement correspondence and result numbering below use
-`paper/manuscript-current.tex` (SHA-256 `c0efa368ff451b8901cf950d69bd3c17f9e70d175d90c29814705dc445bca835`).
-The pinned source is `paper/manuscript.tex`, whose checksum is recorded in
-`paper/SOURCE_PIN.txt`.
+Checked against `paper/arxiv/main.tex`, the unmodified source of
+arXiv:2609.07621v1 (SHA-256 `08089661c62ee867…`).  Numbers and labels below are
+those of that text.  The manifest follows the earlier text
+`paper/manuscript.tex`; `paper/CHANGES_FROM_ARXIV.md` compares the two.
 
 A formalization is only worth what its statements say. This file records, for
 every numbered statement of the paper, whether the Lean statement is the same
@@ -37,14 +37,13 @@ like it:
 Proved twice, by independent routes: `Frozen.Main.theorem_1_1` and
 `V4.theorem_1_1_v4`.
 
-## Theorem 1.2 (`thm:annealed`) — EXACT
+## Theorem 1.2 (`thm:annealed`) — WEAKER
 
-Paper and Lean assert the existence of a finite constant bounding the damped
-integral for all `λ ∈ (0,1]`, together with finiteness of the undamped annealed
-Green function. This is `AnnealedGreenBound`, proved by
-`Frozen.Main.theorem_1_2`, and matches Theorem 1.2 in both supplied manuscripts.
-The proof of Theorem 1.2 in `paper/manuscript-current.tex` gives `2048`.
-The formalization does not certify this numerical value.
+Both conjuncts are present, with the same range `λ ∈ (0,1]`, and the closing
+"and hence" is a conjunct rather than a remark.  The arXiv statement bounds the
+Laplace transform by `2048`; the Lean statement asserts a constant `C < ∞`,
+which is what `paper/manuscript.tex` states.  The numeral is not certified;
+see the explicit constants below.
 
 ## Proposition 2.1 (`prop:generator`) — EXACT
 
@@ -61,16 +60,12 @@ Split across frozen nodes, each matching the printed formula:
 
 ## Lemma 2.2 (`lem:variational-bound`) — EXACT
 
-`Manhattan.Operator.DissipativeSkewPair.variational_bound` is the two-sided
-statement `0 ≤ r ≤ ‖g‖₊² + ‖V - A g‖₋²`, with no hypothesis on `g`.
+`LatticeProb.Analysis.DissipativeSkewPair.variational_bound`, restated as
+`Manhattan.Certificate.variational_bound`, is the two-sided statement
+`0 ≤ r ≤ ‖g‖₊² + ‖V - A g‖₋²`, with no hypothesis on `g`, as in the paper.
+Its halves are `resolventQuadratic_nonneg` and `resolventQuadratic_le`.
 
-This one needed work on both sides. The paper assumed `⟨1,g⟩ = 0`; the Lean
-inequality never did, so the hypothesis was dropped from the paper and its
-proof replaced by the unrestricted argument. In the other direction the Lean
-had only the upper bound, so `resolventQuadratic_nonneg` was added to supply
-the `0 ≤` half the paper asserts. The two now say the same thing.
-
-## Proposition 6.1 (`prop:frequency`) — EXACT
+## Proposition 6.1 (`prop:frequency`) — WEAKER
 
 `V4FrequencyBound C` is `r_λ(p) ≤ C · v4Majorant λ p` for `λ ∈ (0,1]` and `p`
 on the torus, with
@@ -79,9 +74,9 @@ on the torus, with
     maxFrequency p = max |p₀| |p₁| = a(p).
 
 The exponent `3/2` is real division, confirmed by the accompanying lemma
-`x ^ (3/2 : ℝ) = x * √x`. The paper states a universal `C < ∞`; its proof
-gives `C = 2048`. Lean proves the same frequency dependence with a universal
-constant; it does not certify the proof's `2048`.
+`x ^ (3/2 : ℝ) = x * √x`. The majorant is the paper's.  The paper's constant is
+the numeral `2048`; the Lean constant `C` is existential.  See the explicit
+constants below.
 
 ## Proposition 6.2 (`prop:time`) — EXACT, both equations
 
@@ -125,33 +120,30 @@ The construction is formalized (`rawMultiplierEnergy_le_evenMajorantEnergy`,
 `operatorEstimate`, `effectiveWeight`), and `effectiveWeight r = |r|/√(log(1/|r|))`
 is the paper's `q(r)` exactly.
 
-**EXACT for the existential constant in Lemma 5.1.** The current paper states
+**WEAKER in the constant only.** `lem:effective-energy` asserts
 
-    r_λ(p) ≤ (1 - s ∫ φ)²/H₀ + C ∫ q(r) φ(r)² dm(r).
+    r_λ(p) ≤ (1 - s ∫ φ)²/H₀ + 16 ∫ q(r) φ(r)² dm(r).
 
-The lemma text also says “The proof gives `C=16`.” Lean proves this form of
-bound with `Manhattan.V4.v4ConstantSplit`, certified below `670` by
-`v4ConstantSplit_lt`; it does not certify `16`.
+Lean proves the same inequality with `16` replaced by
+`Manhattan.V4.v4ConstantSplit`, certified below `670` by `v4ConstantSplit_lt`.
+That constant is universal and independent of `λ`, `p` and `φ`, so the Lean
+statement is the paper's with a larger numeral.
 
 ## The explicit constants
 
-The displayed bounds in Theorem 1.2, Lemma 5.1 and Proposition 6.1 of
-`paper/manuscript-current.tex` use existential constants. Lean proves these
-existential bounds. The paper's proofs give the numerical values below,
-which the development does not certify.
+The paper states two numerals: `2048` in Theorem 1.2 and Proposition 6.1,
+and `16` in Lemma 5.1.  No Lean statement claims either value.
 
-* Lemma 5.1: the lemma text and proof give `16`; the formalization gives
-  `v4ConstantSplit < 670` (`Manhattan/V4/SplitConstant.lean`).
-* Proposition 6.1: the proof gives `2048`; the split-constant route gives
+* The Lean statements of `lem:effective-energy` and `prop:frequency` quantify
+  their constant existentially. Lean discharges the first with
+  `v4ConstantSplit < 670` (`Manhattan/V4/SplitConstant.lean`), down from
+  `20,028` and from the `74,869` of the first assembly, and the second with
   `max(max(1, 8π³ · v4ConstantSplit), outerRegionConstant(1/4))`.
-* Theorem 1.2: both manuscripts state an existential finite bound and
-  finiteness. The proof in `manuscript-current.tex` gives `2048`;
-  `Manhattan.Paper.Constant.annealed_green_le_numeral` proves that the
-  undamped integral is at most `275000000`.
-
-In the pinned `paper/manuscript.tex`, the frequency bound is Proposition 2.2
-and its statement uses existential constants. Its Lemma 5.1 is `lem:raise`;
-`lem:effective-energy` is not a labeled result there.
+* For Theorem 1.2 the formalized chain gives
+  `∫₀^∞ p̄_t(0,0) dt ≤ 2.75 · 10⁸`
+  (`Manhattan.Paper.Constant.annealed_green_le_numeral`).
+* The formalized proofs reach the paper's inequalities along a lossier route,
+  so they produce larger values.
 
 ### Where the remaining gap is
 
@@ -193,5 +185,5 @@ gives `60 + 8·C_β(κ)` with `κ = A·κ`. Even a perfect operator step, `A·κ
 would leave `60 + 8·5.94 ≈ 108`: the `2`/`4` Cauchy–Schwarz multipliers of
 `objective_le_v4Move1` are the binding constraint, not the operator estimate.
 Closing the rest means replacing that splitting, and the majorant comparison,
-by the paper's exact minimization of the degree-three form. This would be
-needed to certify the current paper's numerical constants as well.
+by the paper's exact minimization of the degree-three form. Neither affects any
+statement, only the value of the constant.

@@ -59,12 +59,12 @@ theorem continuous_concreteFiberGenerator :
 /-- `λI-G_p` as a continuously varying bounded operator. -/
 def concreteResolventOperator (lambda : ℝ) (z : ℝ × ℝ) :
     Manhattan.WalshL2 →L[ℂ] Manhattan.WalshL2 :=
-  Manhattan.Operator.resolventOperator
+  LatticeProb.Analysis.resolventOperator
     (Manhattan.concreteFiberEnvironment.fiberGenerator (concreteFrequency z)) lambda
 
 theorem continuous_concreteResolventOperator (lambda : ℝ) :
     Continuous (concreteResolventOperator lambda) := by
-  unfold concreteResolventOperator Manhattan.Operator.resolventOperator
+  unfold concreteResolventOperator LatticeProb.Analysis.resolventOperator
   exact continuous_const.sub continuous_concreteFiberGenerator
 
 private theorem concrete_minus_eq_resolventOperator (lambda : ℝ)
@@ -98,8 +98,7 @@ theorem continuous_concreteResolventInverse {lambda : ℝ}
       (concreteResolventOperator lambda z) :=
     ((concreteResolventOperator_isInvertible hlambda z).contDiffAt_map_inverse
       (n := 1)).continuousAt
-  simpa only [Function.comp_apply] using
-    hinv.comp (continuous_concreteResolventOperator lambda).continuousAt
+  exact hinv.comp (continuous_concreteResolventOperator lambda).continuousAt
 
 /-- The concrete density `r_λ(p)`.  The zero branch makes it a total
 function of `lambda`; all paper-facing uses are in the positive branch. -/
@@ -124,7 +123,7 @@ theorem concreteGreenDensity_eq_resolventQuadratic {lambda : ℝ}
       (P.minusEquiv hlambda).symm := by
     rw [← concrete_minus_eq_resolventOperator lambda z]
     change (P.minus lambda).inverse = (P.minusEquiv hlambda).symm
-    simpa only using ContinuousLinearMap.inverse_equiv (P.minusEquiv hlambda)
+    exact ContinuousLinearMap.inverse_equiv (P.minusEquiv hlambda)
   rw [hinverse]
   rfl
 
@@ -159,11 +158,11 @@ theorem concreteGreenDensity_nonneg (lambda : ℝ) (z : ℝ × ℝ) :
       P.minus_apply_inverse hlambda (Manhattan.walshL2 ∅)
     have henergy : 0 ≤ re ⟪P.H lambda x, x⟫_ℂ :=
       P.hEnergy_nonneg hlambda.le x
-    rw [Manhattan.Operator.DissipativeSkewPair.resolventQuadratic]
+    rw [LatticeProb.Analysis.DissipativeSkewPair.resolventQuadratic]
     change 0 ≤ re ⟪Manhattan.walshL2 ∅, x⟫_ℂ
     rw [← hx]
-    simp only [Manhattan.Operator.DissipativeSkewPair.minus,
-      ContinuousLinearMap.sub_apply, inner_sub_left, map_sub, P.re_inner_A_self,
+    simp only [LatticeProb.Analysis.DissipativeSkewPair.minus,
+      sub_apply, inner_sub_left, map_sub, P.re_inner_A_self,
       sub_zero]
     exact henergy
   · simp [concreteGreenDensity, hlambda]
@@ -179,11 +178,11 @@ theorem concreteGreenDensity_le_inv {lambda : ℝ} (hlambda : 0 < lambda)
   let x := (P.minusEquiv hlambda).symm V
   have hx : P.minus lambda x = V := P.minus_apply_inverse hlambda V
   have hresolvent : P.resolventQuadratic hlambda V = re ⟪P.H lambda x, x⟫_ℂ := by
-    rw [Manhattan.Operator.DissipativeSkewPair.resolventQuadratic]
+    rw [LatticeProb.Analysis.DissipativeSkewPair.resolventQuadratic]
     change re ⟪V, x⟫_ℂ = re ⟪P.H lambda x, x⟫_ℂ
     rw [← hx]
-    simp only [Manhattan.Operator.DissipativeSkewPair.minus,
-      ContinuousLinearMap.sub_apply, inner_sub_left, map_sub, P.re_inner_A_self,
+    simp only [LatticeProb.Analysis.DissipativeSkewPair.minus,
+      sub_apply, inner_sub_left, map_sub, P.re_inner_A_self,
       sub_zero]
   have hlower : lambda * ‖x‖ ^ 2 ≤ re ⟪P.H lambda x, x⟫_ℂ :=
     P.hEnergy_lower lambda x
@@ -252,7 +251,7 @@ private theorem dissipativeSkewPair_eq_concrete
   have hA : P.A = Q.A := fiberA_eq_concrete D hshift homega p
   rcases P with ⟨S, A, hSadj, hSnonpos, hAadj⟩
   rcases Q with ⟨S', A', hSadj', hSnonpos', hAadj'⟩
-  simpa only [Manhattan.Operator.DissipativeSkewPair.mk.injEq] using
+  simpa only [LatticeProb.Analysis.DissipativeSkewPair.mk.injEq] using
     And.intro hS hA
 
 /-- Conversion between W5B's product-coordinate normalized integral and the
@@ -271,7 +270,7 @@ theorem normalizedFrequencyIntegral_eq_iterated {f : ℝ × ℝ → ℝ}
   have hf' : Integrable (Function.uncurry fun p₁ p₂ ↦ f (p₁, p₂))
       ((volume.restrict Manhattan.Estimates.torus).prod
         (volume.restrict Manhattan.Estimates.torus)) := by
-    simpa [Function.uncurry] using hf
+    exact hf
   rw [← MeasureTheory.integral_integral hf']
   simp only [Manhattan.Estimates.torusIntegral, integral_const_mul, smul_eq_mul]
   ring

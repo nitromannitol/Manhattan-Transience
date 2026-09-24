@@ -1,4 +1,4 @@
-import Manhattan.Operator.Semigroup
+import Manhattan.Library
 
 /-! Frozen proved semigroup statement. -/
 
@@ -13,4 +13,4 @@ universe u_1
 theorem Manhattan.Frozen.Operator.generator_commutes_operatorSemigroup : ∀ {E : Type u_1} [_inst : NormedAddCommGroup E]
   [_inst_1 : InnerProductSpace ℂ E] (G : E →L[ℂ] E) (t : ℝ), Commute G (Manhattan.Operator.operatorSemigroup G t)
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.generator_commutes_operatorSemigroup
+:= @LatticeProb.Analysis.generator_commutes_operatorSemigroup

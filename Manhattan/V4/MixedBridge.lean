@@ -67,12 +67,10 @@ open MeasureTheory UnitAddTorus
 namespace Manhattan.V4
 
 /-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
-local instance (p : Prop) : Decidable p := Classical.propDecidable p
-
-attribute [local instance] Real.fact_zero_lt_one
+local instance instDecidableMixedBridge (p : Prop) : Decidable p := Classical.propDecidable p
 
 /-- The unit circle carries its normalized Haar measure throughout this file. -/
-local instance : MeasureSpace UnitAddCircle :=
+local instance instMeasureSpaceUnitAddCircleMixedBridge : MeasureSpace UnitAddCircle :=
   ⟨AddCircle.haarAddCircle⟩
 
 local instance : Measure.IsAddHaarMeasure (volume : Measure UnitAddCircle) :=
@@ -199,6 +197,7 @@ theorem mixedFourierCoefficient_rawOffDiagonalPart {k : ℝ → ℝ → ℝ → 
     intro j
     rw [Glue.rawFourierCoefficient_rawOffDiagonalPart hk hper]
     simp only [Matrix.cons_val_zero, Matrix.cons_val_one]
+    congr 1
   rw [Glue.mixedFourierCoefficient_rawD2StarMixed hoff, hraw, hraw,
     Glue.type112DStarMixed_eq, type112CoefficientAt_rawShiftTwist_pinned hk hsymm,
     type112CoefficientAt_rawShiftTwist_pinned hk hsymm]

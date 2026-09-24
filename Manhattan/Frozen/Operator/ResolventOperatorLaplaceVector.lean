@@ -1,4 +1,4 @@
-import Manhattan.Operator.Semigroup
+import Manhattan.Library
 
 /-! Frozen proved semigroup statement. -/
 
@@ -17,4 +17,4 @@ theorem Manhattan.Frozen.Operator.resolventOperator_laplaceVector : ∀ {E : Typ
       (∀ (t : ℝ), 0 ≤ t → ‖Manhattan.Operator.operatorSemigroup G t‖ ≤ 1) →
         (Manhattan.Operator.resolventOperator G lambda) (Manhattan.Operator.laplaceVector G lambda u) = u
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.resolventOperator_laplaceVector
+:= @LatticeProb.Analysis.resolventOperator_laplaceVector

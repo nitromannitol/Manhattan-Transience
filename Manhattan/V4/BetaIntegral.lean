@@ -446,7 +446,7 @@ theorem integral_Ioo_inv_mul_logPow {r0 : ℝ} (hr0 : 0 < r0) (hr1 : r0 < 1) :
   have hderivfun : ∀ x ∈ Ioo 0 r0, HasDerivWithinAt
       (fun y : ℝ => -Real.log y) (-(x : ℝ)⁻¹) (Ioo 0 r0) x :=
     fun x hx => ((Real.hasDerivAt_log (ne_of_gt hx.1)).fun_neg).hasDerivWithinAt
-  have hsub := integral_image_eq_integral_deriv_smul_of_antitone
+  have hsub := integral_image_eq_integral_deriv_smul_of_antitoneOn
     (s := Ioo (0:ℝ) r0) measurableSet_Ioo hderivfun
     (fun x hx y hy hxy => by
       simp only [mem_Ioo] at hx hy
@@ -494,7 +494,7 @@ theorem integral_Ioo_inv_mul_logPow {r0 : ℝ} (hr0 : 0 < r0) (hr1 : r0 < 1) :
     have hid : Filter.Tendsto (fun v : ℝ => 1 + v) atTop atTop := by
       exact Filter.tendsto_atTop_atTop.mpr
         (fun b => ⟨b - 1, by intro x hx; linarith⟩)
-    simpa using h.comp hid
+    simpa [Function.comp_def] using h.comp hid
   have hpowcont : ContinuousOn (fun v : ℝ => (1 + v) ^ (-(1/2) : ℝ)) (Ici L) := by
     refine (continuous_const.add continuous_id).continuousOn.rpow_const ?_
     intro x hx
@@ -503,7 +503,7 @@ theorem integral_Ioo_inv_mul_logPow {r0 : ℝ} (hr0 : 0 < r0) (hr1 : r0 < 1) :
       linarith [hL, hxL]
     exact Or.inl (ne_of_gt hxpos)
   have hcont : ContinuousWithinAt (fun v : ℝ => (1 + v) ^ (-(1/2) : ℝ) * (-2)) (Ici L) L := by
-    refine (hpowcont.mul continuousOn_const).continuousWithinAt left_mem_Ici
+    refine (hpowcont.mul continuousOn_const).continuousWithinAt self_mem_Ici
   have hIoi := integral_Ioi_of_hasDerivAt_of_tendsto hcont hGder hint hGlim
   rw [hsmul.symm, hsmul2.symm, hsub.symm, hIoi]
   rw [Real.rpow_neg hbaseL.le, Real.sqrt_eq_rpow]

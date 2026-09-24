@@ -15,6 +15,7 @@ Paper: `manuscript.tex:719-740`, `manuscript.tex:822-840`, and
 `manuscript.tex:1238-1255`.
 -/
 
+open scoped lp
 open ComplexConjugate InnerProductSpace
 
 namespace Manhattan
@@ -45,8 +46,10 @@ noncomputable def walshSectorAnalysis (P : Finset LineIndex → Prop)
     (x : WalshL2) : ℓ²({S : Finset LineIndex // P S}, ℂ) :=
   ⟨fun S => walshBasis.repr x S.1, by
     apply memℓp_gen
-    simpa using ((lp.memℓp (walshBasis.repr x)).summable (by norm_num)).comp_injective
-      Subtype.val_injective⟩
+    have h := ((lp.memℓp (walshBasis.repr x)).summable (by norm_num)).comp_injective
+      (Subtype.val_injective (p := P))
+    simp only [Function.comp_def] at h
+    simpa using h⟩
 
 @[simp] theorem walshSectorAnalysis_apply (P : Finset LineIndex → Prop)
     (x : WalshL2) (S : {S : Finset LineIndex // P S}) :
@@ -136,8 +139,7 @@ theorem inner_walshSynthesis_type112WalshSynthesis
   rw [walshSynthesis, Finsupp.linearCombination_apply, Finsupp.sum_inner]
   apply Finsupp.sum_congr
   intro S _
-  rw [inner_walshL2_type112WalshSynthesis]
-  simp only [smul_eq_mul]
+  rw [inner_smul_left, inner_walshL2_type112WalshSynthesis]
 
 /-- The exact type-`11` component of `D₂*`, in the no-factorial Finset
 isometry. -/
@@ -167,7 +169,7 @@ theorem type112DStarTwoRow_apply (p : Fin 2 → ℝ)
   rw [type112DStarTwoRow, type11WalshAnalysis,
     walshSectorAnalysis_apply, inner_neg_right]
   rw [← (concreteFiberA p).adjoint_inner_left,
-    concreteFiberA_skewAdjoint, ContinuousLinearMap.neg_apply,
+    concreteFiberA_skewAdjoint, neg_apply,
     inner_neg_left]
   simp
 
@@ -192,7 +194,7 @@ theorem type112DStarMixed_apply (p : Fin 2 → ℝ)
   rw [type112DStarMixed, type12WalshAnalysis,
     walshSectorAnalysis_apply, inner_neg_right]
   rw [← (concreteFiberA p).adjoint_inner_left,
-    concreteFiberA_skewAdjoint, ContinuousLinearMap.neg_apply,
+    concreteFiberA_skewAdjoint, neg_apply,
     inner_neg_left]
   simp
 

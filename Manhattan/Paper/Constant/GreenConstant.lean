@@ -4,12 +4,12 @@ import Manhattan.Glue.Annealed
 /-!
 # The paper's constant, part 2: the explicit Green bound Lean proves
 
-`results/01-transience/manuscript.tex`, `eq:green-explicit`, asserts
+The arXiv version (`paper/arxiv/main.tex`, arXiv:2609.07621v1),
+`eq:green-explicit`, asserts
 
     ∫₀^∞ p̄_t(0,0) dt ≤ 2048 .
 
-That number is correct on the manuscript's own terms; see
-for the re-derivation.  This file records, as a
+This file records, as a
 machine-checked numeral rather than as prose, what the Version 4 Lean chain
 actually delivers for the same integral.
 

@@ -1,6 +1,7 @@
 import Manhattan.Model
 import Manhattan.Walsh
 import Manhattan.Operator
+import Manhattan.Library
 import Manhattan.Estimates
 import Manhattan.Glue
 import Manhattan.Frozen
@@ -15,7 +16,6 @@ import Manhattan.Paper.Ergodic.Polya
 import Manhattan.Paper.Formulas
 import Manhattan.Paper.HeatKernel
 import Manhattan.Paper.ModelLink
-import Manhattan.Paper.Nash
 import Manhattan.Paper.TimeDerivative
 import Manhattan.Certificate
 

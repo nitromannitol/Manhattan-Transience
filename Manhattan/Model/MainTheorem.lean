@@ -17,7 +17,7 @@ noncomputable def discreteGreen (ω : Environment) (x : Site) : ℝ≥0∞ :=
   ∑' n : ℕ, (nStepKernel ω n x x : ℝ≥0∞)
 
 theorem measurable_discreteGreen (x : Site) : Measurable fun ω => discreteGreen ω x := by
-  exact Measurable.ennreal_tsum fun n =>
+  exact Measurable.tsum fun n =>
     (measurable_nStepKernel n x x).coe_nnreal_ennreal
 
 theorem discreteGreen_translate (x : Site) (ω : Environment) :

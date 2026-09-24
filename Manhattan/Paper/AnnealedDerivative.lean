@@ -37,7 +37,7 @@ theorem hasDerivAt_annealedReal {t : ℝ} (ht : 0 < t) :
     rw [Metric.mem_ball, Real.dist_eq, abs_lt] at hs
     linarith [hs.1]
   refine (hasDerivAt_integral_of_dominated_loc_of_deriv_le (F := fun s ω => ck ω s 0 0)
-    (F' := fun s ω => dck ω s 0 0) (bound := fun _ => 2 / Real.sqrt (t / 2)) hε
+    (F' := fun s ω => dck ω s 0 0) (bound := fun _ => 2 / Real.sqrt (t / 2)) (Metric.ball_mem_nhds t hε)
     ?_ (integrable_ck ht.le 0 0) ((measurable_dck ht.le 0 0).aestronglyMeasurable)
     ?_ (integrable_const _) ?_).2
   · filter_upwards [Metric.ball_mem_nhds t hε] with s hs

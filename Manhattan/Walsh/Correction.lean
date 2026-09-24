@@ -15,19 +15,19 @@ Paper: `manuscript.tex:719-740`, `manuscript.tex:1045-1052`, and
 `manuscript.tex:1208-1219`.
 -/
 
+open scoped lp
+
 namespace Manhattan
 
 noncomputable section
 
 /-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
-local instance (p : Prop) : Decidable p := Classical.propDecidable p
+local instance instDecidableWalshCorrection (p : Prop) : Decidable p := Classical.propDecidable p
 
 open MeasureTheory
 
-attribute [local instance] Real.fact_zero_lt_one
-
 /-- The unit circle carries its normalized Haar measure throughout this file. -/
-local instance : MeasureSpace UnitAddCircle :=
+local instance instMeasureSpaceUnitAddCircleWalshCorrection : MeasureSpace UnitAddCircle :=
   ⟨AddCircle.haarAddCircle⟩
 
 local instance : Measure.IsAddHaarMeasure (volume : Measure UnitAddCircle) :=
@@ -103,7 +103,7 @@ theorem orderedType112IndexToFinset_surjective :
   let V := S.1.filter fun l => ¬l.1 = Axis.horizontal
   have hHcard : H.card = 2 := S.2.2
   have hVcard : V.card = 1 := by
-    have hsplit := Finset.filter_card_add_filter_neg_card_eq_card
+    have hsplit := Finset.card_filter_add_card_filter_not
       (s := S.1) (fun l => l.1 = Axis.horizontal)
     change H.card + V.card = S.1.card at hsplit
     have hScard : S.1.card = 3 := S.2.1
@@ -194,8 +194,9 @@ noncomputable def type112DiagonalProjection
     (c : ℓ²(RawType112Index, ℂ)) : ℓ²(Type112Index, ℂ) :=
   ⟨fun S => c (type112RawIndex S), by
     apply memℓp_gen
-    simpa using ((lp.memℓp c).summable (by norm_num)).comp_injective
-      type112RawIndex_injective⟩
+    have h := ((lp.memℓp c).summable (by norm_num)).comp_injective type112RawIndex_injective
+    simp only [Function.comp_def] at h
+    simpa using h⟩
 
 @[simp] theorem type112DiagonalProjection_apply
     (c : ℓ²(RawType112Index, ℂ)) (S : Type112Index) :
@@ -317,10 +318,9 @@ theorem correctionCoefficient_measurable (kappa : ℝ)
     measurable_const.ite (by
       simpa only [r, r', beta, alpha] using
         secondCorrectionIndicator_measurable q a p₂) measurable_const
-  simpa only [Estimates.correctionCoefficient, r, r', beta, alpha] using
-    ((measurable_const.mul
-      (Real.continuous_sin.measurable.comp hbeta).complex_ofReal).div hmult).mul
-        ((hv.mul hi).add (hv'.mul hi'))
+  exact ((measurable_const.mul
+    (Real.continuous_sin.measurable.comp hbeta).complex_ofReal).div hmult).mul
+      ((hv.mul hi).add (hv'.mul hi'))
 
 theorem rawCorrectionFunction_measurable (kappa : ℝ)
     (q : Estimates.Parameters) (a p₂ : ℝ) :
@@ -338,7 +338,7 @@ theorem rawCorrectionFunction_measurable (kappa : ℝ)
     unitTorusAngle_measurable.comp (measurable_pi_apply 2)
   have hφ : Measurable φ := h0.prodMk (h1.prodMk h2)
   have hcomp := (correctionCoefficient_measurable kappa q a p₂).comp hφ
-  simpa only [rawCorrectionFunction, φ] using hcomp
+  exact hcomp
 
 theorem abs_correctionV_le_inv {kappa : ℝ} {q : Estimates.Parameters}
     (hkappa : 0 < kappa) (hlambda : 0 < q.lambda) (a r beta : ℝ) :
@@ -399,10 +399,10 @@ theorem correctionCoefficient_norm_bound {kappa : ℝ}
     split_ifs <;> simp
   have hinvNonneg : 0 ≤ q.lambda⁻¹ := inv_nonneg.mpr hlambda.le
   have hv : ‖(v : ℂ)‖ ≤ q.lambda⁻¹ := by
-    simpa only [Complex.norm_real, v] using
+    simpa only [Complex.norm_real, Real.norm_eq_abs, v] using
       abs_correctionV_le_inv hkappa hlambda a r beta
   have hv' : ‖(v' : ℂ)‖ ≤ q.lambda⁻¹ := by
-    simpa only [Complex.norm_real, v'] using
+    simpa only [Complex.norm_real, Real.norm_eq_abs, v'] using
       abs_correctionV_le_inv hkappa hlambda a r' beta
   have hve : ‖(v : ℂ) * e‖ ≤ q.lambda⁻¹ := by
     rw [norm_mul]

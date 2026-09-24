@@ -425,7 +425,7 @@ theorem betaIntegralBound_proved {q : Parameters} (hq : q.Admissible)
         by
           have hi : IntegrableOn majorant (Set.Icc (-Real.pi) Real.pi) :=
             hmajorantCont.continuousOn.integrableOn_Icc
-          simpa only [torus, Measure.restrict_congr_set Ioc_ae_eq_Icc] using hi
+          simpa only [torus, Measure.restrict_congr_set Ioc_ae_eq_Icc, IntegrableOn] using hi
       have hpoint : ∀ beta ∈ torus, g beta ≤ majorant beta := by
         intro beta hbeta
         have hbase := correctionB_quadratic_lower hq ha hr hbeta
@@ -501,12 +501,12 @@ theorem betaIntegralBound_proved {q : Parameters} (hq : q.Admissible)
         by
           have hi : IntegrableOn first (Set.Icc (-Real.pi) Real.pi) :=
             hfirstCont.continuousOn.integrableOn_Icc
-          simpa only [torus, Measure.restrict_congr_set Ioc_ae_eq_Icc] using hi
+          simpa only [torus, Measure.restrict_congr_set Ioc_ae_eq_Icc, IntegrableOn] using hi
       have hsecondInt : Integrable second (volume.restrict torus) :=
         by
           have hi : IntegrableOn second (Set.Icc (-Real.pi) Real.pi) :=
             hsecondCont.continuousOn.integrableOn_Icc
-          simpa only [torus, Measure.restrict_congr_set Ioc_ae_eq_Icc] using hi
+          simpa only [torus, Measure.restrict_congr_set Ioc_ae_eq_Icc, IntegrableOn] using hi
       have hmajorantInt : Integrable majorant (volume.restrict torus) :=
         hfirstInt.add hsecondInt
       have hpoint : ∀ beta ∈ torus, g beta ≤ majorant beta := by

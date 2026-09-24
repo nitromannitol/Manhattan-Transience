@@ -4,8 +4,9 @@ import Mathlib.MeasureTheory.Integral.Bochner.Set
 /-!
 # A direct Hilbert--Schmidt bound for integral kernels on the torus
 
-Mathlib v4.26.0 has no theorem bounding the operator norm of an integral
-operator by the Hilbert--Schmidt norm of its kernel, and no Schur test.  This
+Mathlib (at the pinned revision `81a5d257`) has no theorem bounding the operator
+norm of an integral operator by the Hilbert--Schmidt norm of its kernel, and no
+Schur test.  This
 file proves the inequality that Step 3 of Lemma 5.4 needs, directly from
 Cauchy--Schwarz and Tonelli:
 for a kernel `k` and a function `g` on the torus,

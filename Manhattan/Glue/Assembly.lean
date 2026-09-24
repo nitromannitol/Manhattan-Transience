@@ -22,6 +22,7 @@ namespace Manhattan.Glue
 
 open Filter MeasureTheory
 open Manhattan.Operator
+open LatticeProb.Analysis
 open scoped ENNReal
 
 /-- A model-specific competitor gives the paper's fixed-frequency resolvent

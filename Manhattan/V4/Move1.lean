@@ -32,12 +32,15 @@ The statement is an existential over the competitor rather than a bound on
 swap `Manhattan.Glue.axisSwap_competitorObjective`.
 -/
 
+open scoped lp
+
 noncomputable section
 open MeasureTheory Set
 
 namespace Manhattan.V4
 
 open Manhattan.Glue Manhattan.Operator
+open LatticeProb.Analysis
 
 /-- The purely imaginary degree-one profile of a bounded measurable real profile
 is square integrable on the torus. -/
@@ -152,7 +155,7 @@ theorem scaleProfile_periodic_col (cs : ℝ) (v : ParityProfile)
 
 /-- **Move 1 of Version 4, as a competitor objective.**  This is
 `Manhattan.V4.resolventQuadratic_le_v4Move1` one step earlier, before
-`Manhattan.Operator.DissipativeSkewPair.resolventQuadratic_le` is applied, so
+`LatticeProb.Analysis.DissipativeSkewPair.resolventQuadratic_le` is applied, so
 that the bound can be transported through the axis swap
 (`Manhattan.Glue.axisSwap_competitorObjective`). -/
 theorem objective_le_v4Move1 {lambda : ℝ} (hlambda : 0 < lambda)

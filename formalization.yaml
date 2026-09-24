@@ -1,38 +1,43 @@
 version: "v0.3"
 
 project:
-  name: "Randomly oriented Manhattan lattice"
+  name: "manhattan-formalization"
   authors:
     - "Ahmed Bou-Rabee"
-    - "Yuval Peres"
-  license: "TBD"
+  license: "Apache-2.0"
 
 sources:
   - title: "The randomly oriented Manhattan lattice in 2D is transient"
     authors:
       - "Ahmed Bou-Rabee"
       - "Yuval Peres"
-    id: ""
-    url: ""
+    id: "arXiv:2609.07621"
+    url: "https://arxiv.org/abs/2609.07621"
     type: "manuscript"
     license: "all rights reserved"
-    author_contacted: "n/a"
-    prior_work: >-
-      The scaffold and audit discipline follow the authors' GMC formalization.
-      Reuse candidates were surveyed and none were adopted.
+    author_contacted: "n/a"     # the formalizer is an author of the source
+    prior_work: ""
 
 status:
   scope: >-
-    The formalization is complete. It covers the discrete randomly oriented
-    Manhattan model, countable Fourier--Walsh coordinates, Fourier transform
-    in position, the fixed-frequency variational upper bound, the explicit
-    degree-one and degree-three estimates, the concrete competitor and the
-    four-sector objective, and both main theorems. The manifest has 76
-    records, every one in state PROVED and none registered as a draft; three
-    proved predecessors are retired from the live import cone. Manhattan/
-    contains no sorry, and Theorem 1.1, Theorem 1.2 and Proposition 2.2 all
-    depend on exactly [propext, Classical.choice, Quot.sound]. The repository
-    contains no sorry.
+    A Lean 4 / Mathlib formalization of both main theorems of the paper:
+    almost-sure transience of the randomly oriented Manhattan lattice, stated
+    as finiteness of the quenched Green series at every site (Theorem 1.1),
+    and the uniform bound on the Laplace transforms of the annealed
+    continuous-time return probability with finiteness of the annealed Green
+    function (Theorem 1.2).  The frozen-statement manifest registers 76
+    statements of the pinned manuscript paper/manuscript.tex, all PROVED: the
+    model and its kernels, the countable Fourier-Walsh coordinates, the Fourier
+    transform in position and Proposition 2.1, the variational upper bound
+    (formula (15)), the fixed-frequency estimate (Proposition 2.2), the
+    degree-one and degree-three estimates (Lemma 4.1, Proposition 4.2), and
+    the Fourier-Walsh calculations of Section 5 at the concrete competitor.
+    Theorem 1.1 is proved a second time along the shorter argument of the
+    arXiv version (Manhattan/V4/).  No result from the literature is
+    assumed.  Not formalized: the open questions, the figures and the
+    discussion of related work.  The main theorems are stated in full in
+    Manhattan/MainTheorems.lean; both are additionally restated over a
+    Mathlib-only vocabulary for the Lean comparator (Audit/).
   sorry_count: 0
   sorry_in_definitions: 0
   axioms:
@@ -40,177 +45,196 @@ status:
     - "Classical.choice"
     - "Quot.sound"
   main_results:
-    - declaration: "Manhattan.Frozen.Main.theorem_1_1"
-      file: "Manhattan/Frozen/Main/Theorem11.lean"
+    - declaration: "Manhattan.transience"
+      file: "Manhattan/MainTheorems.lean"
       sorry_count: 0
-      axioms:
-        - "propext"
-        - "Classical.choice"
-        - "Quot.sound"
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "Audit/Transience/comparator.json"
       literature_dependencies: []
-      note: >-
-        Theorem 1.1; proved by Manhattan.Glue.theorem_1_1_proved_of_exists from
-        Manhattan.Glue.exists_concreteSectorEnergyBound.
-    - declaration: "Manhattan.Frozen.Main.theorem_1_2"
-      file: "Manhattan/Frozen/Main/Theorem12.lean"
+    - declaration: "Manhattan.annealed_green_bound"
+      file: "Manhattan/MainTheorems.lean"
       sorry_count: 0
-      axioms:
-        - "propext"
-        - "Classical.choice"
-        - "Quot.sound"
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "Audit/AnnealedGreenBound/comparator.json"
       literature_dependencies: []
-      note: >-
-        Theorem 1.2; proved by Manhattan.Glue.theorem_1_2_proved_of_exists.
+    - declaration: "ManhattanAudit.transience"
+      file: "Audit/Transience/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "Audit/Transience/comparator.json"
+      literature_dependencies: []
+    - declaration: "ManhattanAudit.annealed_green_bound"
+      file: "Audit/AnnealedGreenBound/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "Audit/AnnealedGreenBound/comparator.json"
+      literature_dependencies: []
 
 automation:
   methods:
     - method: "agent"
-      models: []
-      framework: ""
+      models:
+        - "gpt-5.6-sol"
+        - "claude-fable-5-1"
+        - "claude-opus-5"
+        - "claude-haiku-4-5"
+        - "glm-5.3"
+        - "claude-opus-5-5"
+      framework: >-
+        Codex CLI (OpenAI) for gpt-5.6-sol; Claude Code (Anthropic) as the
+        supervising and proving harness for the Claude models, with
+        claude-opus-5 and claude-haiku-4-5 also run as Claude Code subagents;
+        a scripted API call (tools/glm.sh, not tracked) for glm-5.3
       tool_setup: >-
-        Lake builds under Lean v4.26.0 with Mathlib v4.26.0 as the only
-        dependency. Public declarations use a content-hashed frozen-statement
-        manifest and the main results require an independent Mathlib-only
-        comparator audit.
+        The development was written under leanprover/lean4:v4.26.0 with
+        Mathlib v4.26.0 and moved on 2026-09-24 to leanprover/lean4:v4.32.0
+        with Mathlib at revision 81a5d257c8e410db227a6665ed08f64fea08e997 and
+        the shared library Lattice-Probability, at commit bbe0b90, which now
+        carries the general results first proved here.  Division of labour,
+        from the commit history, the
+        Codex logs and the ledger reports: gpt-5.6-sol (Codex CLI, reasoning
+        xhigh, 26 logged runs) built the scaffold, the model, the Walsh basis,
+        the operator and estimate layers, the frozen statements and the first
+        Theorem 1.1 comparator pair in the first seven waves (2026-09-02/03), and ran
+        read-only audits of the dependency cone, of Lemma 4.1 and of the
+        wave 5 and wave 6 seals; claude-fable-5-1 (Claude Code, 36 commits on
+        2026-09-03) proved the concrete Fourier-Walsh layer (the raising and
+        lowering operators of Lemma 5.1, (Hsym), the projection-error bounds,
+        the cubic multiplier) and the first two summands of the objective (22);
+        claude-opus-5 (Claude Code and its subagents, 92 commits from
+        2026-09-03 to 09-06) closed summands three and four, Proposition 2.2
+        and both main theorems, ran the independent second-key audits AUD-2 to
+        AUD-4, built and audited the second proof of Theorem 1.1 along the
+        arXiv version (Manhattan/V4/), and prepared the repository;
+        claude-haiku-4-5 subagents drafted single-lemma proofs for that second
+        proof (2026-09-05), every one re-checked in the tree before it was
+        accepted; glm-5.3 drafted the analytic pieces of eq:beta and the
+        central binomial bound of the Polya argument, since moved to
+        Lattice-Probability (2026-09-05), each verified before landing;
+        claude-opus-5-5 aligned the docstrings and ASSUMPTIONS.md with the
+        release, and wrote Manhattan/MainTheorems.lean, the comparator surface
+        Audit/ and this release documentation (2026-09-23), and ported the
+        development to Lean v4.32.0, replacing its copies of the operator
+        semigroup, the dissipative-skew pair, Polya's theorem, the Nash
+        inequality on Z^2 and the Poisson clock by those of
+        Lattice-Probability and corrected the pinned manuscript so that it
+        states what the Lean statements state (2026-09-24).  A frozen-statement manifest
+        (ledger/manifest.yaml) pins each registered statement by the SHA-256
+        of its text and its dependency closure, and the tools/ checkers verify
+        the hashes, a sorry-free and warning-free build and the Mathlib
+        environment linters; Manhattan/Meta/AxiomsAudit.lean prints the axiom
+        closure of every proved node.  The Lean comparator
+        (leanprover/comparator) was run on both Audit pairs on 2026-09-24 at
+        commit 34b9cb3, and both passed with the Lean kernel and with the
+        independent nanoda kernel; results and reproduction steps are in
+        Audit/COMPARATOR_RUNS.md.  .github/workflows/comparator.yml runs it on
+        request.
       cost:
-        wall_time: ""
-        accounts: ""
-        spend_usd: ""
-        hardware: ""
+        wall_time: >-
+          about five days of calendar time for the proofs (2026-09-02 to
+          2026-09-06); the release documentation and the comparator surface
+          on 2026-09-23; the port to Lean v4.32.0 on 2026-09-24
+        spend_usd: "not tracked (subscription and API accounts)"
+        hardware: "a 20-thread Intel i9-9900X / 125 GB RAM Ubuntu machine"
       prompting_notes: >-
-        Human-directed parallel development with statement-level decisions recorded
-        before integration.
-  spend_usd: ""
+        Human-directed agent work, supervised by the author, who decided every
+        statement-level question.  Every statement
+        was pinned before its proof was attempted, and proofs were accepted
+        only through the manifest, warning and axiom gates.
+  spend_usd: "not tracked (subscription and API accounts)"
   notes: >-
-    Invariants are no unregistered sorry, no sorry in definitions or support,
-    no custom axiom, and no warnings outside the exact registered draft set.
+    All Lean code in this repository was written by the listed models under the
+    supervision of the author.  Every proof is checked by the Lean kernel and
+    Mathlib; the verified library contains no sorry and no custom axiom, and no
+    result from the literature enters as a hypothesis.  The Mathlib-only
+    comparator challenge files (Audit/*/Challenge.lean) each contain exactly
+    one intentional statement-level sorry (the theorem body), which is filled
+    by the corresponding Audit/*/Solution.lean.
 
 fidelity:
   divergences: >-
-    Encoding choices, ambiguities and suspected source issues are recorded in
-    the module that meets them; no manuscript deviation is absorbed silently.
+    The pinned manuscript paper/manuscript.tex is corrected so that it states
+    what the Lean statements state, and paper/CHANGES_FROM_ARXIV.md records
+    every difference between it and arXiv:2609.07621v1, whose unmodified
+    source is paper/arxiv/.  Rendering conventions (not
+    divergences): an environment is indexed by the lines of Z^2 (axis and
+    transverse coordinate) rather than by the paper's redundant omega(z, i);
+    the quenched n-step kernel is the path count 2^-n times the number of
+    axis words from z to z'; the continuous-time kernel is defined by rate-two
+    Poisson subordination of the discrete kernel; finiteness is stated in the
+    extended nonnegative reals.  Formula (15) is formalized in its upper-bound
+    direction only, and Lemma 5.3 on its raw frequency side only.  The manifest
+    is pinned to paper/manuscript.tex, an earlier text than the arXiv
+    version; the arXiv version reaches Theorem 1.1 by a shorter argument,
+    which is formalized separately in Manhattan/V4/, and CORRESPONDENCE.md
+    records which frozen statements it does not print.  The numerical
+    constants 2048 (Theorem 1.2, Proposition 6.1) and 16 (Lemma 5.1) stated
+    in the arXiv version are not certified; the formal statements are
+    existential in the constant.
 
 review:
-  status: "in-progress"
+  status: "author-verified"
   reviewers:
     - "Ahmed Bou-Rabee"
-    - "Yuval Peres"
   notes: >-
-    All 76 manifest nodes are proved with the standard Mathlib axiom surface,
-    no node is registered as a draft, and the chain from the frequency estimate
-    to the main theorems is closed.
+    Correctness of every proof is guaranteed by the Lean kernel and Mathlib (no
+    sorry, no custom axiom).  The author ruled on the statement-level
+    decisions made during development.  Under the project's two-key rule,
+    independent second keys are recorded for part of the frozen surface; the
+    second-key wave for the twelve concrete-lemma anchors frozen on
+    2026-09-04 and for the cone of the main theorems was paused by the
+    author while the paper's core was being replaced, and those
+    keys are not recorded.  This is not external peer review.
 
 alignment:
   namespace: "Manhattan"
   statements:
-    - source: "Theorem 1.1 (almost-sure transience; thm-main)"
-      lean: "Manhattan.Frozen.Main.theorem_1_1"
-      module: "Manhattan.Frozen.Main.Theorem11"
+    - source: "Theorem 1.1 (thm:main)"
+      lean: "Manhattan.transience"
+      module: "Manhattan.MainTheorems"
       status: "proved"
-      note: >-
-        Exact anchor for Theorem 1.1; proved, standard axioms only.
-        Second reading of the statement not yet recorded.
-    - source: "Theorem 1.2 (annealed Green bound; thm-annealed)"
-      lean: "Manhattan.Frozen.Main.theorem_1_2"
-      module: "Manhattan.Frozen.Main.Theorem12"
+      note: "Certified statement Manhattan.Frozen.Main.theorem_1_1. Comparator challenge Audit/Transience/."
+    - source: "Theorem 1.2 (thm:annealed)"
+      lean: "Manhattan.annealed_green_bound"
+      module: "Manhattan.MainTheorems"
       status: "proved"
-      note: >-
-        Exact anchor for Theorem 1.2; proved, standard axioms only.
-        Second reading of the statement not yet recorded.
-    - source: "Proposition 2.1 (prop-generator)"
+      note: "Certified statement Manhattan.Frozen.Main.theorem_1_2 (Manhattan.AnnealedGreenBound). Comparator challenge Audit/AnnealedGreenBound/."
+    - source: "Proposition 2.1 (prop:generator)"
       lean: "Manhattan.Frozen.Operator.proposition_generator_v2"
       module: "Manhattan.Frozen.Operator.PropositionGeneratorV2"
       status: "proved"
-      note: "Pointwise-intertwining successor; second reading recorded."
-    - source: "Formula (11), upper-bound direction (var-ineq)"
+      note: "Pointwise-fiber successor."
+    - source: "Formula (15), upper-bound direction (var-ineq)"
       lean: "Manhattan.Frozen.Operator.resolventQuadratic_le"
       module: "Manhattan.Frozen.Operator.ResolventQuadraticLe"
       status: "proved"
       note: "Upper-bound direction only."
-    - source: "Proposition 2.2 (prop-frequency)"
+    - source: "Proposition 2.2 (prop:frequency)"
       lean: "Manhattan.Frozen.Estimates.proposition_frequency"
       module: "Manhattan.Frozen.Estimates.PropositionFrequency"
       status: "proved"
-      note: >-
-        Torus-restricted v2; provider Manhattan.Glue.proposition_frequency_v2.
-        Second reading of the statement not yet recorded.
-    - source: "Lemma 4.1 (lem-onecoin-v3)"
+      note: "Torus-restricted version; provider Manhattan.Glue.proposition_frequency_v2."
+    - source: "Lemma 4.1 (lem:onecoin)"
       lean: "Manhattan.Frozen.Estimates.lemma_one_coin_v3"
       module: "Manhattan.Frozen.Estimates.LemmaOneCoinV3"
       status: "proved"
-      note: "Version 3 adds explicit integral-finiteness certificates; second reading recorded."
-    - source: "Proposition 4.2 (prop-key)"
+      note: "Version 3 adds explicit integral-finiteness certificates."
+    - source: "Proposition 4.2 (prop:key)"
       lean: "Manhattan.Frozen.Estimates.proposition_key"
       module: "Manhattan.Frozen.Estimates.PropositionKey"
       status: "proved"
-      note: "Current scalar degree-three correction anchor."
-    - source: "Equation (Hsym) = (20) (eq-hsym-concrete)"
-      lean: "Manhattan.Frozen.Glue.hsym_concrete"
-      module: "Manhattan.Frozen.Glue.HsymConcrete"
-      status: "sealed"
-      note: "Concrete (Hsym). Second reading of the statement not yet recorded."
-    - source: "Lemma 5.1, raising side (lem-raise-concrete-raising)"
-      lean: "Manhattan.Frozen.Glue.lemma_raise_concrete_raising"
-      module: "Manhattan.Frozen.Glue.LemmaRaiseConcreteRaising"
-      status: "sealed"
-      note: "Equation (45) in the concrete model. Second reading of the statement not yet recorded."
-    - source: "Lemma 5.1, adjoint side (lem-raise-concrete-adjoint)"
-      lean: "Manhattan.Frozen.Glue.lemma_raise_concrete_adjoint"
-      module: "Manhattan.Frozen.Glue.LemmaRaiseConcreteAdjoint"
-      status: "sealed"
-      note: "Second reading of the statement not yet recorded."
-    - source: "Lemma 5.2, operator half (lem-four-concrete-raising-energy)"
-      lean: "Manhattan.Frozen.Glue.lemma_four_concrete_raising_energy"
-      module: "Manhattan.Frozen.Glue.LemmaFourConcreteRaisingEnergy"
-      status: "sealed"
-      note: "Degree-four raising energy bound. Second reading of the statement not yet recorded."
-    - source: "Lemma 5.2 at the competitor (lem-four-concrete-competitor)"
-      lean: "Manhattan.Frozen.Glue.lemma_four_concrete_competitor"
-      module: "Manhattan.Frozen.Glue.LemmaFourConcreteCompetitor"
-      status: "sealed"
-      note: "Second reading of the statement not yet recorded."
-    - source: "Lemma 5.3, raw frequency side (lem-distinct-concrete-frequency)"
-      lean: "Manhattan.Frozen.Glue.lemma_distinct_concrete_frequency"
-      module: "Manhattan.Frozen.Glue.LemmaDistinctConcreteFrequency"
-      status: "sealed"
-      note: >-
-        RAW/FREQUENCY side only. The operator-level identification of
-        The operator-level bridge for projectionErrorHMinusSq is open; this node does not
-        claim it. Second reading of the statement not yet recorded.
-    - source: "Lemma 5.4 (lem-correction-calculation-concrete)"
-      lean: "Manhattan.Frozen.Glue.lemma_correction_calculation_concrete"
-      module: "Manhattan.Frozen.Glue.LemmaCorrectionCalculationConcrete"
-      status: "sealed"
-      note: "Raw mixed residual bound. Second reading of the statement not yet recorded."
-    - source: "Objective (22), summand 1 (eq-e-summand-one)"
-      lean: "Manhattan.Frozen.Glue.summand_one_bound"
-      module: "Manhattan.Frozen.Glue.SummandOne"
-      status: "sealed"
-      note: "Second reading of the statement not yet recorded."
-    - source: "Objective (22), summand 2 (eq-e-summand-two)"
-      lean: "Manhattan.Frozen.Glue.summand_two_bound"
-      module: "Manhattan.Frozen.Glue.SummandTwo"
-      status: "sealed"
-      note: "Second reading of the statement not yet recorded."
-    - source: "Objective (22), summand 3 (eq-e-summand-three)"
-      lean: "Manhattan.Frozen.Glue.summand_three_bound"
-      module: "Manhattan.Frozen.Glue.SummandThree"
-      status: "sealed"
-      note: "Carries the sgn(sin p1) multiplier. Second reading of the statement not yet recorded."
-    - source: "Objective (22), summand 4 (eq-e-summand-four)"
-      lean: "Manhattan.Frozen.Glue.summand_four_bound"
-      module: "Manhattan.Frozen.Glue.SummandFour"
-      status: "sealed"
-      note: "Second reading of the statement not yet recorded."
-    - source: "Estimate E_p(f_p,k_p) <= C sqrt(L) (eq-construction-sector-energy)"
-      lean: "Manhattan.Frozen.Glue.sector_energy_bound"
-      module: "Manhattan.Frozen.Glue.SectorEnergyBound"
-      status: "sealed"
-      note: >-
-        Third display of eq:construction = (25), manuscript.tex:785-790; the
-        repository's shorthand "(23)". Second reading of the statement not yet recorded.
+      note: "Scalar degree-three correction estimate."
+    - source: "Sections 4 and 5 at the concrete competitor: (Hsym), Lemmas 5.1 to 5.4, the four summands of (22) and the sector energy bound"
+      lean: "Manhattan.Frozen.Glue.*"
+      module: "Manhattan.Frozen.Glue"
+      status: "proved"
+      note: "One registered statement per anchor; the full map is CORRESPONDENCE.md."
+    - source: "Theorem 1.1 along the arXiv version"
+      lean: "Manhattan.V4.theorem_1_1_v4"
+      module: "Manhattan.V4"
+      status: "proved"
+      note: "Second proof; not a manifest node."
 
 acknowledgements: >-
-  Built on Lean 4, Mathlib, Lake, and leanprover/comparator. Funding and tool
-  acknowledgements follow the source manuscript and will be finalized at
-  release.
+  The paper is joint work with Yuval Peres.  Built on Lean 4, Mathlib, Lake and
+  leanprover/comparator.

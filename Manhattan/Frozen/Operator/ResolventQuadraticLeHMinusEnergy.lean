@@ -1,4 +1,4 @@
-import Manhattan.Operator.Variational
+import Manhattan.Library
 
 /-! Frozen proved operator statement. -/
 
@@ -13,4 +13,4 @@ theorem Manhattan.Frozen.Operator.resolventQuadratic_le_hMinusEnergy : ∀ {E : 
   (P : Manhattan.Operator.DissipativeSkewPair E) {lambda : ℝ} (hlambda : 0 < lambda) (V : E),
   P.resolventQuadratic hlambda V ≤ P.hMinusEnergy hlambda V
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.DissipativeSkewPair.resolventQuadratic_le_hMinusEnergy
+:= @LatticeProb.Analysis.DissipativeSkewPair.resolventQuadratic_le_hMinusEnergy

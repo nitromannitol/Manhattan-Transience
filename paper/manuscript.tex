@@ -200,8 +200,8 @@ That is, the walk is transient in almost every environment.
 We deduce Theorem~\ref{thm:main} from an annealed bound in continuous time.
 Consider the continuous-time walk that jumps from $z$ to $z+\omega(z,i)e_i$
 at rate $1$, for $i=1$ and $i=2$.  Its total jump rate is $2$, and its jump
-chain is the walk in \eqref{eq:rule}.  Write
-$p^\omega_t(z,z')$ for its transition probabilities and set
+chain is the walk in \eqref{eq:rule}.  Write $p^\omega_t(z,z')$ for its transition probabilities.  The jump times form a rate-two Poisson process independent of the jump chain, so
+$p^\omega_t(z,z')=\sum_{n\geq0}e^{-2t}(2t)^np^\omega_n(z,z')/n!$.  Set
 $\overline p_t(0,0)=\E p^\omega_t(0,0)$.
 
 \begin{theorem}\label{thm:annealed}
@@ -709,8 +709,8 @@ the resulting formulas and restricts the objective to the two degrees the
 construction uses.
 
 Products of distinct independent signs form an orthonormal basis for
-functions of finitely many signs.  Conditional expectation onto increasing
-finite sets of signs and $L^2$ martingale convergence extend this basis to
+functions of finitely many signs.  Enumerate the countably many line signs.  Conditional expectation onto the first $N$
+signs and $L^2$ martingale convergence as $N\to\infty$ extend this basis to
 $L^2(\P)$; see \citet*[Theorem~1.5]{ODo14} for the finite-dimensional
 Fourier--Walsh expansion.
 
@@ -725,7 +725,7 @@ coefficient $f$ such that
   F(\omega)=\sum_{\mathbf x,\mathbf j}f_{\mathbf j}(\mathbf x)
   \prod_{a=1}^n\omega(x_a,j_a)\, ,
 \]
-where $f$ vanishes when two line indices coincide.  If $F\in\Hs_n$ and
+where the sum runs over ordered $n$-tuples of line indices and $f$ vanishes when two line indices coincide.  If $F\in\Hs_n$ and
 $G\in\Hs_m$ have coefficients $f$ and $g$, then
 \begin{equation}\label{eq:iso}
   \ip FG=\1_{\{m=n\}}n!\ip fg_{\ell^2}\, .
@@ -963,11 +963,11 @@ The degree-three coefficient is chosen to cancel as much of that residual as
 possible.  Set $w(r,\beta)=\1_I(r)$.  For fixed $(r,\beta)$, the degree-three
 coefficient is determined by the following
 quadratic minimization in the remaining frequency $\alpha$.  If $B>0$ and
-$M>0$ on a measurable set $J$, if $\eta,w\in\mathbb C$, and
+$M>0$ on a measurable set $J$ with $\int_J\dd m/M<\infty$, if $\eta,w\in\mathbb C$, and
 \[
   \sigma=\abs\eta^2\int_J\frac{\dd m(\alpha)}{M(\alpha)}\, ,
 \]
-then
+then, with the infimum over measurable $u$ such that $\int_J\abs u\dd m$ and $\int_JM\abs u^2\dd m$ are finite,
 \begin{equation}\label{eq:rank-one}
  \inf_u\left\{\int_JM(\alpha)\abs{u(\alpha)}^2\dd m(\alpha)
  +\frac1B\left|w-\eta\int_Ju(\alpha)\dd m(\alpha)\right|^2\right\}
@@ -1187,7 +1187,7 @@ distinct line indices.  Then
 where $P$ is the total frequency of the result and the $a$-th term omits the
 $a$-th line index.  Moreover,
 $D_n=\Pi_{n+1}\widetilde D_n\Pi_n$, and $\Pi_n$ commutes with every
-multiplier that is a function of $P$.
+continuous multiplier that is a function of $P$.
 \end{lemma}
 
 If $\Pi$ is an orthogonal projection commuting with a positive multiplier
@@ -1230,9 +1230,9 @@ occupies slot $a$, then $P'=P-q_a$ and $(q_a)_{j_a}=0$, so
 $P'_{j_a}=P_{j_a}$.  This gives \eqref{eq:raise}.  The new index must be
 distinct from the existing indices, which gives the projection $\Pi_{n+1}$.
 
-A multiplier depending on $P$ is a linear combination of simultaneous
-translations of all line indices.  Such translations preserve distinctness,
-so $\Pi_n$ commutes with the multiplier.
+For $y\in\Z^2$, multiplication by $e^{iy\cdot P}$ is a constant multiple of the simultaneous translation of all line indices by $y$.
+Such translations preserve distinctness, so $\Pi_n$ commutes with them.  A continuous multiplier that is a function of $P$ is a
+uniform limit of linear combinations of these translations, so $\Pi_n$ commutes with the multiplier.
 \end{proof}
 
 \begin{proof}[Proof of Lemma~\ref{lem:formulas}]

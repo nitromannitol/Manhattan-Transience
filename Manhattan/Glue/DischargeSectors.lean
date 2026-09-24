@@ -18,6 +18,8 @@ multiple of `E_p(f,k)`.  Everything here is unconditional.
 Paper: `manuscript.tex:762-790`.
 -/
 
+open scoped lp
+
 noncomputable section
 
 open ComplexConjugate InnerProductSpace RCLike
@@ -121,7 +123,7 @@ theorem inner_walshSynthesis_left (c : Manhattan.WalshCoefficient) (x : WalshL2)
   rw [Manhattan.walshSynthesis, Finsupp.linearCombination_apply, Finsupp.sum_inner]
   apply Finsupp.sum_congr
   intro S _
-  simp only [smul_eq_mul]
+  rw [inner_smul_left]
 
 /-- A Walsh character outside degree `n` is orthogonal to every vector of
 Walsh degree `n`. -/
@@ -131,14 +133,16 @@ theorem inner_walshL2_eq_zero_of_mem_walshDegree {n : ℕ} {x : WalshL2}
   classical
   have hspan :
       Submodule.span ℂ {f | ∃ T : Finset LineIndex, T.card = n ∧ f = Manhattan.walshL2 T} ≤
-        LinearMap.ker (innerSL ℂ (Manhattan.walshL2 S) : WalshL2 →L[ℂ] ℂ) := by
+        LinearMap.ker ((innerSL ℂ (Manhattan.walshL2 S) : WalshL2 →L[ℂ] ℂ) :
+          WalshL2 →ₗ[ℂ] ℂ) := by
     rw [Submodule.span_le]
     rintro _ ⟨T, hT, rfl⟩
-    simp only [SetLike.mem_coe, LinearMap.mem_ker,
+    simp only [SetLike.mem_coe, LinearMap.mem_ker, ContinuousLinearMap.coe_coe,
       innerSL_apply_apply, Manhattan.inner_walshL2]
     rw [if_neg (fun hST : S = T => hS (by rw [hST]; exact hT))]
   have hclosed : IsClosed
-      ((LinearMap.ker (innerSL ℂ (Manhattan.walshL2 S) : WalshL2 →L[ℂ] ℂ)) : Set WalshL2) :=
+      ((LinearMap.ker ((innerSL ℂ (Manhattan.walshL2 S) : WalshL2 →L[ℂ] ℂ) :
+        WalshL2 →ₗ[ℂ] ℂ)) : Set WalshL2) :=
     ContinuousLinearMap.isClosed_ker (innerSL ℂ (Manhattan.walshL2 S))
   exact Submodule.topologicalClosure_minimal _ hspan hclosed hx
 
@@ -166,7 +170,7 @@ theorem inner_walshL2_concreteFiberA_eq_zero {n : ℕ} {x : WalshL2}
     (hup : U.card + 1 ≠ n) (hdown : U.card - 1 ≠ n) :
     inner ℂ (Manhattan.walshL2 U) (Manhattan.concreteFiberA p x) = 0 := by
   rw [← (Manhattan.concreteFiberA p).adjoint_inner_left,
-    Manhattan.concreteFiberA_skewAdjoint, ContinuousLinearMap.neg_apply,
+    Manhattan.concreteFiberA_skewAdjoint, neg_apply,
     Manhattan.concreteFiberA_walshL2_eq_D_sub_DStar, inner_neg_left,
     inner_sub_left,
     inner_walshSynthesis_eq_zero_of_mem_walshDegree
@@ -258,6 +262,7 @@ variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E]
   [CompleteSpace E]
 
 open Manhattan.Operator
+open LatticeProb.Analysis
 
 /-- The dual energy of `u` is the primal energy of `H^{-1}u`. -/
 theorem hMinusEnergy_eq_hEnergy (P : DissipativeSkewPair E) {lambda : ℝ}

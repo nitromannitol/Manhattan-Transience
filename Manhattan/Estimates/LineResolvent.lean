@@ -30,9 +30,9 @@ private theorem tendsto_half_nhdsGT_neg_pi :
     Tendsto (fun x : ℝ => x / 2) (𝓝[>] (-Real.pi)) (𝓝[>] (-(Real.pi / 2))) := by
   rw [tendsto_nhdsWithin_iff]
   constructor
-  · simpa only [neg_div] using
-      (tendsto_id.div_const (2 : ℝ)).mono_left
-        (inf_le_left : 𝓝[>] (-Real.pi) ≤ 𝓝 (-Real.pi))
+  · have h : Tendsto (fun x : ℝ => x / 2) (𝓝[>] (-Real.pi)) (𝓝 ((-Real.pi) / 2)) :=
+      ((continuous_id.div_const (2 : ℝ)).tendsto (-Real.pi)).mono_left nhdsWithin_le_nhds
+    rwa [neg_div] at h
   · filter_upwards [self_mem_nhdsWithin] with x hx
     calc
       -(Real.pi / 2) = (-Real.pi) / 2 := by ring
@@ -52,14 +52,15 @@ private theorem lineAntiderivative_hasDerivAt {mu x : ℝ} (hmu : 0 < mu)
   have hcos : Real.cos (x / 2) ≠ 0 := (Real.cos_pos_of_mem_Ioo hhalf).ne'
   have htan : HasDerivAt (fun y : ℝ => Real.tan (y / 2))
       (1 / Real.cos (x / 2) ^ 2 / 2) x := by
-    convert (Real.hasDerivAt_tan hcos).comp x ((hasDerivAt_id x).div_const 2) using 1
+    refine ((Real.hasDerivAt_tan hcos).comp x ((hasDerivAt_id' x).div_const 2)).congr_deriv ?_
     ring
   have hinner : HasDerivAt
       (fun y : ℝ => (mu + 2) / Real.sqrt (mu * (mu + 2)) * Real.tan (y / 2))
       ((mu + 2) / Real.sqrt (mu * (mu + 2)) *
         (1 / Real.cos (x / 2) ^ 2 / 2)) x := htan.const_mul _
   have harctan := hinner.arctan
-  convert harctan.const_mul (2 / Real.sqrt (mu * (mu + 2))) using 1
+  refine (harctan.const_mul (2 / Real.sqrt (mu * (mu + 2)))).congr_deriv ?_
+  symm
   have hsqrtSq : Real.sqrt (mu * (mu + 2)) ^ 2 = mu * (mu + 2) :=
     Real.sq_sqrt hprod.le
   have htrig : dispersion x = 2 * Real.sin (x / 2) ^ 2 := by

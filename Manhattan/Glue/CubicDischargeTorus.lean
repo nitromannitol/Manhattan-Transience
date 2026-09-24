@@ -80,11 +80,9 @@ theorem integral_pi_three (H : U → U → U → ℝ)
   refine integral_congr_ae (Filter.Eventually.of_forall fun v => ?_)
   have h := (MeasureTheory.measurePreserving_piUnique
     (fun _ : Fin 1 => (volume : Measure U))).integral_comp' (fun w => H u v w)
-  simpa using h
+  exact h
 
 end Pi
-
-attribute [local instance] Real.fact_zero_lt_one
 
 /-- The angle representative of a point of the fundamental domain. -/
 theorem unitTorusAngle_coe {a : ℝ}

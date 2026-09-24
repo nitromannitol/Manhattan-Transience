@@ -44,11 +44,11 @@ theorem annulusKernel_hasDerivAt {x : ℝ} (hx : 0 < x) (hx1 : x ≤ 1) :
     have := Real.log_nonpos hx.le hx1
     linarith
   have hinner : HasDerivAt (fun y => 1 - Real.log y) (-1 / x) x := by
-    convert (hasDerivAt_const x 1).sub (Real.hasDerivAt_log hx.ne') using 1
-    ring
+    exact ((hasDerivAt_const x 1).sub (Real.hasDerivAt_log hx.ne')).congr_deriv (by ring)
   have hsqrt := hinner.sqrt hpos.ne'
   have hinv := hsqrt.inv (Real.sqrt_pos.2 hpos).ne'
-  convert hinv.const_mul 2 using 1
+  refine (hinv.const_mul 2).congr_deriv ?_
+  symm
   unfold annulusKernel
   field_simp [(Real.sqrt_pos.2 hpos).ne']
 

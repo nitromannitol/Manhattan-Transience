@@ -35,7 +35,7 @@ theorem symbolWeight_eq_sub_re (n : ℕ) (lam : ℝ) (p : Fin 2 → ℝ) (σ : F
 theorem continuous_lineSymbol (n : ℕ) (p : Fin 2 → ℝ) (σ : Fin n → Axis) :
     Continuous (lineSymbol n p σ) := by
   unfold lineSymbol
-  refine continuous_const.mul (continuous_finset_sum _ fun i _ => ?_)
+  refine continuous_const.mul (continuous_finsetSum _ fun i _ => ?_)
   exact ((continuous_const.mul (mFourier _).continuous).add
     (continuous_const.mul (mFourier _).continuous)).sub continuous_const
 
@@ -61,8 +61,6 @@ UnitAddCircle` instance, so that `AddCircle.integral_haarAddCircle` and
 `AddCircle.haarAddCircle` explicitly and is therefore instance-independent. -/
 
 section Resolvent
-
-attribute [local instance] Real.fact_zero_lt_one
 
 theorem integral_haar_inv_dispersion {mu : ℝ} (hmu : 0 < mu) (c : ℝ) :
     ∫ x : UnitAddCircle,
@@ -178,8 +176,6 @@ theorem symbolWeight_insertNth {n : ℕ} (lam : ℝ) (p : Fin 2 → ℝ) (i : Fi
 
 section SlotIntegral
 
-attribute [local instance] Real.fact_zero_lt_one
-
 /-- **The slot integral.**  Integrating the inverse degree-four weight over the
 appended line's frequency gives the closed form of equation (22) at the mass
 `lambda + d(P_i)`. -/
@@ -262,7 +258,6 @@ slot the new line occupies. -/
 
 section FixedSlot
 
-attribute [local instance] Real.fact_zero_lt_one
 attribute [local instance] orderedInverseUnitAddCircleMeasureSpace
 attribute [local instance] orderedInverseUnitAddCircleIsProbabilityMeasure
 
@@ -715,7 +710,7 @@ theorem lineIndexFourier_degreeRaiseSymbol (p : Fin 2 → ℝ) (i : Fin 2)
           Complex.exp (-Complex.I * p i) •
             freqShift 3 (-Operator.axisVector i) (lineIndexFourier 3 g)) := by
   rw [degreeRaiseSymbol]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sub_apply,
+  simp only [smul_apply, sub_apply,
     LinearIsometryEquiv.coe_toLinearIsometry, LinearIsometry.coe_toContinuousLinearMap,
     map_smul, map_sub]
   rw [pullTranslate_eq_translateCoeff, pullTranslate_eq_translateCoeff, neg_neg,
@@ -955,7 +950,6 @@ theorem integral_slot_le_multiplier {q : Estimates.Parameters} {kappa : ℝ}
 
 section Final
 
-attribute [local instance] Real.fact_zero_lt_one
 attribute [local instance] orderedInverseUnitAddCircleMeasureSpace
 attribute [local instance] orderedInverseUnitAddCircleIsProbabilityMeasure
 

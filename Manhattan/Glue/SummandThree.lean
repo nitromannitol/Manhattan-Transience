@@ -115,6 +115,7 @@ Paper: `manuscript.tex:743-758` ((Hsym)), `manuscript.tex:791-800`
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
 
+open scoped lp
 open MeasureTheory UnitAddTorus
 
 namespace Manhattan.Glue
@@ -146,7 +147,7 @@ theorem hMinusEnergy_homogeneousWalshSynthesis (n : ℕ) {lam : ℝ} (hlam : 0 <
     rw [ContinuousLinearEquiv.symm_apply_eq]
     show homogeneousWalshSynthesis n c = P.H lam (homogeneousWalshSynthesis n d)
     rw [fiberH_homogeneousWalshSynthesis, hd]
-  rw [Manhattan.Operator.DissipativeSkewPair.hMinusEnergy, hinv,
+  rw [LatticeProb.Analysis.DissipativeSkewPair.hMinusEnergy, hinv,
     (homogeneousWalshSynthesis n).inner_map_map,
     ← re_inner_coeffH_inv_eq_integral n hlam p c d hd]
   exact inner_re_symm c d
@@ -377,8 +378,6 @@ theorem hMinusEnergy_type12WalshSynthesis {lam : ℝ} (hlam : 0 < lam)
 
 section Symbol
 
-attribute [local instance] Real.fact_zero_lt_one
-
 theorem totalFrequency_type12_zero (p : Fin 2 → ℝ) (t : UnitAddTorus (Fin 2)) :
     totalFrequency 2 p type12Pattern t 0 = p 0 + 2 * Real.pi * torusLift (t 1) := by
   unfold totalFrequency lineFrequency
@@ -459,13 +458,12 @@ theorem integral_pi_two (H : U → U → ℝ)
   refine integral_congr_ae (Filter.Eventually.of_forall fun uu => ?_)
   have h := (MeasureTheory.measurePreserving_piUnique
     (fun _ : Fin 1 => (volume : Measure U))).integral_comp' (fun v => H uu v)
-  simpa using h
+  exact h
 
 end ChangeOfVariables
 
 section TorusTwo
 
-attribute [local instance] Real.fact_zero_lt_one
 attribute [local instance] cubicUnitAddCircleMeasureSpace
 
 local instance : IsProbabilityMeasure (volume : Measure UnitAddCircle) :=
@@ -670,8 +668,6 @@ theorem hMinusEnergy_type11WalshSynthesis {lam : ℝ} (hlam : 0 < lam)
     type11Pattern (type11FreqFun c)
 
 section SymbolTwoRow
-
-attribute [local instance] Real.fact_zero_lt_one
 
 theorem totalFrequency_type11_zero (p : Fin 2 → ℝ) (t : UnitAddTorus (Fin 2)) :
     totalFrequency 2 p type11Pattern t 0 = p 0 := by
@@ -1061,7 +1057,8 @@ theorem torusIntegral₂_swap {f : ℝ → ℝ → ℝ}
   refine Integrable.mono' (integrable_const C) ?_ ?_
   · exact hfm.aestronglyMeasurable
   · filter_upwards with z
-    simpa [Real.norm_eq_abs] using hfb z.1 z.2
+    have h : |Function.uncurry f z| ≤ C := hfb z.1 z.2
+    simpa [Real.norm_eq_abs] using h
 
 /-- Reflection invariance of the normalized torus integral. -/
 theorem torusIntegral_neg {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
@@ -1612,8 +1609,6 @@ theorem map_torusIntegral (L : ℂ →L[ℝ] ℝ) {g : ℝ → ℂ}
   rw [Estimates.torusIntegral, Estimates.torusIntegral, map_smul,
     ← L.integral_comp_comm hg]
 
-attribute [local instance] Real.fact_zero_lt_one
-
 local instance : IsProbabilityMeasure (volume : Measure UnitAddCircle) :=
   inferInstanceAs (IsProbabilityMeasure AddCircle.haarAddCircle)
 
@@ -2033,7 +2028,7 @@ theorem inner_verticalPair_concreteFiberA_type112 (p : Fin 2 → ℝ)
     · rw [Finset.filter_insert, if_neg (by simp [a7_originLine_one]), hempty]
       simp
   rw [concreteFiberA_eq_walshRaise_sub_walshLower,
-    ContinuousLinearMap.sub_apply, inner_sub_right]
+    sub_apply, inner_sub_right]
   have hraise : inner ℂ (Manhattan.walshL2 U)
       (walshRaise p (Manhattan.type112WalshSynthesis c)) = 0 := by
     refine inner_walshL2_eq_zero_of_mem_walshDegree
@@ -2140,7 +2135,7 @@ theorem type11WalshAnalysis_concreteFiberA_add (p : Fin 2 → ℝ)
   rw [Manhattan.type11WalshAnalysis, Manhattan.walshSectorAnalysis_apply,
     Manhattan.type11WalshAnalysis, Manhattan.walshSectorAnalysis_apply,
     map_add, inner_add_right, hk', add_zero,
-    concreteFiberA_eq_walshRaise_sub_walshLower, ContinuousLinearMap.sub_apply,
+    concreteFiberA_eq_walshRaise_sub_walshLower, sub_apply,
     inner_sub_right]
   have hlow : inner ℂ (Manhattan.walshL2 T.1)
       (walshLower p (Manhattan.axisDegreeOneSynthesis Manhattan.Axis.horizontal c)) = 0 := by
@@ -2179,7 +2174,7 @@ theorem type12WalshAnalysis_concreteFiberA_add (p : Fin 2 → ℝ)
     Manhattan.type12WalshAnalysis, Manhattan.walshSectorAnalysis_apply,
     map_add, inner_add_right, sub_neg_eq_add]
   congr 1
-  rw [concreteFiberA_eq_walshRaise_sub_walshLower, ContinuousLinearMap.sub_apply,
+  rw [concreteFiberA_eq_walshRaise_sub_walshLower, sub_apply,
     inner_sub_right]
   have hlow : inner ℂ (Manhattan.walshL2 T.1)
       (walshLower p (Manhattan.axisDegreeOneSynthesis Manhattan.Axis.horizontal c)) = 0 := by
@@ -2200,7 +2195,7 @@ theorem inner_verticalPair_concreteFiberA_add (p : Fin 2 → ℝ)
           Manhattan.type112WalshSynthesis kc)) = 0 := by
   classical
   rw [map_add, inner_add_right, inner_verticalPair_concreteFiberA_type112 p kc hU hv,
-    add_zero, concreteFiberA_eq_walshRaise_sub_walshLower, ContinuousLinearMap.sub_apply,
+    add_zero, concreteFiberA_eq_walshRaise_sub_walshLower, sub_apply,
     inner_sub_right, inner_verticalPair_walshRaise_axisDegreeOne p c hU hv]
   have hlow : inner ℂ (Manhattan.walshL2 U)
       (walshLower p (Manhattan.axisDegreeOneSynthesis Manhattan.Axis.horizontal c)) = 0 := by
@@ -2545,7 +2540,7 @@ theorem type12FreqFun_eq_of_mFourierCoeff (cc : ℓ²(Manhattan.Type12Index, ℂ
     by_cases h : ∃ S : Manhattan.Type12Index, type12RawIndex S = n
     · obtain ⟨S, rfl⟩ := h
       rw [hon S, type12RawExtend, l2Extend_apply]
-    · push_neg at h
+    · push Not at h
       rw [hoff n h, type12RawExtend, l2Extend_apply_eq_zero _ _ _ h]
   show (UnitAddTorus.mFourierBasis (d := Fin 2)).repr.symm (type12RawExtend cc) = G
   rw [← hrepr, LinearIsometryEquiv.symm_apply_apply]
@@ -2567,7 +2562,7 @@ theorem type11FreqFun_eq_of_mFourierCoeff (cc : ℓ²(Manhattan.Type11Index, ℂ
     by_cases h : ∃ S : Manhattan.Type11Index, type11RawIndex S = n
     · obtain ⟨S, rfl⟩ := h
       rw [hon S, type11RawExtend, l2Extend_apply]
-    · push_neg at h
+    · push Not at h
       rw [hoff n h, type11RawExtend, l2Extend_apply_eq_zero _ _ _ h]
   show (UnitAddTorus.mFourierBasis (d := Fin 2)).repr.symm (type11RawExtend cc) = G
   rw [← hrepr, LinearIsometryEquiv.symm_apply_apply]

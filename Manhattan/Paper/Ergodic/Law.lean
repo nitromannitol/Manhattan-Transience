@@ -45,7 +45,7 @@ noncomputable def ergodicLaw : Measure Environment :=
 theorem ergodicLaw_apply (s : Set Environment) :
     ergodicLaw s =
       (4 : ℝ≥0∞)⁻¹ * ∑ uv : Orientation × Orientation, s.indicator 1 (altEnv uv) := by
-  simp only [ergodicLaw, Measure.smul_apply, smul_eq_mul, Measure.finset_sum_apply,
+  simp only [ergodicLaw, Measure.smul_apply, smul_eq_mul, Measure.finsetSum_apply,
     Measure.dirac_apply]
 
 private theorem four_inv_mul_four : (4 : ℝ≥0∞)⁻¹ * 4 = 1 :=
@@ -169,13 +169,13 @@ theorem ergodicLaw_eq_zero_or_one_of_ae_invariant (s : Set Environment)
           ergodicLaw (s ∆ (translateEnvironment (transitionSite uv uv') ⁻¹' s)) :=
         measure_mono (Set.singleton_subset_iff.mpr hin)
       rw [ergodicLaw_singleton, hinv] at hle
-      exact absurd (le_antisymm hle (zero_le _)) (by norm_num)
+      exact absurd (le_antisymm hle zero_le) (by norm_num)
     rw [ergodicLaw_apply, sum_signPair]
     simp only [Set.indicator_apply, hall, if_pos, Pi.one_apply]
     rw [show (1 : ℝ≥0∞) + 1 + (1 + 1) = 4 by norm_num]
     exact four_inv_mul_four
   · left
-    push_neg at hmem
+    push Not at hmem
     rw [ergodicLaw_apply, sum_signPair]
     simp only [Set.indicator_apply, hmem, if_neg, not_false_iff]
     simp

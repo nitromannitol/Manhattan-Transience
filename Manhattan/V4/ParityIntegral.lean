@@ -75,9 +75,9 @@ theorem integral_inv_affine {A c a b : ℝ} (hA : 0 < A) (hc : 0 < c)
     have h1 : HasDerivAt (fun y : ℝ => A + y) 1 x := by
       simpa using (hasDerivAt_id x).const_add A
     have h2 : HasDerivAt (fun y : ℝ => Real.log (A + y)) ((A + x)⁻¹) x := by
-      simpa using (Real.hasDerivAt_log hxpos.ne').comp x h1
+      exact ((Real.hasDerivAt_log hxpos.ne').comp x h1).congr_deriv (mul_one _)
     have h3 := h2.const_mul c⁻¹
-    convert h3 using 1
+    refine h3.congr_deriv ?_
     rw [mul_inv]
   have hint : IntervalIntegrable (fun x : ℝ => (c * (A + x))⁻¹) volume a b := by
     apply ContinuousOn.intervalIntegrable

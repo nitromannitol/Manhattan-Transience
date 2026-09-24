@@ -1,4 +1,4 @@
-import Manhattan.Operator.Variational
+import Manhattan.Library
 
 /-! Frozen proved operator statement. -/
 
@@ -12,4 +12,4 @@ theorem Manhattan.Frozen.Operator.plus_bijective : ∀ {E : Type u_1} [_inst : N
   [_inst_1 : InnerProductSpace ℂ E] [_inst_2 : CompleteSpace E] (P : Manhattan.Operator.DissipativeSkewPair E)
   {lambda : ℝ}, 0 < lambda → Function.Bijective ⇑(P.plus lambda)
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.DissipativeSkewPair.plus_bijective
+:= @LatticeProb.Analysis.DissipativeSkewPair.plus_bijective

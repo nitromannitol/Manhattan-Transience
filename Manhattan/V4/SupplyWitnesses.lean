@@ -37,6 +37,7 @@ open MeasureTheory Set
 namespace Manhattan.V4
 
 open Manhattan.Glue Manhattan.Operator
+open LatticeProb.Analysis
 
 /-! ## Explicit admissible data -/
 
@@ -228,7 +229,7 @@ theorem strict_mixedFourierCoefficient_raising_ne_zero :
 theorem hMinusEnergy_zero {lambda : ℝ} (hlambda : 0 < lambda) (p : Fin 2 → ℝ) :
     (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hMinusEnergy hlambda 0
       = 0 := by
-  rw [Manhattan.Operator.DissipativeSkewPair.hMinusEnergy, map_zero, inner_zero_left]
+  rw [LatticeProb.Analysis.DissipativeSkewPair.hMinusEnergy, map_zero, inner_zero_left]
   simp
 
 /-- **The degree-zero sector really is additive, not parallelogram-bounded.**

@@ -30,7 +30,7 @@ theorem loweringCoefficient_eq_walshRaise (p : Fin 2 → ℝ) (x : WalshL2)
       inner ℂ (walshRaise p (walshL2 S)) x -
         inner ℂ (walshL2 S) (walshRaise p x) := by
   rw [loweringCoefficient, concreteFiberA_eq_walshRaise_sub_walshLower,
-    ContinuousLinearMap.sub_apply, inner_sub_left,
+    sub_apply, inner_sub_left,
     walshLower_eq_adjoint_walshRaise, ContinuousLinearMap.adjoint_inner_left]
 
 /-- `D*` is the adjoint of `D`: whenever the raising image of `x` has no

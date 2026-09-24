@@ -14,6 +14,7 @@ to turn the sector energy into the scalar integral bounded by
 Paper: `manuscript.tex:888-940`, `manuscript.tex:1138-1141`.
 -/
 
+open scoped lp
 open MeasureTheory Set
 
 namespace Manhattan.Glue
@@ -113,7 +114,6 @@ theorem fourierBasis_repr_rowTorusShift (s : ℝ)
 
 section TorusTwoComplex
 
-attribute [local instance] Real.fact_zero_lt_one
 attribute [local instance] cubicUnitAddCircleMeasureSpace
 
 local instance : IsProbabilityMeasure (volume : Measure UnitAddCircle) :=

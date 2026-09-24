@@ -89,7 +89,7 @@ theorem dispersion_quadratic_bounds {s : ℝ} (hs : |s| ≤ Real.pi) :
   · have hcos := Real.cos_le_one_sub_mul_cos_sq hs
     have h := sub_le_sub_left hcos 1
     convert h using 1
-    all_goals ring
+    all_goals (try unfold dispersion); ring
   · have hcos := Real.one_sub_sq_div_two_le_cos (x := s)
     dsimp [dispersion]
     linarith
@@ -130,10 +130,12 @@ private theorem logScaleAntiderivative_hasDerivAt {b x : ℝ} (hx : 0 < x) (hxb 
   have hlog : Real.log x ≤ Real.log b := Real.log_le_log hx hxb
   have hinner : 0 < 1 + Real.log b - Real.log x := by linarith
   have hderiv : HasDerivAt (fun y : ℝ => 1 + Real.log b - Real.log y) (-1 / x) x := by
-    convert (hasDerivAt_const x (1 + Real.log b)).sub (Real.hasDerivAt_log hx.ne') using 1
-    all_goals ring
+    exact ((hasDerivAt_const x (1 + Real.log b)).sub (Real.hasDerivAt_log hx.ne')).congr_deriv
+      (by ring)
   have hsqrt := hderiv.sqrt hinner.ne'
-  convert hsqrt.const_mul (-2) using 1
+  refine (hsqrt.const_mul (-2)).congr_deriv ?_
+  have hx0 : x ≠ 0 := hx.ne'
+  have hs0 : Real.sqrt (1 + Real.log b - Real.log x) ≠ 0 := (Real.sqrt_pos.2 hinner).ne'
   field_simp
 
 /-- The exact `u = log(r₀/r)` integral used in Step 3 of Proposition 4.2. -/

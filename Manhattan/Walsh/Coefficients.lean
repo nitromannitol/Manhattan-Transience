@@ -166,7 +166,8 @@ theorem coeFn_walshSynthesis (c : WalshCoefficient) :
           change c S * (walshL2 S : Environment → ℂ) ω = c S * walshCharacter S ω
           rw [hω.2]
         exact hterm.add ih
-  simpa only [walshPolynomial, Finsupp.linearCombination_apply, smul_eq_mul] using hsum
+  refine hsum.trans (Filter.Eventually.of_forall fun ω => ?_)
+  simp only [walshPolynomial, Finsupp.linearCombination_apply, smul_eq_mul, Finsupp.sum]
 
 @[simp] theorem walshSynthesis_add (c d : WalshCoefficient) :
     walshSynthesis (c + d) = walshSynthesis c + walshSynthesis d := by

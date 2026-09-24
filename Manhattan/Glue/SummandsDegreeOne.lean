@@ -40,9 +40,9 @@ theorem hasSum_axisDegreeOneSynthesis (i : Manhattan.Axis)
     (fun m : ℤ => ({(i, m)} : Finset Manhattan.LineIndex)) (by
       intro m n h
       simpa using h))
-  simpa only [Manhattan.axisDegreeOneSynthesis,
-    LinearIsometry.toSpanSingleton_apply] using
-    horth.orthogonalFamily.hasSum_linearIsometry c
+  have h := horth.orthogonalFamily.hasSum_linearIsometry c
+  simp only [Manhattan.axisDegreeOneSynthesis, LinearIsometry.toSpanSingleton_apply] at h ⊢
+  exact h
 
 /-- A lattice translation moves a horizontal line by its second coordinate. -/
 theorem translateWalshIndex_rowSingleton (x : Manhattan.Operator.Lattice) (k : ℤ) :
@@ -113,7 +113,8 @@ theorem inner_row_environmentShift (F : Lp ℂ 2 haarTorus) :
       Manhattan.Axis.horizontal (k + 1) c, ← inner_conj_symm]
   have h6 : HasSum (fun k : ℤ => c k * conj (c (k + 1)))
       (inner ℂ y (Manhattan.environmentShift (Manhattan.Operator.axisVector 1) y)) := by
-    simpa only [h5] using h4
+    simp only [h5] at h4
+    exact h4
   -- the torus side
   have hrepr : ∀ k : ℤ, fourierBasis.repr (fourierMul (-1) F) k = c (k + 1) := by
     intro k
@@ -130,7 +131,7 @@ theorem inner_row_environmentShift (F : Lp ℂ 2 haarTorus) :
 /-! ### (Hsym) in degree one -/
 
 /-- `RCLike.re` and `Complex.re` agree on `ℂ`; the quadratic forms of
-`Manhattan/Operator/Variational.lean` use the former and the explicit
+`LatticeProb.Analysis.DissipativeSkewOperator` use the former and the explicit
 exponential lemmas of Mathlib use the latter. -/
 theorem re_eq_complexRe (u : ℂ) : re u = u.re := rfl
 
@@ -201,8 +202,8 @@ theorem hEnergy_degreeOneRow (lambda : ℝ) (p : Fin 2 → ℝ) (F : Lp ℂ 2 ha
           (Complex.exp (Complex.I * (p 1 : ℂ)) • E1 y +
             Complex.exp (-Complex.I * (p 1 : ℂ)) • E1' y - (2 : ℂ) • y)) := by
     rw [Manhattan.concreteFiberS_formula]
-    simp only [ContinuousLinearMap.smul_apply,
-      ContinuousLinearMap.sub_apply, ContinuousLinearMap.add_apply,
+    simp only [smul_apply,
+      sub_apply, add_apply,
       ContinuousLinearMap.id_apply, Fin.sum_univ_two]
     rw [hfix, hfix']
   have hnorm : ‖y‖ = ‖F‖ := Manhattan.norm_degreeOneFrequencySynthesis _ _
@@ -291,8 +292,8 @@ theorem hEnergy_degreeOneRow (lambda : ℝ) (p : Fin 2 → ℝ) (F : Lp ℂ 2 ha
   -- the energy in terms of the torus data
   have hEn : (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hEnergy lambda y =
       lambda * ‖F‖ ^ 2 - ((Real.cos (p 0) - 2) * ‖F‖ ^ 2 + re (z * J)) := by
-    rw [Manhattan.Operator.DissipativeSkewPair.hEnergy,
-      Manhattan.Operator.DissipativeSkewPair.re_inner_H_apply, hnorm]
+    rw [LatticeProb.Analysis.DissipativeSkewPair.hEnergy,
+      LatticeProb.Analysis.DissipativeSkewPair.re_inner_H_apply, hnorm]
     rw [show ((Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).S y) =
       Manhattan.concreteFiberS p y from rfl, hre, hcombine]
   -- the right-hand side

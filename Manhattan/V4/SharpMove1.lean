@@ -20,6 +20,7 @@ open MeasureTheory Set
 namespace Manhattan.V4
 
 open Manhattan.Glue Manhattan.Operator Manhattan.V4.Frequency
+open LatticeProb.Analysis
 
 /-- A constant admissible in the column bound (6) at the shared constant `κ = 14`:
 `∫ dm(β)/(B + σ) ≤ C_β/(|r| √(log(1/|r|)))` on the annulus `√δ ≤ |r| ≤ 1/4`. -/

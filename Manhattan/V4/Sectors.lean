@@ -25,6 +25,8 @@ the two-row/mixed split inside the degree-two sector.
 The main statement is `resolventQuadratic_le_v4Move1`.
 -/
 
+open scoped lp
+
 noncomputable section
 open MeasureTheory ComplexConjugate InnerProductSpace RCLike
 open scoped ComplexConjugate InnerProduct
@@ -33,6 +35,7 @@ namespace Manhattan.V4
 
 
 open Manhattan.Operator Manhattan.Glue
+open LatticeProb.Analysis
 
 /-- `H` is symmetric for the full complex inner product. -/
 theorem inner_H_symm {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E]

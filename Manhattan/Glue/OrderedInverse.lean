@@ -20,7 +20,7 @@ step needs is `N = (orderedH n lam p)^{-1}`, and only the Finset picture had an
 inverse (`Manhattan.Glue.coeffH_bijective`).  This file supplies the ordered
 one, by the same route: the ordered symmetric part `orderedFiberS` is
 self-adjoint and dissipative, so it assembles into a
-`Manhattan.Operator.DissipativeSkewPair`, whose `H` is *definitionally*
+`LatticeProb.Analysis.DissipativeSkewPair`, whose `H` is *definitionally*
 `orderedH` and whose coercive form is invertible by Lax--Milgram.  The inverse
 is bounded by `lambda^{-1}`, is nonnegative, and commutes with both the
 coincident-row projection and the choice of ordered representative, so it feeds
@@ -46,6 +46,8 @@ type-`(1,1,2)` index.
 Paper: `manuscript.tex:1193-1198` (equation (46), `eq:contract`), `manuscript.tex:1176-1200`
 (equation (45)), `manuscript.tex:719-751` (equations (19), (20) and (Hsym)).
 -/
+
+open scoped lp
 
 noncomputable section
 
@@ -92,8 +94,8 @@ theorem inner_orderedFiberS_symm (n : ℕ) (p : Fin 2 → ℝ)
     (c d : OrderedCoefficient n) :
     (inner ℂ (orderedFiberS n p c) d : ℂ) = inner ℂ c (orderedFiberS n p d) := by
   rw [orderedFiberS]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sum_apply,
-    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+  simp only [smul_apply, sum_apply,
+    add_apply, sub_apply,
     ContinuousLinearMap.id_apply, LinearIsometryEquiv.coe_toLinearIsometry,
     LinearIsometry.coe_toContinuousLinearMap]
   rw [inner_smul_left, inner_smul_right, sum_inner, inner_sum]
@@ -123,7 +125,7 @@ theorem inner_orderedFiberS_symm (n : ℕ) (p : Fin 2 → ℝ)
 
 /-- The ordered-picture dissipative pair. -/
 def orderedPair (n : ℕ) (p : Fin 2 → ℝ) :
-    Operator.DissipativeSkewPair (OrderedCoefficient n) where
+    LatticeProb.Analysis.DissipativeSkewPair (OrderedCoefficient n) where
   S := orderedFiberS n p
   A := 0
   selfAdjoint_S := by
@@ -502,8 +504,6 @@ theorem inner_walshL2_patternLines_type112WalshSynthesis
       = UnitAddTorus.mFourierCoeff (type112SymmFreqFun c) m := by
   rw [Manhattan.inner_walshL2_type112WalshSynthesis,
     type112CoefficientAt_patternLines, mFourierCoeff_type112SymmFreqFun]
-
-attribute [local instance] Real.fact_zero_lt_one
 
 /-- The unit circle carries its normalized Haar measure throughout this file. -/
 local instance orderedInverseUnitAddCircleMeasureSpace :

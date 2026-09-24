@@ -305,7 +305,7 @@ noncomputable def phasedShift (p : Fin 2 → ℝ) (i : Fin 2) : WalshL2 →L[ℂ
 
 theorem phasedShift_norm_apply (p : Fin 2 → ℝ) (i : Fin 2) (f : WalshL2) :
     ‖phasedShift p i f‖ = ‖f‖ := by
-  rw [phasedShift, ContinuousLinearMap.smul_apply, norm_smul,
+  rw [phasedShift, smul_apply, norm_smul,
     Complex.norm_exp_I_mul_ofReal]
   simp only [one_mul]
   change ‖walshPermutation (translateFinset (Operator.axisVector i)) f‖ = ‖f‖
@@ -332,8 +332,8 @@ theorem fiberSymmetricTerm_isSelfAdjoint (p : Fin 2 → ℝ) (i : Fin 2) :
 theorem fiberSymmetricTerm_re_inner (p : Fin 2 → ℝ) (i : Fin 2)
     (f : WalshL2) :
     re ⟪fiberSymmetricTerm p i f, f⟫_ℂ = -‖phasedShift p i f - f‖ ^ 2 := by
-  simp only [fiberSymmetricTerm, ContinuousLinearMap.sub_apply,
-    ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+  simp only [fiberSymmetricTerm, sub_apply,
+    add_apply, smul_apply,
     ContinuousLinearMap.id_apply, inner_sub_left, inner_add_left, inner_smul_left,
     map_sub, map_add, mul_re, ContinuousLinearMap.adjoint_inner_left, inner_re_symm,
     map_ofNat, inner_self_eq_norm_sq, inner_self_im]
@@ -358,7 +358,7 @@ theorem phasedShift_norm_le (p : Fin 2 → ℝ) (i : Fin 2) :
 theorem phasedShift_adjoint_norm_le (p : Fin 2 → ℝ) (i : Fin 2) :
     ‖(phasedShift p i)†‖ ≤ 1 := by
   refine ContinuousLinearMap.opNorm_le_bound _ zero_le_one fun f => ?_
-  rw [phasedShift_adjoint, ContinuousLinearMap.smul_apply, norm_smul]
+  rw [phasedShift_adjoint, smul_apply, norm_smul]
   have hphase : ‖Complex.exp (-Complex.I * p i)‖ = 1 := by
     convert Complex.norm_exp_I_mul_ofReal (-p i) using 1
     push_cast
@@ -382,7 +382,7 @@ theorem fiberSymmetricTerm_norm_le (p : Fin 2 → ℝ) (i : Fin 2) :
       have hVstar : ‖(phasedShift p i)†‖ ≤ 1 := phasedShift_adjoint_norm_le p i
       have hId : ‖(2 : ℂ) • ContinuousLinearMap.id ℂ WalshL2‖ ≤ 2 := by
         refine ContinuousLinearMap.opNorm_le_bound _ (by norm_num) fun f => ?_
-        simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.id_apply, norm_smul]
+        simp only [smul_apply, ContinuousLinearMap.id_apply, norm_smul]
         norm_num
       linarith
     _ = 4 := by norm_num
@@ -429,7 +429,7 @@ private theorem fiberAntisymmetricSummand_adjoint (p : Fin 2 → ℝ) (i : Fin 2
   rw [ContinuousLinearMap.adjoint_comp, originSignMultiplier_adjoint,
     fiberSkewTerm_adjoint]
   ext f
-  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.neg_apply]
+  simp only [ContinuousLinearMap.comp_apply, neg_apply]
   rw [← ContinuousLinearMap.comp_apply, ← originSignMultiplier_commute_fiberSkewTerm,
     ContinuousLinearMap.comp_apply]
 
@@ -476,7 +476,7 @@ theorem concreteFiberS_nonpositive (p : Fin 2 → ℝ) (f : WalshL2) :
       re ⟪concreteFiberS p f, f⟫_ℂ =
         (2 : ℝ)⁻¹ * ∑ i, re ⟪fiberSymmetricTerm p i f, f⟫_ℂ := by
     rw [concreteFiberS, Fin.sum_univ_two]
-    simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+    simp only [smul_apply, add_apply,
       inner_smul_left, inner_add_left, map_add, mul_re]
     norm_num
   rw [hform]

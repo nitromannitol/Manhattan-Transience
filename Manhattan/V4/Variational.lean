@@ -1,4 +1,4 @@
-import Manhattan.Operator.Variational
+import LatticeProb.Analysis.DissipativeSkewOperator
 
 /-!
 # Version 4, Step 1: the variational bound by Cauchy-Schwarz
@@ -8,7 +8,7 @@ quadratic form by the two-line Cauchy-Schwarz argument of the Version 4
 rewrite, replacing the appeal to Komorowski-Landim-Olla, Theorem 4.1.
 
 The abstract setting is the one already fixed in
-`Manhattan/Operator/Variational.lean`: a `DissipativeSkewPair` packages a
+`LatticeProb.Analysis.DissipativeSkewOperator`: a `DissipativeSkewPair` packages a
 bounded self-adjoint `S` with `re ⟪S x, x⟫ ≤ 0` and a bounded skew-adjoint `A`;
 `H lambda = lambda • I - S` satisfies `re ⟪H x, x⟫ ≥ lambda ‖x‖²`, so `H`,
 `H + A` and `H - A` are all invertible by Lax-Milgram. Those facts are cited
@@ -46,7 +46,7 @@ open scoped ComplexConjugate InnerProduct
 
 namespace Manhattan.V4
 
-open Manhattan.Operator
+open LatticeProb.Analysis
 
 variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E]
 variable (P : DissipativeSkewPair E)
@@ -106,7 +106,7 @@ theorem resolventQuadratic_le_cauchySchwarz {lambda : ℝ} (hlambda : 0 < lambda
   have hAskew : re ⟪z, P.A g⟫_ℂ = -re ⟪P.A z, g⟫_ℂ := by
     have h := congrArg re (P.A.adjoint_inner_left z g)
     rw [P.skewAdjoint_A] at h
-    simp only [ContinuousLinearMap.neg_apply, inner_neg_left, map_neg] at h
+    simp only [neg_apply, inner_neg_left, map_neg] at h
     rw [inner_re_symm z (P.A g), inner_re_symm (P.A z) g]
     linarith
   have hHsymm : re ⟪z, P.H lambda g⟫_ℂ = re ⟪P.H lambda z, g⟫_ℂ :=
@@ -133,14 +133,8 @@ theorem resolventQuadratic_le_cauchySchwarz {lambda : ℝ} (hlambda : 0 < lambda
   rw [hstep1]
   linarith
 
-/-- The driftless competitor `g = 0`, which needs no mean-zero hypothesis. -/
-theorem resolventQuadratic_le_hMinusEnergy_cauchySchwarz {lambda : ℝ} (hlambda : 0 < lambda)
-    (V : E) : P.resolventQuadratic hlambda V ≤ P.hMinusEnergy hlambda V := by
-  simpa [DissipativeSkewPair.hEnergy, DissipativeSkewPair.hMinusEnergy] using
-    resolventQuadratic_le_cauchySchwarz P hlambda V 0 (by simp)
-
 /-- For the record: the Cauchy-Schwarz bound is a one-line consequence of the
-completing-the-square bound `Manhattan.Operator.DissipativeSkewPair.resolventQuadratic_le`,
+completing-the-square bound `LatticeProb.Analysis.DissipativeSkewPair.resolventQuadratic_le`,
 which holds for every `g` and therefore does not use the mean-zero hypothesis
 at all. The completing-the-square statement is the stronger primitive; the
 Cauchy-Schwarz proof above is the shorter route to it. -/

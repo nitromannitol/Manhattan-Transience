@@ -803,7 +803,7 @@ theorem torusIntegral_energy_inner (hkappa : 0 < kappa) (hdelta : 0 < delta)
             (evenMajorant kappa delta r r' beta)⁻¹)) := by
     rw [torusIntegral_real_smul, torusIntegral_real_smul]
   rw [funext (evenMajorant_mul_norm_parityKernel_sq hkappa hdelta v.toFun r · beta),
-    torusIntegral_add_of_bounded (hmA.add hmB) hmC hbAB hbC,
+    torusIntegral_add_of_bounded (hmA.fun_add hmB) hmC hbAB hbC,
     torusIntegral_add_of_bounded hmA hmB hbA hbB, hA, hB, hC, add_zero]
 
 set_option maxHeartbeats 1000000 in

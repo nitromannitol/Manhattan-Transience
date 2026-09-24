@@ -19,6 +19,8 @@ open scoped BigOperators
 
 namespace Manhattan.Paper
 
+open LatticeProb (tsum_mul_le_sqrt_mul_sqrt)
+
 theorem summable_rowSq (ω : Environment) {t : ℝ} (ht : 0 ≤ t) (x : Site) :
     Summable fun z => ck ω t x z ^ 2 := by
   refine Summable.of_nonneg_of_le (fun z => sq_nonneg _) (fun z => ?_) (summable_ck_row ω ht x)

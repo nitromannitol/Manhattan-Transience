@@ -299,7 +299,7 @@ theorem support_of_logThreshold {q : Estimates.Parameters}
   have hlogEq : Estimates.logPos (q.r0 / q.delta a) = Real.log (q.r0 / q.delta a) := by
     rw [Estimates.logPos, max_eq_right]
     by_contra hcon
-    push_neg at hcon
+    push Not at hcon
     rw [Estimates.logPos, max_eq_left hcon.le] at hposPos
     exact lt_irrefl _ hposPos
   rw [hlogEq] at hpos

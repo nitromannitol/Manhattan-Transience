@@ -20,6 +20,7 @@ Paper: `manuscript.tex:719-740`, `manuscript.tex:793-840`,
 `manuscript.tex:1176-1205`.
 -/
 
+open scoped lp
 open ComplexConjugate InnerProductSpace MeasureTheory
 open scoped BigOperators ComplexConjugate
 
@@ -52,7 +53,7 @@ theorem loweringCoefficient_eq_neg_inner (p : Fin 2 → ℝ) (x : WalshL2)
     (S : Finset LineIndex) :
     loweringCoefficient p x S = -inner ℂ (walshL2 S) (concreteFiberA p x) := by
   rw [loweringCoefficient, ← (concreteFiberA p).adjoint_inner_left,
-    concreteFiberA_skewAdjoint, ContinuousLinearMap.neg_apply, inner_neg_left]
+    concreteFiberA_skewAdjoint, neg_apply, inner_neg_left]
   simp
 
 private theorem conj_half_exp (t : ℝ) :

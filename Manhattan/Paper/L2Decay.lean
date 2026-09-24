@@ -1,6 +1,8 @@
-import Manhattan.Paper.Nash
+import LatticeProb.Walk.NashZ2
 import Manhattan.Paper.ContKernel
 import Mathlib.Analysis.Calculus.SmoothSeries
+import Mathlib.Analysis.Calculus.Deriv.MeanValue
+import Mathlib.Analysis.Calculus.Deriv.Inv
 
 /-!
 # The Nash differential inequality and the `ℓ²` decay
@@ -8,7 +10,7 @@ import Mathlib.Analysis.Calculus.SmoothSeries
 The Manhattan generator is `2(Q - I)`, whose symmetric part is the rate-two
 simple-random-walk generator: `tsum_mul_directedNeighbor` is exactly that
 statement in the form needed here, and it holds for every orientation.
-Feeding the Nash inequality of `Manhattan.Paper.Nash` into
+Feeding the Nash inequality of `LatticeProb.Walk.NashZ2` into
 
   `d/dt ∑_z p_t(z,y)² = - E(p_t(·,y))`
 
@@ -18,6 +20,10 @@ gives `∑_z p_t(z,y)² ≤ 1/(1+2t)`, the `ℓ¹ → ℓ²` half of `prop:time`
 open scoped BigOperators
 
 namespace Manhattan.Paper
+
+open LatticeProb (poissonWeight poissonWeight_nonneg summable_poissonWeight poissonWeightPrev
+  dPoissonWeight hasDerivAt_poissonWeight poissonWeightPrev_nonneg)
+open LatticeProb.NashZ2 (unitH unitV gradH gradV energy nash)
 
 
 theorem poissonWeight_le_scaled {s b : ℝ} (hs : 0 ≤ s) (hsb : s ≤ b) (n : ℕ) :
@@ -67,11 +73,6 @@ theorem poissonWeight_le_bound {s b : ℝ} (hs : 0 ≤ s) (hsb : s ≤ b) (n : �
         mul_le_mul_of_nonneg_right h1 (pow_nonneg hs2 n)
     _ = (2 * s) ^ n := one_mul _
     _ ≤ (2 * b) ^ n := h2
-
-theorem poissonWeightPrev_nonneg {s : ℝ} (hs : 0 ≤ s) (n : ℕ) : 0 ≤ poissonWeightPrev s n := by
-  cases n with
-  | zero => simp [poissonWeightPrev]
-  | succ m => exact poissonWeight_nonneg hs m
 
 theorem poissonWeightPrev_le_bound {s b : ℝ} (hs : 0 ≤ s) (hsb : s ≤ b) (n : ℕ) :
     poissonWeightPrev s n ≤ (2 * b) ^ (n - 1) / ((n - 1).factorial : ℝ) := by
@@ -398,7 +399,7 @@ theorem colSq_le (ω : Environment) {t : ℝ} (ht : 0 ≤ t) (y : Site) :
       linarith
     have hfin : 1 + 2 * t ≤ (∑' z, ck ω t z y ^ 2)⁻¹ := by
       by_contra hcon
-      push_neg at hcon
+      push Not at hcon
       have hd0 : 0 < (1 + 2 * t - (∑' z, ck ω t z y ^ 2)⁻¹) / 4 := by linarith
       have hs : 0 < min ((1 + 2 * t - (∑' z, ck ω t z y ^ 2)⁻¹) / 4) t := lt_min hd0 hpos
       have hst : min ((1 + 2 * t - (∑' z, ck ω t z y ^ 2)⁻¹) / 4) t ≤ t := min_le_right _ _

@@ -15,6 +15,8 @@ transform (20), multiplication by `lambda + theta P` with
 Paper: `manuscript.tex:692-760` and `manuscript.tex:576-600`.
 -/
 
+open scoped lp
+
 noncomputable section
 
 open MeasureTheory UnitAddTorus
@@ -526,8 +528,8 @@ theorem concreteFiberS_homogeneousWalshSynthesis (n : ℕ) (p : Fin 2 → ℝ)
     concreteFiberS p (homogeneousWalshSynthesis n c) =
       homogeneousWalshSynthesis n (coeffFiberS n p c) := by
   rw [concreteFiberS_formula, coeffFiberS]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sum_apply,
-    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+  simp only [smul_apply, sum_apply,
+    add_apply, sub_apply,
     ContinuousLinearMap.id_apply, LinearIsometry.map_smul, map_sum,
     LinearIsometry.map_add, LinearIsometry.map_sub]
   congr 1
@@ -552,8 +554,8 @@ theorem lineIndexFourier_coeffFiberS (n : ℕ) (p : Fin 2 → ℝ)
     lineIndexFourier n (coeffFiberS n p c) =
       freqFiberS n p (lineIndexFourier n c) := by
   rw [coeffFiberS, freqFiberS]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sum_apply,
-    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+  simp only [smul_apply, sum_apply,
+    add_apply, sub_apply,
     ContinuousLinearMap.id_apply, LinearIsometry.map_smul, map_sum,
     LinearIsometry.map_add, LinearIsometry.map_sub,
     LinearIsometryEquiv.coe_toLinearIsometry,
@@ -564,7 +566,7 @@ theorem lineIndexFourier_coeffFiberS (n : ℕ) (p : Fin 2 → ℝ)
 
 /-- `H_n = lambda - S_p` on degree-`n` Walsh coefficients. -/
 def coeffPair (n : ℕ) (p : Fin 2 → ℝ) :
-    Operator.DissipativeSkewPair (DegreeCoefficient n) where
+    LatticeProb.Analysis.DissipativeSkewPair (DegreeCoefficient n) where
   S := coeffFiberS n p
   A := 0
   selfAdjoint_S := by
@@ -605,7 +607,7 @@ theorem lineIndexFourier_coeffH (n : ℕ) (lam : ℝ) (p : Fin 2 → ℝ)
     (c : DegreeCoefficient n) :
     lineIndexFourier n (coeffH n lam p c) = freqH n lam p (lineIndexFourier n c) := by
   rw [coeffH_eq, freqH]
-  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+  simp only [sub_apply, smul_apply,
     ContinuousLinearMap.id_apply, LinearIsometry.map_sub, LinearIsometry.map_smul,
     lineIndexFourier_coeffFiberS]
 
@@ -618,7 +620,7 @@ theorem fiberH_homogeneousWalshSynthesis (n : ℕ) (lam : ℝ) (p : Fin 2 → �
   rw [coeffH_eq]
   show ((lam : ℂ) • ContinuousLinearMap.id ℂ WalshL2 - concreteFiberS p)
       (homogeneousWalshSynthesis n c) = _
-  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+  simp only [sub_apply, smul_apply,
     ContinuousLinearMap.id_apply, LinearIsometry.map_sub, LinearIsometry.map_smul,
     concreteFiberS_homogeneousWalshSynthesis]
 
@@ -939,8 +941,8 @@ theorem freqFiberS_apply (n : ℕ) (p : Fin 2 → ℝ) (f : LineFreqL2 n)
           Complex.exp (-Complex.I * (p 1 : ℂ)) •
             charMul n (lineShiftVector n (-Operator.axisVector 1) σ) (f σ) -
           (2 : ℂ) • f σ)) := by
-    simp only [freqFiberS, ContinuousLinearMap.smul_apply,
-      ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+    simp only [freqFiberS, smul_apply,
+      add_apply, sub_apply,
       ContinuousLinearMap.id_apply, Fin.sum_univ_two]
     rfl
   rw [hexpand, lineSymbolMap, Fin.sum_univ_two]
@@ -1188,8 +1190,8 @@ theorem orderedFourier_orderedFiberS (n : ℕ) (p : Fin 2 → ℝ)
     orderedFourier n (orderedFiberS n p c) =
       freqFiberS n p (orderedFourier n c) := by
   rw [orderedFiberS, freqFiberS]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sum_apply,
-    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+  simp only [smul_apply, sum_apply,
+    add_apply, sub_apply,
     ContinuousLinearMap.id_apply, LinearIsometry.map_smul, map_sum,
     LinearIsometry.map_add, LinearIsometry.map_sub,
     LinearIsometryEquiv.coe_toLinearIsometry,
@@ -1203,7 +1205,7 @@ theorem orderedFourier_orderedH (n : ℕ) (lam : ℝ) (p : Fin 2 → ℝ)
     (c : OrderedCoefficient n) :
     orderedFourier n (orderedH n lam p c) = freqH n lam p (orderedFourier n c) := by
   rw [orderedH, freqH]
-  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+  simp only [sub_apply, smul_apply,
     ContinuousLinearMap.id_apply, LinearIsometry.map_sub, LinearIsometry.map_smul,
     orderedFourier_orderedFiberS]
 
@@ -1212,8 +1214,8 @@ theorem orderedFiberS_comm_offDiagonalProjection (n : ℕ) (p : Fin 2 → ℝ)
     offDiagonalProjection n (orderedFiberS n p c) =
       orderedFiberS n p (offDiagonalProjection n c) := by
   rw [orderedFiberS]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sum_apply,
-    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+  simp only [smul_apply, sum_apply,
+    add_apply, sub_apply,
     ContinuousLinearMap.id_apply, map_smul, map_sum, map_add, map_sub,
     LinearIsometryEquiv.coe_toLinearIsometry,
     LinearIsometry.coe_toContinuousLinearMap]
@@ -1243,7 +1245,7 @@ theorem orderedH_comm_offDiagonalProjection (n : ℕ) (lam : ℝ) (p : Fin 2 →
     offDiagonalProjection n (orderedH n lam p c) =
       orderedH n lam p (offDiagonalProjection n c) := by
   rw [orderedH]
-  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+  simp only [sub_apply, smul_apply,
     ContinuousLinearMap.id_apply, map_sub, map_smul,
     orderedFiberS_comm_offDiagonalProjection]
 
@@ -1270,8 +1272,8 @@ picture used for the off-diagonal projection. -/
 theorem walshOrdered_coeffFiberS (n : ℕ) (p : Fin 2 → ℝ) (c : DegreeCoefficient n) :
     walshOrdered n (coeffFiberS n p c) = orderedFiberS n p (walshOrdered n c) := by
   rw [coeffFiberS, orderedFiberS]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sum_apply,
-    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+  simp only [smul_apply, sum_apply,
+    add_apply, sub_apply,
     ContinuousLinearMap.id_apply, LinearIsometry.map_smul, map_sum,
     LinearIsometry.map_add, LinearIsometry.map_sub,
     LinearIsometryEquiv.coe_toLinearIsometry,
@@ -1284,7 +1286,7 @@ theorem walshOrdered_coeffH (n : ℕ) (lam : ℝ) (p : Fin 2 → ℝ)
     (c : DegreeCoefficient n) :
     walshOrdered n (coeffH n lam p c) = orderedH n lam p (walshOrdered n c) := by
   rw [coeffH_eq, orderedH]
-  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+  simp only [sub_apply, smul_apply,
     ContinuousLinearMap.id_apply, LinearIsometry.map_sub, LinearIsometry.map_smul,
     walshOrdered_coeffFiberS]
 

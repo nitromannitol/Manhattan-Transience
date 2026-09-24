@@ -130,7 +130,8 @@ theorem torusAbs_periodic : Function.Periodic torusAbs (2 * Real.pi) := by
 
 theorem torusAbs_measurable : Measurable torusAbs := by
   have h : Measurable fun x : ℝ => ‖Glue.torusWrap x‖ := Glue.torusWrap_measurable.norm
-  simpa [torusAbs, Real.norm_eq_abs] using h
+  simp only [Real.norm_eq_abs] at h
+  exact h
 
 /-- The distance to `2πℤ` is an even function.  This is the property the
 parity construction uses. -/

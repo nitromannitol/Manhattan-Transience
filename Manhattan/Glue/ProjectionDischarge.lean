@@ -779,8 +779,7 @@ theorem diagonalMultiplierEnergy_slice_le (hkappa : 0 ≤ kappa)
         exact energy_integrand_bound hkappa hlambda hCnonneg
           (norm_rawDiagonalPart_le hC alpha beta) beta alpha
     · have h := Integrable.smul ((2 * Real.pi)⁻¹) hFint.integral_prod_left
-      simpa only [Estimates.torusIntegral, Function.uncurry_apply_pair]
-        using h
+      exact h
     · intro alpha
       exact diagonal_pointwise_le hkappa hlambda hk beta alpha
   rw [torusIntegral_swap hFint] at hstep1

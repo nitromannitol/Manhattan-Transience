@@ -37,7 +37,7 @@ A declaration byte span starts at its column-zero command line and ends before
 the next recognized column-zero declaration or top-level command.  Frozen
 declarations are not indexed a second time: their own `frozen_sha256` and
 manifest node protect those bytes, while this closure covers the unfrozen Manhattan
-support surface that D-015 targets.
+support surface of each frozen statement.
 
 This is conservative but not an elaboration-equivalent dependency oracle.
 False positives can arise when a local binder shadows a uniquely named Manhattan

@@ -4,9 +4,10 @@ import Manhattan.Glue.ConcreteMultiplier
 # Weighted contractivity of the ordered representative
 
 Paper: `manuscript.tex:1193-1198` (equation (46), `eq:contract`) and
-`manuscript.tex:1233-1235` (the sentence "a multiplier depending on $P$ is a
-linear combination of simultaneous translations of all line indices"; its
-statement form is the commutation clause of Lemma 5.1 at
+`manuscript.tex:1233-1235` (the sentences "multiplication by $e^{iy\cdot P}$
+is a constant multiple of the simultaneous translation of all line indices by
+$y$" and "such translations preserve distinctness"; their statement form is the
+commutation clause of Lemma 5.1 at
 `manuscript.tex:1189-1190`), `manuscript.tex:1212-1221` (Lemma 5.3,
 `lem:distinct`).
 
@@ -26,6 +27,8 @@ translations permute the coordinates preserving that subspace, and every
 multiplier in the total frequency `P` is assembled from such translations, so
 the quadratic form splits with no cross term.
 -/
+
+open scoped lp
 
 noncomputable section
 
@@ -382,9 +385,9 @@ theorem norm_orderedRestrict (c : OrderedCoefficient n) :
 
 /-! ### Translations preserve the ordered representatives
 
-This is the paper's "a multiplier in `P` is a combination of simultaneous
-translations of all line indices, which preserve distinctness"
-(`manuscript.tex:1233-1235`).  Sorting is equivariant
+This is the paper's "multiplication by `e^{iy·P}` is a constant multiple of
+the simultaneous translation of all line indices by `y`", and "such translations
+preserve distinctness" (`manuscript.tex:1233-1235`).  Sorting is equivariant
 (`Manhattan.Glue.degreeEnum_translateDegreeIndex`), so a simultaneous
 translation not only preserves distinctness but also preserves the *choice of
 ordered representative*.  That is what upgrades L3's
@@ -429,8 +432,8 @@ theorem orderedFiberS_comm_orderedRepresentativeProjection (p : Fin 2 → ℝ)
     orderedRepresentativeProjection n (orderedFiberS n p c)
       = orderedFiberS n p (orderedRepresentativeProjection n c) := by
   rw [orderedFiberS]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sum_apply,
-    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+  simp only [smul_apply, sum_apply,
+    add_apply, sub_apply,
     ContinuousLinearMap.id_apply, map_smul, map_sum, map_add, map_sub,
     LinearIsometryEquiv.coe_toLinearIsometry,
     LinearIsometry.coe_toContinuousLinearMap]
@@ -447,7 +450,7 @@ theorem orderedH_comm_orderedRepresentativeProjection (lam : ℝ) (p : Fin 2 →
     orderedRepresentativeProjection n (orderedH n lam p c)
       = orderedH n lam p (orderedRepresentativeProjection n c) := by
   rw [orderedH]
-  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+  simp only [sub_apply, smul_apply,
     ContinuousLinearMap.id_apply, map_sub, map_smul,
     orderedFiberS_comm_orderedRepresentativeProjection]
 
@@ -497,8 +500,8 @@ theorem re_inner_orderedFiberS_nonpos (p : Fin 2 → ℝ) (c : OrderedCoefficien
       (orderedTranslate n (-Operator.axisVector i)) _ (hnormexp' (p i)) c
     linarith
   rw [orderedFiberS]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sum_apply,
-    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+  simp only [smul_apply, sum_apply,
+    add_apply, sub_apply,
     ContinuousLinearMap.id_apply, LinearIsometryEquiv.coe_toLinearIsometry,
     LinearIsometry.coe_toContinuousLinearMap]
   rw [inner_smul_left, sum_inner]
@@ -535,7 +538,7 @@ theorem re_inner_orderedH_nonneg {lam : ℝ} (hlam : 0 ≤ lam) (p : Fin 2 → �
     0 ≤ RCLike.re (inner ℂ (orderedH n lam p c) c) := by
   have hlower : lam * ‖c‖ ^ 2 ≤ RCLike.re (inner ℂ (orderedH n lam p c) c) := by
     rw [orderedH]
-    simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+    simp only [sub_apply, smul_apply,
       ContinuousLinearMap.id_apply]
     rw [inner_sub_left, map_sub, inner_smul_left]
     have hconj : (starRingEnd ℂ) ((lam : ℝ) : ℂ) = ((lam : ℝ) : ℂ) :=

@@ -21,6 +21,7 @@ namespace Manhattan.Paper.Ergodic
 
 open MeasureTheory ProbabilityTheory
 open scoped ENNReal symmDiff
+open LatticeProb (srwCount srwCount_succ srwCount_zero SimpleRandomWalkRecurrent)
 
 set_option maxRecDepth 4000
 

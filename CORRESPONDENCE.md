@@ -12,16 +12,39 @@ Manhattan lattice in 2D is transient* (Bou-Rabee--Peres).
   `ledger/manifest.yaml`.
 - Every manifest node appears exactly once below, including meaning-carrying
   definitions. Conversely, every row names exactly one manifest node.
-- Status is `definition` for a frozen definition and `proved` for a proved
-  statement. Retired proved rows remain as history and name their approved
-  successor. A frozen statement is not itself a proof claim.
-- Encoding or normalization choices, deviations and source ambiguities are
-  described in the row itself; they are never silently absorbed.
+- Status is `definition` for a frozen definition, `draft (statement)` for an
+  exact statement with a registered placeholder, `sealed` while a proved
+  provider awaits its independent second key, and `proved` only after both
+  gates have passed. Retired proved rows remain as history and name their
+  approved successor. A frozen statement is not itself a proof claim.
+- `paper/manuscript.tex` states exactly what the frozen statements state.
+  Where it differs from the arXiv version, the difference is recorded in
+  [`paper/CHANGES_FROM_ARXIV.md`](paper/CHANGES_FROM_ARXIV.md).
+
+## Main results
+
+The main results are additionally exposed, stated in full, in
+[`Manhattan/MainTheorems.lean`](Manhattan/MainTheorems.lean), and both are
+restated over a Mathlib-only vocabulary for the comparator (see
+[`Audit/`](Audit/)).
+
+| Source | Main theorem | Certified statement | Comparator |
+|---|---|---|---|
+| Theorem 1.1, `thm:main`, `manuscript.tex:192-198` | `Manhattan.transience` | `Manhattan.Frozen.Main.theorem_1_1` | `Audit/Transience/` |
+| Theorem 1.2, `thm:annealed`, `manuscript.tex:207-214` | `Manhattan.annealed_green_bound` | `Manhattan.Frozen.Main.theorem_1_2` | `Audit/AnnealedGreenBound/` |
+
+`Manhattan.annealed_green_bound` displays the body of the definition
+`Manhattan.AnnealedGreenBound`, which is the type of
+`Manhattan.Frozen.Main.theorem_1_2`.
+
+## The frozen surface
 
 The table below is the complete frozen surface; counts and states are checked
 against `ledger/manifest.yaml`. As of 2026-09-04 that manifest has **76 nodes,
 all in state `PROVED`** and none `DRAFT_SORRY`; each has exactly one row below.
-Twelve of them are the concrete-lemma anchors for Section 5.
+Twelve of them are the concrete-lemma anchors frozen, whose
+independent second keys are not yet recorded, so those rows and the four
+rows for the main theorems read `sealed`.
 
 | Source / manifest node | Lean declaration | File | Status |
 |---|---|---|---|
@@ -35,7 +58,7 @@ Twelve of them are the concrete-lemma anchors for Section 5.
 | `manuscript.tex:576-585` / `op-fiber-s-norm-le` | `Manhattan.Frozen.Operator.fiberS_norm_le` | `Manhattan/Frozen/Operator/FiberSNormLe.lean` | proved |
 | `manuscript.tex:576-585` / `op-fiber-s-self-adjoint` | `Manhattan.Frozen.Operator.fiberS_selfAdjoint` | `Manhattan/Frozen/Operator/FiberSSelfAdjoint.lean` | proved |
 | `manuscript.tex:640-666` / `op-frequency-resolvent-le-of-competitor` | `Manhattan.Frozen.Operator.frequency_resolvent_le_of_competitor` | `Manhattan/Frozen/Operator/FrequencyResolventLeOfCompetitor.lean` | proved (retired; superseded by `op-frequency-resolvent-le-of-competitor-v2`) |
-| `manuscript.tex:640-666` / `op-frequency-resolvent-le-of-competitor-v2` | `Manhattan.Frozen.Operator.frequency_resolvent_le_of_competitor_v2` | `Manhattan/Frozen/Operator/FrequencyResolventLeOfCompetitorV2.lean` | proved |
+| `manuscript.tex:640-666` / `op-frequency-resolvent-le-of-competitor-v2` | `Manhattan.Frozen.Operator.frequency_resolvent_le_of_competitor_v2` | `Manhattan/Frozen/Operator/FrequencyResolventLeOfCompetitorV2.lean` | proved (second key recorded) |
 | `manuscript.tex:564-607` / `op-generator-commutes-operator-semigroup` | `Manhattan.Frozen.Operator.generator_commutes_operatorSemigroup` | `Manhattan/Frozen/Operator/GeneratorCommutesOperatorSemigroup.lean` | proved |
 | `manuscript.tex:610-638` / `op-h-bijective` | `Manhattan.Frozen.Operator.H_bijective` | `Manhattan/Frozen/Operator/HBijective.lean` | proved |
 | `manuscript.tex:564-607` / `op-integrable-on-damped-orbit` | `Manhattan.Frozen.Operator.integrableOn_dampedOrbit` | `Manhattan/Frozen/Operator/IntegrableOnDampedOrbit.lean` | proved |
@@ -80,27 +103,27 @@ Twelve of them are the concrete-lemma anchors for Section 5.
 | `manuscript.tex:743-756` / `est-theta-nonneg` | `Manhattan.Frozen.Estimates.theta_nonneg` | `Manhattan/Frozen/Estimates/ThetaNonneg.lean` | proved |
 | `manuscript.tex:523-524` / `est-torus-integral-one` | `Manhattan.Frozen.Estimates.torusIntegral_one` | `Manhattan/Frozen/Estimates/TorusIntegralOne.lean` | proved |
 | `manuscript.tex:1188-1190` / `est-total-frequency-multiplier-apply` | `Manhattan.Frozen.Estimates.totalFrequencyMultiplier_apply` | `Manhattan/Frozen/Estimates/TotalFrequencyMultiplierApply.lean` | proved |
-| `manuscript.tex:192-198` / `thm-main` | `Manhattan.Frozen.Main.theorem_1_1` | `Manhattan/Frozen/Main/Theorem11.lean` | proved |
+| `manuscript.tex:192-198` / `thm-main` | `Manhattan.Frozen.Main.theorem_1_1` | `Manhattan/Frozen/Main/Theorem11.lean` | sealed (proved by `Manhattan.Glue.theorem_1_1_proved_of_exists`; awaiting the second key for the main theorems) |
 | `manuscript.tex:576-597` / `prop-generator` | `Manhattan.Frozen.Operator.proposition_generator` | `Manhattan/Frozen/Operator/PropositionGenerator.lean` | proved (retired; superseded by `prop-generator-v2`) |
-| `manuscript.tex:555-607` / `prop-generator-v2` | `Manhattan.Frozen.Operator.proposition_generator_v2` | `Manhattan/Frozen/Operator/PropositionGeneratorV2.lean` | proved |
-| `manuscript.tex:644-661` / `prop-frequency` v2 | `Manhattan.Frozen.Estimates.proposition_frequency` | `Manhattan/Frozen/Estimates/PropositionFrequency.lean` | proved |
-| `manuscript.tex:207-214` / `thm-annealed` | `Manhattan.Frozen.Main.theorem_1_2` | `Manhattan/Frozen/Main/Theorem12.lean` | proved |
-| `manuscript.tex:207-214` / `thm-annealed-model-interface` | `Manhattan.theorem_1_2` | `Manhattan/Model/Theorem12.lean` | proved |
+| `manuscript.tex:555-607` / `prop-generator-v2` | `Manhattan.Frozen.Operator.proposition_generator_v2` | `Manhattan/Frozen/Operator/PropositionGeneratorV2.lean` | proved (second key recorded) |
+| `manuscript.tex:644-661` / `prop-frequency` v2 | `Manhattan.Frozen.Estimates.proposition_frequency` | `Manhattan/Frozen/Estimates/PropositionFrequency.lean` | sealed (proved by `Manhattan.Glue.proposition_frequency_v2`; awaiting the second key for the main theorems) |
+| `manuscript.tex:207-214` / `thm-annealed` | `Manhattan.Frozen.Main.theorem_1_2` | `Manhattan/Frozen/Main/Theorem12.lean` | sealed (proved by `Manhattan.Glue.theorem_1_2_proved_of_exists`; awaiting the second key for the main theorems) |
+| `manuscript.tex:207-214` / `thm-annealed-model-interface` | `Manhattan.theorem_1_2` | `Manhattan/Model/Theorem12.lean` | sealed (proved by `Manhattan.Glue.theorem_1_2_proved_of_exists`; awaiting the second key for the main theorems) |
 | `manuscript.tex:907-917` / `lem-onecoin` v2 | `Manhattan.Frozen.Estimates.lemma_one_coin` | `Manhattan/Frozen/Estimates/LemmaOneCoin.lean` | proved (retired; superseded by `lem-onecoin-v3`) |
-| `manuscript.tex:907-958` / `lem-onecoin-v3` | `Manhattan.Frozen.Estimates.lemma_one_coin_v3` | `Manhattan/Frozen/Estimates/LemmaOneCoinV3.lean` | proved |
+| `manuscript.tex:907-958` / `lem-onecoin-v3` | `Manhattan.Frozen.Estimates.lemma_one_coin_v3` | `Manhattan/Frozen/Estimates/LemmaOneCoinV3.lean` | proved (second key recorded) |
 | `manuscript.tex:1007-1018` / `prop-key` | `Manhattan.Frozen.Estimates.proposition_key` | `Manhattan/Frozen/Estimates/PropositionKey.lean` | proved |
-| `manuscript.tex:1179-1191 (eq:raise = (45) at :1182)` / `lem-raise-concrete-raising` | `Manhattan.Frozen.Glue.lemma_raise_concrete_raising` | `Manhattan/Frozen/Glue/LemmaRaiseConcreteRaising.lean` | proved (Lemma 5.1, raising side) |
-| `manuscript.tex:1179-1191` / `lem-raise-concrete-adjoint` | `Manhattan.Frozen.Glue.lemma_raise_concrete_adjoint` | `Manhattan/Frozen/Glue/LemmaRaiseConcreteAdjoint.lean` | proved (Lemma 5.1, adjoint side) |
-| `manuscript.tex:743-751 (eq:Hsym = (20) at :749; eq:P = (19) at :745)` / `eq-hsym-concrete` | `Manhattan.Frozen.Glue.hsym_concrete` | `Manhattan/Frozen/Glue/HsymConcrete.lean` | proved ((Hsym) concrete) |
-| `manuscript.tex:1200-1207 (eq:four = (47) at :1203)` / `lem-four-concrete-raising-energy` | `Manhattan.Frozen.Glue.lemma_four_concrete_raising_energy` | `Manhattan/Frozen/Glue/LemmaFourConcreteRaisingEnergy.lean` | proved (Lemma 5.2, operator half) |
-| `manuscript.tex:1200-1207` / `lem-four-concrete-competitor` | `Manhattan.Frozen.Glue.lemma_four_concrete_competitor` | `Manhattan/Frozen/Glue/LemmaFourConcreteCompetitor.lean` | proved (Lemma 5.2 at the competitor) |
-| `manuscript.tex:1212-1221` / `lem-distinct-concrete-frequency` | `Manhattan.Frozen.Glue.lemma_distinct_concrete_frequency` | `Manhattan/Frozen/Glue/LemmaDistinctConcreteFrequency.lean` | proved (Lemma 5.3 on the RAW/FREQUENCY side only; the operator-level bridge is open) |
-| `manuscript.tex:1305-1400` / `lem-correction-calculation-concrete` | `Manhattan.Frozen.Glue.lemma_correction_calculation_concrete` | `Manhattan/Frozen/Glue/LemmaCorrectionCalculationConcrete.lean` | proved (Lemma 5.4 for the raw mixed residual) |
-| `manuscript.tex:765-772 (eq:E = (22))` / `eq-e-summand-one` | `Manhattan.Frozen.Glue.summand_one_bound` | `Manhattan/Frozen/Glue/SummandOne.lean` | proved (summand 1 of (22)) |
-| `manuscript.tex:765-772 (eq:E = (22))` / `eq-e-summand-two` | `Manhattan.Frozen.Glue.summand_two_bound` | `Manhattan/Frozen/Glue/SummandTwo.lean` | proved (summand 2 of (22)) |
-| `manuscript.tex:765-772 (eq:E = (22))` / `eq-e-summand-three` | `Manhattan.Frozen.Glue.summand_three_bound` | `Manhattan/Frozen/Glue/SummandThree.lean` | proved (summand 3 of (22)) |
-| `manuscript.tex:765-772 (eq:E = (22))` / `eq-e-summand-four` | `Manhattan.Frozen.Glue.summand_four_bound` | `Manhattan/Frozen/Glue/SummandFour.lean` | proved (summand 4 of (22)) |
-| `manuscript.tex:785-790 (third display of eq:construction = (25))` / `eq-construction-sector-energy` | `Manhattan.Frozen.Glue.sector_energy_bound` | `Manhattan/Frozen/Glue/SectorEnergyBound.lean` | proved (the repository's "(23)", E_p(f_p,k_p) <= C sqrt(L)) |
+| `manuscript.tex:1179-1191 (eq:raise = (45) at :1182)` / `lem-raise-concrete-raising` | `Manhattan.Frozen.Glue.lemma_raise_concrete_raising` | `Manhattan/Frozen/Glue/LemmaRaiseConcreteRaising.lean` | sealed (Lemma 5.1, raising side; awaiting second key) |
+| `manuscript.tex:1179-1191` / `lem-raise-concrete-adjoint` | `Manhattan.Frozen.Glue.lemma_raise_concrete_adjoint` | `Manhattan/Frozen/Glue/LemmaRaiseConcreteAdjoint.lean` | sealed (Lemma 5.1, adjoint side; awaiting second key) |
+| `manuscript.tex:743-751 (eq:Hsym = (20) at :749; eq:P = (19) at :745)` / `eq-hsym-concrete` | `Manhattan.Frozen.Glue.hsym_concrete` | `Manhattan/Frozen/Glue/HsymConcrete.lean` | sealed ((Hsym) concrete; awaiting second key) |
+| `manuscript.tex:1200-1207 (eq:four = (47) at :1203)` / `lem-four-concrete-raising-energy` | `Manhattan.Frozen.Glue.lemma_four_concrete_raising_energy` | `Manhattan/Frozen/Glue/LemmaFourConcreteRaisingEnergy.lean` | sealed (Lemma 5.2, operator half; awaiting second key) |
+| `manuscript.tex:1200-1207` / `lem-four-concrete-competitor` | `Manhattan.Frozen.Glue.lemma_four_concrete_competitor` | `Manhattan/Frozen/Glue/LemmaFourConcreteCompetitor.lean` | sealed (Lemma 5.2 at the competitor; awaiting second key) |
+| `manuscript.tex:1212-1221` / `lem-distinct-concrete-frequency` | `Manhattan.Frozen.Glue.lemma_distinct_concrete_frequency` | `Manhattan/Frozen/Glue/LemmaDistinctConcreteFrequency.lean` | sealed (Lemma 5.3 on the RAW/FREQUENCY side only; the operator-level bridge is open; awaiting second key) |
+| `manuscript.tex:1305-1400` / `lem-correction-calculation-concrete` | `Manhattan.Frozen.Glue.lemma_correction_calculation_concrete` | `Manhattan/Frozen/Glue/LemmaCorrectionCalculationConcrete.lean` | sealed (Lemma 5.4 for the raw mixed residual; awaiting second key) |
+| `manuscript.tex:765-772 (eq:E = (22))` / `eq-e-summand-one` | `Manhattan.Frozen.Glue.summand_one_bound` | `Manhattan/Frozen/Glue/SummandOne.lean` | sealed (summand 1 of (22); awaiting second key) |
+| `manuscript.tex:765-772 (eq:E = (22))` / `eq-e-summand-two` | `Manhattan.Frozen.Glue.summand_two_bound` | `Manhattan/Frozen/Glue/SummandTwo.lean` | sealed (summand 2 of (22); awaiting second key) |
+| `manuscript.tex:765-772 (eq:E = (22))` / `eq-e-summand-three` | `Manhattan.Frozen.Glue.summand_three_bound` | `Manhattan/Frozen/Glue/SummandThree.lean` | sealed (summand 3 of (22); awaiting second key) |
+| `manuscript.tex:765-772 (eq:E = (22))` / `eq-e-summand-four` | `Manhattan.Frozen.Glue.summand_four_bound` | `Manhattan/Frozen/Glue/SummandFour.lean` | sealed (summand 4 of (22); awaiting second key) |
+| `manuscript.tex:785-790 (third display of eq:construction = (25))` / `eq-construction-sector-energy` | `Manhattan.Frozen.Glue.sector_energy_bound` | `Manhattan/Frozen/Glue/SectorEnergyBound.lean` | sealed (the repository's "(23)", E_p(f_p,k_p) <= C sqrt(L); awaiting second key) |
 
 ## Unfrozen public audit and assembly support
 
@@ -116,11 +139,11 @@ step remain traceable without manufacturing manifest nodes.
 | `manuscript.tex:640-681` | `Manhattan.Glue.annealedGreenBound_of_regional_identity` | `Manhattan/Glue/Annealed.lean` | proved (assembly support) |
 | `manuscript.tex:207-214` | `Manhattan.AnnealedGreenBound` | `Manhattan/Model/Subordination.lean` | definition (assembly interface) |
 | `manuscript.tex:576-607` | `Manhattan.Glue.proposition_generator` | `Manhattan/Glue/ConcreteGreen.lean` | proved (historical v1 provider; retired from active audit) |
-| `manuscript.tex:555-597` | `Manhattan.Glue.proposition_generator_v2` | `Manhattan/Glue/Fiberwise.lean` | proved (provider) |
+| `manuscript.tex:555-597` | `Manhattan.Glue.proposition_generator_v2` | `Manhattan/Glue/Fiberwise.lean` | proved (provider; second key recorded) |
 | `manuscript.tex:555-583` | `Manhattan.Glue.concreteJointFiberOperator_eq_directIntegral` | `Manhattan/Glue/Fiberwise.lean` | proved (pointwise-fiber support) |
 | `manuscript.tex:576-595` | `Manhattan.Glue.torusFiberGenerator_eq_concreteFiberGenerator_torusFrequency` | `Manhattan/Glue/Fiberwise.lean` | proved (pointwise-fiber support) |
 | `manuscript.tex:590-607` | `Manhattan.Glue.concreteGreenIdentity` | `Manhattan/Glue/GreenDensity.lean` | proved (Green-density support) |
-| `manuscript.tex:668-681` | `Manhattan.Glue.exists_concreteRegionalIntegralBounds` | `Manhattan/Glue/GreenDensity.lean` | proved (implication; its hypothesis is discharged in the regional assembly) |
+| `manuscript.tex:668-681` | `Manhattan.Glue.exists_concreteRegionalIntegralBounds` | `Manhattan/Glue/GreenDensity.lean` | proved (conditional regional assembly) |
 | `manuscript.tex:207-214` | `Manhattan.Glue.theorem_1_2_of_proposition_frequency` | `Manhattan/Glue/Assembly.lean` | proved (conditional assembly of the main theorem) |
 | `manuscript.tex:192-198` | `Manhattan.Glue.theorem_1_1_of_proposition_frequency` | `Manhattan/Glue/Assembly.lean` | proved (conditional assembly of the main theorem) |
 | `manuscript.tex:1068-1090` | `Manhattan.Estimates.denominatorBound_proved` | `Manhattan/Estimates/PropositionFiveTwo.lean` | proved (Proposition 4.2 support) |
@@ -137,24 +160,24 @@ step remain traceable without manufacturing manifest nodes.
 | `manuscript.tex:668-681` | `Manhattan.Estimates.normalizedFrequencyIntegral_le_region_sum` | `Manhattan/Estimates/Regional.lean` | proved (non-circular regional assembly) |
 | `manuscript.tex:668-681` | `Manhattan.Estimates.regionalIntegralBoundsOfFrequencyBound` | `Manhattan/Estimates/Regional.lean` | definition (regional certificate constructor) |
 
-## Two texts, and which statements survive (2026-09-05)
+## The arXiv version, and which statements it prints
 
-The rows above cite `paper/manuscript.tex`, which is the **3 September**
-manuscript, hash `b212a597…`, the same file the manifest `source_pin` names.
-That text predates the Version 4 rewrite. The current manuscript is beside it
-as `paper/manuscript-current.tex`, hash `5bd26a11…`, and it is the version the
-authors are editing.
+The rows above cite `paper/manuscript.tex`, the file the manifest
+`source_pin` names.  The arXiv version, arXiv:2609.07621v1, is a later text of
+the paper with a different proof of the frequency bound; its unmodified source
+is `paper/arxiv/main.tex`, and
+[`paper/CHANGES_FROM_ARXIV.md`](paper/CHANGES_FROM_ARXIV.md) compares the two
+texts.
 
-The pin is deliberately left alone. It and every `source:` line range in the
-manifest agree with the file they name, so the frozen surface stays internally
-consistent and no certified statement has to move. What follows is the
-correspondence to the current text, computed by anchoring on `\label` names
-rather than on line numbers, which do not survive a rewrite.
+The pin and every `source:` line range in the manifest agree with the file
+they name, so the frozen surface stays internally consistent.  What follows is
+the correspondence to the arXiv text, computed by anchoring on `\label` names
+rather than on line numbers.
 
-**64 of the 76 frozen nodes** anchor on statements that are still in the paper.
-The remaining **12** anchor only on statements the rewrite removed:
+**64 of the 76 frozen nodes** anchor on statements that the arXiv text also
+prints.  The remaining **12** anchor only on statements it does not print:
 
-| Node | Pinned lines | Anchors removed from the current paper |
+| Node | Pinned lines | Anchors absent from the arXiv text |
 | --- | --- | --- |
 | `est-multiplier-comparison-claim-proved` | 991-1000 | `eq:Mcomp` |
 | `est-multiplier-comparison-explicit` | 991-1000 | `eq:Mcomp` |
@@ -171,14 +194,13 @@ The remaining **12** anchor only on statements the rewrite removed:
 
 These twelve are not stale in the sense of being wrong. They are proved, they
 carry only the three standard axioms, and they are part of the frozen route to
-`Manhattan.Frozen.Main.theorem_1_1`. What they certify is the decomposition the
-paper used before the rewrite: a single key proposition, a degree-four lemma, a
+`Manhattan.Frozen.Main.theorem_1_1`. What they certify is the decomposition of
+`paper/manuscript.tex`: a single key proposition, a degree-four lemma, a
 one-sign lemma, a distinctness lemma and an explicit correction calculation.
-The current paper reaches the same theorem through the parity construction, the
+The arXiv text reaches the same theorem through the parity construction, the
 even majorant and the effective weight, and that route is certified separately
 by `Manhattan.V4.theorem_1_1_v4`.
 
-So both routes are live and both are complete; only one of them is the one now
-printed. Re-pinning the manifest to the current text would mean re-deriving the
-frozen surface against the Version 4 argument, which is a re-certification and
-not a correction, and it is not attempted here.
+So both routes are complete.  Re-pinning the manifest to the arXiv text would
+mean re-deriving the frozen surface against its argument, which is a
+re-certification and not a correction, and it is not attempted here.

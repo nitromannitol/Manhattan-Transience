@@ -19,7 +19,7 @@ inputs are `Manhattan.V4.Energy.add_sq_le_effectiveWeight` (ingredient (e)) and
 The final statement `effectiveEnergy_le` carries the competitor bound itself as
 the hypothesis `hcompetitor`.  That hypothesis is what Step 1
 delivers (`Manhattan.V4.resolventQuadratic_le_cauchySchwarz`, or the
-stronger sealed `Manhattan.Operator.DissipativeSkewPair.resolventQuadratic_le`),
+stronger sealed `LatticeProb.Analysis.DissipativeSkewPair.resolventQuadratic_le`),
 once the parity construction of Steps 2-3 supplies
 `(D₂* k)₁₂ = σ v` and `(D₂* k)₁₁ = 0`, and the scalar completion of the square
 `Manhattan.V4.scalarCompletion_le` is applied pointwise in `(r, β)`.  Those two

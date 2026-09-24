@@ -12,8 +12,8 @@ This file defines the error term `U(-s,β)` of `manuscript.tex:1349-1355`
 The proof follows the paper: the support facts `(support)`, the lower bound
 `(sigmalow)` for `σ`, the explicit kernel bound, and the Hilbert--Schmidt
 estimate.  The last step uses `Manhattan.Estimates.torusIntegral_kernel_sq_le`
-rather than a Hilbert--Schmidt operator theory, which Mathlib v4.26.0 does not
-have.
+rather than a Hilbert--Schmidt operator theory, which Mathlib (at the pinned
+revision `81a5d257`) does not have.
 
 Paper: `manuscript.tex:1356-1400`.
 -/

@@ -35,6 +35,7 @@ variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E]
   [CompleteSpace E]
 
 open Manhattan.Operator
+open LatticeProb.Analysis
 
 /-- Public form of the Young inequality for the dual energy: every test
 vector gives a lower bound for `‖q‖²_{-1}`. -/
@@ -62,7 +63,7 @@ section ConstantResidual
 theorem concrete_hEnergy_empty (lambda : ℝ) (p : Fin 2 → ℝ) :
     (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hEnergy lambda
         (Manhattan.walshL2 ∅) = lambda + Manhattan.Operator.theta p := by
-  rw [Manhattan.Operator.DissipativeSkewPair.hEnergy, Manhattan.concreteH_empty,
+  rw [LatticeProb.Analysis.DissipativeSkewPair.hEnergy, Manhattan.concreteH_empty,
     inner_smul_left, Manhattan.inner_walshL2, if_pos rfl]
   simp
 
@@ -127,6 +128,7 @@ end ConstantResidual
 section Refutation
 
 open Manhattan.Operator
+open LatticeProb.Analysis
 
 /-- `Glue/Competitor.lean:117` is unsatisfiable.  At `p=(0,s)` with
 `lambda=s²` every horizontal low-degree competitor leaves the constant Walsh

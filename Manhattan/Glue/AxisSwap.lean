@@ -232,7 +232,7 @@ theorem axisSwap_phasedShift (p : Fin 2 → ℝ) (i : Fin 2)
       Manhattan.phasedShift (axisSwapFrequency p) (axisSwapFin i)
         (axisSwapUnitary f) := by
   rw [Manhattan.phasedShift]
-  simp only [ContinuousLinearMap.smul_apply, map_smul]
+  simp only [smul_apply, map_smul]
   have hshift := congrArg
     (fun T : Manhattan.WalshL2 →L[ℂ] Manhattan.WalshL2 => T f)
     (axisSwap_environmentShift (Manhattan.Operator.axisVector i))
@@ -248,7 +248,7 @@ theorem axisSwap_phasedShift_adjoint (p : Fin 2 → ℝ) (i : Fin 2)
       ((Manhattan.phasedShift (axisSwapFrequency p) (axisSwapFin i))†)
         (axisSwapUnitary f) := by
   rw [Manhattan.phasedShift_adjoint, Manhattan.phasedShift_adjoint]
-  simp only [ContinuousLinearMap.smul_apply, map_smul]
+  simp only [smul_apply, map_smul]
   have hshift := congrArg
     (fun T : Manhattan.WalshL2 →L[ℂ] Manhattan.WalshL2 => T f)
     (axisSwap_environmentShift (-Manhattan.Operator.axisVector i))
@@ -263,8 +263,8 @@ theorem axisSwap_fiberSymmetricTerm (p : Fin 2 → ℝ) (i : Fin 2)
     axisSwapUnitary (Manhattan.fiberSymmetricTerm p i f) =
       Manhattan.fiberSymmetricTerm (axisSwapFrequency p) (axisSwapFin i)
         (axisSwapUnitary f) := by
-  simp only [Manhattan.fiberSymmetricTerm, ContinuousLinearMap.sub_apply,
-    ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+  simp only [Manhattan.fiberSymmetricTerm, sub_apply,
+    add_apply, smul_apply,
     ContinuousLinearMap.id_apply, map_sub, map_add, map_smul,
     axisSwap_phasedShift, axisSwap_phasedShift_adjoint]
 
@@ -273,7 +273,7 @@ theorem axisSwap_fiberSkewTerm (p : Fin 2 → ℝ) (i : Fin 2)
     axisSwapUnitary (Manhattan.fiberSkewTerm p i f) =
       Manhattan.fiberSkewTerm (axisSwapFrequency p) (axisSwapFin i)
         (axisSwapUnitary f) := by
-  simp only [Manhattan.fiberSkewTerm, ContinuousLinearMap.sub_apply, map_sub,
+  simp only [Manhattan.fiberSkewTerm, sub_apply, map_sub,
     axisSwap_phasedShift, axisSwap_phasedShift_adjoint]
 
 /-- The axis-swap unitary intertwines the concrete symmetric fibers. -/
@@ -281,7 +281,7 @@ theorem axisSwap_concreteFiberS (p : Fin 2 → ℝ) (f : Manhattan.WalshL2) :
     axisSwapUnitary (Manhattan.concreteFiberS p f) =
       Manhattan.concreteFiberS (axisSwapFrequency p) (axisSwapUnitary f) := by
   unfold Manhattan.concreteFiberS
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+  simp only [smul_apply, add_apply,
     map_smul, map_add, Fin.sum_univ_two, axisSwap_fiberSymmetricTerm,
     axisSwapFin_zero, axisSwapFin_one]
   congr 1
@@ -292,7 +292,7 @@ theorem axisSwap_concreteFiberA (p : Fin 2 → ℝ) (f : Manhattan.WalshL2) :
     axisSwapUnitary (Manhattan.concreteFiberA p f) =
       Manhattan.concreteFiberA (axisSwapFrequency p) (axisSwapUnitary f) := by
   unfold Manhattan.concreteFiberA
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+  simp only [smul_apply, add_apply,
     ContinuousLinearMap.comp_apply, map_smul, map_add,
     Fin.sum_univ_two, axisSwap_originSignMultiplier_apply,
     axisSwap_fiberSkewTerm, axisSwapFin_zero, axisSwapFin_one]
@@ -304,8 +304,8 @@ theorem axisSwap_H (lambda : ℝ) (p : Fin 2 → ℝ) (f : Manhattan.WalshL2) :
         ((Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).H lambda f) =
       (Manhattan.concreteFiberEnvironment.dissipativeSkewPair
         (axisSwapFrequency p)).H lambda (axisSwapUnitary f) := by
-  simp only [Manhattan.Operator.DissipativeSkewPair.H,
-    ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+  simp only [LatticeProb.Analysis.DissipativeSkewPair.H,
+    sub_apply, smul_apply,
     ContinuousLinearMap.id_apply, map_sub, map_smul]
   exact congrArg (fun x => (lambda : ℂ) • axisSwapUnitary f - x)
     (axisSwap_concreteFiberS p f)
@@ -315,7 +315,7 @@ theorem axisSwap_hEnergy (lambda : ℝ) (p : Fin 2 → ℝ)
     (Manhattan.concreteFiberEnvironment.dissipativeSkewPair
         (axisSwapFrequency p)).hEnergy lambda (axisSwapUnitary f) =
       (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hEnergy lambda f := by
-  rw [Manhattan.Operator.DissipativeSkewPair.hEnergy]
+  rw [LatticeProb.Analysis.DissipativeSkewPair.hEnergy]
   rw [← axisSwap_H]
   exact congrArg re (axisSwapUnitary.inner_map_map _ _)
 
@@ -339,7 +339,7 @@ theorem axisSwap_hMinusEnergy {lambda : ℝ} (hlambda : 0 < lambda)
         (axisSwapFrequency p)).hMinusEnergy hlambda (axisSwapUnitary f) =
       (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hMinusEnergy
         hlambda f := by
-  rw [Manhattan.Operator.DissipativeSkewPair.hMinusEnergy,
+  rw [LatticeProb.Analysis.DissipativeSkewPair.hMinusEnergy,
     axisSwap_hEquiv_symm]
   exact congrArg re (axisSwapUnitary.inner_map_map _ _)
 

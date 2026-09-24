@@ -106,7 +106,7 @@ theorem not_isType112_of_two_vertical {S : Finset LineIndex}
   have hcard : 2 ≤ (S.filter (fun l => ¬ l.1 = Axis.horizontal)).card := by
     have := Finset.card_le_card hsub
     rwa [Finset.card_insert_of_notMem (by simpa using huv), Finset.card_singleton] at this
-  have hsplit := Finset.filter_card_add_filter_neg_card_eq_card
+  have hsplit := Finset.card_filter_add_card_filter_not
     (s := S) (fun l => l.1 = Axis.horizontal)
   rw [h.1, h.2] at hsplit
   omega
@@ -468,7 +468,7 @@ theorem torusIntegral_finset_sum {ι : Type*} (s : Finset ι) (f : ι → ℝ �
     (hf : ∀ i ∈ s, IntegrableOn (f i) Estimates.torus) :
     Estimates.torusIntegral (fun x => ∑ i ∈ s, f i x) =
       ∑ i ∈ s, Estimates.torusIntegral (f i) := by
-  rw [Estimates.torusIntegral, MeasureTheory.integral_finset_sum _ hf,
+  rw [Estimates.torusIntegral, MeasureTheory.integral_finsetSum _ hf,
     Finset.smul_sum]
   rfl
 

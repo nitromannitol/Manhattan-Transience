@@ -772,7 +772,8 @@ private theorem degreeOneCoefficientL2_le {q : Parameters} (hq : q.Admissible)
       (q.K * q.delta |p₁|)⁻¹ - q.r0⁻¹ := by
     rw [Parameters.supportInterval, integral_Icc_eq_integral_Ioc,
       ← intervalIntegral.integral_of_le hsupport.le]
-    simpa only [inv_pow, mul_inv_rev] using hzpow
+    simp only [inv_pow, mul_inv_rev] at hzpow ⊢
+    exact hzpow
   have hmajorant : (∫ r in q.supportInterval |p₁|, 4 * r⁻¹ ^ 2) ≤
       4 * (q.K * q.delta |p₁|)⁻¹ := by
     rw [integral_const_mul, hinvSqIntegral]
@@ -1555,15 +1556,13 @@ theorem lemmaFourTwoIntegralCertificate_proved {q : Parameters} (hq : q.Admissib
           (degreeOneCoefficient_measurable.comp measurable_snd)))).norm.pow_const 2)
   have htwoIntegrable : Integrable (twoRowResidualHMinusIntegrand q p₁ p₂)
       ((volume.restrict torus).prod (volume.restrict torus)) := by
-    simpa only [twoRowResidualHMinusIntegrand, twoRowOriginal, Function.uncurry_apply_pair]
-      using twoRowOriginal_integrable hq (p₂ := p₂) hsinpNe
+    exact twoRowOriginal_integrable hq (p₂ := p₂) hsinpNe
   refine ⟨henergyMeasurable, henergyIntegrable, hmixedMeasurable, hmixedIntegrable,
     htwoMeasurable, htwoIntegrable, ?_, ?_⟩
   · rw [mixedResidualHMinusSq]
     exact torusIntegral₂_eq_prodIntegral
       (fun r beta => mixedHMinusWeight q r beta * ‖mixedResidual q p₁ r‖ ^ 2)
-      (by simpa only [mixedResidualHMinusIntegrand, Function.uncurry_apply_pair]
-        using hmixedIntegrable)
+      hmixedIntegrable
   · rw [twoRowResidualHMinusSq]
     exact torusIntegral₂_eq_prodIntegral
       (fun r r' =>
@@ -1571,8 +1570,7 @@ theorem lemmaFourTwoIntegralCertificate_proved {q : Parameters} (hq : q.Admissib
         twoRowHMinusWeight q p₁ alpha *
           ‖Complex.I * (Real.sin p₁ : ℂ) *
             (degreeOneCoefficient q p₁ r + degreeOneCoefficient q p₁ r')‖ ^ 2)
-      (by simpa only [twoRowResidualHMinusIntegrand, Function.uncurry_apply_pair]
-        using htwoIntegrable)
+      htwoIntegrable
 
 /-- version-3 successor of Lemma 4.1.  In addition to the printed
 bounds, the statement exposes measurability, integrability, and finite

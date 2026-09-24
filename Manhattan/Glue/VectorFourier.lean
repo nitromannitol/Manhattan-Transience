@@ -12,6 +12,8 @@ unitary transform, not a scalar proxy.
 Paper: `manuscript.tex:555-583`.
 -/
 
+open scoped lp
+
 noncomputable section
 
 open MeasureTheory UnitAddTorus

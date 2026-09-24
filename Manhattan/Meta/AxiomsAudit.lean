@@ -80,6 +80,7 @@ import Manhattan.Frozen.Glue.SectorEnergyBound
 import Manhattan.Frozen.Main.Theorem12
 import Manhattan.V4.Move2Supply
 import Manhattan.Frozen.Main.Theorem11
+import Manhattan.MainTheorems
 
 /-!
 # Axiom audit
@@ -89,6 +90,10 @@ bridge are checked here. Retired historical predecessors are excluded.  The
 main cone `theorem_1_1 <- theorem_1_2 <- proposition_frequency (v2) <-
 equation (23)` is at the end of the file: none of it may report `sorryAx`.
 -/
+
+-- The main theorems of `Manhattan/MainTheorems.lean`.
+#print axioms Manhattan.transience
+#print axioms Manhattan.annealed_green_bound
 
 #print axioms Manhattan.Frozen.Operator.dampedOrbit_hasDerivAt
 #print axioms Manhattan.Frozen.Operator.dampedOrbit_norm_le

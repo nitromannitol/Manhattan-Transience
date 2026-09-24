@@ -19,6 +19,8 @@ Paper: `manuscript.tex:719-751` (equations (19), (20) and (Hsym)),
 `manuscript.tex:1045-1052` (the corrected coefficient).
 -/
 
+open scoped lp
+
 noncomputable section
 
 open MeasureTheory UnitAddTorus
@@ -323,8 +325,6 @@ open MeasureTheory UnitAddTorus Set
 /-! ### The manuscript's frequency variables -/
 
 section Angles
-
-attribute [local instance] Real.fact_zero_lt_one
 
 theorem unitTorusAngle_eq_toIocMod (x : UnitAddCircle) :
     Manhattan.unitTorusAngle x =

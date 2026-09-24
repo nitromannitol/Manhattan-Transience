@@ -111,7 +111,7 @@ theorem inner_walshL2_sectorFour (p : Fin 2 → ℝ) {k : WalshL2}
         (Manhattan.fiberDStarLoweringSpatialCoefficient p T)) k := by
   rw [inner_walshL2_walshSectorComponent, if_pos hT,
     ← (Manhattan.concreteFiberA p).adjoint_inner_left,
-    Manhattan.concreteFiberA_skewAdjoint, ContinuousLinearMap.neg_apply,
+    Manhattan.concreteFiberA_skewAdjoint, neg_apply,
     Manhattan.concreteFiberA_walshL2_eq_D_sub_DStar, inner_neg_left,
     inner_sub_left,
     inner_walshSynthesis_eq_zero_of_mem_walshDegree
@@ -151,7 +151,7 @@ theorem hMinusEnergy_homogeneousWalshSynthesis (n : ℕ) {lam : ℝ} (hlam : 0 <
       (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).H lam
         (homogeneousWalshSynthesis n d)
     rw [fiberH_homogeneousWalshSynthesis, hd]
-  rw [Manhattan.Operator.DissipativeSkewPair.hMinusEnergy, hinv,
+  rw [LatticeProb.Analysis.DissipativeSkewPair.hMinusEnergy, hinv,
     (homogeneousWalshSynthesis n).inner_map_map,
     ← re_inner_coeffH_inv_eq_integral n hlam p c d hd,
     ← inner_conj_symm (𝕜 := ℂ) d c, RCLike.conj_re]
@@ -445,7 +445,7 @@ theorem sectorDFourForm_le_dirs {lambda : ℝ} (hlambda : 0 < lambda)
             hlambda (walshRaiseDir p 1 k) := by
   rw [sectorDFourForm, walshSectorComponent_four_walshRaise p hk,
     show walshRaise p k = walshRaiseDir p 0 k + walshRaiseDir p 1 k by
-      rw [walshRaise, ContinuousLinearMap.sum_apply, Fin.sum_univ_two]]
+      rw [walshRaise, sum_apply, Fin.sum_univ_two]]
   exact hMinusEnergy_add_le _ hlambda _ _
 
 /-- **Summand 4 as two weighted line-frequency integrals in degree four.**

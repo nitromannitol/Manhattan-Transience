@@ -50,8 +50,8 @@ private theorem concreteFiberS_periodicFrequency_empty (n : ℕ) :
     simp [periodicFrequency_phase_neg]
   have hsummand (i : Fin 2) :
       fiberSymmetricTerm (periodicFrequency n) i (walshL2 ∅) = 0 := by
-    simp only [fiberSymmetricTerm, ContinuousLinearMap.sub_apply,
-      ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+    simp only [fiberSymmetricTerm, sub_apply,
+      add_apply, smul_apply,
       ContinuousLinearMap.id_apply, hshift, hadjoint]
     module
   simp [concreteFiberS, hsummand]
@@ -69,9 +69,9 @@ private theorem concreteFiberA_periodicFrequency_empty (n : ℕ) :
       (originSignMultiplier i ∘L fiberSkewTerm (periodicFrequency n) i)
           (walshL2 ∅) = 0 := by
     rw [ContinuousLinearMap.comp_apply, fiberSkewTerm,
-      ContinuousLinearMap.sub_apply, hshift, hadjoint, sub_self, map_zero]
+      sub_apply, hshift, hadjoint, sub_self, map_zero]
   rw [concreteFiberA, Fin.sum_univ_two]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+  simp only [smul_apply, add_apply,
     hsummand, add_zero, smul_zero]
 
 private theorem fiberS_eq_concrete {D : Operator.FiberEnvironment WalshL2}
@@ -112,7 +112,7 @@ private theorem objective_lower_at_periodicFrequency
   have hinner : inner ℂ q V = 1 := by
     have hAg : inner ℂ (D.fiberA p g) V = 0 := by
       rw [← (D.fiberA p).adjoint_inner_right g V,
-        D.fiberA_skewAdjoint, ContinuousLinearMap.neg_apply, hAV]
+        D.fiberA_skewAdjoint, neg_apply, hAV]
       simp
     dsimp [q]
     rw [inner_sub_left, hAg]
@@ -127,7 +127,7 @@ private theorem objective_lower_at_periodicFrequency
   have hq_le : ‖q‖ ≤ 5 * ‖y‖ := by
     calc
       ‖q‖ = ‖P.H 1 y‖ := by rw [hy_eq]
-      _ = ‖y - P.S y‖ := by simp [Operator.DissipativeSkewPair.H]
+      _ = ‖y - P.S y‖ := by simp [LatticeProb.Analysis.DissipativeSkewPair.H]
       _ ≤ ‖y‖ + ‖P.S y‖ := norm_sub_le _ _
       _ ≤ ‖y‖ + 4 * ‖y‖ := by
         gcongr
@@ -141,7 +141,7 @@ private theorem objective_lower_at_periodicFrequency
       _ = 1 * ‖y‖ ^ 2 := by ring
       _ ≤ P.hEnergy 1 y := P.hEnergy_lower 1 y
   have hminus : (1 / 25 : ℝ) ≤ P.hMinusEnergy hone q := by
-    rw [Operator.DissipativeSkewPair.hMinusEnergy]
+    rw [LatticeProb.Analysis.DissipativeSkewPair.hMinusEnergy]
     change (1 / 25 : ℝ) ≤ re (inner ℂ q y)
     rw [← hy_eq]
     exact hyenergy

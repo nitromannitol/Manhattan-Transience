@@ -18,14 +18,14 @@ into a universal comparison with an additive error `O(|p₁|²)‖k‖²`.
 Paper: `manuscript.tex:743-751` ((Hsym)), `manuscript.tex:762-790` ((22)).
 -/
 
+open scoped lp
+
 noncomputable section
 
 open MeasureTheory Set UnitAddTorus
 open ComplexConjugate InnerProductSpace RCLike
 
 namespace Manhattan.Glue
-
-attribute [local instance] Real.fact_zero_lt_one
 
 /-! ### The type-`112` symbol at a general momentum -/
 
@@ -193,7 +193,7 @@ theorem mem_correctionInterval_of_ne_zero {kappa : ℝ}
       (r + r' - p₂) ∈ Manhattan.Estimates.correctionInterval q a r' beta := by
   classical
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   exact h (by simp [Manhattan.Estimates.correctionCoefficient, hcon.1, hcon.2])
 
 /-- On either interval, `α` is separated from zero by `4K·a` and stays inside
@@ -518,7 +518,7 @@ theorem mixedSupport_of_logThreshold {q : Manhattan.Estimates.Parameters}
       Real.log (q.r0 / q.delta a) := by
     rw [Manhattan.Estimates.logPos, max_eq_right]
     by_contra hcon
-    push_neg at hcon
+    push Not at hcon
     rw [Manhattan.Estimates.logPos, max_eq_left hcon.le] at hposPos
     exact lt_irrefl _ hposPos
   rw [hlogEq] at hpos

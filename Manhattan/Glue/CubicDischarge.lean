@@ -491,7 +491,6 @@ end RowSlices
 
 section RawEnergy
 
-attribute [local instance] Real.fact_zero_lt_one
 attribute [local instance] cubicUnitAddCircleMeasureSpace
 
 local instance : Measure.IsAddHaarMeasure (volume : Measure UnitAddCircle) :=
@@ -653,7 +652,6 @@ theorem rawCubicCoreEnergy_le_sqrtScale
 
 section Sectors
 
-attribute [local instance] Real.fact_zero_lt_one
 attribute [local instance] cubicUnitAddCircleMeasureSpace
 
 local instance : Measure.IsAddHaarMeasure (volume : Measure UnitAddCircle) :=

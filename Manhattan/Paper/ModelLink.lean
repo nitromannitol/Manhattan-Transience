@@ -14,6 +14,8 @@ open scoped BigOperators ENNReal NNReal
 
 namespace Manhattan.Paper
 
+open LatticeProb (poissonWeight poissonWeight_nonneg)
+
 theorem rateTwoPoissonWeight_eq {t : ℝ} (ht : 0 ≤ t) (n : ℕ) :
     rateTwoPoissonWeight t n = ENNReal.ofReal (poissonWeight t n) := by
   rw [rateTwoPoissonWeight_of_nonneg ht]

@@ -306,13 +306,13 @@ private theorem annulusAntiderivative_hasDerivAt {r0 x : ℝ}
   have hinnerPos := annulusLog_pos hx hxr
   have hinner : HasDerivAt (annulusLog r0) (-1 / x) x := by
     unfold annulusLog
-    convert (hasDerivAt_const x (1 + Real.log (r0 / 2))).sub
-      (Real.hasDerivAt_log hx.ne') using 1
-    ring
+    exact ((hasDerivAt_const x (1 + Real.log (r0 / 2))).sub
+      (Real.hasDerivAt_log hx.ne')).congr_deriv (by ring)
   have hsqrt := hinner.sqrt hinnerPos.ne'
   have hinv := hsqrt.inv (Real.sqrt_pos.2 hinnerPos).ne'
-  convert hinv.const_mul 2 using 1
-  · unfold annulusLineKernel
+  refine (hinv.const_mul 2).congr_deriv ?_
+  · symm
+    unfold annulusLineKernel
     field_simp [Real.sqrt_pos.2 hinnerPos |>.ne']
 
 /-- The one-dimensional logarithmic annulus integral is at most two. -/
@@ -842,7 +842,7 @@ private theorem normalizedFrequencyIntegral_eq_iterated {f : ℝ × ℝ → ℝ}
   change Integrable f ((volume.restrict torus).prod (volume.restrict torus)) at hf
   have hf' : Integrable (Function.uncurry fun x y => f (x, y))
       ((volume.restrict torus).prod (volume.restrict torus)) := by
-    simpa [Function.uncurry] using hf
+    exact hf
   rw [← MeasureTheory.integral_integral hf']
   simp only [torusIntegral, integral_const_mul, smul_eq_mul]
   ring

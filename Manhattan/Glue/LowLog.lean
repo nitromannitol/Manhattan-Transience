@@ -98,8 +98,8 @@ theorem concrete_resolventQuadratic_le_driftless {lambda : ℝ}
   exact ((Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).resolventQuadratic_le
     hlambda (Manhattan.walshL2 ∅) 0).trans <| by
       rw [map_zero, sub_zero, Manhattan.concrete_hMinusEnergy_empty hlambda p]
-      simp [Manhattan.Operator.DissipativeSkewPair.hEnergy,
-        Manhattan.Operator.DissipativeSkewPair.H]
+      simp [LatticeProb.Analysis.DissipativeSkewPair.hEnergy,
+        LatticeProb.Analysis.DissipativeSkewPair.H]
 
 /-- Below the Lemma 4.1 threshold, the driftless majorant is bounded by a
 fixed multiple of the corrected majorant. -/
@@ -220,8 +220,8 @@ theorem correctedLowDegreeData_energy_lowLog
         Manhattan.Operator.correctedMajorant correctedCompetitorCutoff lambda p := by
   rw [zeroLowDegreeCompetitorData_competitor, map_zero, sub_zero,
     Manhattan.concrete_hMinusEnergy_empty hlambda p]
-  simp only [Manhattan.Operator.DissipativeSkewPair.hEnergy,
-    Manhattan.Operator.DissipativeSkewPair.H, map_zero, inner_zero_left,
+  simp only [LatticeProb.Analysis.DissipativeSkewPair.hEnergy,
+    LatticeProb.Analysis.DissipativeSkewPair.H, map_zero, inner_zero_left,
     map_zero, zero_add]
   exact driftlessMajorant_le_corrected_of_lowLog hlambda p hp₀ hp₁ hlog
 

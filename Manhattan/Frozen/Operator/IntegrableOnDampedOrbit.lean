@@ -1,4 +1,4 @@
-import Manhattan.Operator.Semigroup
+import Manhattan.Library
 
 /-! Frozen proved semigroup statement. -/
 
@@ -17,4 +17,4 @@ theorem Manhattan.Frozen.Operator.integrableOn_dampedOrbit : ∀ {E : Type u_1} 
       (∀ (t : ℝ), 0 ≤ t → ‖Manhattan.Operator.operatorSemigroup G t‖ ≤ 1) →
         MeasureTheory.IntegrableOn (Manhattan.Operator.dampedOrbit G lambda u) (Set.Ioi 0) MeasureTheory.volume
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.integrableOn_dampedOrbit
+:= @LatticeProb.Analysis.integrableOn_dampedOrbit

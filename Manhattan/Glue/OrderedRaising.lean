@@ -59,6 +59,8 @@ Paper: `manuscript.tex:1182-1186` (equation (45), `eq:raise`),
 `manuscript.tex:1200-1207` (Lemma 5.2, `lem:four`).
 -/
 
+open scoped lp
+
 noncomputable section
 
 open MeasureTheory
@@ -174,7 +176,7 @@ theorem degreeRaiseSymbol_apply (p : Fin 2 → ℝ) (i : Fin 2) (c : DegreeCoeff
         Complex.exp (-Complex.I * p i) *
           c (translateDegreeIndex 3 (Operator.axisVector i) S)) := by
   rw [degreeRaiseSymbol]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sub_apply,
+  simp only [smul_apply, sub_apply,
     LinearIsometryEquiv.coe_toLinearIsometry, LinearIsometry.coe_toContinuousLinearMap,
     lp.coeFn_smul, lp.coeFn_sub, Pi.smul_apply, Pi.sub_apply, smul_eq_mul,
     pullTranslate_apply]
@@ -187,7 +189,7 @@ theorem norm_degreeRaiseSymbol_le (p : Fin 2 → ℝ) (i : Fin 2) (c : DegreeCoe
     have : (-Complex.I) * (p i : ℂ) = ((-(p i) : ℝ) : ℂ) * Complex.I := by push_cast; ring
     rw [this, Complex.norm_exp_ofReal_mul_I]
   rw [degreeRaiseSymbol]
-  simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sub_apply,
+  simp only [smul_apply, sub_apply,
     LinearIsometryEquiv.coe_toLinearIsometry, LinearIsometry.coe_toContinuousLinearMap]
   calc ‖(2 : ℂ)⁻¹ • (Complex.exp (Complex.I * (p i : ℂ)) •
         (pullTranslate 3 (-Operator.axisVector i)) c -
@@ -598,7 +600,6 @@ the new torus variable. -/
 section Frequency
 
 attribute [local instance] lineOrder
-attribute [local instance] Real.fact_zero_lt_one
 attribute [local instance] orderedInverseUnitAddCircleMeasureSpace
 attribute [local instance] orderedInverseUnitAddCircleIsProbabilityMeasure
 

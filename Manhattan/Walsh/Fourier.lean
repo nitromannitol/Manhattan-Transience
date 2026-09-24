@@ -32,7 +32,7 @@ abbrev TorusFrequency := Axis → AddCircle torusPeriod
 
 /-- Embed a line frequency into the two-dimensional frequency space.  A
 horizontal line is indexed by its vertical coordinate and conversely. -/
-def embedLineFrequency (q : LineFrequency) : TorusFrequency := fun i =>
+noncomputable def embedLineFrequency (q : LineFrequency) : TorusFrequency := fun i =>
   match q.1, i with
   | .horizontal, .horizontal => 0
   | .horizontal, .vertical => q.2

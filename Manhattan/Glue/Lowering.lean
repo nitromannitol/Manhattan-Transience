@@ -12,6 +12,8 @@ factorial-free versions of (D2a) and (D2b).
 Paper: `manuscript.tex:827-840` and `manuscript.tex:1238-1255`.
 -/
 
+open scoped lp
+
 namespace Manhattan.Glue
 
 noncomputable section

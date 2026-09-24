@@ -338,7 +338,6 @@ theorem rawFourierCoefficient_swap {k : ℝ → ℝ → ℝ → ℂ} (hk : Torus
 
 section TorusTransfer
 
-attribute [local instance] Real.fact_zero_lt_one
 attribute [local instance] cubicUnitAddCircleMeasureSpace
 
 local instance : IsProbabilityMeasure (volume : Measure UnitAddCircle) :=

@@ -38,6 +38,7 @@ open MeasureTheory Set
 namespace Manhattan.V4
 
 open Manhattan.Glue Manhattan.Operator
+open LatticeProb.Analysis
 open scoped ENNReal
 
 /-- The composed Move 1 constant of Version 4:

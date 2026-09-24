@@ -19,7 +19,7 @@ import Manhattan.V4.Move2Supply
 import Manhattan.Paper.HeatKernel
 import Manhattan.Paper.AnnealedDerivative
 import Manhattan.Paper.Ergodic.Polya
-import Manhattan.Operator.Variational
+import LatticeProb.Analysis.DissipativeSkewOperator
 
 namespace Manhattan.Certificate
 
@@ -63,21 +63,22 @@ theorem annealed_derivative_bound {t : ℝ} (ht : 0 < t) :
 Stationarity, ergodicity under the full translation group and fair one-point
 marginals do NOT force transience.  The witness is a random shift of the
 alternating environment.  Pólya's theorem in two dimensions, which Mathlib does
-not have, is proved here rather than assumed. -/
+not have, is proved in the shared library Lattice-Probability rather than
+assumed. -/
 
 theorem ergodic_counterexample :
     ∀ᵐ ω ∂Manhattan.Paper.Ergodic.ergodicLaw,
       Manhattan.discreteGreen ω 0 = ⊤ :=
   (Manhattan.Paper.Ergodic.stationary_ergodic_fair_not_transient').2.2.2.2.2
 
-theorem polya_two_dimensions : Manhattan.Paper.Ergodic.SimpleRandomWalkRecurrent :=
-  Manhattan.Paper.Ergodic.simpleRandomWalkRecurrent
+theorem polya_two_dimensions : LatticeProb.SimpleRandomWalkRecurrent :=
+  LatticeProb.simpleRandomWalkRecurrent
 
 /-! ## Lemma 2.2: the variational bound, with no hypothesis on the competitor -/
 
 theorem variational_bound {E : Type*} [NormedAddCommGroup E]
     [InnerProductSpace ℂ E] [CompleteSpace E]
-    (P : Manhattan.Operator.DissipativeSkewPair E) {lambda : ℝ}
+    (P : LatticeProb.Analysis.DissipativeSkewPair E) {lambda : ℝ}
     (hlambda : 0 < lambda) (V g : E) :
     0 ≤ P.resolventQuadratic hlambda V ∧
       P.resolventQuadratic hlambda V ≤

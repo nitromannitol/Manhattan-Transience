@@ -1,4 +1,4 @@
-import Manhattan.Operator.Semigroup
+import Manhattan.Library
 
 /-! Frozen proved semigroup statement. -/
 
@@ -16,4 +16,4 @@ theorem Manhattan.Frozen.Operator.resolventOperator_bijective : ∀ {E : Type u_
     (∀ (t : ℝ), 0 ≤ t → ‖Manhattan.Operator.operatorSemigroup G t‖ ≤ 1) →
       Function.Bijective ⇑(Manhattan.Operator.resolventOperator G lambda)
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.resolventOperator_bijective
+:= @LatticeProb.Analysis.resolventOperator_bijective

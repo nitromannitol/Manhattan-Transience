@@ -1,5 +1,5 @@
 import Manhattan.Paper.Walk
-import Manhattan.Paper.Poisson
+import LatticeProb.Prob.PoissonClock
 
 /-!
 # The continuous-time quenched kernel
@@ -13,6 +13,8 @@ ingredients of the semigroup splitting in the proof of `prop:time`.
 open scoped BigOperators
 
 namespace Manhattan.Paper
+
+open LatticeProb (poissonWeight poissonWeight_nonneg tsum_poissonWeight summable_poissonWeight)
 
 /-- The continuous-time quenched kernel, as a real number. -/
 noncomputable def ck (ω : Environment) (t : ℝ) (x y : Site) : ℝ :=
@@ -125,7 +127,7 @@ theorem ck_flipEnv (ω : Environment) (t : ℝ) (x y : Site) :
 
 /-- The rate-two Poisson weights convolve: `N_{a+b} = N_a + N'_b` in law. -/
 theorem poissonWeight_convolution (a b : ℝ) (n : ℕ) :
-    ∑ ij ∈ Finset.antidiagonal n, poissonWeight a ij.1 * poissonWeight b ij.2
+    ∑ ij ∈ Finset.HasAntidiagonal.antidiagonal n, poissonWeight a ij.1 * poissonWeight b ij.2
       = poissonWeight (a + b) n := by
   rw [Finset.Nat.sum_antidiagonal_eq_sum_range_succ
     (fun i j => poissonWeight a i * poissonWeight b j) n]
@@ -155,13 +157,13 @@ theorem poissonWeight_convolution (a b : ℝ) (n : ℕ) :
   ring
 
 theorem tsum_prod_eq_tsum_antidiagonal {G : ℕ × ℕ → ℝ} (hG : Summable G) :
-    ∑' q : ℕ × ℕ, G q = ∑' n : ℕ, ∑ ij ∈ Finset.antidiagonal n, G ij := by
-  have hσ : Summable fun p : Σ n : ℕ, Finset.antidiagonal n => G (p.2 : ℕ × ℕ) :=
-    (Finset.sigmaAntidiagonalEquivProd (A := ℕ)).summable_iff.2 hG
-  have hrhs : ∀ n : ℕ, (∑ ij ∈ Finset.antidiagonal n, G ij)
-      = ∑' ij : (Finset.antidiagonal n : Finset (ℕ × ℕ)), G ij :=
-    fun n => (Finset.tsum_subtype (Finset.antidiagonal n) G).symm
-  rw [tsum_congr hrhs, ← (Finset.sigmaAntidiagonalEquivProd (A := ℕ)).tsum_eq G]
+    ∑' q : ℕ × ℕ, G q = ∑' n : ℕ, ∑ ij ∈ Finset.HasAntidiagonal.antidiagonal n, G ij := by
+  have hσ : Summable fun p : Σ n : ℕ, Finset.HasAntidiagonal.antidiagonal n => G (p.2 : ℕ × ℕ) :=
+    (Finset.HasAntidiagonal.sigmaAntidiagonalEquivProd (A := ℕ)).summable_iff.2 hG
+  have hrhs : ∀ n : ℕ, (∑ ij ∈ Finset.HasAntidiagonal.antidiagonal n, G ij)
+      = ∑' ij : (Finset.HasAntidiagonal.antidiagonal n : Finset (ℕ × ℕ)), G ij :=
+    fun n => (Finset.tsum_subtype (Finset.HasAntidiagonal.antidiagonal n) G).symm
+  rw [tsum_congr hrhs, ← (Finset.HasAntidiagonal.sigmaAntidiagonalEquivProd (A := ℕ)).tsum_eq G]
   exact hσ.tsum_sigma' fun n => (hasSum_fintype _).summable
 
 set_option maxHeartbeats 1000000 in
@@ -225,5 +227,5 @@ theorem ck_chapman (ω : Environment) {a b : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) 
   refine (tsum_congr fun n => ?_).symm
   rw [← poissonWeight_convolution a b n, Finset.sum_mul]
   refine Finset.sum_congr rfl fun ij hij => ?_
-  rw [Finset.mem_antidiagonal] at hij
+  rw [Finset.HasAntidiagonal.mem_antidiagonal] at hij
   simp only [hGdef, hij]

@@ -146,7 +146,7 @@ the sum of its raising and lowering halves. -/
 theorem originRaise_add_originLower (i : Fin 2) :
     originRaise i + originLower i = originSignMultiplier i := by
   refine walshL2_ext_op fun S => ?_
-  rw [ContinuousLinearMap.add_apply, originRaise_walshL2, originLower_walshL2,
+  rw [add_apply, originRaise_walshL2, originLower_walshL2,
     originSignMultiplier_walshL2_public, toggleOriginWalshIndex_eq_ite]
   by_cases h : originLine i ∈ S <;> simp [h]
 
@@ -225,7 +225,7 @@ theorem fiberSkewTerm_walshL2 (p : Fin 2 -> Real) (i : Fin 2)
         Complex.exp (-Complex.I * p i) •
           walshL2 (translateWalshIndex (-Operator.axisVector i) S) := by
   rw [fiberSkewTerm, phasedShift_adjoint, phasedShift]
-  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+  simp only [sub_apply, smul_apply,
     environmentShift_walshL2_public]
 
 /-- The direction-`i` summand of the paper's raising operator `D`. -/
@@ -325,7 +325,7 @@ theorem inner_walshL2_walshRaiseDir (p : Fin 2 -> Real) (i : Fin 2)
       (walshL2 T) = -(fiberSkewTerm p i) (originLower i (walshL2 T)) := by
     rw [ContinuousLinearMap.adjoint_comp, originRaise_adjoint, fiberSkewTerm_adjoint]
     rfl
-  rw [walshRaiseDir, ContinuousLinearMap.smul_apply, inner_smul_right,
+  rw [walshRaiseDir, smul_apply, inner_smul_right,
     ← ContinuousLinearMap.adjoint_inner_left, hadj]
   by_cases h : originLine i ∈ T
   · rw [if_pos h, originLower_walshL2, if_pos h, fiberSkewTerm_walshL2,
@@ -352,8 +352,8 @@ theorem inner_walshL2_walshLowerDir (p : Fin 2 -> Real) (i : Fin 2)
       (walshL2 T) = -(fiberSkewTerm p i) (originRaise i (walshL2 T)) := by
     rw [ContinuousLinearMap.adjoint_comp, originLower_adjoint, fiberSkewTerm_adjoint]
     rfl
-  rw [walshLowerDir, ContinuousLinearMap.neg_apply, inner_neg_right,
-    ContinuousLinearMap.smul_apply, inner_smul_right,
+  rw [walshLowerDir, neg_apply, inner_neg_right,
+    smul_apply, inner_smul_right,
     ← ContinuousLinearMap.adjoint_inner_left, hadj]
   by_cases h : originLine i ∈ T
   · rw [if_pos h, originRaise_walshL2, if_pos h, map_zero, neg_zero,
@@ -377,7 +377,7 @@ theorem inner_walshL2_walshRaise (p : Fin 2 -> Real)
                 inner ℂ (walshL2 (translateWalshIndex (Operator.axisVector i)
                   (T.erase (originLine i)))) x)
         else 0 := by
-  rw [walshRaise, ContinuousLinearMap.sum_apply, inner_sum]
+  rw [walshRaise, sum_apply, inner_sum]
   exact Finset.sum_congr rfl fun i _ => inner_walshL2_walshRaiseDir p i T x
 
 /-- Summing the two directions gives the full lowering coefficient. -/
@@ -394,7 +394,7 @@ theorem inner_walshL2_walshLower (p : Fin 2 -> Real)
               Complex.exp (-Complex.I * p i) *
                 inner ℂ (walshL2 (translateWalshIndex (Operator.axisVector i)
                   (insert (originLine i) T))) x)) := by
-  rw [walshLower, ContinuousLinearMap.sum_apply, inner_sum]
+  rw [walshLower, sum_apply, inner_sum]
   exact Finset.sum_congr rfl fun i _ => inner_walshL2_walshLowerDir p i T x
 
 /-! ### Degree bookkeeping and operator norms
@@ -429,9 +429,9 @@ theorem originLower_walshL2_mem_degree (i : Fin 2) {n : ℕ}
 theorem walshRaise_walshL2_mem_degree (p : Fin 2 -> Real) {n : ℕ}
     (S : Finset LineIndex) (hS : S.card = n) :
     walshRaise p (walshL2 S) ∈ walshDegree (n + 1) := by
-  rw [walshRaise, ContinuousLinearMap.sum_apply]
+  rw [walshRaise, sum_apply]
   refine Submodule.sum_mem _ fun i _ => ?_
-  rw [walshRaiseDir, ContinuousLinearMap.smul_apply,
+  rw [walshRaiseDir, smul_apply,
     ContinuousLinearMap.comp_apply, fiberSkewTerm_walshL2, map_sub, map_smul,
     map_smul]
   refine Submodule.smul_mem _ _ (Submodule.sub_mem _
@@ -444,10 +444,10 @@ theorem walshRaise_walshL2_mem_degree (p : Fin 2 -> Real) {n : ℕ}
 theorem walshLower_walshL2_mem_degree (p : Fin 2 -> Real) {n : ℕ}
     (S : Finset LineIndex) (hS : S.card = n) :
     walshLower p (walshL2 S) ∈ walshDegree (n - 1) := by
-  rw [walshLower, ContinuousLinearMap.sum_apply]
+  rw [walshLower, sum_apply]
   refine Submodule.sum_mem _ fun i _ => ?_
-  rw [walshLowerDir, ContinuousLinearMap.neg_apply,
-    ContinuousLinearMap.smul_apply, ContinuousLinearMap.comp_apply,
+  rw [walshLowerDir, neg_apply,
+    smul_apply, ContinuousLinearMap.comp_apply,
     fiberSkewTerm_walshL2, map_sub, map_smul, map_smul]
   refine Submodule.neg_mem _ (Submodule.smul_mem _ _ (Submodule.sub_mem _
     (Submodule.smul_mem _ _ ?_) (Submodule.smul_mem _ _ ?_)))

@@ -1,6 +1,7 @@
 import Manhattan.Model.Kernel
 import Mathlib.Probability.Distributions.Gamma
-import Mathlib.Probability.Distributions.Poisson
+import Mathlib.Probability.Distributions.Poisson.Basic
+import Mathlib.MeasureTheory.Constructions.Polish.Basic
 
 /-!
 # Rate-two Poisson subordination
@@ -22,13 +23,14 @@ zero at negative times so that ordinary Lebesgue integration on `ℝ` can be
 used without a separate subtype carrier. -/
 noncomputable def rateTwoPoissonWeight (t : ℝ) (n : ℕ) : ℝ≥0∞ :=
   if ht : 0 ≤ t then
-    ENNReal.ofReal (poissonPMFReal ⟨2 * t, mul_nonneg (by norm_num) ht⟩ n)
+    poissonMeasure ⟨2 * t, mul_nonneg (by norm_num) ht⟩ {n}
   else 0
 
 theorem rateTwoPoissonWeight_of_nonneg {t : ℝ} (ht : 0 ≤ t) (n : ℕ) :
     rateTwoPoissonWeight t n =
-      ENNReal.ofReal (poissonPMFReal ⟨2 * t, mul_nonneg (by norm_num) ht⟩ n) := by
-  simp [rateTwoPoissonWeight, ht]
+      ENNReal.ofReal (Real.exp (-(2 * t)) * (2 * t) ^ n / n.factorial) := by
+  rw [rateTwoPoissonWeight, dif_pos ht, poissonMeasure_singleton]
+  rfl
 
 theorem rateTwoPoissonWeight_of_neg {t : ℝ} (ht : t < 0) (n : ℕ) :
     rateTwoPoissonWeight t n = 0 := by
@@ -41,9 +43,9 @@ theorem rateTwoPoissonWeight_eq_half_gamma (t : ℝ) (n : ℕ) :
       (2 : ℝ≥0∞)⁻¹ * gammaPDF (n + 1 : ℝ) 2 t := by
   by_cases ht : 0 ≤ t
   · rw [rateTwoPoissonWeight_of_nonneg ht, gammaPDF_of_nonneg ht]
-    rw [poissonPMFReal, Real.Gamma_nat_eq_factorial]
+    rw [Real.Gamma_nat_eq_factorial]
     rw [show (n : ℝ) + 1 = ((n + 1 : ℕ) : ℝ) by norm_num]
-    simp only [NNReal.coe_mk, Nat.cast_add, Nat.cast_one, add_sub_cancel_right,
+    simp only [Nat.cast_add, Nat.cast_one, add_sub_cancel_right,
       Real.rpow_natCast]
     rw [show (2 : ℝ≥0∞)⁻¹ = ENNReal.ofReal ((2 : ℝ)⁻¹) by
       symm
@@ -65,7 +67,10 @@ theorem measurable_rateTwoPoissonWeight (n : ℕ) :
 theorem rateTwoPoissonWeight_tsum {t : ℝ} (ht : 0 ≤ t) :
     ∑' n : ℕ, rateTwoPoissonWeight t n = 1 := by
   simp_rw [rateTwoPoissonWeight_of_nonneg ht]
-  exact (poissonPMF ⟨2 * t, mul_nonneg (by norm_num) ht⟩).property.tsum_eq
+  have h : HasSum (fun n : ℕ => Real.exp (-(2 * t)) * (2 * t) ^ n / n.factorial) 1 :=
+    hasSum_one_poissonMeasure ⟨2 * t, mul_nonneg (by norm_num) ht⟩
+  rw [← ENNReal.ofReal_tsum_of_nonneg (fun n => by positivity) h.summable, h.tsum_eq,
+    ENNReal.ofReal_one]
 
 /-- The continuous-time quenched kernel, by rate-two Poisson subordination. -/
 noncomputable def continuousKernel (ω : Environment) (t : ℝ) (z z' : Site) : ℝ≥0∞ :=
@@ -121,7 +126,7 @@ theorem lintegral_continuousKernel_eq_half_tsum
 /-- Joint measurability of the subordinated kernel in environment and time. -/
 theorem measurable_continuousKernel (z z' : Site) :
     Measurable fun q : Environment × ℝ => continuousKernel q.1 q.2 z z' := by
-  apply Measurable.ennreal_tsum
+  apply Measurable.tsum
   intro n
   exact ((measurable_rateTwoPoissonWeight n).comp measurable_snd).mul
     ((measurable_nStepKernel n z z').coe_nnreal_ennreal.comp measurable_fst)

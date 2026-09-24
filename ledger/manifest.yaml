@@ -33,7 +33,7 @@
 version: 1
 source_pin:
   file: paper/manuscript.tex
-  sha256: b212a597bf0f76505609fb7fcf569aed8b0681048fcb4e8b2e3e5603b8c95c40
+  sha256: ef90fcdfb102b3f47407eb906b69bb44bd11feaa63609bc3dbf3272be3e0020a
 
 nodes:
   - id: op-damped-orbit-has-deriv-at
@@ -44,7 +44,7 @@ nodes:
     export: Manhattan.Frozen.Operator.dampedOrbit_hasDerivAt
     state: PROVED
     frozen_sha256: a4539ab6deabcb8be40b3d33b40215434bba74e43c7149268de20fec11ff9636
-    closure_sha256: 6c6570db5ed494ccf6bc819bc6ff3101881612eac98045c14a8f161f63d40d97
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.dampedOrbit_hasDerivAt
     draft_allowlist: []
     approved: 2026-09-02
@@ -56,7 +56,7 @@ nodes:
     export: Manhattan.Frozen.Operator.dampedOrbit_norm_le
     state: PROVED
     frozen_sha256: f82830e285ee2c1c9401a943a4b7680403d8be67071e79b4de5da784e02024a6
-    closure_sha256: 98f371fe7f9fa29ddbd367dbe7a7fe4ad8b8258a10242d89adfd475c1fd2d6c6
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.dampedOrbit_norm_le
     draft_allowlist: []
     approved: 2026-09-02
@@ -153,7 +153,7 @@ nodes:
     state: PROVED
     superseded_by: op-frequency-resolvent-le-of-competitor-v2
     frozen_sha256: e16355e2d5e2177395a2919684099d098b3d0f6206e8877eb38c40e713c1e978
-    closure_sha256: e83b33d47502999354104aa90c2451d9a4b39d0619432c0bd0ad12d487e9ed28
+    closure_sha256: 51e231c727ab9d4e38cdb78cf6b6790e9354d8f8efa9b940eb2b8d497826d330
     provider: Manhattan.Operator.frequency_resolvent_le_of_competitor
     draft_allowlist: []
     approved: 2026-09-02
@@ -165,7 +165,7 @@ nodes:
     export: Manhattan.Frozen.Operator.frequency_resolvent_le_of_competitor_v2
     state: PROVED
     frozen_sha256: e62574cc3badb817b5e27e05f9432a859c15793c613d3389ba436f1b40c25b7c
-    closure_sha256: 7d7a09efd76da1816d957931f9490c125e072da286e8a31c311a3677897d1509
+    closure_sha256: 568119aa6867aa0f46ad8881e443716c0dc5c69bf0e3dda204c11d09a5e6c9b8
     provider: Manhattan.Operator.frequency_resolvent_le_of_competitor_v2
     draft_allowlist: []
     approved: 2026-09-03
@@ -177,7 +177,7 @@ nodes:
     export: Manhattan.Frozen.Operator.generator_commutes_operatorSemigroup
     state: PROVED
     frozen_sha256: 6dd539272ebf0ed85abbc403bc73d45074419f0d908c720c8a4ee0366bda038f
-    closure_sha256: add8b17c71a5a8768d029705f7b0720f2aa524d164cfc9d250dedc9bf382b3b0
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.generator_commutes_operatorSemigroup
     draft_allowlist: []
     approved: 2026-09-02
@@ -189,7 +189,7 @@ nodes:
     export: Manhattan.Frozen.Operator.H_bijective
     state: PROVED
     frozen_sha256: a326797efb2c4d864b2eae88e4850fafe3e1cefd709b7a1cc2e3c72c51fb5e21
-    closure_sha256: e874f568cb3a17a94f3bd6b6baba37efa1c15dd50a565f44830cb112673adb9f
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.DissipativeSkewPair.H_bijective
     draft_allowlist: []
     approved: 2026-09-02
@@ -201,7 +201,7 @@ nodes:
     export: Manhattan.Frozen.Operator.integrableOn_dampedOrbit
     state: PROVED
     frozen_sha256: e43ce47055f934ab60b769abc71c701dd219976c74fbaf76de41b35e83b83d0c
-    closure_sha256: 98f371fe7f9fa29ddbd367dbe7a7fe4ad8b8258a10242d89adfd475c1fd2d6c6
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.integrableOn_dampedOrbit
     draft_allowlist: []
     approved: 2026-09-02
@@ -213,7 +213,7 @@ nodes:
     export: Manhattan.Frozen.Operator.integrableOn_resolvent_dampedOrbit
     state: PROVED
     frozen_sha256: 63f18b1a2c4d6922cf8dfe370d200ae1d36b3f644dcc0725b9c1f23f33005334
-    closure_sha256: 6c6570db5ed494ccf6bc819bc6ff3101881612eac98045c14a8f161f63d40d97
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.integrableOn_resolvent_dampedOrbit
     draft_allowlist: []
     approved: 2026-09-02
@@ -225,7 +225,7 @@ nodes:
     export: Manhattan.Frozen.Operator.integral_inner_operatorSemigroup_eq_resolvent
     state: PROVED
     frozen_sha256: 6b9487fe4339c420edf1ef91db0dd6cf22d60eb88f41ae8faa1fab73c5a186ca
-    closure_sha256: 3ead4fafd5800cb1d93b42ae55c3a4695ed275c579aeef8a66370970b16a608a
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.integral_inner_operatorSemigroup_eq_resolvent
     draft_allowlist: []
     approved: 2026-09-02
@@ -237,7 +237,7 @@ nodes:
     export: Manhattan.Frozen.Operator.laplaceVector_resolventOperator
     state: PROVED
     frozen_sha256: c85eec0ac0764ba05e58416ef085725fdb98f5dfc3fa4efd1a10cc48b07f349c
-    closure_sha256: 78e54fed07fbfe0b75c6984035eea2682dd25a72fb1af5e519582e0bb548642c
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.laplaceVector_resolventOperator
     draft_allowlist: []
     approved: 2026-09-02
@@ -261,7 +261,7 @@ nodes:
     export: Manhattan.Frozen.Operator.minus_bijective
     state: PROVED
     frozen_sha256: c9b66f839679cf8989c81c7fd961e03e49d46fc0427d42308b3e499fe2943a83
-    closure_sha256: e874f568cb3a17a94f3bd6b6baba37efa1c15dd50a565f44830cb112673adb9f
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.DissipativeSkewPair.minus_bijective
     draft_allowlist: []
     approved: 2026-09-02
@@ -273,7 +273,7 @@ nodes:
     export: Manhattan.Frozen.Operator.operatorSemigroup_hasDerivAt
     state: PROVED
     frozen_sha256: 4ae021ef2a50f6edff5ba8cbe12c0b00b37aa2a08b338aaf56b16b46613eddb7
-    closure_sha256: add8b17c71a5a8768d029705f7b0720f2aa524d164cfc9d250dedc9bf382b3b0
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.operatorSemigroup_hasDerivAt
     draft_allowlist: []
     approved: 2026-09-02
@@ -285,7 +285,7 @@ nodes:
     export: Manhattan.Frozen.Operator.plus_bijective
     state: PROVED
     frozen_sha256: 4fa27e790f6b0f8bc8a805b373781a9126d7536e347d9f1a0f739e6b4dd2b583
-    closure_sha256: e874f568cb3a17a94f3bd6b6baba37efa1c15dd50a565f44830cb112673adb9f
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.DissipativeSkewPair.plus_bijective
     draft_allowlist: []
     approved: 2026-09-02
@@ -321,7 +321,7 @@ nodes:
     export: Manhattan.Frozen.Operator.realForm_H_coercive
     state: PROVED
     frozen_sha256: 52ca0fc60e8749226bfc3890793a29888f52e6522c09e3b258ef0d880f7212a1
-    closure_sha256: b317714598d6c799e61d4ffe30da52dc5bca635c00e841b33f4e811911b6934d
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.DissipativeSkewPair.realForm_H_coercive
     draft_allowlist: []
     approved: 2026-09-02
@@ -333,7 +333,7 @@ nodes:
     export: Manhattan.Frozen.Operator.realForm_minus_coercive
     state: PROVED
     frozen_sha256: 331b0ad92424452569b5df6069c286ff7b0f710f9ae2309b01eba3a5ba8c57b4
-    closure_sha256: b317714598d6c799e61d4ffe30da52dc5bca635c00e841b33f4e811911b6934d
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.DissipativeSkewPair.realForm_minus_coercive
     draft_allowlist: []
     approved: 2026-09-02
@@ -345,7 +345,7 @@ nodes:
     export: Manhattan.Frozen.Operator.realForm_plus_coercive
     state: PROVED
     frozen_sha256: 63fcdab5ac4ebbfe7b0cc89ae47b18e7bbba80a600810ceb3667bc1cddc0169d
-    closure_sha256: b317714598d6c799e61d4ffe30da52dc5bca635c00e841b33f4e811911b6934d
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.DissipativeSkewPair.realForm_plus_coercive
     draft_allowlist: []
     approved: 2026-09-02
@@ -357,7 +357,7 @@ nodes:
     export: Manhattan.Frozen.Operator.resolventEquiv_symm_apply
     state: PROVED
     frozen_sha256: f5887f4f848030591b4b30d9671d23d26a08702260fa968fbe2610cea9aac4ce
-    closure_sha256: d7f1271c40256f61e4f1e4ad07ad0b3ba9193839692428b7e92f3f67b7c861d8
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.resolventEquiv_symm_apply
     draft_allowlist: []
     approved: 2026-09-02
@@ -369,7 +369,7 @@ nodes:
     export: Manhattan.Frozen.Operator.resolventOperator_bijective
     state: PROVED
     frozen_sha256: 26eb643afd5e56541ae6d04cf5ea9a77cd2afa923f70fe74baf282dbc4889669
-    closure_sha256: 8c75b93c578cce1284871594f86e1cdf8f04cfc8c027656122c11e36656dd105
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.resolventOperator_bijective
     draft_allowlist: []
     approved: 2026-09-02
@@ -381,7 +381,7 @@ nodes:
     export: Manhattan.Frozen.Operator.resolventOperator_injective
     state: PROVED
     frozen_sha256: a0d58450e15e244dbd56fc5dbff142b1c9b47f1a1d30aa1717cc44271aba88b9
-    closure_sha256: 8c75b93c578cce1284871594f86e1cdf8f04cfc8c027656122c11e36656dd105
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.resolventOperator_injective
     draft_allowlist: []
     approved: 2026-09-02
@@ -393,7 +393,7 @@ nodes:
     export: Manhattan.Frozen.Operator.resolventOperator_laplaceVector
     state: PROVED
     frozen_sha256: 2a13e329360657dc374acacbccc856c38829a6ce0cd2966c3b4bb84f76ab7ab2
-    closure_sha256: 78e54fed07fbfe0b75c6984035eea2682dd25a72fb1af5e519582e0bb548642c
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.resolventOperator_laplaceVector
     draft_allowlist: []
     approved: 2026-09-02
@@ -405,7 +405,7 @@ nodes:
     export: Manhattan.Frozen.Operator.resolventQuadratic_le
     state: PROVED
     frozen_sha256: 10628d63dc82af387adb395f4116902290a77884779d489f4b948dd582d602a3
-    closure_sha256: e874f568cb3a17a94f3bd6b6baba37efa1c15dd50a565f44830cb112673adb9f
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.DissipativeSkewPair.resolventQuadratic_le
     draft_allowlist: []
     approved: 2026-09-02
@@ -417,7 +417,7 @@ nodes:
     export: Manhattan.Frozen.Operator.resolventQuadratic_le_hMinusEnergy
     state: PROVED
     frozen_sha256: 889f24a1fd0cb60efcb8810f242cf65483c7ed18f829e81d7969d9e13156a4af
-    closure_sha256: e874f568cb3a17a94f3bd6b6baba37efa1c15dd50a565f44830cb112673adb9f
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.DissipativeSkewPair.resolventQuadratic_le_hMinusEnergy
     draft_allowlist: []
     approved: 2026-09-02
@@ -429,7 +429,7 @@ nodes:
     export: Manhattan.Frozen.Operator.tendsto_dampedOrbit_atTop
     state: PROVED
     frozen_sha256: f2ff6b12638697ede7ca17fb68923613b942d699f687e5bec927ed4988834532
-    closure_sha256: 98f371fe7f9fa29ddbd367dbe7a7fe4ad8b8258a10242d89adfd475c1fd2d6c6
+    closure_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     provider: Manhattan.Operator.tendsto_dampedOrbit_atTop
     draft_allowlist: []
     approved: 2026-09-02
@@ -718,7 +718,7 @@ nodes:
     state: PROVED
     superseded_by: prop-generator-v2
     frozen_sha256: 03a6a5c72b5590b39b5f4dac6aff08eef42534b6c1814ad6123fe3faf7fe32e6
-    closure_sha256: 7e18f427b41a7a67815890ae485db9f29b5902044d7406c607fb7ff6c0231f5a
+    closure_sha256: d790d83618d9f574d003498293e709da575793a54d77a5cdc39e0d3cea7d7496
     provider: Manhattan.Glue.proposition_generator
     draft_allowlist: []
     approved: 2026-09-02
@@ -730,7 +730,7 @@ nodes:
     export: Manhattan.Frozen.Operator.proposition_generator_v2
     state: PROVED
     frozen_sha256: ea938b93cee461f352dfc4d232f11ee1bedb42e444f957e7cb66224a7ea1e017
-    closure_sha256: 031cc42e47918ad4208e31e84bcfae814178ec8334e314b2e5cdb315ea094256
+    closure_sha256: a137024dbead747afb6300456294a1bec4c8baa57acf565fbaa3f5f33c054143
     provider: Manhattan.Glue.proposition_generator_v2
     draft_allowlist: []
     approved: 2026-09-03
@@ -742,7 +742,7 @@ nodes:
     export: Manhattan.Frozen.Estimates.proposition_frequency
     state: PROVED
     frozen_sha256: 636d95d05926547c6ee6b2583e5cac61600314921b60ccabba2819fabdcb5197
-    closure_sha256: a945d271c045f2f5e3d279d809cb511044fbe9640247cbfe1e5060e30b0e7f4d
+    closure_sha256: 449852619e1e6f14975523f859338b70329db0ac3b98fab2e9f7aae2e0fe62c7
     provider: Manhattan.Glue.proposition_frequency_v2
     draft_allowlist: []
     approved: 2026-09-03
@@ -754,7 +754,7 @@ nodes:
     export: Manhattan.Frozen.Main.theorem_1_2
     state: PROVED
     frozen_sha256: d70216c1f36294a6f788b7af91a347d88b1b56399184a53876d8e8de5241a70b
-    closure_sha256: 3875a13783f322eec5dcb0e3542f63e472e53f524c76f20ea384e946276cb8d9
+    closure_sha256: 737b83ee23c150c599681070d51cb65d6e7625ea678a4a6db0d066fef6e3add6
     provider: Manhattan.Glue.theorem_1_2_proved_of_exists
     draft_allowlist: []
     approved: 2026-09-02
@@ -766,7 +766,7 @@ nodes:
     export: theorem_1_2
     state: PROVED
     frozen_sha256: fac2f2c070cc5f251717258450e6248afb0c24e107fbc4155d6f1cfe3b9ee587
-    closure_sha256: 3875a13783f322eec5dcb0e3542f63e472e53f524c76f20ea384e946276cb8d9
+    closure_sha256: 737b83ee23c150c599681070d51cb65d6e7625ea678a4a6db0d066fef6e3add6
     provider: Manhattan.Glue.theorem_1_2_proved_of_exists
     draft_allowlist: []
     approved: 2026-09-02
@@ -863,7 +863,7 @@ nodes:
     export: Manhattan.Frozen.Glue.lemma_four_concrete_competitor
     state: PROVED
     frozen_sha256: 677a30a05f20a3e3f5f8e86432ee6d3862bdf684de0b823424e368c6b7c9a56c
-    closure_sha256: 8df3f55d11e95e9bc15d136c83d9b46bae317ece7d541babd1ace81262efca68
+    closure_sha256: 2f6896cede9979b09acd00391f3bb631131f88fc721b26fcb01a39f0482f1a1a
     provider: Manhattan.Glue.sectorDFourForm_shiftedCorrectionWalsh_le
     draft_allowlist: []
     approved: 2026-09-04
@@ -899,7 +899,7 @@ nodes:
     export: Manhattan.Frozen.Glue.summand_one_bound
     state: PROVED
     frozen_sha256: 51bb5a6954535e5b80039971ba52d7bb149e0cb6721db934305393cb1efc8e13
-    closure_sha256: 3e59e3653f910b8005ff10c765007e0816446cc002608b6a02b1573d7e508953
+    closure_sha256: 0fc2adde5aa1078ecd75e933f077c82d926c1444a96f2c45f7aae1503032543a
     provider: Manhattan.Glue.summandOneBound_proved
     draft_allowlist: []
     approved: 2026-09-04
@@ -911,7 +911,7 @@ nodes:
     export: Manhattan.Frozen.Glue.summand_two_bound
     state: PROVED
     frozen_sha256: 53c81ca6c2aa46fe07be75e713473776fb0754d0946aa9e8cd6142c0661a7467
-    closure_sha256: 7256286da86084926d59e3b2851d7850339b56bb536929ab474050d24580c84d
+    closure_sha256: 77496caf83404b00d08ebb726eade8b95c22b3367711c7ac5e1fefe90f1add9a
     provider: Manhattan.Glue.summandTwoBound_proved
     draft_allowlist: []
     approved: 2026-09-04
@@ -923,7 +923,7 @@ nodes:
     export: Manhattan.Frozen.Glue.summand_three_bound
     state: PROVED
     frozen_sha256: 9f3e2e7511b0992c25c8763e7bb6dbc242f3301fdba3a3ca8331ca084539a0d8
-    closure_sha256: 73d952f6efb1004da294572f33f70942fa880fcf558d9a141d637a3eb89c33c5
+    closure_sha256: 62105644cbb8870262a93fe811bf29e55fe609c0f92639e2994db861ccaf0785
     provider: Manhattan.Glue.summandThreeBound_proved
     draft_allowlist: []
     approved: 2026-09-04
@@ -935,7 +935,7 @@ nodes:
     export: Manhattan.Frozen.Glue.summand_four_bound
     state: PROVED
     frozen_sha256: 4b901c2baef176b6ef2910447d0327e87590a1581b1040a819ae559f5ae39093
-    closure_sha256: 2bae5df80eed788f603c09e6aa9f1e407fd4edd06c1056031d07e128b805d713
+    closure_sha256: 4d2976d5378d2ef5ac6e91b5361bbccff30d3858bbf18e0221b2545f39f847dc
     provider: Manhattan.Glue.summandFourBound_proved
     draft_allowlist: []
     approved: 2026-09-04
@@ -947,7 +947,7 @@ nodes:
     export: Manhattan.Frozen.Glue.sector_energy_bound
     state: PROVED
     frozen_sha256: 5be20c4d0f03b311bab331a1ad2b0199c8b1c1f849044e8f1f506427d41d4629
-    closure_sha256: dc2217fb55b7c576db2e417f3ef03dc9a44432d7d04431055cee83e24cef99ab
+    closure_sha256: d470688c3ad6135a9c229261a6e82041e6e9012576e8d03f41ca3fafbc8096c0
     provider: Manhattan.Glue.exists_concreteSectorEnergyBound
     draft_allowlist: []
     approved: 2026-09-04

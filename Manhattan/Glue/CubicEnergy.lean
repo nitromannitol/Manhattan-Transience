@@ -18,8 +18,6 @@ namespace Manhattan.Glue
 
 noncomputable section
 
-attribute [local instance] Real.fact_zero_lt_one
-
 /-- The normalized Haar measure on the unit circle, named so that the
 discharge files can share exactly this instance. -/
 local instance cubicUnitAddCircleMeasureSpace : MeasureSpace UnitAddCircle :=

@@ -5,7 +5,8 @@ import Manhattan.Paper.HeatKernel
 
 This is the second half of `manuscript.tex:1449-1480` (`prop:time`,
 equation `eq:time-derivative`).  The Poisson clock supplies the `t^{-1/2}`
-gain: `tsum_abs_dPoissonWeight_le` is the manuscript's `E|N/t - 2| ≤ √(2/t)`,
+gain: `tsum_abs_dPoissonWeight_le` of the library module
+`LatticeProb.Prob.PoissonClock` is the manuscript's `E|N/t - 2| ≤ √(2/t)`,
 proved from the exact Poisson mean and variance, and the heat-kernel bound of
 `Manhattan.Paper.HeatKernel` supplies the remaining `t^{-1}` after the
 semigroup is split at `t/2`.
@@ -15,155 +16,9 @@ open scoped BigOperators
 
 namespace Manhattan.Paper
 
+open LatticeProb (poissonWeight poissonWeightPrev dPoissonWeight summable_abs_dPoissonWeight
+  tsum_abs_dPoissonWeight_le abs_tsum_le)
 
-theorem poissonWeight_succ_mul (s : ℝ) (m : ℕ) :
-    ((m : ℝ) + 1) * poissonWeight s (m + 1) = 2 * s * poissonWeight s m := by
-  have hm : (0:ℝ) < (m.factorial : ℝ) := by exact_mod_cast m.factorial_pos
-  rw [poissonWeight, poissonWeight, Nat.factorial_succ]
-  push_cast
-  field_simp
-  ring
-
-theorem summable_nat_mul_poissonWeight (s : ℝ) :
-    Summable fun n : ℕ => (n : ℝ) * poissonWeight s n := by
-  refine (summable_nat_add_iff 1).1 ?_
-  refine ((summable_poissonWeight s).mul_left (2 * s)).congr fun m => ?_
-  rw [← poissonWeight_succ_mul s m]
-  push_cast
-  ring
-
-theorem tsum_nat_mul_poissonWeight (s : ℝ) :
-    ∑' n : ℕ, (n : ℝ) * poissonWeight s n = 2 * s := by
-  rw [(summable_nat_mul_poissonWeight s).tsum_eq_zero_add]
-  have h0 : ((0:ℕ) : ℝ) * poissonWeight s 0 = 0 := by simp
-  rw [h0, zero_add]
-  have hterm : ∀ m : ℕ, ((m + 1 : ℕ) : ℝ) * poissonWeight s (m + 1)
-      = 2 * s * poissonWeight s m := by
-    intro m
-    rw [← poissonWeight_succ_mul s m]
-    push_cast
-    ring
-  rw [tsum_congr hterm, tsum_mul_left, tsum_poissonWeight, mul_one]
-
-theorem summable_nat_sq_mul_poissonWeight (s : ℝ) :
-    Summable fun n : ℕ => (n : ℝ) ^ 2 * poissonWeight s n := by
-  refine (summable_nat_add_iff 1).1 ?_
-  refine (((summable_nat_mul_poissonWeight s).add (summable_poissonWeight s)).mul_left
-    (2 * s)).congr fun m => ?_
-  have h := poissonWeight_succ_mul s m
-  have : ((m + 1 : ℕ) : ℝ) ^ 2 * poissonWeight s (m + 1)
-      = ((m : ℝ) + 1) * (((m : ℝ) + 1) * poissonWeight s (m + 1)) := by push_cast; ring
-  rw [this, h]
-  ring
-
-theorem tsum_nat_sq_mul_poissonWeight (s : ℝ) :
-    ∑' n : ℕ, (n : ℝ) ^ 2 * poissonWeight s n = (2 * s) ^ 2 + 2 * s := by
-  rw [(summable_nat_sq_mul_poissonWeight s).tsum_eq_zero_add]
-  have h0 : ((0:ℕ) : ℝ) ^ 2 * poissonWeight s 0 = 0 := by simp
-  rw [h0, zero_add]
-  have hterm : ∀ m : ℕ, ((m + 1 : ℕ) : ℝ) ^ 2 * poissonWeight s (m + 1)
-      = 2 * s * ((m : ℝ) * poissonWeight s m) + 2 * s * poissonWeight s m := by
-    intro m
-    have h := poissonWeight_succ_mul s m
-    have h2 : ((m + 1 : ℕ) : ℝ) ^ 2 * poissonWeight s (m + 1)
-        = ((m : ℝ) + 1) * (((m : ℝ) + 1) * poissonWeight s (m + 1)) := by push_cast; ring
-    rw [h2, h]
-    ring
-  rw [tsum_congr hterm, Summable.tsum_add
-    ((summable_nat_mul_poissonWeight s).mul_left (2 * s))
-    ((summable_poissonWeight s).mul_left (2 * s)), tsum_mul_left, tsum_mul_left,
-    tsum_nat_mul_poissonWeight, tsum_poissonWeight]
-  ring
-
-theorem summable_centered_sq (s : ℝ) :
-    Summable fun n : ℕ => poissonWeight s n * ((n : ℝ) - 2 * s) ^ 2 := by
-  refine (((summable_nat_sq_mul_poissonWeight s).sub
-    ((summable_nat_mul_poissonWeight s).mul_left (2 * (2 * s)))).add
-    ((summable_poissonWeight s).mul_left ((2 * s) ^ 2))).congr fun n => ?_
-  ring
-
-theorem tsum_centered_sq (s : ℝ) :
-    ∑' n : ℕ, poissonWeight s n * ((n : ℝ) - 2 * s) ^ 2 = 2 * s := by
-  have hterm : ∀ n : ℕ, poissonWeight s n * ((n : ℝ) - 2 * s) ^ 2
-      = ((n : ℝ) ^ 2 * poissonWeight s n - 2 * (2 * s) * ((n : ℝ) * poissonWeight s n))
-        + (2 * s) ^ 2 * poissonWeight s n := by
-    intro n; ring
-  rw [tsum_congr hterm, Summable.tsum_add
-      ((summable_nat_sq_mul_poissonWeight s).sub
-        ((summable_nat_mul_poissonWeight s).mul_left (2 * (2 * s))))
-      ((summable_poissonWeight s).mul_left ((2 * s) ^ 2)),
-    Summable.tsum_sub (summable_nat_sq_mul_poissonWeight s)
-      ((summable_nat_mul_poissonWeight s).mul_left (2 * (2 * s))),
-    tsum_mul_left, tsum_mul_left, tsum_nat_sq_mul_poissonWeight, tsum_nat_mul_poissonWeight,
-    tsum_poissonWeight]
-  ring
-
-theorem dPoissonWeight_eq_mul {s : ℝ} (hs : 0 < s) (n : ℕ) :
-    dPoissonWeight s n = poissonWeight s n * ((n : ℝ) / s - 2) := by
-  cases n with
-  | zero => simp [dPoissonWeight, poissonWeightPrev]; ring
-  | succ m =>
-      have h := poissonWeight_succ_mul s m
-      have hkey : poissonWeight s (m + 1) * (((m : ℝ) + 1) / s) = 2 * poissonWeight s m := by
-        field_simp
-        linarith [h]
-      simp only [dPoissonWeight, poissonWeightPrev]
-      push_cast
-      linear_combination -hkey
-
-theorem summable_poissonWeightPrev (s : ℝ) : Summable (poissonWeightPrev s) := by
-  refine (summable_nat_add_iff 1).1 ?_
-  exact (summable_poissonWeight s).congr fun m => rfl
-
-theorem summable_abs_dPoissonWeight {s : ℝ} (hs : 0 ≤ s) :
-    Summable fun n => |dPoissonWeight s n| := by
-  refine Summable.of_nonneg_of_le (fun n => abs_nonneg _) (fun n => ?_)
-    (((summable_poissonWeightPrev s).add (summable_poissonWeight s)).mul_left 2)
-  have h1 : 0 ≤ poissonWeightPrev s n := poissonWeightPrev_nonneg hs n
-  have h2 : 0 ≤ poissonWeight s n := poissonWeight_nonneg hs n
-  rw [dPoissonWeight, abs_mul, abs_of_nonneg (by norm_num : (0:ℝ) ≤ 2)]
-  have h3 : |poissonWeightPrev s n - poissonWeight s n|
-      ≤ poissonWeightPrev s n + poissonWeight s n := by
-    rw [abs_le]; constructor <;> linarith
-  linarith
-
-theorem tsum_abs_dPoissonWeight_le {s : ℝ} (hs : 0 < s) :
-    ∑' n, |dPoissonWeight s n| ≤ Real.sqrt (2 / s) := by
-  have hs0 : (0:ℝ) ≤ s := hs.le
-  have hsq : ∀ n : ℕ, Real.sqrt (poissonWeight s n) * Real.sqrt (poissonWeight s n)
-      = poissonWeight s n := fun n => Real.mul_self_sqrt (poissonWeight_nonneg hs0 n)
-  have hprod : ∀ n : ℕ, Real.sqrt (poissonWeight s n)
-      * (Real.sqrt (poissonWeight s n) * |(n : ℝ) / s - 2|) = |dPoissonWeight s n| := by
-    intro n
-    rw [show Real.sqrt (poissonWeight s n) * (Real.sqrt (poissonWeight s n)
-        * |(n : ℝ) / s - 2|)
-      = (Real.sqrt (poissonWeight s n) * Real.sqrt (poissonWeight s n)) * |(n : ℝ) / s - 2| from
-      by ring, hsq n, dPoissonWeight_eq_mul hs n, abs_mul,
-      abs_of_nonneg (poissonWeight_nonneg hs0 n)]
-  have hbsq : ∀ n : ℕ, (Real.sqrt (poissonWeight s n) * |(n : ℝ) / s - 2|) ^ 2
-      = poissonWeight s n * ((n : ℝ) - 2 * s) ^ 2 / s ^ 2 := by
-    intro n
-    rw [mul_pow, Real.sq_sqrt (poissonWeight_nonneg hs0 n), sq_abs]
-    field_simp
-  have hb : Summable fun n : ℕ => (Real.sqrt (poissonWeight s n) * |(n : ℝ) / s - 2|) ^ 2 :=
-    ((summable_centered_sq s).div_const (s ^ 2)).congr fun n => (hbsq n).symm
-  have ha : Summable fun n : ℕ => Real.sqrt (poissonWeight s n) ^ 2 :=
-    (summable_poissonWeight s).congr fun n => (Real.sq_sqrt (poissonWeight_nonneg hs0 n)).symm
-  have hab : Summable fun n : ℕ => Real.sqrt (poissonWeight s n)
-      * (Real.sqrt (poissonWeight s n) * |(n : ℝ) / s - 2|) :=
-    (summable_abs_dPoissonWeight hs0).congr fun n => (hprod n).symm
-  have hcs := tsum_mul_le_sqrt_mul_sqrt (fun n : ℕ => Real.sqrt (poissonWeight s n))
-    (fun n : ℕ => Real.sqrt (poissonWeight s n) * |(n : ℝ) / s - 2|)
-    (fun n => Real.sqrt_nonneg _)
-    (fun n => mul_nonneg (Real.sqrt_nonneg _) (abs_nonneg _)) hab ha hb
-  rw [tsum_congr hprod] at hcs
-  have hA : (∑' n : ℕ, Real.sqrt (poissonWeight s n) ^ 2) = 1 := by
-    rw [tsum_congr fun n => Real.sq_sqrt (poissonWeight_nonneg hs0 n), tsum_poissonWeight]
-  have hB : (∑' n : ℕ, (Real.sqrt (poissonWeight s n) * |(n : ℝ) / s - 2|) ^ 2) = 2 / s := by
-    rw [tsum_congr hbsq, tsum_div_const, tsum_centered_sq]
-    field_simp
-  rw [hA, hB, Real.sqrt_one, one_mul] at hcs
-  exact hcs
 
 /-! ### The generator applied to the subordinated kernel -/
 
@@ -287,13 +142,6 @@ theorem dck_chapman (ω : Environment) {s : ℝ} (hs : 0 ≤ s) (x y : Site) :
     Summable.tsum_sub ((hsum _).add (hsum _)) ((hsum x).mul_left 2),
     Summable.tsum_add (hsum _) (hsum _), tsum_mul_left,
     ← ck_chapman ω hs hs, ← ck_chapman ω hs hs, ← ck_chapman ω hs hs, dck]
-
-theorem abs_tsum_le {ι : Type*} (f g : ι → ℝ) (hf : Summable fun i => |f i|)
-    (hg : Summable g) (h : ∀ i, |f i| ≤ g i) : |∑' i, f i| ≤ ∑' i, g i := by
-  have h1 : |∑' i, f i| ≤ ∑' i, |f i| := by
-    have h2 := norm_tsum_le_tsum_norm (f := f) (by simpa only [Real.norm_eq_abs] using hf)
-    simpa only [Real.norm_eq_abs] using h2
-  exact h1.trans (Summable.tsum_le_tsum h hf hg)
 
 set_option maxHeartbeats 1000000 in
 theorem abs_dck_le_sharp (ω : Environment) {t : ℝ} (ht : 0 < t) (x y : Site) :

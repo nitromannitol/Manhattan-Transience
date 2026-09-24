@@ -1,4 +1,4 @@
-import Manhattan.Operator.Semigroup
+import Manhattan.Library
 
 /-! Frozen proved semigroup statement. -/
 
@@ -19,4 +19,4 @@ theorem Manhattan.Frozen.Operator.integrableOn_resolvent_dampedOrbit : ∀ {E : 
           (fun t => (Manhattan.Operator.resolventOperator G lambda) (Manhattan.Operator.dampedOrbit G lambda u t))
           (Set.Ioi 0) MeasureTheory.volume
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.integrableOn_resolvent_dampedOrbit
+:= @LatticeProb.Analysis.integrableOn_resolvent_dampedOrbit

@@ -1,7 +1,7 @@
 import Manhattan.Estimates.Elementary
 import Manhattan.Model.FiberInstance
 import Manhattan.Model.Subordination
-import Manhattan.Operator.Semigroup
+import LatticeProb.Analysis.OperatorSemigroup
 import Mathlib.Analysis.Calculus.Deriv.MeanValue
 import Mathlib.Analysis.InnerProductSpace.Calculus
 import Mathlib.MeasureTheory.Function.Holder
@@ -121,10 +121,8 @@ private theorem poisson_nstep_term_eq (t : ℝ) (ht : 0 ≤ t) (n : ℕ) :
       ENNReal.ofReal ((Real.exp (-2 * t) * t ^ n / n.factorial) *
         ∫ omega, pathReturnCount n omega ∂Manhattan.environmentLaw) := by
   rw [Manhattan.rateTwoPoissonWeight_of_nonneg ht, lintegral_nStepKernel_eq]
-  rw [← ENNReal.ofReal_mul ProbabilityTheory.poissonPMFReal_nonneg]
+  rw [← ENNReal.ofReal_mul (by positivity)]
   congr 1
-  rw [ProbabilityTheory.poissonPMFReal]
-  simp only [NNReal.coe_mk]
   rw [mul_pow]
   ring_nf
   rw [mul_assoc, ← mul_pow]
@@ -272,6 +270,8 @@ private theorem pointwiseOriginSignMultiplier_apply (i : Fin 2)
       (r := (2 : ℝ≥0∞)) (ContinuousLinearMap.lsmul ℂ ℂ)
         (coordinateCharacterLInf i) f,
     coordinateCharacterLInf_apply i] with omega hmul hcoordinate
+  change ((ContinuousLinearMap.lsmul ℂ ℂ).holder (2 : ℝ≥0∞) (coordinateCharacterLInf i) f :
+    Manhattan.Environment → ℂ) omega = _
   simpa [hcoordinate] using hmul
 
 private theorem pointwiseOriginSignMultiplier_eq_originSignMultiplier (i : Fin 2) :
@@ -390,8 +390,8 @@ private theorem fiberStep_apply (p : Fin 2 → ℝ) (i : Fin 2)
             (ep * f (Manhattan.translateEnvironment (Manhattan.latticeToSite xp) omega) -
               em * f (Manhattan.translateEnvironment (Manhattan.latticeToSite xm) omega))) := by
     simpa only [fiberStep, ep, em, xp, xm, fp, fm,
-      ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
-      ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply, Pi.smul_apply,
+      smul_apply, add_apply,
+      sub_apply, ContinuousLinearMap.comp_apply, Pi.smul_apply,
       smul_eq_mul] using homega
   rw [homega']
   cases hsign : omega (Manhattan.originLine i) <;>
@@ -427,8 +427,8 @@ private theorem concreteFiberGenerator_eq_transition_sub (p : Fin 2 → ℝ) :
     show (Finset.univ : Finset Manhattan.Axis) = {.horizontal, .vertical} by decide]
   rw [Finset.sum_insert (by simp), Finset.sum_singleton]
   simp only [fiberStep, Fin.sum_univ_two,
-    ContinuousLinearMap.smul_apply,
-    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+    smul_apply,
+    add_apply, sub_apply,
     ContinuousLinearMap.comp_apply, ContinuousLinearMap.id_apply,
     finOfAxis]
   module
@@ -445,33 +445,36 @@ private theorem concreteFiberGenerator_nonpositive (p : Fin 2 → ℝ)
 
 private theorem concreteFiberSemigroup_contract (p : Fin 2 → ℝ) (t : ℝ)
     (ht : 0 ≤ t) :
-    ‖Manhattan.Operator.operatorSemigroup
+    ‖LatticeProb.Analysis.operatorSemigroup
       (Manhattan.concreteFiberEnvironment.fiberGenerator p) t‖ ≤ 1 := by
   let G := Manhattan.concreteFiberEnvironment.fiberGenerator p
   letI : NormedSpace ℝ Manhattan.WalshL2 := NormedSpace.restrictScalars ℝ ℂ Manhattan.WalshL2
   letI : InnerProductSpace ℝ Manhattan.WalshL2 :=
     InnerProductSpace.rclikeToReal ℂ Manhattan.WalshL2
   have hantitone (f : Manhattan.WalshL2) :
-      Antitone fun s : ℝ => ‖Manhattan.Operator.operatorSemigroup G s f‖ ^ 2 := by
+      Antitone fun s : ℝ => ‖LatticeProb.Analysis.operatorSemigroup G s f‖ ^ 2 := by
     apply antitone_of_hasDerivAt_nonpos
     · intro s
-      exact (Manhattan.Operator.operatorSemigroup_hasDerivAt G f s).norm_sq
+      exact (LatticeProb.Analysis.operatorSemigroup_hasDerivAt G f s).norm_sq
     · intro s
-      change 2 * re ⟪Manhattan.Operator.operatorSemigroup G s f,
-        G (Manhattan.Operator.operatorSemigroup G s f)⟫_ℂ ≤ 0
+      change 2 * re ⟪LatticeProb.Analysis.operatorSemigroup G s f,
+        G (LatticeProb.Analysis.operatorSemigroup G s f)⟫_ℂ ≤ 0
       have h := concreteFiberGenerator_nonpositive p
-        (Manhattan.Operator.operatorSemigroup G s f)
+        (LatticeProb.Analysis.operatorSemigroup G s f)
       rw [inner_re_symm] at h
       exact mul_nonpos_of_nonneg_of_nonpos (by norm_num) h
   refine ContinuousLinearMap.opNorm_le_bound _ zero_le_one fun f => ?_
   have hsquare := hantitone f ht
-  change ‖Manhattan.Operator.operatorSemigroup G t f‖ ^ 2 ≤
-    ‖Manhattan.Operator.operatorSemigroup G 0 f‖ ^ 2 at hsquare
-  rw [show Manhattan.Operator.operatorSemigroup G 0 = 1 by
-    simp [Manhattan.Operator.operatorSemigroup]] at hsquare
-  simp only [ContinuousLinearMap.one_apply] at hsquare
-  change ‖Manhattan.Operator.operatorSemigroup G t f‖ ≤ 1 * ‖f‖
-  nlinarith [norm_nonneg (Manhattan.Operator.operatorSemigroup G t f), norm_nonneg f]
+  change ‖LatticeProb.Analysis.operatorSemigroup G t f‖ ^ 2 ≤
+    ‖LatticeProb.Analysis.operatorSemigroup G 0 f‖ ^ 2 at hsquare
+  rw [show LatticeProb.Analysis.operatorSemigroup G 0 = 1 by
+    unfold LatticeProb.Analysis.operatorSemigroup
+    rw [← NormedSpace.exp_zero (𝔸 := Manhattan.WalshL2 →L[ℂ] Manhattan.WalshL2)]
+    congr 1
+    exact zero_smul _ _] at hsquare
+  simp only [one_apply_eq_self] at hsquare
+  change ‖LatticeProb.Analysis.operatorSemigroup G t f‖ ≤ 1 * ‖f‖
+  nlinarith [norm_nonneg (LatticeProb.Analysis.operatorSemigroup G t f), norm_nonneg f]
 
 private theorem fiberStep_norm_le_two (p : Fin 2 → ℝ) (i : Fin 2) :
     ‖fiberStep p i‖ ≤ 2 := by
@@ -527,7 +530,7 @@ private theorem fiberTransition_norm_le_four (p : Fin 2 → ℝ) :
 
 private theorem concreteFiberSemigroup_apply_eq_tsum (p : Fin 2 → ℝ) (t : ℝ)
     (f : Manhattan.WalshL2) :
-    Manhattan.Operator.operatorSemigroup
+    LatticeProb.Analysis.operatorSemigroup
         (Manhattan.concreteFiberEnvironment.fiberGenerator p) t f =
       ∑' n : ℕ, (Real.exp (-2 * t) * t ^ n / n.factorial : ℝ) •
         ((fiberTransition p) ^ n) f := by
@@ -546,31 +549,33 @@ private theorem concreteFiberSemigroup_apply_eq_tsum (p : Fin 2 → ℝ) (t : �
   have hcomm : Commute
       ((-2 * t) • (1 : Manhattan.WalshL2 →L[ℂ] Manhattan.WalshL2)) (t • Q) := by
     exact (Commute.one_left (t • Q)).smul_left (-2 * t)
-  have hexp : NormedSpace.exp ℝ (t • G) =
-      (Real.exp (-2 * t)) • NormedSpace.exp ℝ (t • Q) := by
+  have hexp : NormedSpace.exp (t • G) =
+      (Real.exp (-2 * t)) • NormedSpace.exp (t • Q) := by
+    letI : NormedAlgebra ℚ (Manhattan.WalshL2 →L[ℂ] Manhattan.WalshL2) :=
+      NormedAlgebra.restrictScalars ℚ ℂ _
     rw [hsplit, NormedSpace.exp_add_of_commute hcomm]
-    have hscalar : NormedSpace.exp ℝ
+    have hscalar : NormedSpace.exp
         ((-2 * t) • (1 : Manhattan.WalshL2 →L[ℂ] Manhattan.WalshL2)) =
         (Real.exp (-2 * t)) •
           (1 : Manhattan.WalshL2 →L[ℂ] Manhattan.WalshL2) := by
       calc
-        _ = NormedSpace.exp ℝ ((algebraMap ℝ
+        _ = NormedSpace.exp ((algebraMap ℝ
               (Manhattan.WalshL2 →L[ℂ] Manhattan.WalshL2)) (-2 * t)) := by
             rw [Algebra.algebraMap_eq_smul_one]
         _ = algebraMap ℝ (Manhattan.WalshL2 →L[ℂ] Manhattan.WalshL2)
-              (NormedSpace.exp ℝ (-2 * t)) :=
+              (NormedSpace.exp (-2 * t)) :=
             (NormedSpace.algebraMap_exp_comm (-2 * t)).symm
         _ = _ := by
           rw [← Real.exp_eq_exp_ℝ, Algebra.algebraMap_eq_smul_one]
     rw [hscalar]
     simp only [smul_mul_assoc, one_mul]
-  rw [Manhattan.Operator.operatorSemigroup, hexp]
+  change (NormedSpace.exp (t • G)) f = _
+  rw [hexp]
   have hsummable : Summable fun n : ℕ =>
       ((n.factorial : ℝ)⁻¹ • (t • Q) ^ n) :=
-    by simpa only [NormedSpace.expSeries_apply_eq] using
-      (NormedSpace.expSeries_summable (𝕂 := ℝ) (t • Q))
-  rw [NormedSpace.exp_eq_tsum]
-  simp only [ContinuousLinearMap.smul_apply]
+    NormedSpace.expSeries_summable' (𝕂 := ℝ) (t • Q)
+  rw [NormedSpace.exp_eq_tsum (𝕂 := ℝ)]
+  simp only [smul_apply]
   let ev := ContinuousLinearMap.apply ℂ Manhattan.WalshL2 f
   have hvec : Summable fun n : ℕ => (((n.factorial : ℝ)⁻¹ • (t • Q) ^ n) f) :=
     hsummable.map ev ev.continuous
@@ -581,11 +586,11 @@ private theorem concreteFiberSemigroup_apply_eq_tsum (p : Fin 2 → ℝ) (t : �
   rw [← hvec.tsum_const_smul (Real.exp (-2 * t))]
   apply tsum_congr
   intro n
-  simp only [ContinuousLinearMap.smul_apply]
+  simp only [smul_apply]
   rw [smul_pow]
   simp only [smul_smul]
   dsimp only [Q]
-  simp only [ContinuousLinearMap.smul_apply, smul_smul]
+  simp only [smul_apply, smul_smul]
   congr 1
   rw [div_eq_mul_inv]
   ring
@@ -596,25 +601,24 @@ private theorem summable_concreteFiberSemigroup_series (p : Fin 2 → ℝ) (t : 
       ((fiberTransition p) ^ n) f := by
   let Q := fiberTransition p
   have hops : Summable fun n : ℕ => ((n.factorial : ℝ)⁻¹ • (t • Q) ^ n) := by
-    simpa only [NormedSpace.expSeries_apply_eq] using
-      (NormedSpace.expSeries_summable (𝕂 := ℝ) (t • Q))
+    exact NormedSpace.expSeries_summable' (𝕂 := ℝ) (t • Q)
   let ev := ContinuousLinearMap.apply ℂ Manhattan.WalshL2 f
   have hvec : Summable fun n : ℕ => (((n.factorial : ℝ)⁻¹ • (t • Q) ^ n) f) :=
     hops.map ev ev.continuous
   have hscaled := hvec.const_smul (Real.exp (-2 * t))
   refine hscaled.congr fun n => ?_
-  simp only [ContinuousLinearMap.smul_apply]
+  simp only [smul_apply]
   rw [smul_pow]
   simp only [smul_smul]
   dsimp only [Q]
-  simp only [ContinuousLinearMap.smul_apply, smul_smul]
+  simp only [smul_apply, smul_smul]
   congr 1
   rw [div_eq_mul_inv]
   ring
 
 private theorem inner_walshEmpty_semigroup_eq_tsum (p : Fin 2 → ℝ) (t : ℝ) :
     inner ℂ (Manhattan.walshL2 ∅)
-        (Manhattan.Operator.operatorSemigroup
+        (LatticeProb.Analysis.operatorSemigroup
           (Manhattan.concreteFiberEnvironment.fiberGenerator p) t
           (Manhattan.walshL2 ∅)) =
       ∑' n : ℕ, (Real.exp (-2 * t) * t ^ n / n.factorial : ℝ) •
@@ -763,10 +767,10 @@ private theorem fiberTransition_pow_walsh (p : Fin 2 → ℝ) (n : ℕ) :
       ∑ path : Fin n → Manhattan.Axis, pathVector p path := by
   induction n with
   | zero =>
-      rw [pow_zero, ContinuousLinearMap.one_apply]
-      simpa only [Fintype.sum_unique] using (pathVector_zero p).symm
+      rw [pow_zero, one_apply_eq_self, Fintype.sum_unique]
+      convert (pathVector_zero p).symm
   | succ n ih =>
-      rw [pow_succ', ContinuousLinearMap.mul_apply, ih, map_sum, fiberTransition]
+      rw [pow_succ', mul_apply_eq_comp, ih, map_sum, fiberTransition]
       change (∑ path : Fin n → Manhattan.Axis,
         ∑ i : Manhattan.Axis, fiberStep p (finOfAxis i) (pathVector p path)) = _
       rw [Finset.sum_comm]
@@ -778,8 +782,7 @@ private theorem fiberTransition_pow_walsh (p : Fin 2 → ℝ) (n : ℕ) :
               pathVector p (Fin.cons q.1 q.2) := by
                 simp only [finAxis_finOfAxis, Fintype.sum_prod_type]
         _ = ∑ path : Fin (n + 1) → Manhattan.Axis, pathVector p path := by
-          simpa only using
-            (Fin.consEquiv (fun _ : Fin (n + 1) => Manhattan.Axis)).sum_comp
+          exact (Fin.consEquiv (fun _ : Fin (n + 1) => Manhattan.Axis)).sum_comp
               (fun path => pathVector p path)
 
 private theorem inner_walshEmpty_pathVector {n : ℕ} (p : Fin 2 → ℝ)
@@ -952,8 +955,9 @@ private theorem torusIntegral_inner_pathVector {n : ℕ}
   have hnormalized : Integrable (Function.uncurry fun p₁ omega =>
       Manhattan.Estimates.torusIntegral (fun p₂ => F p₁ p₂ omega))
       ((volume.restrict Manhattan.Estimates.torus).prod Manhattan.environmentLaw) := by
-    simpa only [Manhattan.Estimates.torusIntegral, Complex.real_smul] using
-      hraw.const_mul (((2 * Real.pi)⁻¹ : ℝ) : ℂ)
+    refine (hraw.const_mul (((2 * Real.pi)⁻¹ : ℝ) : ℂ)).congr
+      (Filter.Eventually.of_forall fun x => ?_)
+    simp only [Function.uncurry, Manhattan.Estimates.torusIntegral, Complex.real_smul]
   simp_rw [inner_walshEmpty_pathVector]
   rw [show (fun p₁ : ℝ => Manhattan.Estimates.torusIntegral (fun p₂ : ℝ =>
       ∫ omega, F p₁ p₂ omega ∂Manhattan.environmentLaw)) =
@@ -1031,7 +1035,7 @@ private theorem torusIntegral_finset_sum {ι : Type*} (s : Finset ι)
     Manhattan.Estimates.torusIntegral (fun p => ∑ i ∈ s, f i p) =
       ∑ i ∈ s, Manhattan.Estimates.torusIntegral (f i) := by
   simp only [Manhattan.Estimates.torusIntegral]
-  rw [integral_finset_sum s hf, Finset.smul_sum]
+  rw [integral_finsetSum s hf, Finset.smul_sum]
 
 private theorem stronglyMeasurable_inner_transition_pow (n : ℕ) :
     StronglyMeasurable fun q : ℝ × ℝ =>
@@ -1120,7 +1124,7 @@ private theorem torusIntegral₂_inner_transition_pow (n : ℕ) :
     exact torusIntegral_finset_sum Finset.univ _
       (fun path _ => integrable_torusIntegral_inner_pathVector path)]
   simp_rw [torusIntegral_inner_pathVector]
-  rw [integral_finset_sum]
+  rw [integral_finsetSum]
   intro path _
   apply Integrable.of_bound
     (Measurable.ite
@@ -1167,7 +1171,7 @@ private theorem torusIntegral₂_inner_semigroup_eq_tsum (t : ℝ) (ht : 0 ≤ t
     Manhattan.Estimates.torusIntegral (fun p₁ : ℝ =>
       Manhattan.Estimates.torusIntegral (fun p₂ : ℝ =>
         inner ℂ (Manhattan.walshL2 ∅)
-          (Manhattan.Operator.operatorSemigroup
+          (LatticeProb.Analysis.operatorSemigroup
             (Manhattan.concreteFiberEnvironment.fiberGenerator ![p₁, p₂]) t
             (Manhattan.walshL2 ∅)))) =
       ∑' n : ℕ, (Real.exp (-2 * t) * t ^ n / n.factorial : ℝ) •
@@ -1243,7 +1247,7 @@ private theorem torusIntegral₂_inner_semigroup_eq_tsum (t : ℝ) (ht : 0 ≤ t
     integral_tsum_of_summable_integral_norm hF_int hnormSummable
   have hpoint (p₁ p₂ : ℝ) :
       inner ℂ (Manhattan.walshL2 ∅)
-          (Manhattan.Operator.operatorSemigroup
+          (LatticeProb.Analysis.operatorSemigroup
             (Manhattan.concreteFiberEnvironment.fiberGenerator ![p₁, p₂]) t
             (Manhattan.walshL2 ∅)) =
         ∑' n, F n (p₁, p₂) := by
@@ -1265,7 +1269,7 @@ private theorem torusIntegral₂_inner_semigroup_eq_tsum (t : ℝ) (ht : 0 ≤ t
     _ = ((2 * Real.pi)⁻¹ * (2 * Real.pi)⁻¹ : ℝ) •
         ∫ q : ℝ × ℝ, ∑' n, F n q ∂μ₂ := by
       apply torusIntegral₂_eq_prodIntegral
-      simpa only [μ₂] using hFsum_int
+      exact hFsum_int
     _ = ((2 * Real.pi)⁻¹ * (2 * Real.pi)⁻¹ : ℝ) •
         ∑' n : ℕ, ∫ q : ℝ × ℝ, F n q ∂μ₂ := by rw [← hswap]
     _ = ∑' n : ℕ, ((2 * Real.pi)⁻¹ * (2 * Real.pi)⁻¹ : ℝ) •
@@ -1277,7 +1281,7 @@ private theorem torusIntegral₂_inner_semigroup_eq_tsum (t : ℝ) (ht : 0 ≤ t
       intro n
       symm
       apply torusIntegral₂_eq_prodIntegral
-      simpa only [μ₂] using hF_int n
+      exact hF_int n
     _ = _ := by
       apply tsum_congr
       intro n
@@ -1296,7 +1300,7 @@ private theorem torusIntegral₂_inner_semigroup_eq_annealed (t : ℝ) (ht : 0 �
     Manhattan.Estimates.torusIntegral (fun p₁ : ℝ =>
       Manhattan.Estimates.torusIntegral (fun p₂ : ℝ =>
         inner ℂ (Manhattan.walshL2 ∅)
-          (Manhattan.Operator.operatorSemigroup
+          (LatticeProb.Analysis.operatorSemigroup
             (Manhattan.concreteFiberEnvironment.fiberGenerator ![p₁, p₂]) t
             (Manhattan.walshL2 ∅)))) =
       (Manhattan.annealedContinuousKernel t 0 0).toReal := by
@@ -1326,7 +1330,7 @@ private theorem torusIntegral₂_inner_semigroup_eq_annealed (t : ℝ) (ht : 0 �
 
 private theorem concrete_minus_eq_resolventOperator (p : Fin 2 → ℝ) (lambda : ℝ) :
     (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).minus lambda =
-      Manhattan.Operator.resolventOperator
+      LatticeProb.Analysis.resolventOperator
         (Manhattan.concreteFiberEnvironment.fiberGenerator p) lambda := by
   change (((lambda : ℂ) • ContinuousLinearMap.id ℂ Manhattan.WalshL2 -
       Manhattan.concreteFiberEnvironment.fiberS p) -
@@ -1340,28 +1344,28 @@ private theorem concrete_resolventQuadratic_eq_re_integral
     (p : Fin 2 → ℝ) (lambda : ℝ) (hlambda : 0 < lambda) :
     (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).resolventQuadratic
         hlambda (Manhattan.walshL2 ∅) =
-      re (∫ t in Ioi 0, Manhattan.Operator.semigroupCorrelation
+      re (∫ t in Ioi 0, LatticeProb.Analysis.semigroupCorrelation
         (Manhattan.concreteFiberEnvironment.fiberGenerator p) lambda
         (Manhattan.walshL2 ∅) t) := by
   let P := Manhattan.concreteFiberEnvironment.dissipativeSkewPair p
   let G := Manhattan.concreteFiberEnvironment.fiberGenerator p
   have hinverse : (P.minusEquiv hlambda).symm (Manhattan.walshL2 ∅) =
-      (Manhattan.Operator.resolventEquiv G hlambda
+      (LatticeProb.Analysis.resolventEquiv G hlambda
         (concreteFiberSemigroup_contract p)).symm (Manhattan.walshL2 ∅) := by
     apply (P.minus_bijective hlambda).1
     rw [P.minus_apply_inverse]
-    rw [show P.minus lambda = Manhattan.Operator.resolventOperator G lambda by
+    rw [show P.minus lambda = LatticeProb.Analysis.resolventOperator G lambda by
       exact concrete_minus_eq_resolventOperator p lambda]
-    exact (Manhattan.Operator.resolventEquiv G hlambda
+    exact (LatticeProb.Analysis.resolventEquiv G hlambda
       (concreteFiberSemigroup_contract p)).apply_symm_apply (Manhattan.walshL2 ∅) |>.symm
-  rw [Manhattan.Operator.DissipativeSkewPair.resolventQuadratic, hinverse,
-    ← Manhattan.Operator.integral_inner_operatorSemigroup_eq_resolvent G hlambda
+  rw [LatticeProb.Analysis.DissipativeSkewPair.resolventQuadratic, hinverse,
+    ← LatticeProb.Analysis.integral_inner_operatorSemigroup_eq_resolvent G hlambda
       (Manhattan.walshL2 ∅) (concreteFiberSemigroup_contract p)]
 
 private theorem stronglyMeasurable_joint_inner_semigroup :
     StronglyMeasurable fun q : (ℝ × ℝ) × ℝ =>
       inner ℂ (Manhattan.walshL2 ∅)
-        (Manhattan.Operator.operatorSemigroup
+        (LatticeProb.Analysis.operatorSemigroup
           (Manhattan.concreteFiberEnvironment.fiberGenerator ![q.1.1, q.1.2]) q.2
           (Manhattan.walshL2 ∅)) := by
   let F : ℕ → ((ℝ × ℝ) × ℝ) → ℂ := fun n q =>
@@ -1391,7 +1395,7 @@ private theorem stronglyMeasurable_joint_inner_semigroup :
       exact (hsum q).hasSum.tendsto_sum_nat
   rw [show (fun q : (ℝ × ℝ) × ℝ =>
       inner ℂ (Manhattan.walshL2 ∅)
-        (Manhattan.Operator.operatorSemigroup
+        (LatticeProb.Analysis.operatorSemigroup
           (Manhattan.concreteFiberEnvironment.fiberGenerator ![q.1.1, q.1.2]) q.2
           (Manhattan.walshL2 ∅))) = fun q => ∑' n, F n q by
     funext q
@@ -1405,21 +1409,21 @@ private theorem stronglyMeasurable_joint_inner_semigroup :
 private theorem norm_inner_concreteFiberSemigroup_le_one
     (p : Fin 2 → ℝ) (t : ℝ) (ht : 0 ≤ t) :
     ‖inner ℂ (Manhattan.walshL2 ∅)
-      (Manhattan.Operator.operatorSemigroup
+      (LatticeProb.Analysis.operatorSemigroup
         (Manhattan.concreteFiberEnvironment.fiberGenerator p) t
         (Manhattan.walshL2 ∅))‖ ≤ 1 := by
   have hu : ‖Manhattan.walshL2 ∅‖ = 1 := Manhattan.orthonormal_walshL2.1 ∅
   calc
     _ ≤ ‖Manhattan.walshL2 ∅‖ *
-        ‖Manhattan.Operator.operatorSemigroup
+        ‖LatticeProb.Analysis.operatorSemigroup
           (Manhattan.concreteFiberEnvironment.fiberGenerator p) t
           (Manhattan.walshL2 ∅)‖ := norm_inner_le_norm _ _
-    _ ≤ 1 * (‖Manhattan.Operator.operatorSemigroup
+    _ ≤ 1 * (‖LatticeProb.Analysis.operatorSemigroup
           (Manhattan.concreteFiberEnvironment.fiberGenerator p) t‖ * 1) := by
       rw [hu]
       gcongr
       simpa only [hu] using ContinuousLinearMap.le_opNorm
-        (Manhattan.Operator.operatorSemigroup
+        (LatticeProb.Analysis.operatorSemigroup
           (Manhattan.concreteFiberEnvironment.fiberGenerator p) t)
         (Manhattan.walshL2 ∅)
     _ ≤ 1 := by
@@ -1427,16 +1431,16 @@ private theorem norm_inner_concreteFiberSemigroup_le_one
 
 private theorem stronglyMeasurable_joint_semigroupCorrelation (lambda : ℝ) :
     StronglyMeasurable fun q : (ℝ × ℝ) × ℝ =>
-      Manhattan.Operator.semigroupCorrelation
+      LatticeProb.Analysis.semigroupCorrelation
         (Manhattan.concreteFiberEnvironment.fiberGenerator ![q.1.1, q.1.2]) lambda
         (Manhattan.walshL2 ∅) q.2 := by
   rw [show (fun q : (ℝ × ℝ) × ℝ =>
-      Manhattan.Operator.semigroupCorrelation
+      LatticeProb.Analysis.semigroupCorrelation
         (Manhattan.concreteFiberEnvironment.fiberGenerator ![q.1.1, q.1.2]) lambda
         (Manhattan.walshL2 ∅) q.2) = fun q =>
       ((Real.exp (-lambda * q.2) : ℝ) : ℂ) *
         inner ℂ (Manhattan.walshL2 ∅)
-          (Manhattan.Operator.operatorSemigroup
+          (LatticeProb.Analysis.operatorSemigroup
             (Manhattan.concreteFiberEnvironment.fiberGenerator ![q.1.1, q.1.2]) q.2
             (Manhattan.walshL2 ∅)) by
     funext q
@@ -1448,7 +1452,7 @@ private theorem stronglyMeasurable_joint_semigroupCorrelation (lambda : ℝ) :
 private theorem integrable_joint_semigroupCorrelation
     (lambda : ℝ) (hlambda : 0 < lambda) :
     Integrable (fun q : (ℝ × ℝ) × ℝ =>
-      Manhattan.Operator.semigroupCorrelation
+      LatticeProb.Analysis.semigroupCorrelation
         (Manhattan.concreteFiberEnvironment.fiberGenerator ![q.1.1, q.1.2]) lambda
         (Manhattan.walshL2 ∅) q.2)
       (((volume.restrict Manhattan.Estimates.torus).prod
@@ -1471,7 +1475,7 @@ private theorem integrable_joint_semigroupCorrelation
         (by fun_prop))]
     filter_upwards with p
     filter_upwards [ae_restrict_mem measurableSet_Ioi] with t ht
-    simp only [one_mul, Manhattan.Operator.semigroupCorrelation, norm_mul,
+    simp only [one_mul, LatticeProb.Analysis.semigroupCorrelation, norm_mul,
       Complex.norm_real, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]
     simpa only [mul_one] using mul_le_mul_of_nonneg_left
       (norm_inner_concreteFiberSemigroup_le_one ![p.1, p.2] t ht.le)
@@ -1480,7 +1484,7 @@ private theorem integrable_joint_semigroupCorrelation
 private theorem integrable_torus_inner_semigroup (t : ℝ) (ht : 0 ≤ t) :
     Integrable (fun p : ℝ × ℝ =>
       inner ℂ (Manhattan.walshL2 ∅)
-        (Manhattan.Operator.operatorSemigroup
+        (LatticeProb.Analysis.operatorSemigroup
           (Manhattan.concreteFiberEnvironment.fiberGenerator ![p.1, p.2]) t
           (Manhattan.walshL2 ∅)))
       ((volume.restrict Manhattan.Estimates.torus).prod
@@ -1506,7 +1510,7 @@ private theorem integrable_torus_resolventQuadratic
 private theorem normalized_prodIntegral_semigroupCorrelation_eq
     (lambda t : ℝ) (ht : 0 ≤ t) :
     ((2 * Real.pi)⁻¹ * (2 * Real.pi)⁻¹ : ℝ) *
-        re (∫ p : ℝ × ℝ, Manhattan.Operator.semigroupCorrelation
+        re (∫ p : ℝ × ℝ, LatticeProb.Analysis.semigroupCorrelation
           (Manhattan.concreteFiberEnvironment.fiberGenerator ![p.1, p.2]) lambda
           (Manhattan.walshL2 ∅) t
           ∂((volume.restrict Manhattan.Estimates.torus).prod
@@ -1518,17 +1522,17 @@ private theorem normalized_prodIntegral_semigroupCorrelation_eq
   let k : ℝ := (2 * Real.pi)⁻¹ * (2 * Real.pi)⁻¹
   let innerFiber : (ℝ × ℝ) → ℂ := fun p =>
     inner ℂ (Manhattan.walshL2 ∅)
-      (Manhattan.Operator.operatorSemigroup
+      (LatticeProb.Analysis.operatorSemigroup
         (Manhattan.concreteFiberEnvironment.fiberGenerator ![p.1, p.2]) t
         (Manhattan.walshL2 ∅))
   have hinner : Integrable innerFiber μ₂ := by
-    simpa only [innerFiber, μ₂] using integrable_torus_inner_semigroup t ht
+    exact integrable_torus_inner_semigroup t ht
   have hcorrelation :
-      (∫ p : ℝ × ℝ, Manhattan.Operator.semigroupCorrelation
+      (∫ p : ℝ × ℝ, LatticeProb.Analysis.semigroupCorrelation
           (Manhattan.concreteFiberEnvironment.fiberGenerator ![p.1, p.2]) lambda
           (Manhattan.walshL2 ∅) t ∂μ₂) =
         (Real.exp (-lambda * t) : ℂ) * ∫ p, innerFiber p ∂μ₂ := by
-    rw [show (fun p : ℝ × ℝ => Manhattan.Operator.semigroupCorrelation
+    rw [show (fun p : ℝ × ℝ => LatticeProb.Analysis.semigroupCorrelation
         (Manhattan.concreteFiberEnvironment.fiberGenerator ![p.1, p.2]) lambda
         (Manhattan.walshL2 ∅) t) = fun p =>
           (Real.exp (-lambda * t) : ℂ) * innerFiber p by
@@ -1540,16 +1544,18 @@ private theorem normalized_prodIntegral_semigroupCorrelation_eq
         ((Manhattan.annealedContinuousKernel t 0 0).toReal : ℂ) := by
     have hprod := torusIntegral₂_eq_prodIntegral
       (fun p₁ p₂ => innerFiber (p₁, p₂)) (by
-        simpa only [innerFiber, μ₂] using hinner)
+        exact hinner)
     calc
       _ = Manhattan.Estimates.torusIntegral (fun p₁ : ℝ =>
           Manhattan.Estimates.torusIntegral (fun p₂ : ℝ => innerFiber (p₁, p₂))) := by
-        simpa only [k, μ₂, RCLike.real_smul_eq_coe_smul (K := ℂ)] using hprod.symm
+        have h := hprod.symm
+        simp only [k, μ₂, RCLike.real_smul_eq_coe_smul (K := ℂ), smul_eq_mul, Prod.mk.eta] at h ⊢
+        exact h
       _ = _ := by
         simpa only [innerFiber] using torusIntegral₂_inner_semigroup_eq_annealed t ht
   have hcomplex :
       (k : ℂ) *
-          (∫ p : ℝ × ℝ, Manhattan.Operator.semigroupCorrelation
+          (∫ p : ℝ × ℝ, LatticeProb.Analysis.semigroupCorrelation
             (Manhattan.concreteFiberEnvironment.fiberGenerator ![p.1, p.2]) lambda
             (Manhattan.walshL2 ∅) t ∂μ₂) =
         (Real.exp (-lambda * t) : ℂ) *
@@ -1561,15 +1567,17 @@ private theorem normalized_prodIntegral_semigroupCorrelation_eq
             ((k : ℂ) * ∫ p, innerFiber p ∂μ₂) := by ring
       _ = _ := by rw [hnormalized]
   have hcomplex' :
-      k • (∫ p : ℝ × ℝ, Manhattan.Operator.semigroupCorrelation
+      k • (∫ p : ℝ × ℝ, LatticeProb.Analysis.semigroupCorrelation
           (Manhattan.concreteFiberEnvironment.fiberGenerator ![p.1, p.2]) lambda
           (Manhattan.walshL2 ∅) t ∂μ₂) =
         Real.exp (-lambda * t) •
           ((Manhattan.annealedContinuousKernel t 0 0).toReal : ℂ) := by
-    simpa only [RCLike.real_smul_eq_coe_smul (K := ℂ), smul_eq_mul] using hcomplex
+    have h := hcomplex
+    simp only [RCLike.real_smul_eq_coe_smul (K := ℂ), smul_eq_mul] at h ⊢
+    exact h
   have hre := congrArg (RCLike.reCLM : ℂ →L[ℝ] ℝ) hcomplex'
-  simpa only [k, μ₂, ContinuousLinearMap.map_smul, RCLike.reCLM_apply,
-    Complex.ofReal_re, smul_eq_mul] using hre
+  simp only [k, μ₂, ContinuousLinearMap.map_smul, RCLike.reCLM_apply, smul_eq_mul] at hre ⊢
+  exact hre
 
 private theorem concrete_green_identity_real (lambda : ℝ) (hlambda : 0 < lambda) :
     (∫ t in Ioi 0, Real.exp (-lambda * t) *
@@ -1582,13 +1590,12 @@ private theorem concrete_green_identity_real (lambda : ℝ) (hlambda : 0 < lambd
     (volume.restrict Manhattan.Estimates.torus)
   let k : ℝ := (2 * Real.pi)⁻¹ * (2 * Real.pi)⁻¹
   let correlation : (ℝ × ℝ) → ℝ → ℂ := fun p t =>
-    Manhattan.Operator.semigroupCorrelation
+    LatticeProb.Analysis.semigroupCorrelation
       (Manhattan.concreteFiberEnvironment.fiberGenerator ![p.1, p.2]) lambda
       (Manhattan.walshL2 ∅) t
   have hjoint : Integrable (Function.uncurry correlation)
       (μ₂.prod (volume.restrict (Ioi 0))) := by
-    simpa only [correlation, μ₂, Function.uncurry_apply_pair] using
-      integrable_joint_semigroupCorrelation lambda hlambda
+    exact integrable_joint_semigroupCorrelation lambda hlambda
   have hleft := hjoint.integral_prod_left
   have hright := hjoint.integral_prod_right
   symm
@@ -1601,7 +1608,7 @@ private theorem concrete_green_identity_real (lambda : ℝ) (hlambda : 0 < lambd
           (Manhattan.concreteFiberEnvironment.dissipativeSkewPair ![p.1, p.2]).resolventQuadratic
             hlambda (Manhattan.walshL2 ∅) ∂μ₂ := by
       apply torusIntegral₂_real_eq_prodIntegral
-      simpa only [μ₂] using integrable_torus_resolventQuadratic lambda hlambda
+      exact integrable_torus_resolventQuadratic lambda hlambda
     _ = k * ∫ p : ℝ × ℝ, re (∫ t in Ioi 0, correlation p t) ∂μ₂ := by
       congr 1
       apply integral_congr_ae
@@ -1640,13 +1647,12 @@ private theorem integrable_annealed_damped (lambda : ℝ) (hlambda : 0 < lambda)
     (volume.restrict Manhattan.Estimates.torus)
   let k : ℝ := (2 * Real.pi)⁻¹ * (2 * Real.pi)⁻¹
   let correlation : (ℝ × ℝ) → ℝ → ℂ := fun p t =>
-    Manhattan.Operator.semigroupCorrelation
+    LatticeProb.Analysis.semigroupCorrelation
       (Manhattan.concreteFiberEnvironment.fiberGenerator ![p.1, p.2]) lambda
       (Manhattan.walshL2 ∅) t
   have hjoint : Integrable (Function.uncurry correlation)
       (μ₂.prod (volume.restrict (Ioi 0))) := by
-    simpa only [correlation, μ₂, Function.uncurry_apply_pair] using
-      integrable_joint_semigroupCorrelation lambda hlambda
+    exact integrable_joint_semigroupCorrelation lambda hlambda
   have hright : Integrable (fun t => ∫ p : ℝ × ℝ, correlation p t ∂μ₂)
       (volume.restrict (Ioi 0)) := by
     simpa only [Function.uncurry_apply_pair] using hjoint.integral_prod_right

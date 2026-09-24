@@ -1,4 +1,4 @@
-import Manhattan.Operator.Semigroup
+import Manhattan.Library
 
 /-! Frozen proved semigroup statement. -/
 
@@ -16,4 +16,4 @@ theorem Manhattan.Frozen.Operator.integral_inner_operatorSemigroup_eq_resolvent 
   ∫ (t : ℝ) in Set.Ioi 0, Manhattan.Operator.semigroupCorrelation G lambda u t =
     inner ℂ u ((Manhattan.Operator.resolventEquiv G hlambda hcontract).symm u)
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.integral_inner_operatorSemigroup_eq_resolvent
+:= @LatticeProb.Analysis.integral_inner_operatorSemigroup_eq_resolvent

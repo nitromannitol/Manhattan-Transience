@@ -53,10 +53,10 @@ theorem translateWalshIndex_singleton_neg (i : Fin 2) (a : Axis) (k : ℤ) :
 /-- The constant character is annihilated by `D*`. -/
 @[simp] theorem walshLower_walshL2_empty (p : Fin 2 → ℝ) :
     walshLower p (walshL2 ∅) = 0 := by
-  rw [walshLower, ContinuousLinearMap.sum_apply]
+  rw [walshLower, sum_apply]
   refine Finset.sum_eq_zero fun i _ => ?_
-  rw [walshLowerDir, ContinuousLinearMap.neg_apply,
-    ContinuousLinearMap.smul_apply, ContinuousLinearMap.comp_apply,
+  rw [walshLowerDir, neg_apply,
+    smul_apply, ContinuousLinearMap.comp_apply,
     fiberSkewTerm_walshL2]
   simp only [translateWalshIndex_empty, map_sub, map_smul, originLower_walshL2,
     Finset.notMem_empty, if_false, smul_zero, sub_self, neg_zero]
@@ -70,7 +70,7 @@ theorem walshRaise_walshL2_empty (p : Fin 2 → ℝ) :
   have h : walshRaise p (walshL2 ∅) - walshLower p (walshL2 ∅) =
       (Complex.I * (Real.sin (p 0) : ℂ)) • walshL2 {(Axis.horizontal, 0)} +
         (Complex.I * (Real.sin (p 1) : ℂ)) • walshL2 {(Axis.vertical, 0)} := by
-    rw [← ContinuousLinearMap.sub_apply,
+    rw [← sub_apply,
       ← concreteFiberA_eq_walshRaise_sub_walshLower]
     exact concreteFiberA_empty p
   rwa [walshLower_walshL2_empty, sub_zero] at h
@@ -87,7 +87,7 @@ theorem inner_empty_walshLower (p : Fin 2 → ℝ) (x : WalshL2) :
     inner ℂ (walshL2 ∅) (walshLower p x) =
       -inner ℂ (walshL2 ∅) (concreteFiberA p x) := by
   rw [concreteFiberA_eq_walshRaise_sub_walshLower,
-    ContinuousLinearMap.sub_apply, inner_sub_right, inner_empty_walshRaise]
+    sub_apply, inner_sub_right, inner_empty_walshRaise]
   ring
 
 /-- **(D1), lowering half.**  `D_0^* f = -i sin(p_1) * (zero frequency of f)`,
@@ -172,7 +172,7 @@ theorem inner_mixed_walshRaise_axisDegreeOne (p : Fin 2 → ℝ)
     exact ⟨by simp, fun _ => Ne.symm hy⟩
   have hT : ({(Axis.vertical, 0), (Axis.horizontal, y)} : Finset LineIndex) =
       insert (originLine 1) {(Axis.horizontal, y)} := rfl
-  rw [hT, walshRaise, ContinuousLinearMap.sum_apply, inner_sum, Fin.sum_univ_two]
+  rw [hT, walshRaise, sum_apply, inner_sum, Fin.sum_univ_two]
   rw [inner_walshL2_walshRaiseDir, if_neg hother, zero_add, ← hT]
   exact inner_mixed_walshRaiseDir_axisDegreeOne p c y
 
@@ -182,7 +182,6 @@ Instantiating the general symbol of `raisingSymbol` at the one-line row pattern
 turns (D2a) and (D2b) into the manuscript's `i sin(p_1)` and `i sin(r)`, where
 `r` is the shifted row frequency of `manuscript.tex:768-771`. -/
 
-attribute [local instance] Real.fact_zero_lt_one
 attribute [local instance] concreteRaisingUnitAddCircleMeasureSpace
 attribute [local instance] concreteRaisingUnitAddCircleIsProbabilityMeasure
 

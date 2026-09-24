@@ -27,6 +27,7 @@ index vanishes.
 Paper: `manuscript.tex:793-840`.
 -/
 
+open scoped lp
 open ComplexConjugate InnerProductSpace
 
 namespace Manhattan.Glue
@@ -178,13 +179,14 @@ every type-`112` Walsh character agree on the whole closed type-`112` sector. -/
 theorem eq_of_mem_type112Closure {f g : WalshL2 →L[ℂ] ℂ}
     (h : ∀ T : Type112Index, f (walshL2 T.1) = g (walshL2 T.1))
     {x : WalshL2} (hx : x ∈ type112Span.topologicalClosure) : f x = g x := by
-  have hker : type112Span ≤ LinearMap.ker (f - g) := by
+  have hker : type112Span ≤ LinearMap.ker ((f - g : WalshL2 →L[ℂ] ℂ) : WalshL2 →ₗ[ℂ] ℂ) := by
     rw [type112Span, Submodule.span_le]
     rintro _ ⟨T, rfl⟩
-    simp only [SetLike.mem_coe, LinearMap.mem_ker, ContinuousLinearMap.coe_sub',
-      Pi.sub_apply, sub_eq_zero]
+    simp only [SetLike.mem_coe, LinearMap.mem_ker, ContinuousLinearMap.coe_coe, sub_apply,
+      sub_eq_zero]
     exact h T
-  have hclosed : IsClosed ((LinearMap.ker (f - g) : Submodule ℂ WalshL2) : Set WalshL2) :=
+  have hclosed : IsClosed ((LinearMap.ker ((f - g : WalshL2 →L[ℂ] ℂ) : WalshL2 →ₗ[ℂ] ℂ) :
+      Submodule ℂ WalshL2) : Set WalshL2) :=
     ContinuousLinearMap.isClosed_ker (f - g)
   have hmem := Submodule.topologicalClosure_minimal type112Span hker hclosed hx
   have : (f - g) x = 0 := hmem
@@ -198,7 +200,7 @@ theorem isType112Supported_of_mem_topologicalClosure {x : WalshL2}
   have h : ∀ T : Type112Index,
       (innerSL ℂ (walshL2 S)) (walshL2 T.1) = (0 : WalshL2 →L[ℂ] ℂ) (walshL2 T.1) := by
     intro T
-    simpa using isType112Supported_walshL2 T S hS
+    simpa [walshCoefficientAt] using isType112Supported_walshL2 T S hS
   simpa [walshCoefficientAt] using eq_of_mem_type112Closure h hx
 
 /-! ## The `L²` forms of (D2a) and (D2b) -/

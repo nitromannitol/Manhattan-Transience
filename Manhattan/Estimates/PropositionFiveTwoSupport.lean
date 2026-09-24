@@ -77,7 +77,8 @@ theorem propositionFiveTwoIntegralBound_of_betaIntegralBound
     have hbaseInt : IntegrableOn base (q.supportInterval a) := by
       simpa only [Parameters.supportInterval] using hbaseCont.integrableOn_Icc
     have hint := hbaseInt.integrable_indicator measurableSet_Icc
-    simpa only [majorant, Set.indicator_apply] using hint
+    exact hint.congr (Filter.Eventually.of_forall fun r => by
+      simp only [majorant, Set.indicator_apply])
   have hmajorantInt : Integrable majorant (volume.restrict torus) :=
     hmajorantIntVolume.mono_measure Measure.restrict_le_self
   have hpoint : ∀ r : ℝ, g r ≤ majorant r := by

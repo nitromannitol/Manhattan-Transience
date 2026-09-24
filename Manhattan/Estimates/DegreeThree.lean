@@ -17,7 +17,7 @@ namespace Manhattan.Estimates
 noncomputable section
 
 /-- Classical decidability, local to this file: the statements here are analytic, not computational. -/
-local instance (p : Prop) : Decidable p := Classical.propDecidable p
+local instance instDecidableDegreeThree (p : Prop) : Decidable p := Classical.propDecidable p
 
 /-- The interval `J(r,β)` from Step 1 of Proposition 4.2. -/
 noncomputable def correctionInterval (q : Parameters) (a r beta : ℝ) : Set ℝ :=

@@ -96,8 +96,7 @@ instance : IsProbabilityMeasure environmentLaw := by
 /-- Evaluation of the environment at each line is an independent family. -/
 theorem iIndepFun_orientation :
     iIndepFun (fun l : LineIndex => fun ω : Environment => ω l) environmentLaw := by
-  simpa only [environmentLaw] using
-    (iIndepFun_infinitePi (P := fun _ : LineIndex => fairCoin) (fun _ => measurable_id))
+  exact iIndepFun_infinitePi (P := fun _ : LineIndex => fairCoin) (fun _ => measurable_id)
 
 /-- Each environment coordinate preserves the fair-coin law. -/
 theorem measurePreserving_orientation (l : LineIndex) :

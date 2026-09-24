@@ -1,4 +1,4 @@
-import Manhattan.Operator.Semigroup
+import Manhattan.Library
 
 /-! Frozen proved semigroup statement. -/
 
@@ -17,4 +17,4 @@ theorem Manhattan.Frozen.Operator.tendsto_dampedOrbit_atTop : ∀ {E : Type u_1}
       (∀ (t : ℝ), 0 ≤ t → ‖Manhattan.Operator.operatorSemigroup G t‖ ≤ 1) →
         Filter.Tendsto (Manhattan.Operator.dampedOrbit G lambda u) Filter.atTop (nhds 0)
 -- FROZEN-STATEMENT-END
-:= @Manhattan.Operator.tendsto_dampedOrbit_atTop
+:= @LatticeProb.Analysis.tendsto_dampedOrbit_atTop

@@ -169,7 +169,7 @@ theorem rankOneMinimizationClaim_proved : RankOneMinimizationClaim := by
     have hresidual : w - eta * (I • c) =
         (B / (B + rankOneSigma eta M J)) • w := by
       have heta : eta * star eta = (‖eta‖ ^ 2 : ℝ) := by
-        simpa only [Complex.normSq_eq_norm_sq] using Complex.mul_conj eta
+        simpa only [Complex.normSq_eq_norm_sq, Complex.star_def] using Complex.mul_conj eta
       simp only [Complex.real_smul]
       push_cast
       simp only [c]
@@ -282,6 +282,9 @@ theorem rankOneMinimizationClaim_proved : RankOneMinimizationClaim := by
       simp only [smul_eq_mul]
       rw [hsigmaEq, huSet, hISet]
       dsimp [zfac]
+      rw [show (starRingEnd ℂ) w * (eta * (((2 * Real.pi)⁻¹ : ℝ) * ∫ alpha in S, u alpha)) =
+          (((2 * Real.pi)⁻¹ : ℝ) : ℂ) * ((starRingEnd ℂ) w * (eta * ∫ alpha in S, u alpha)) by
+        ring, Complex.re_ofReal_mul]
       ring
     rw [rankOneEnergy]
     exact (rankOneScalarLower B (rankOneSigma eta M J) w (eta * uI) hB hsigma).trans

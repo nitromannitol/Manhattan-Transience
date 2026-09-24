@@ -1,0 +1,252 @@
+\begin{thebibliography}{31}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Armstrong et~al.(2019)Armstrong, Kuusi, and Mourrat]{AKM19}
+S.~Armstrong, T.~Kuusi, and J.-C. Mourrat.
+\newblock \emph{Quantitative Stochastic Homogenization and Large-Scale
+  Regularity}, volume 352 of \emph{Grundlehren der mathematischen
+  Wissenschaften}.
+\newblock Springer, Cham, 2019.
+\newblock \doi{10.1007/978-3-030-15545-2}.
+\newblock URL \url{https://doi.org/10.1007/978-3-030-15545-2}.
+
+\bibitem[Armstrong et~al.(2024)Armstrong, Bou-Rabee, and Kuusi]{ABK24}
+S.~Armstrong, A.~Bou-Rabee, and T.~Kuusi.
+\newblock Superdiffusive central limit theorem for a {B}rownian particle in a
+  critically-correlated incompressible random drift.
+\newblock Preprint, 2024.
+\newblock URL \url{https://doi.org/10.48550/arXiv.2404.01115}.
+
+\bibitem[Armstrong et~al.(2026)Armstrong, Bou-Rabee, and Kuusi]{ABK26}
+S.~Armstrong, A.~Bou-Rabee, and T.~Kuusi.
+\newblock Superdiffusion and anomalous regularization in self-similar random
+  incompressible flows.
+\newblock Preprint, 2026.
+\newblock URL \url{https://doi.org/10.48550/arXiv.2601.22142}.
+
+\bibitem[Beamond et~al.(2003)Beamond, Owczarek, and Cardy]{BOC03}
+E.~J. Beamond, A.~L. Owczarek, and J.~Cardy.
+\newblock Quantum and classical localization and the {M}anhattan lattice.
+\newblock \emph{J. Phys. A}, 36\penalty0 (41):\penalty0 10251--10267, 2003.
+\newblock \doi{10.1088/0305-4470/36/41/001}.
+\newblock URL \url{https://doi.org/10.1088/0305-4470/36/41/001}.
+
+\bibitem[Beaton and Holmes(2023)]{BH23}
+N.~R. Beaton and M.~Holmes.
+\newblock The mean square displacement of random walk on the {M}anhattan
+  lattice.
+\newblock \emph{Statist. Probab. Lett.}, 193:\penalty0 109706, 2023.
+\newblock \doi{10.1016/j.spl.2022.109706}.
+\newblock URL \url{https://doi.org/10.1016/j.spl.2022.109706}.
+
+\bibitem[Bosi(2019)]{Bos19}
+G.~Bosi.
+\newblock \emph{Simple random walks on some partially directed planar graphs}.
+\newblock PhD thesis, Alma Mater Studiorum Universit{\`a} di Bologna, 2019.
+\newblock URL \url{https://doi.org/10.6092/unibo/amsdottorato/8914}.
+
+\bibitem[Bosi et~al.(2022)Bosi, Hu, and Peres]{BHP22}
+G.~Bosi, Y.~Hu, and Y.~Peres.
+\newblock Recurrence and windings of two revolving random walks.
+\newblock \emph{Electron. J. Probab.}, 27:\penalty0 paper no. 66, 22, 2022.
+\newblock \doi{10.1214/22-EJP781}.
+\newblock URL \url{https://doi.org/10.1214/22-EJP781}.
+
+\bibitem[Bouchaud and Georges(1990)]{BG90}
+J.-P. Bouchaud and A.~Georges.
+\newblock Anomalous diffusion in disordered media: statistical mechanisms,
+  models and physical applications.
+\newblock \emph{Phys. Rep.}, 195\penalty0 (4--5):\penalty0 127--293, 1990.
+\newblock \doi{10.1016/0370-1573(90)90099-N}.
+\newblock URL \url{https://doi.org/10.1016/0370-1573(90)90099-N}.
+
+\bibitem[Bouchaud et~al.(1990)Bouchaud, Georges, Koplik, Provata, and
+  Redner]{BGKPR90}
+J.-P. Bouchaud, A.~Georges, J.~Koplik, A.~Provata, and S.~Redner.
+\newblock Superdiffusion in random velocity fields.
+\newblock \emph{Phys. Rev. Lett.}, 64\penalty0 (21):\penalty0 2503--2506, 1990.
+\newblock \doi{10.1103/PhysRevLett.64.2503}.
+\newblock URL \url{https://doi.org/10.1103/PhysRevLett.64.2503}.
+
+\bibitem[Br{\'e}mont(2017)]{Bre17}
+J.~Br{\'e}mont.
+\newblock {M}arkov chains in a stratified environment.
+\newblock \emph{ALEA Lat. Am. J. Probab. Math. Stat.}, 14\penalty0
+  (2):\penalty0 751--798, 2017.
+\newblock \doi{10.30757/ALEA.v14-36}.
+\newblock URL \url{https://doi.org/10.30757/ALEA.v14-36}.
+
+\bibitem[Campanino and Petritis(2003)]{CP03}
+M.~Campanino and D.~Petritis.
+\newblock Random walks on randomly oriented lattices.
+\newblock \emph{Markov Process. Related Fields}, 9\penalty0 (3):\penalty0
+  391--412, 2003.
+\newblock \doi{10.48550/arXiv.math/0111305}.
+\newblock URL \url{https://doi.org/10.48550/arXiv.math/0111305}.
+\newblock DOI identifies the arXiv version.
+
+\bibitem[Campanino and Petritis(2004)]{CP04}
+M.~Campanino and D.~Petritis.
+\newblock On the physical relevance of random walks: an example of random walks
+  on a randomly oriented lattice.
+\newblock In V.~A. Kaimanovich, editor, \emph{Random Walks and Geometry}, pages
+  393--411. Walter de Gruyter, Berlin, 2004.
+\newblock \doi{10.1515/9783110198089.2.393}.
+\newblock URL \url{https://doi.org/10.1515/9783110198089.2.393}.
+
+\bibitem[Castell et~al.(2011)Castell, Guillotin-Plantard, P{\`e}ne, and
+  Schapira]{CGPS11}
+F.~Castell, N.~Guillotin-Plantard, F.~P{\`e}ne, and B.~Schapira.
+\newblock A local limit theorem for random walks in random scenery and on
+  randomly oriented lattices.
+\newblock \emph{Ann. Probab.}, 39\penalty0 (6):\penalty0 2079--2118, 2011.
+\newblock \doi{10.1214/10-AOP606}.
+\newblock URL \url{https://doi.org/10.1214/10-AOP606}.
+
+\bibitem[Collevecchio et~al.(2019)Collevecchio, Hamza, and Tournier]{CHT19}
+A.~Collevecchio, K.~Hamza, and L.~Tournier.
+\newblock A deterministic walk on the randomly oriented {M}anhattan lattice.
+\newblock \emph{Electron. J. Probab.}, 24:\penalty0 paper no. 137, 20, 2019.
+\newblock \doi{10.1214/19-EJP385}.
+\newblock URL \url{https://doi.org/10.1214/19-EJP385}.
+
+\bibitem[Gaudilli{\`e}re and Landim(2014)]{GL14}
+A.~Gaudilli{\`e}re and C.~Landim.
+\newblock A {D}irichlet principle for non reversible {M}arkov chains and some
+  recurrence theorems.
+\newblock \emph{Probab. Theory Related Fields}, 158\penalty0 (1--2):\penalty0
+  55--89, 2014.
+\newblock \doi{10.1007/s00440-012-0477-5}.
+\newblock URL \url{https://doi.org/10.1007/s00440-012-0477-5}.
+
+\bibitem[Guillotin-Plantard and Le~Ny(2008{\natexlab{a}})]{GLN08F}
+N.~Guillotin-Plantard and A.~Le~Ny.
+\newblock A functional limit theorem for a {2d}-random walk with dependent
+  marginals.
+\newblock \emph{Electron. Commun. Probab.}, 13:\penalty0 337--351,
+  2008{\natexlab{a}}.
+\newblock \doi{10.1214/ECP.v13-1386}.
+\newblock URL \url{https://doi.org/10.1214/ECP.v13-1386}.
+
+\bibitem[Guillotin-Plantard and Le~Ny(2008{\natexlab{b}})]{GLN08T}
+N.~Guillotin-Plantard and A.~Le~Ny.
+\newblock Transient random walks on {2D}-oriented lattices.
+\newblock \emph{Theory Probab. Appl.}, 52\penalty0 (4):\penalty0 699--711,
+  2008{\natexlab{b}}.
+\newblock \doi{10.1137/S0040585X97983353}.
+\newblock URL \url{https://doi.org/10.1137/S0040585X97983353}.
+
+\bibitem[Komorowski et~al.(2012)Komorowski, Landim, and Olla]{KLO12}
+T.~Komorowski, C.~Landim, and S.~Olla.
+\newblock \emph{Fluctuations in {M}arkov Processes: {T}ime Symmetry and
+  {M}artingale Approximation}, volume 345 of \emph{Grundlehren der
+  mathematischen Wissenschaften}.
+\newblock Springer, Berlin, 2012.
+\newblock \doi{10.1007/978-3-642-29880-6}.
+\newblock URL \url{https://doi.org/10.1007/978-3-642-29880-6}.
+
+\bibitem[Kozma and T{\'o}th(2017)]{KT17}
+G.~Kozma and B.~T{\'o}th.
+\newblock Central limit theorem for random walks in doubly stochastic random
+  environment: {$\mathcal H_{-1}$} suffices.
+\newblock \emph{Ann. Probab.}, 45\penalty0 (6B):\penalty0 4307--4347, 2017.
+\newblock \doi{10.1214/16-AOP1166}.
+\newblock URL \url{https://doi.org/10.1214/16-AOP1166}.
+
+\bibitem[Landim et~al.(2004)Landim, Quastel, Salmhofer, and Yau]{LQSY04}
+C.~Landim, J.~Quastel, M.~Salmhofer, and H.-T. Yau.
+\newblock Superdiffusivity of asymmetric exclusion process in dimensions one
+  and two.
+\newblock \emph{Comm. Math. Phys.}, 244\penalty0 (3):\penalty0 455--481, 2004.
+\newblock \doi{10.1007/s00220-003-1020-4}.
+\newblock URL \url{https://doi.org/10.1007/s00220-003-1020-4}.
+
+\bibitem[Ledger et~al.(2018)Ledger, T{\'o}th, and Valk{\'o}]{LTV18}
+S.~Ledger, B.~T{\'o}th, and B.~Valk{\'o}.
+\newblock Random walk on the randomly-oriented {M}anhattan lattice.
+\newblock \emph{Electron. Commun. Probab.}, 23:\penalty0 paper no. 43, 11,
+  2018.
+\newblock \doi{10.1214/18-ECP144}.
+\newblock URL \url{https://doi.org/10.1214/18-ECP144}.
+
+\bibitem[Lyons and Peres(2016)]{LP16}
+R.~Lyons and Y.~Peres.
+\newblock \emph{Probability on {T}rees and {N}etworks}.
+\newblock Cambridge University Press, Cambridge, 2016.
+\newblock \doi{10.1017/9781316672815}.
+\newblock URL \url{https://doi.org/10.1017/9781316672815}.
+
+\bibitem[Matheron and de~Marsily(1980)]{MdM80}
+G.~Matheron and G.~de~Marsily.
+\newblock Is transport in porous media always diffusive? {A} counterexample.
+\newblock \emph{Water Resources Research}, 16\penalty0 (5):\penalty0 901--917,
+  1980.
+\newblock \doi{10.1029/WR016i005p00901}.
+\newblock URL \url{https://doi.org/10.1029/WR016i005p00901}.
+
+\bibitem[Mej{\'\i}a-Monasterio et~al.(2020)Mej{\'\i}a-Monasterio, Nechaev,
+  Oshanin, and Vasilyev]{MNOV20}
+C.~Mej{\'\i}a-Monasterio, S.~Nechaev, G.~Oshanin, and O.~Vasilyev.
+\newblock Tracer diffusion on a crowded random {M}anhattan lattice.
+\newblock \emph{New J. Phys.}, 22:\penalty0 033024, 2020.
+\newblock \doi{10.1088/1367-2630/ab7bf1}.
+\newblock URL \url{https://doi.org/10.1088/1367-2630/ab7bf1}.
+
+\bibitem[Nguyen(2026)]{Ngu26}
+T.-M. Nguyen.
+\newblock Superdiffusivity of random walks on the three-dimensional randomly
+  oriented {M}anhattan lattice.
+\newblock Preprint, 2026.
+\newblock URL \url{https://doi.org/10.48550/arXiv.2608.21701}.
+
+\bibitem[O'Donnell(2014)]{ODo14}
+R.~O'Donnell.
+\newblock \emph{Analysis of {B}oolean Functions}.
+\newblock Cambridge University Press, Cambridge, 2014.
+\newblock \doi{10.1017/CBO9781139814782}.
+\newblock URL \url{https://doi.org/10.1017/CBO9781139814782}.
+
+\bibitem[P{\`e}ne(2020)]{Pen20}
+F.~P{\`e}ne.
+\newblock Random walks in random sceneries and related models.
+\newblock \emph{ESAIM Proc. Surveys}, 68:\penalty0 35--51, 2020.
+\newblock \doi{10.1051/proc/202068003}.
+\newblock URL \url{https://doi.org/10.1051/proc/202068003}.
+
+\bibitem[Redner(1989)]{Red89}
+S.~Redner.
+\newblock Superdiffusive transport due to random velocity fields.
+\newblock \emph{Phys. D}, 38\penalty0 (1--3):\penalty0 287--290, 1989.
+\newblock \doi{10.1016/0167-2789(89)90207-8}.
+\newblock URL \url{https://doi.org/10.1016/0167-2789(89)90207-8}.
+
+\bibitem[Tarr{\`e}s et~al.(2012)Tarr{\`e}s, T{\'o}th, and Valk{\'o}]{TTV12}
+P.~Tarr{\`e}s, B.~T{\'o}th, and B.~Valk{\'o}.
+\newblock Diffusivity bounds for {1D} {B}rownian polymers.
+\newblock \emph{Ann. Probab.}, 40\penalty0 (2):\penalty0 695--713, 2012.
+\newblock \doi{10.1214/10-AOP630}.
+\newblock URL \url{https://doi.org/10.1214/10-AOP630}.
+
+\bibitem[T{\'o}th(2018)]{Tot18}
+B.~T{\'o}th.
+\newblock Diffusive and super-diffusive limits for random walks and diffusions
+  with long memory.
+\newblock In \emph{Proceedings of the International Congress of
+  Mathematicians---{R}io de {J}aneiro 2018, Vol. IV}, pages 3039--3058. World
+  Scientific, 2018.
+\newblock \doi{10.1142/9789813272880_0171}.
+\newblock URL \url{https://doi.org/10.1142/9789813272880_0171}.
+
+\bibitem[Yau(2004)]{Yau04}
+H.-T. Yau.
+\newblock $(\log t)^{2/3}$ law of the two dimensional asymmetric simple
+  exclusion process.
+\newblock \emph{Ann. of Math. (2)}, 159\penalty0 (1):\penalty0 377--405, 2004.
+\newblock \doi{10.4007/annals.2004.159.377}.
+\newblock URL \url{https://doi.org/10.4007/annals.2004.159.377}.
+
+\end{thebibliography}

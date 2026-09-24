@@ -146,7 +146,7 @@ theorem inner_walshL2_walshRaise_patternLines {d : Type} [Fintype d]
   have hn : ∀ i' : Fin 2, originLine i' ∉ patternLines j n := by
     intro i'
     fin_cases i' <;> assumption
-  rw [walshRaise, ContinuousLinearMap.sum_apply, inner_sum]
+  rw [walshRaise, sum_apply, inner_sum]
   rw [Finset.sum_eq_single i]
   · exact inner_walshL2_walshRaiseDir_patternLines j p i x n (hn i)
   · intro i' _ hne
@@ -159,8 +159,6 @@ theorem inner_walshL2_walshRaise_patternLines {d : Type} [Fintype d]
     exact absurd (Finset.mem_univ i) h
 
 /-! ### The Fourier symbol `i sin(P_i)` -/
-
-attribute [local instance] Real.fact_zero_lt_one
 
 /-- The unit circle carries its normalized Haar measure throughout this file. -/
 local instance concreteRaisingUnitAddCircleMeasureSpace :

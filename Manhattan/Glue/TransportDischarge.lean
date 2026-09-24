@@ -15,6 +15,8 @@ Paper: `manuscript.tex:1193-1198` (equation (46), `eq:contract`),
 `manuscript.tex:1257-1272` (Lemma 5.2).
 -/
 
+open scoped lp
+
 noncomputable section
 
 open MeasureTheory UnitAddTorus Set

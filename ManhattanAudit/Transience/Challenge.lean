@@ -16,7 +16,7 @@ read the theorem: the sites and directed lines of `ℤ²`, the fair-coin
 environment law, the quenched one-step and `n`-step kernels, the discrete Green
 series, and the rate-two Poisson subordination that defines the continuous-time
 kernel of Theorem 1.2.  It is a statement-level copy of the repository
-definitions (see `Audit/README.md` for the provenance table) and is
+definitions (see `ManhattanAudit/README.md` for the provenance table) and is
 byte-identical in both challenges.  The sole intentional `sorry` is the proof of
 the final theorem.
 
@@ -26,9 +26,9 @@ None at the level of the displayed statement: the theorem below is the
 statement of `Manhattan.transience` with every repository name replaced by its
 vocabulary copy.  The two inductive types of the vocabulary (`Axis`,
 `Orientation`) are new types; the solution transports them constructor by
-constructor (`Audit/Support/Bridge.lean`).  How the repository reads the
+constructor (`ManhattanAudit/Support/TransienceBridge.lean`).  How the repository reads the
 paper's redundant environment `ω(z, i)` and its walk law is recorded in
-`Audit/DESIGN.md`.
+`ManhattanAudit/DESIGN.md`.
 -/
 
 -- VOCABULARY-BEGIN

@@ -1,17 +1,17 @@
 import Mathlib
 import Manhattan.MainTheorems
-import Audit.Support.Vocabulary
-import Audit.Support.Bridge
+import ManhattanAudit.AnnealedGreenBound.SolutionBasic
+import ManhattanAudit.Support.AnnealedGreenBoundBridge
 
 /-!
 # Solution: AnnealedGreenBound
 
-The challenge module `Audit/AnnealedGreenBound/Challenge.lean` imports only
+The challenge module `ManhattanAudit/AnnealedGreenBound/Challenge.lean` imports only
 Mathlib and states the theorem with one intentional `sorry`.  This solution
-imports the repository together with `Audit.Support.Vocabulary`, a verbatim
-copy of the challenge's vocabulary, and proves the byte-identical statement
-from `Manhattan.annealed_green_bound` through the bridges in
-`Audit/Support/Bridge.lean`.
+imports the repository together with `ManhattanAudit.AnnealedGreenBound.SolutionBasic`,
+a verbatim copy of the challenge's vocabulary, and proves the byte-identical statement
+from `Manhattan.annealed_green_bound` through the bridge in
+`ManhattanAudit/Support/AnnealedGreenBoundBridge.lean`.
 -/
 
 namespace ManhattanAudit

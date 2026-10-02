@@ -1,16 +1,17 @@
 import Mathlib
 import Manhattan.MainTheorems
-import Audit.Support.Vocabulary
-import Audit.Support.Bridge
+import ManhattanAudit.Transience.SolutionBasic
+import ManhattanAudit.Support.TransienceBridge
 
 /-!
 # Solution: Transience
 
-The challenge module `Audit/Transience/Challenge.lean` imports only Mathlib and
+The challenge module `ManhattanAudit/Transience/Challenge.lean` imports only Mathlib and
 states the theorem with one intentional `sorry`.  This solution imports the
-repository together with `Audit.Support.Vocabulary`, a verbatim copy of the
+repository together with `ManhattanAudit.Transience.SolutionBasic`, a verbatim copy of the
 challenge's vocabulary, and proves the byte-identical statement from
-`Manhattan.transience` through the bridges in `Audit/Support/Bridge.lean`.
+`Manhattan.transience` through the bridge in
+`ManhattanAudit/Support/TransienceBridge.lean`.
 -/
 
 namespace ManhattanAudit

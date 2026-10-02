@@ -1,35 +1,13 @@
 import Mathlib
 
 /-!
-# Theorem 1.2 (`thm:annealed`): comparator challenge
+# Statement-level audit vocabulary for the `AnnealedGreenBound` comparator
 
-Mathlib-only comparator challenge for Theorem 1.2 (`thm:annealed`,
-`manuscript.tex:207-214`) of Bou-Rabee and Peres, *The randomly oriented
-Manhattan lattice in 2D is transient*.  The certified statement is
-`Manhattan.Frozen.Main.theorem_1_2`, restated in full in
-`Manhattan/MainTheorems.lean` as `Manhattan.annealed_green_bound`.  Content:
-there is `C < ∞` with `∫_0^∞ e^{-λt} p̄_t(0,0) dt ≤ C` for every `λ ∈ (0,1]`,
-and `∫_0^∞ p̄_t(0,0) dt < ∞`, where `p̄_t(0,0)` is the annealed return
-probability of the continuous-time walk with total jump rate two.
-
-Only Mathlib is imported.  The vocabulary between `VOCABULARY-BEGIN` and
-`VOCABULARY-END` rebuilds, from Mathlib primitives, every definition needed to
-read the theorem: the sites and directed lines of `ℤ²`, the fair-coin
-environment law, the quenched one-step and `n`-step kernels, the discrete Green
-series, and the rate-two Poisson subordination that defines the continuous-time
-kernel.  It is a statement-level copy of the repository definitions (see
-`Audit/README.md` for the provenance table) and is byte-identical in both
-challenges.  The sole intentional `sorry` is the proof of the final theorem.
-
-## Presentation deltas
-
-None at the level of the displayed statement: the theorem below is the
-statement of `Manhattan.annealed_green_bound`, which is the body of the
-repository definition `Manhattan.AnnealedGreenBound` written out, with every
-repository name replaced by its vocabulary copy.  The continuous-time kernel is
-defined by Poisson subordination of the discrete kernel rather than as the
-transition function of a continuous-time Markov process; `Audit/DESIGN.md`
-records this reading.
+Verbatim copy of the vocabulary block of
+`ManhattanAudit/AnnealedGreenBound/Challenge.lean` (between `VOCABULARY-BEGIN` and
+`VOCABULARY-END`), Mathlib-only; a mechanical copy, not hand-edited.  The two
+blocks must stay byte-identical so that the comparator's constant-by-constant
+closure check passes.
 -/
 
 -- VOCABULARY-BEGIN
@@ -152,21 +130,3 @@ noncomputable def annealedContinuousKernel (t : ℝ) (z z' : Site) : ℝ≥0∞ 
 
 end ManhattanAudit
 -- VOCABULARY-END
-
-namespace ManhattanAudit
-
-open MeasureTheory Set
-open scoped ENNReal
-
-/-- **Theorem 1.2** (`thm:annealed`, `manuscript.tex:207-214`): the annealed
-Laplace transforms of the return probability are bounded uniformly in
-`λ ∈ (0, 1]`, and the annealed Green function at the origin is finite. -/
-theorem annealed_green_bound :
-    ∃ C : ℝ≥0∞, C < ∞ ∧
-      (∀ lambda : ℝ, 0 < lambda → lambda ≤ 1 →
-        ∫⁻ t in Ici 0,
-          ENNReal.ofReal (Real.exp (-lambda * t)) * annealedContinuousKernel t 0 0 ≤ C) ∧
-      ∫⁻ t in Ici 0, annealedContinuousKernel t 0 0 < ∞ := by
-  sorry
-
-end ManhattanAudit

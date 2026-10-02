@@ -1,0 +1,14 @@
+{
+  "challenge_module": "ManhattanAudit.AnnealedGreenBound.Challenge",
+  "solution_module": "ManhattanAudit.AnnealedGreenBound.Solution",
+  "theorem_names": [
+    "ManhattanAudit.annealed_green_bound"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

@@ -25,12 +25,12 @@ Manhattan lattice in 2D is transient* (Bou-Rabee--Peres).
 The main results are additionally exposed, stated in full, in
 [`Manhattan/MainTheorems.lean`](Manhattan/MainTheorems.lean), and both are
 restated over a Mathlib-only vocabulary for the comparator (see
-[`Audit/`](Audit/)).
+[`ManhattanAudit/`](ManhattanAudit/)).
 
 | Source | Main theorem | Certified statement | Comparator |
 |---|---|---|---|
-| Theorem 1.1, `thm:main`, `manuscript.tex:192-198` | `Manhattan.transience` | `Manhattan.Frozen.Main.theorem_1_1` | `Audit/Transience/` |
-| Theorem 1.2, `thm:annealed`, `manuscript.tex:207-214` | `Manhattan.annealed_green_bound` | `Manhattan.Frozen.Main.theorem_1_2` | `Audit/AnnealedGreenBound/` |
+| Theorem 1.1, `thm:main`, `manuscript.tex:192-198` | `Manhattan.transience` | `Manhattan.Frozen.Main.theorem_1_1` | `ManhattanAudit/Transience/` |
+| Theorem 1.2, `thm:annealed`, `manuscript.tex:207-214` | `Manhattan.annealed_green_bound` | `Manhattan.Frozen.Main.theorem_1_2` | `ManhattanAudit/AnnealedGreenBound/` |
 
 `Manhattan.annealed_green_bound` displays the body of the definition
 `Manhattan.AnnealedGreenBound`, which is the type of
@@ -46,7 +46,7 @@ twelve concrete-lemma rows (`lem-raise-concrete-raising` to
 `eq-construction-sector-energy`, the rows of `Manhattan/Frozen/Glue/`) or for the
 four rows `thm-main`, `thm-annealed`, `thm-annealed-model-interface` and
 `prop-frequency`; the two main theorems are in addition checked by the
-comparator challenges under [`Audit/`](Audit/).
+comparator challenges under [`ManhattanAudit/`](ManhattanAudit/).
 
 | Source / manifest node | Lean declaration | File | Status |
 |---|---|---|---|

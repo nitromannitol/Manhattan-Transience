@@ -1,11 +1,30 @@
 # Comparator design memo: vocabulary, bridges, deltas
 
 This memo records how the two comparator pairs are built, for whoever checks
-or extends them.  The files are `Audit/<Thm>/Challenge.lean`,
-`Audit/<Thm>/Solution.lean`, `Audit/Support/Vocabulary.lean` (the
-Mathlib-only copy of the vocabulary), `Audit/Support/Bridge.lean` (the
-transports), `Audit/Support/Statements.lean` and
-`Audit/StatementRegression.lean` (the local statement check).
+or extends them.  Each pair `<Thm>` (`Transience`, `AnnealedGreenBound`) has a
+directory `ManhattanAudit/<Thm>/` with the same four files, and one bridge in
+`ManhattanAudit/Support/`:
+
+- `Challenge.lean` imports `Mathlib` and nothing else.  It rebuilds from Mathlib
+  primitives every object the theorem mentions, states the theorem, and ends in a
+  single `sorry`.  This file is the object of trust: a reader checks what it says,
+  not how it is proved.
+- `SolutionBasic.lean` is a verbatim, mechanical copy of the vocabulary block of
+  `Challenge.lean` (between `VOCABULARY-BEGIN` and `VOCABULARY-END`).  It imports
+  only `Mathlib`, so the vocabulary elaborates in the solution exactly as in the
+  challenge.
+- `Solution.lean` imports the library together with its own `SolutionBasic` and its
+  own bridge, restates the challenge theorem byte-for-byte, and proves it from the
+  library's theorem.
+- `comparator.json` names the challenge module, the solution module, the theorem and
+  the permitted axioms (`propext`, `Classical.choice`, `Quot.sound`), and enables the
+  nanoda replay.
+- `Support/TransienceBridge.lean` and `Support/AnnealedGreenBoundBridge.lean` hold the
+  transports (sections 1 to 3).  Each imports only its own pair's `SolutionBasic`, and
+  only that pair's `Solution.lean` imports it.  The two bridges share the
+  identification of the environment spaces (section 2) and differ in the theorem-level
+  transport: the `Transience` bridge ends with `Bridge.transience`, the
+  `AnnealedGreenBound` bridge with `annealedContinuousKernel_eq`.
 
 ## 0. Solution architecture
 
@@ -14,23 +33,23 @@ as the challenge theorem, constant by constant through the whole dependency
 closure.  So the vocabulary constants must elaborate in the solution exactly
 as in the challenge.  As in the comparator pattern of the `CoarseGraining` and
 `Superdiffusion` repositories, the vocabulary is therefore compiled in a module
-that imports **only Mathlib** (`Audit/Support/Vocabulary.lean`, the analogue
-of their per-challenge `SolutionBasic.lean`), and `Solution.lean` imports the
-repository, that module, and the bridges, and states the theorem with the
-challenge's bytes.
+that imports **only Mathlib** (`ManhattanAudit/<Thm>/SolutionBasic.lean`, as in their
+per-challenge `SolutionBasic.lean`), and `Solution.lean` imports the repository, that
+module, and its bridge, and states the theorem with the challenge's bytes.
 
-The two challenges share one vocabulary block, byte-identical in each
-(`bash Audit/check_standalone.sh --vocabulary`), so one `Vocabulary.lean`
-serves both solutions.  The block contains definitions that the Theorem 1.1
-challenge does not use (the Poisson weights and the continuous-time kernels)
-and one that neither statement uses (`oneStepKernel`, equation (1)); they do
-not enter the dependency closure of a theorem that does not mention them.
+The two challenges carry one vocabulary block, byte-identical in each and in each
+pair's `SolutionBasic.lean` (`bash ManhattanAudit/check_standalone.sh --vocabulary`
+compares each `Challenge.lean` with its `SolutionBasic.lean`).  The block contains
+definitions that the Theorem 1.1 challenge does not use (the Poisson weights and the
+continuous-time kernels) and one that neither statement uses (`oneStepKernel`,
+equation (1)); they do not enter the dependency closure of a theorem that does not
+mention them.
 
 ## 1. Definitionally shared vocabulary
 
 `Site` and `LineIndex` are abbreviations of Mathlib types, and
 `rateTwoPoissonWeight` is the same Mathlib expression as the repository's, so
-`rateTwoPoissonWeight_eq` is `rfl`.  The time integrals, `Set.Ici`,
+`rateTwoPoissonWeight_eq` (in the `AnnealedGreenBound` bridge) is `rfl`.  The time integrals, `Set.Ici`,
 `ENNReal.ofReal`, `Real.exp` and the codomains `ℝ≥0` and `ℝ≥0∞` are Mathlib's
 on both sides.
 
@@ -49,8 +68,9 @@ agree:
 - `directedNeighbor_equiv`, `followPath_equiv` (induction on the word),
   `nStepKernel_equiv` (reindexing the finite sum over words): the directed
   edges, paths and `n`-step kernels agree along the equivalence;
-- `discreteGreen_eq`, `continuousKernel_eq`: consequences for the Green series
-  and the subordinated kernel;
+- `discreteGreen_eq` (in the `Transience` bridge), `continuousKernel_eq` (in the
+  `AnnealedGreenBound` bridge): consequences for the Green series and the subordinated
+  kernel;
 - `annealedContinuousKernel_eq`: the annealed kernels are equal, by the change
   of variables `MeasurePreserving.lintegral_comp_emb` along the equivalence.
 
@@ -110,12 +130,13 @@ without the library.
 
 - **Instance environments.**  The solutions import both the repository
   and the vocabulary, and both declare `MeasurableSpace` instances on their own
-  `Axis` and `Orientation`.  These are instances on different types, and
-  `Audit/StatementRegression.lean` checks that no solution statement picked up
-  a repository constant.
-- **Comparator and local regression.**  `leanprover/comparator` accepts both
-  pairs, with the Lean kernel and with the independent nanoda kernel (see
-  `Audit/COMPARATOR_RUNS.md`).  The local regression is a separate check: it
-  compares the solution types with the challenge-environment types up to the
-  auxiliary proof lemmas that a `def` abstracts, while the comparator's own
-  closure check is stricter.
+  `Axis` and `Orientation`.  These are instances on different types; the comparator
+  elaborates the challenge and the solution statement and requires the two to
+  coincide constant by constant, so a solution statement that picked up a repository
+  constant or instance is rejected.
+- **Comparator.**  `leanprover/comparator` checks each solution statement against its
+  challenge and the dependency closure of the solution theorem against Mathlib, and
+  accepts both pairs, with the Lean kernel and with the independent nanoda kernel (see
+  `ManhattanAudit/COMPARATOR_RUNS.md`).  Because each pair has its own vocabulary, no
+  file imports several solutions at once, and the comparator is the only statement-identity
+  check.

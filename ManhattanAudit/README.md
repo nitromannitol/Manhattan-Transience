@@ -1,4 +1,4 @@
-# Audit Comparator Surface
+# ManhattanAudit Comparator Surface
 
 This directory contains Mathlib-only comparator challenges for the two main
 theorems of the formalization of *The randomly oriented Manhattan lattice in 2D
@@ -14,7 +14,7 @@ Each `Challenge.lean` imports only `Mathlib`, rebuilds from scratch every
 definition needed to read the theorem, states the theorem, and ends with one
 `sorry`, the proof being checked.  The definitions form one vocabulary block,
 between `-- VOCABULARY-BEGIN` and `-- VOCABULARY-END`, byte-identical in both
-challenges: the sites and directed lines of `ℤ²`, the fair-coin environment
+challenges (and in each pair's `SolutionBasic.lean`): the sites and directed lines of `ℤ²`, the fair-coin environment
 law, the quenched one-step and `n`-step kernels, the discrete Green series, the
 rate-two Poisson weights, and the quenched and annealed continuous-time
 kernels.
@@ -49,18 +49,13 @@ every repository name replaced by its vocabulary copy.
 
 ## Solutions
 
-Each `Solution.lean` imports the repository together with
-`Audit/Support/Vocabulary.lean`, a verbatim copy of the vocabulary block that
-imports only Mathlib, and proves the byte-identical statement from the
-corresponding theorem of `Manhattan/MainTheorems.lean` through the bridges in
-`Audit/Support/Bridge.lean` (see [`DESIGN.md`](DESIGN.md)).
-
-`Audit/StatementRegression.lean` is a local check of the statement-identity
-part of the comparator: it elaborates each statement in the challenge
-environment (`Audit/Support/Statements.lean`, which imports only Mathlib and
-the vocabulary), checks that each solution theorem has exactly that type and
-mentions no constant of the repository namespace `Manhattan`, and prints the
-axioms of each solution theorem.
+Each pair has four files: `Challenge.lean`, `SolutionBasic.lean`, `Solution.lean` and
+`comparator.json`.  `SolutionBasic.lean` imports only Mathlib and is a verbatim,
+mechanical copy of the vocabulary block of the pair's `Challenge.lean`.  `Solution.lean`
+imports the repository together with its own `SolutionBasic.lean` and its own bridge
+(`Support/TransienceBridge.lean`, `Support/AnnealedGreenBoundBridge.lean`), and proves the
+byte-identical statement from the corresponding theorem of `Manhattan/MainTheorems.lean`
+(see [`DESIGN.md`](DESIGN.md)).
 
 ## Reproducing The Checks
 
@@ -70,30 +65,34 @@ The comparator configurations permit only
 ["propext", "Quot.sound", "Classical.choice"]
 ```
 
-and set `enable_nanoda: false`.  Each challenge elaborates standalone against
+and enable the nanoda replay.  Each challenge elaborates standalone against
 this repository's Mathlib toolchain, e.g.
 
 ```bash
-bash Audit/check_standalone.sh Audit/Transience/Challenge.lean
-bash Audit/check_standalone.sh --vocabulary
+bash ManhattanAudit/check_standalone.sh ManhattanAudit/Transience/Challenge.lean
+bash ManhattanAudit/check_standalone.sh --vocabulary   # Challenge vs SolutionBasic
 ```
 
 with expected outcome `rc=0` and exactly one `declaration uses 'sorry'`
-warning per challenge; the second command checks that the vocabulary block is
-the same in both challenges and in `Audit/Support/Vocabulary.lean`.  The
-solutions and the regression build with
+warning per challenge; the second command checks that, in each pair, the vocabulary
+block of `Challenge.lean` and of `SolutionBasic.lean` is byte-identical.  The solutions
+build with
 
 ```bash
-lake build Audit.StatementRegression
+lake build ManhattanAudit
 ```
 
-which prints, for each of the two theorems, that it is identical to the
-challenge statement and depends only on `propext`, `Classical.choice` and
-`Quot.sound`.
+and, with `leanprover/comparator`, from the repository root:
 
-**Status.**  Both solutions build, and the statement regression and the axiom
-prints pass.  `leanprover/comparator` accepts both pairs, with the Lean kernel
-and with the independent nanoda kernel; see
+```bash
+COMPARATOR_LANDRUN=<landrun> COMPARATOR_LEAN4EXPORT=<lean4export> COMPARATOR_NANODA=<nanoda_bin> \
+  lake env <comparator>/.lake/build/bin/comparator ManhattanAudit/Transience/comparator.json
+```
+
+expecting `Your solution is okay!`.
+
+**Status.**  Both solutions build.  `leanprover/comparator` accepts both pairs, with the
+Lean kernel and with the independent nanoda kernel; see
 [`COMPARATOR_RUNS.md`](COMPARATOR_RUNS.md) for the results and reproduction
 steps.  The workflow
 [`.github/workflows/comparator.yml`](../.github/workflows/comparator.yml) runs

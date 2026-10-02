@@ -127,7 +127,7 @@ lines of the pinned source they transcribe:
 ## Guarantees
 
 - **No `sorry`** in the library.  Each Mathlib-only comparator challenge under
-  `Audit/` contains one intentional statement-level `sorry`, which the
+  `ManhattanAudit/` contains one intentional statement-level `sorry`, which the
   corresponding solution file proves.
 - **No custom axiom.**  The main theorems depend only on mathlib's three standard
   axioms `propext`, `Classical.choice` and `Quot.sound`.
@@ -141,25 +141,23 @@ lines of the pinned source they transcribe:
   `admit` or `sorryAx` token occurs in the production tree.
 - **Independent check of the statements.**  Both main theorems are restated
   using only Mathlib, with no project definition, in
-  [`Audit/Transience/Challenge.lean`](Audit/Transience/Challenge.lean) and
-  [`Audit/AnnealedGreenBound/Challenge.lean`](Audit/AnnealedGreenBound/Challenge.lean).
+  [`ManhattanAudit/Transience/Challenge.lean`](ManhattanAudit/Transience/Challenge.lean) and
+  [`ManhattanAudit/AnnealedGreenBound/Challenge.lean`](ManhattanAudit/AnnealedGreenBound/Challenge.lean).
   Each challenge rebuilds the model from Mathlib primitives (the sites and
   directed lines of `ℤ²`, the fair-coin environment law, the quenched one-step
   and `n`-step kernels, the discrete Green series, and the rate-two Poisson
   subordination that defines the continuous-time kernel) and contains one
   intentional statement-level `sorry`, which the corresponding `Solution.lean`
-  fills from the library through the bridges in `Audit/Support/`.  The
-  configurations `Audit/*/comparator.json` are for
+  fills from the library through its own bridge in `ManhattanAudit/Support/`, over a
+  verbatim copy of the challenge vocabulary in its own `SolutionBasic.lean`.  The
+  configurations `ManhattanAudit/*/comparator.json` are for
   [`leanprover/comparator`](https://github.com/leanprover/comparator), which
   confirms that the challenge and the solution have identical elaborated types
   and that the proof reduces to the three standard axioms; both pairs pass, with
   the Lean kernel and with the independent nanoda kernel, as recorded in
-  [`Audit/COMPARATOR_RUNS.md`](Audit/COMPARATOR_RUNS.md).
-  [`Audit/StatementRegression.lean`](Audit/StatementRegression.lean) checks
-  locally that each solution statement is exactly the challenge statement and
-  mentions no repository constant.  The workflow
+  [`ManhattanAudit/COMPARATOR_RUNS.md`](ManhattanAudit/COMPARATOR_RUNS.md).  The workflow
   [`comparator.yml`](.github/workflows/comparator.yml) runs the comparator on
-  request.  See [`Audit/README.md`](Audit/README.md).
+  request.  See [`ManhattanAudit/README.md`](ManhattanAudit/README.md).
 - **Pinned toolchain.**  Lean `v4.32.0` ([`lean-toolchain`](lean-toolchain)),
   mathlib at revision `81a5d257c8e410db227a6665ed08f64fea08e997` and
   `Lattice-Probability` at commit `bbe0b90`, pinned in
@@ -171,7 +169,7 @@ lines of the pinned source they transcribe:
 About 57,000 lines of Lean in 229 modules, of which about 44,000 lines are code
 once comments and blank lines are removed, on top of mathlib and the
 Lattice-Probability library.  The count covers `Manhattan.lean` and
-`Manhattan/`, and excludes the `Audit/` comparator surface.
+`Manhattan/`, and excludes the `ManhattanAudit/` comparator surface.
 
 ## Building
 
@@ -203,8 +201,7 @@ Mathlib build artifacts.  Further building notes are in
 ```bash
 lake build Manhattan.Meta.AxiomsAudit   # print the axioms of the main theorems and every proved node
 lake build Manhattan.Certificate        # the self-contained certificate of what is proved
-lake build Audit                        # the comparator challenges and solutions
-lake build Audit.StatementRegression
+lake build ManhattanAudit               # the comparator challenges and solutions
 ```
 
 To use the library, `import Manhattan` pulls in the whole development; the main
@@ -243,7 +240,7 @@ Manhattan/
   Paper/              further statements of the arXiv version
   Meta/               AxiomsAudit.lean, Cone.lean
 Manhattan.lean        the root module (imports the whole library)
-Audit/                Mathlib-only comparator challenges and solutions
+ManhattanAudit/       Mathlib-only comparator challenges and solutions
 ASSUMPTIONS.md        the results assumed (none; generated)
 CORRESPONDENCE.md     paper ↔ Lean, node by node
 VERIFICATION.md       statement-by-statement comparison with the arXiv version
@@ -276,7 +273,7 @@ Bou-Rabee and Yuval Peres.  To cite the formalization, use
 [Lean 4](https://lean-lang.org),
 [Mathlib](https://github.com/leanprover-community/mathlib4) and the shared library
 [`Lattice-Probability`](https://github.com/nitromannitol/Lattice-Probability); the
-comparator audit in [`Audit/`](Audit/) is set up for
+comparator audit in [`ManhattanAudit/`](ManhattanAudit/) is set up for
 [`leanprover/comparator`](https://github.com/leanprover/comparator).
 
 ## License

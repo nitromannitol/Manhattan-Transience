@@ -1,13 +1,13 @@
 import Mathlib
 
 /-!
-# The comparator vocabulary
+# Statement-level audit vocabulary for the `Transience` comparator
 
-A verbatim copy of the vocabulary block of the challenges
-(`Audit/*/Challenge.lean`, between `VOCABULARY-BEGIN` and `VOCABULARY-END`).
-It imports only Mathlib, so that the constants of the vocabulary elaborate in
-the solutions exactly as in the challenges.  `bash Audit/check_standalone.sh
---vocabulary` checks that the block here and in every challenge is the same.
+Verbatim copy of the vocabulary block of
+`ManhattanAudit/Transience/Challenge.lean` (between `VOCABULARY-BEGIN` and
+`VOCABULARY-END`), Mathlib-only; a mechanical copy, not hand-edited.  The two
+blocks must stay byte-identical so that the comparator's constant-by-constant
+closure check passes.
 -/
 
 -- VOCABULARY-BEGIN

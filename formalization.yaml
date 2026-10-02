@@ -14,7 +14,7 @@ project:
     variational upper bound, the fixed-frequency estimate, and the degree-one
     and degree-three estimates) and proves Theorem 1.1 a second time along the
     shorter argument of the arXiv version.  Both main theorems are
-    independently checked by Mathlib-only comparator challenges under Audit/.
+    independently checked by Mathlib-only comparator challenges under ManhattanAudit/.
   authors:
     - "Ahmed Bou-Rabee"
   license: "Apache-2.0"
@@ -66,7 +66,7 @@ status:
     formalized: the open questions, the figures and the discussion of related
     work.  The main theorems are stated in full in
     Manhattan/MainTheorems.lean; both are additionally restated over a
-    Mathlib-only vocabulary for the Lean comparator (Audit/).
+    Mathlib-only vocabulary for the Lean comparator (ManhattanAudit/).
   sorry_count: 0
   sorry_in_definitions: 0
   axioms:
@@ -78,25 +78,25 @@ status:
       file: "Manhattan/MainTheorems.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
-      comparator_config: "Audit/Transience/comparator.json"
+      comparator_config: "ManhattanAudit/Transience/comparator.json"
       literature_dependencies: []
     - declaration: "Manhattan.annealed_green_bound"
       file: "Manhattan/MainTheorems.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
-      comparator_config: "Audit/AnnealedGreenBound/comparator.json"
+      comparator_config: "ManhattanAudit/AnnealedGreenBound/comparator.json"
       literature_dependencies: []
     - declaration: "ManhattanAudit.transience"
-      file: "Audit/Transience/Solution.lean"
+      file: "ManhattanAudit/Transience/Solution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
-      comparator_config: "Audit/Transience/comparator.json"
+      comparator_config: "ManhattanAudit/Transience/comparator.json"
       literature_dependencies: []
     - declaration: "ManhattanAudit.annealed_green_bound"
-      file: "Audit/AnnealedGreenBound/Solution.lean"
+      file: "ManhattanAudit/AnnealedGreenBound/Solution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
-      comparator_config: "Audit/AnnealedGreenBound/comparator.json"
+      comparator_config: "ManhattanAudit/AnnealedGreenBound/comparator.json"
       literature_dependencies: []
 
 automation:
@@ -123,9 +123,9 @@ automation:
         the hashes, a sorry-free and warning-free build and the Mathlib
         environment linters; Manhattan/Meta/AxiomsAudit.lean prints the axiom
         closure of every proved node.  The Lean comparator
-        (leanprover/comparator) accepts both Audit pairs with the Lean kernel
+        (leanprover/comparator) accepts both ManhattanAudit pairs with the Lean kernel
         and with the independent nanoda kernel; results and reproduction steps
-        are in Audit/COMPARATOR_RUNS.md.  .github/workflows/comparator.yml runs
+        are in ManhattanAudit/COMPARATOR_RUNS.md.  .github/workflows/comparator.yml runs
         it on request.
       cost:
         wall_time: >-
@@ -145,9 +145,9 @@ automation:
     supervision of the author.  Every proof is checked by the Lean kernel and
     Mathlib; the verified library contains no sorry and no custom axiom, and no
     result from the literature enters as a hypothesis.  The Mathlib-only
-    comparator challenge files (Audit/*/Challenge.lean) each contain exactly
+    comparator challenge files (ManhattanAudit/*/Challenge.lean) each contain exactly
     one intentional statement-level sorry (the theorem body), which is filled
-    by the corresponding Audit/*/Solution.lean.
+    by the corresponding ManhattanAudit/*/Solution.lean.
 
 fidelity:
   divergences: >-
@@ -180,7 +180,7 @@ review:
     recorded for part of the frozen surface; it is not recorded for the twelve
     concrete-lemma anchors under Manhattan/Frozen/Glue/ or for the cone of the
     main theorems.  The statements of the two main theorems are checked
-    independently by the comparator challenges under Audit/.  This is not
+    independently by the comparator challenges under ManhattanAudit/.  This is not
     external peer review.
 
 alignment:
@@ -190,12 +190,12 @@ alignment:
       lean: "Manhattan.transience"
       module: "Manhattan.MainTheorems"
       status: "proved"
-      note: "Certified statement Manhattan.Frozen.Main.theorem_1_1. Comparator challenge Audit/Transience/."
+      note: "Certified statement Manhattan.Frozen.Main.theorem_1_1. Comparator challenge ManhattanAudit/Transience/."
     - source: "Theorem 1.2 (thm:annealed)"
       lean: "Manhattan.annealed_green_bound"
       module: "Manhattan.MainTheorems"
       status: "proved"
-      note: "Certified statement Manhattan.Frozen.Main.theorem_1_2 (Manhattan.AnnealedGreenBound). Comparator challenge Audit/AnnealedGreenBound/."
+      note: "Certified statement Manhattan.Frozen.Main.theorem_1_2 (Manhattan.AnnealedGreenBound). Comparator challenge ManhattanAudit/AnnealedGreenBound/."
     - source: "Proposition 2.1 (prop:generator)"
       lean: "Manhattan.Frozen.Operator.proposition_generator_v2"
       module: "Manhattan.Frozen.Operator.PropositionGeneratorV2"

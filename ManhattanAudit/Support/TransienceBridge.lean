@@ -1,19 +1,22 @@
 import Mathlib
 import Manhattan.MainTheorems
-import Audit.Support.Vocabulary
+import ManhattanAudit.Transience.SolutionBasic
 
 /-!
-# Bridges from the Mathlib-only vocabulary to the repository
+# Bridge from the `Transience` vocabulary to the repository
 
-The challenge vocabulary (`Audit/Support/Vocabulary.lean`, namespace
+The challenge vocabulary (`ManhattanAudit/Transience/SolutionBasic.lean`, a verbatim
+copy of the vocabulary block of `ManhattanAudit/Transience/Challenge.lean`; namespace
 `ManhattanAudit`) is a statement-level copy of the repository definitions.
 Its two inductive types `Axis` and `Orientation` are new types, so this file
 matches them constructor by constructor with the repository's, builds from
 these a measurable equivalence of the environment spaces that carries the
 vocabulary's product law to the repository's, and proves that the directed
-edges, paths, `n`-step kernels, discrete Green series, continuous-time kernels
-and annealed continuous-time kernels agree along it.  The Poisson weights are
-the same Mathlib expression on both sides and agree definitionally.
+edges, paths, `n`-step kernels and discrete Green series agree along it.  It then pulls
+`Manhattan.transience` back to the vocabulary.
+
+**It is imported by `ManhattanAudit/Transience/Solution.lean` only.**  The `Challenge`
+and `SolutionBasic` files stay Mathlib-only.
 -/
 
 open Filter MeasureTheory
@@ -22,7 +25,7 @@ open scoped BigOperators ENNReal NNReal
 namespace ManhattanAudit.Bridge
 
 /-- Match the independent copy of the two axes with the repository axes. -/
-private def axisEquiv : ManhattanAudit.Axis ≃ Manhattan.Axis where
+def axisEquiv : ManhattanAudit.Axis ≃ Manhattan.Axis where
   toFun
     | .horizontal => .horizontal
     | .vertical => .vertical
@@ -33,7 +36,7 @@ private def axisEquiv : ManhattanAudit.Axis ≃ Manhattan.Axis where
   right_inv i := by cases i <;> rfl
 
 /-- Match the independent copy of the orientations with the repository copy. -/
-private def orientationEquiv : ManhattanAudit.Orientation ≃ Manhattan.Orientation where
+def orientationEquiv : ManhattanAudit.Orientation ≃ Manhattan.Orientation where
   toFun
     | .negative => .negative
     | .positive => .positive
@@ -43,25 +46,25 @@ private def orientationEquiv : ManhattanAudit.Orientation ≃ Manhattan.Orientat
   left_inv o := by cases o <;> rfl
   right_inv o := by cases o <;> rfl
 
-private def orientationMeasurableEquiv :
+def orientationMeasurableEquiv :
     ManhattanAudit.Orientation ≃ᵐ Manhattan.Orientation where
   toEquiv := orientationEquiv
   measurable_toFun := measurable_of_finite orientationEquiv
   measurable_invFun := measurable_of_finite orientationEquiv.symm
 
 /-- Reindex the independent line set by the corresponding repository line set. -/
-private def lineIndexEquiv : ManhattanAudit.LineIndex ≃ Manhattan.LineIndex :=
+def lineIndexEquiv : ManhattanAudit.LineIndex ≃ Manhattan.LineIndex :=
   Equiv.prodCongr axisEquiv (Equiv.refl ℤ)
 
 /-- The coordinatewise measurable equivalence between the two environment spaces. -/
-private def environmentMeasurableEquiv :
+def environmentMeasurableEquiv :
     ManhattanAudit.Environment ≃ᵐ Manhattan.Environment :=
   (MeasurableEquiv.piCongrLeft
       (fun _ : Manhattan.LineIndex => ManhattanAudit.Orientation) lineIndexEquiv).trans
     (MeasurableEquiv.piCongrRight
       (fun _ : Manhattan.LineIndex => orientationMeasurableEquiv))
 
-private theorem fairCoin_map :
+theorem fairCoin_map :
     Measure.map orientationMeasurableEquiv ManhattanAudit.fairCoin =
       Manhattan.fairCoin := by
   apply Measure.ext_of_singleton
@@ -102,7 +105,7 @@ private theorem fairCoin_map :
         Manhattan.fairCoinPMF, PMF.uniformOfFintype_apply]
       rw [Fintype.card_congr orientationEquiv]
 
-private theorem environmentMeasurableEquiv_map :
+theorem environmentMeasurableEquiv_map :
     Measure.map environmentMeasurableEquiv ManhattanAudit.environmentLaw =
       Manhattan.environmentLaw := by
   change Measure.map environmentMeasurableEquiv
@@ -134,12 +137,12 @@ private theorem environmentMeasurableEquiv_map :
     (fun _ => orientationMeasurableEquiv.measurable)]
   simp only [fairCoin_map]
 
-private theorem measurePreserving_environmentMeasurableEquiv :
+theorem measurePreserving_environmentMeasurableEquiv :
     MeasurePreserving environmentMeasurableEquiv ManhattanAudit.environmentLaw
       Manhattan.environmentLaw :=
   ⟨environmentMeasurableEquiv.measurable, environmentMeasurableEquiv_map⟩
 
-@[simp] private theorem environmentMeasurableEquiv_apply
+@[simp] theorem environmentMeasurableEquiv_apply
     (ω : ManhattanAudit.Environment) (i : ManhattanAudit.Axis) (k : ℤ) :
     environmentMeasurableEquiv ω (axisEquiv i, k) = orientationEquiv (ω (i, k)) := by
   change orientationEquiv
@@ -148,20 +151,20 @@ private theorem measurePreserving_environmentMeasurableEquiv :
           (lineIndexEquiv (i, k))) = orientationEquiv (ω (i, k))
   rw [MeasurableEquiv.piCongrLeft_apply_apply]
 
-@[simp] private theorem orientation_sign_equiv (o : ManhattanAudit.Orientation) :
+@[simp] theorem orientation_sign_equiv (o : ManhattanAudit.Orientation) :
     (orientationEquiv o).sign = o.sign := by
   cases o <;> rfl
 
-@[simp] private theorem transverseCoordinate_axisEquiv
+@[simp] theorem transverseCoordinate_axisEquiv
     (z : ManhattanAudit.Site) (i : ManhattanAudit.Axis) :
     Manhattan.transverseCoordinate z (axisEquiv i) = ManhattanAudit.transverseCoordinate z i := by
   cases i <;> rfl
 
-@[simp] private theorem basisStep_axisEquiv (i : ManhattanAudit.Axis) :
+@[simp] theorem basisStep_axisEquiv (i : ManhattanAudit.Axis) :
     Manhattan.basisStep (axisEquiv i) = ManhattanAudit.basisStep i := by
   cases i <;> rfl
 
-private theorem directedNeighbor_equiv
+theorem directedNeighbor_equiv
     (ω : ManhattanAudit.Environment) (z : ManhattanAudit.Site) (i : ManhattanAudit.Axis) :
     Manhattan.directedNeighbor (environmentMeasurableEquiv ω) z (axisEquiv i) =
       ManhattanAudit.directedNeighbor ω z i := by
@@ -170,7 +173,7 @@ private theorem directedNeighbor_equiv
       ManhattanAudit.directedNeighbor,
       Manhattan.lineAt, ManhattanAudit.lineAt]
 
-private theorem followPath_equiv
+theorem followPath_equiv
     (ω : ManhattanAudit.Environment) (z : ManhattanAudit.Site) (path : List ManhattanAudit.Axis) :
     Manhattan.followPath (environmentMeasurableEquiv ω) z (path.map axisEquiv) =
       ManhattanAudit.followPath ω z path := by
@@ -182,11 +185,11 @@ private theorem followPath_equiv
       rw [directedNeighbor_equiv, ih]
 
 /-- Coordinatewise transport of an `n`-step axis word. -/
-private def pathEquiv (n : ℕ) :
+def pathEquiv (n : ℕ) :
     (Fin n → ManhattanAudit.Axis) ≃ (Fin n → Manhattan.Axis) :=
   Equiv.piCongrRight (fun _ => axisEquiv)
 
-private theorem listOfFn_pathEquiv (n : ℕ) (path : Fin n → ManhattanAudit.Axis) :
+theorem listOfFn_pathEquiv (n : ℕ) (path : Fin n → ManhattanAudit.Axis) :
     List.ofFn (pathEquiv n path) = (List.ofFn path).map axisEquiv := by
   have hpath : pathEquiv n path = fun i => axisEquiv (path i) := by
     funext i
@@ -194,7 +197,7 @@ private theorem listOfFn_pathEquiv (n : ℕ) (path : Fin n → ManhattanAudit.Ax
   rw [hpath]
   simp [Function.comp_def]
 
-private theorem nStepKernel_equiv
+theorem nStepKernel_equiv
     (ω : ManhattanAudit.Environment) (n : ℕ) (z z' : ManhattanAudit.Site) :
     Manhattan.nStepKernel (environmentMeasurableEquiv ω) n z z' =
       ManhattanAudit.nStepKernel ω n z z' := by
@@ -208,27 +211,6 @@ theorem discreteGreen_eq (ω : ManhattanAudit.Environment) (x : ManhattanAudit.S
     Manhattan.discreteGreen (environmentMeasurableEquiv ω) x =
       ManhattanAudit.discreteGreen ω x := by
   simp only [Manhattan.discreteGreen, ManhattanAudit.discreteGreen, nStepKernel_equiv]
-
-/-- The Poisson weights are the same expression on both sides. -/
-theorem rateTwoPoissonWeight_eq (t : ℝ) (n : ℕ) :
-    Manhattan.rateTwoPoissonWeight t n = ManhattanAudit.rateTwoPoissonWeight t n := rfl
-
-/-- The continuous-time kernels agree along the environment equivalence. -/
-theorem continuousKernel_eq (ω : ManhattanAudit.Environment) (t : ℝ)
-    (z z' : ManhattanAudit.Site) :
-    Manhattan.continuousKernel (environmentMeasurableEquiv ω) t z z' =
-      ManhattanAudit.continuousKernel ω t z z' := by
-  simp only [Manhattan.continuousKernel, ManhattanAudit.continuousKernel,
-    nStepKernel_equiv, rateTwoPoissonWeight_eq]
-
-/-- The annealed continuous-time kernels agree. -/
-theorem annealedContinuousKernel_eq (t : ℝ) (z z' : ManhattanAudit.Site) :
-    Manhattan.annealedContinuousKernel t z z' =
-      ManhattanAudit.annealedContinuousKernel t z z' := by
-  rw [Manhattan.annealedContinuousKernel, ManhattanAudit.annealedContinuousKernel,
-    ← measurePreserving_environmentMeasurableEquiv.lintegral_comp_emb
-      environmentMeasurableEquiv.measurableEmbedding]
-  simp only [continuousKernel_eq]
 
 /-- Theorem 1.1 of the repository, pulled back to the vocabulary. -/
 theorem transience :

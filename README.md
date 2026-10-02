@@ -8,7 +8,10 @@ A machine-checked **Lean 4** formalization of the paper
 library [`Lattice-Probability`](https://github.com/nitromannitol/Lattice-Probability)
 (`LatticeProb`).
 
-## What this is
+Both main theorems of the paper are proved, and no result from the literature is
+assumed.
+
+## What is proved
 
 Independently orient each horizontal and vertical line of `ℤ²` by a fair coin.
 A walker chooses one of the two lines through its current position with equal
@@ -18,51 +21,16 @@ quenched Green series `∑_{n ≥ 0} p^ω_n(x, x)` is finite at every site `x`.
 Theorem 1.2 is the annealed estimate it is deduced from: for the
 continuous-time walk with total jump rate two, the Laplace transforms
 `∫_0^∞ e^{-λt} p̄_t(0,0) dt` of the annealed return probability are bounded
-uniformly in `λ ∈ (0, 1]`, and hence `∫_0^∞ p̄_t(0,0) dt < ∞`.
+uniformly in `λ ∈ (0, 1]`, and hence `∫_0^∞ p̄_t(0,0) dt < ∞`.  Both are proved,
+and stated in full in
+[`Manhattan/MainTheorems.lean`](Manhattan/MainTheorems.lean):
 
-This repository formalizes **both main theorems** and the statements of the
-pinned manuscript that the proof passes through: the generator and Green
-decomposition in Fourier–Walsh coordinates (Proposition 2.1), the variational
-upper bound (formula (15)), the fixed-frequency estimate (Proposition 2.2), the
-degree-one and degree-three estimates (Lemma 4.1 and Proposition 4.2), and the
-Fourier–Walsh calculations of Section 5 at the concrete competitor.  Theorem 1.1
-is also proved a second time, along the shorter argument of the arXiv version
-(`Manhattan/V4/`).  Not formalized: the open questions of the last
-section, the figures, and the survey of related work in the introduction.
-
-**What is assumed.**  Nothing.  No theorem of this repository carries a
-result from the literature as a hypothesis, and
-[`ASSUMPTIONS.md`](ASSUMPTIONS.md) records that no registered statement is
-assumed.
-
-- **No `sorry`** anywhere in the library.  (Each Mathlib-only comparator
-  challenge in `Audit/` contains its single intentional statement-level
-  `sorry`, filled by the corresponding solution file.)
-- **No custom `axiom`.**  The main theorems reduce to `mathlib`'s three
-  standard foundational axioms, `propext`, `Classical.choice` and `Quot.sound`,
-  verified by [`Manhattan/Meta/AxiomsAudit.lean`](Manhattan/Meta/AxiomsAudit.lean).
-- Pinned to Lean `v4.32.0`, `mathlib` at revision
-  `81a5d257c8e410db227a6665ed08f64fea08e997` and `Lattice-Probability` at
-  commit `bbe0b90`.
-
-Status: **76 registered statements, all `PROVED`.**  Every node's proof is
-machine-checked: no `sorry`, no axiom added by this development, and every
-axiom closure is exactly Lean's three standard axioms.  Run
-`python3 tools/check_manifest.py` and `lake build Manhattan.Meta.AxiomsAudit`
-to confirm.
-
-## Main results
-
-The main theorems are stated in full in
-[`Manhattan/MainTheorems.lean`](Manhattan/MainTheorems.lean), each proved by
-direct application of its certified counterpart in `Manhattan/Frozen/Main/`.
-
-* **`Manhattan.transience`** (Theorem 1.1, `thm:main`): for almost every
+- **`Manhattan.transience`** (Theorem 1.1, `thm:main`): for almost every
   environment under the product fair-coin law `environmentLaw`, every site `x`
   has `discreteGreen ω x < ∞`, where `discreteGreen ω x = ∑' n, p^ω_n(x, x)` in
   `ℝ≥0∞`.  Its statement is byte-faithful to
   `Manhattan.Frozen.Main.theorem_1_1`.
-* **`Manhattan.annealed_green_bound`** (Theorem 1.2, `thm:annealed`): there is
+- **`Manhattan.annealed_green_bound`** (Theorem 1.2, `thm:annealed`): there is
   `C < ∞` such that
   `∫⁻ t in Ici 0, ofReal (exp (-λ t)) * annealedContinuousKernel t 0 0 ≤ C`
   for every `λ ∈ (0, 1]`, and
@@ -71,28 +39,43 @@ direct application of its certified counterpart in `Manhattan/Frozen/Main/`.
   `Manhattan.AnnealedGreenBound`, and the statement displayed in
   `MainTheorems.lean` is the body of that definition.
 
-Neither theorem has a hypothesis.
+Each is proved by direct application of its certified counterpart in
+`Manhattan/Frozen/Main/`, and neither has a hypothesis.
 
-## Scope and faithfulness
+Besides the two main theorems, the repository formalizes the statements of the
+pinned manuscript that the proof passes through: the generator and Green
+decomposition in Fourier–Walsh coordinates (Proposition 2.1), the variational
+upper bound (formula (15)), the fixed-frequency estimate (Proposition 2.2), the
+degree-one and degree-three estimates (Lemma 4.1 and Proposition 4.2), and the
+Fourier–Walsh calculations of Section 5 at the concrete competitor.  Theorem 1.1
+is also proved a second time, along the shorter argument of the arXiv version
+(`Manhattan/V4/`).  Not formalized: the open questions of the last section, the
+figures, and the survey of related work in the introduction.
 
-The pinned source is [`paper/manuscript.tex`](paper/manuscript.tex), whose
-SHA-256 is recorded in [`paper/SOURCE_PIN.txt`](paper/SOURCE_PIN.txt) and
+**What is assumed.**  Nothing.  No theorem of this repository carries a result
+from the literature as a hypothesis, and
+[`ASSUMPTIONS.md`](ASSUMPTIONS.md) records that no registered statement is
+assumed.  The status is **76 registered statements, all `PROVED`**, each with
+exactly the three standard axioms.  The paper-to-Lean map, node by node, is
+[`CORRESPONDENCE.md`](CORRESPONDENCE.md).
+
+**The pinned source and the registered statements.**  The pinned source is
+[`paper/manuscript.tex`](paper/manuscript.tex), whose SHA-256 is recorded in
+[`paper/SOURCE_PIN.txt`](paper/SOURCE_PIN.txt) and
 [`ledger/manifest.yaml`](ledger/manifest.yaml).  A registered statement's text
 between the lines `-- FROZEN-STATEMENT-BEGIN` and `-- FROZEN-STATEMENT-END` is
 pinned by the SHA-256 of those bytes in the manifest, together with the line
-range of the paper it transcribes; the proof after the end marker may be
-rewritten freely.  In the manifest, a registered statement is `PROVED` when its
-axiom closure is exactly the three standard axioms.
-
-The pinned manuscript is corrected so that it states what the Lean statements
-state; [`paper/CHANGES_FROM_ARXIV.md`](paper/CHANGES_FROM_ARXIV.md) records
-every difference between it and the arXiv version, whose unmodified source is
+range of the paper it transcribes; the proof after the end marker is not pinned.
+In the manifest, a registered statement is `PROVED` when its axiom closure is
+exactly the three standard axioms.  The pinned manuscript states what the Lean
+statements state;
+[`paper/CHANGES_FROM_ARXIV.md`](paper/CHANGES_FROM_ARXIV.md) records every
+difference between it and the arXiv version, whose unmodified source is
 [`paper/arxiv/`](paper/arxiv/).
-The paper-to-Lean map, node by node, is
-[`CORRESPONDENCE.md`](CORRESPONDENCE.md).
-[`VERIFICATION.md`](VERIFICATION.md) compares the Lean statements with the
-arXiv version, statement by statement,
-marked EXACT, EQUIVALENT or WEAKER.  Modelling decisions:
+[`VERIFICATION.md`](VERIFICATION.md) compares the Lean statements with the arXiv
+version, statement by statement, marked EXACT, EQUIVALENT or WEAKER.
+
+Modelling decisions:
 
 - An environment gives one orientation to each line, indexed by its axis and
   its transverse coordinate, rather than the paper's redundant `ω(z, i)` with
@@ -119,6 +102,9 @@ and Proposition 6.1 with the constant `2048` and Lemma 5.1 with the constant
 route, and the constant of Lemma 5.1 is discharged below `670` by
 `Manhattan.V4.v4ConstantSplit_lt`.
 
+The principal registered statements, with their manifest identifiers and the
+lines of the pinned source they transcribe:
+
 | Manifest ID | Paper result | Pinned source |
 |---|---|---|
 | `thm-main` | Theorem 1.1, almost-sure summability of quenched returns | `manuscript.tex:192` |
@@ -138,32 +124,54 @@ route, and the constant of Lemma 5.1 is discharged below `670` by
 | `eq-e-summand-one` … `-four` | the four summands of the objective (22) | `manuscript.tex:765-772` |
 | `eq-construction-sector-energy` | `E_p(f_p,k_p) ≤ C √L`, third display of (25) | `manuscript.tex:785-790` |
 
-## Verified against a Mathlib-only statement
+## Guarantees
 
-So that the main claims can be read without trusting the 58,000-line
-development, both main theorems are restated using **only Mathlib**, no project
-definitions, in `Audit/<Thm>/Challenge.lean`.  Each challenge rebuilds the
-model from Mathlib primitives (the sites and directed lines of `ℤ²`, the
-fair-coin environment law, the quenched one-step and `n`-step kernels, the
-discrete Green series, and the rate-two Poisson subordination that defines the
-continuous-time kernel) and contains one intentional statement-level `sorry`,
-which the corresponding `Solution.lean` fills from the library through the
-bridges in `Audit/Support/`.  The configurations in `Audit/*/comparator.json`
-are for [`leanprover/comparator`](https://github.com/leanprover/comparator),
-which confirms that the two statements have identical elaborated types and
-that the proof reduces to the three standard axioms (see
-[`Audit/README.md`](Audit/README.md)).
+- **No `sorry`** in the library.  Each Mathlib-only comparator challenge under
+  `Audit/` contains one intentional statement-level `sorry`, which the
+  corresponding solution file proves.
+- **No custom axiom.**  The main theorems depend only on mathlib's three standard
+  axioms `propext`, `Classical.choice` and `Quot.sound`.
+  [`Manhattan/Meta/AxiomsAudit.lean`](Manhattan/Meta/AxiomsAudit.lean) prints the
+  axioms of every proved node, and
+  [`Manhattan/Certificate.lean`](Manhattan/Certificate.lean) restates the main
+  results in self-contained form and prints the axioms each rests on.  The
+  axiom-audit and certificate steps of the
+  [`build.yml`](.github/workflows/build.yml) workflow fail on `sorryAx` or on
+  any other axiom, and `python3 tools/check_manifest.py` checks that no `axiom`,
+  `admit` or `sorryAx` token occurs in the production tree.
+- **Independent check of the statements.**  Both main theorems are restated
+  using only Mathlib, with no project definition, in
+  [`Audit/Transience/Challenge.lean`](Audit/Transience/Challenge.lean) and
+  [`Audit/AnnealedGreenBound/Challenge.lean`](Audit/AnnealedGreenBound/Challenge.lean).
+  Each challenge rebuilds the model from Mathlib primitives (the sites and
+  directed lines of `ℤ²`, the fair-coin environment law, the quenched one-step
+  and `n`-step kernels, the discrete Green series, and the rate-two Poisson
+  subordination that defines the continuous-time kernel) and contains one
+  intentional statement-level `sorry`, which the corresponding `Solution.lean`
+  fills from the library through the bridges in `Audit/Support/`.  The
+  configurations `Audit/*/comparator.json` are for
+  [`leanprover/comparator`](https://github.com/leanprover/comparator), which
+  confirms that the challenge and the solution have identical elaborated types
+  and that the proof reduces to the three standard axioms; both pairs pass, with
+  the Lean kernel and with the independent nanoda kernel, as recorded in
+  [`Audit/COMPARATOR_RUNS.md`](Audit/COMPARATOR_RUNS.md).
+  [`Audit/StatementRegression.lean`](Audit/StatementRegression.lean) checks
+  locally that each solution statement is exactly the challenge statement and
+  mentions no repository constant.  The workflow
+  [`comparator.yml`](.github/workflows/comparator.yml) runs the comparator on
+  request.  See [`Audit/README.md`](Audit/README.md).
+- **Pinned toolchain.**  Lean `v4.32.0` ([`lean-toolchain`](lean-toolchain)),
+  mathlib at revision `81a5d257c8e410db227a6665ed08f64fea08e997` and
+  `Lattice-Probability` at commit `bbe0b90`, pinned in
+  [`lakefile.lean`](lakefile.lean) and recorded, with mathlib's own
+  dependencies, in [`lake-manifest.json`](lake-manifest.json).
 
-The two pairs are `Transience` and `AnnealedGreenBound`.  Both solutions build
-and depend only on `propext`, `Classical.choice` and `Quot.sound`, and
-`Audit/StatementRegression.lean` checks locally that each solution statement is
-exactly the challenge statement and mentions no repository constant.  The
-comparator itself was run on both pairs on 2026-09-24 at commit `34b9cb3`, and
-both passed with the Lean kernel and with the independent nanoda kernel; see
-[`Audit/COMPARATOR_RUNS.md`](Audit/COMPARATOR_RUNS.md) for the results and
-reproduction steps.  The workflow
-[`.github/workflows/comparator.yml`](.github/workflows/comparator.yml) runs it
-on request.
+## Size
+
+About 57,000 lines of Lean in 229 modules, of which about 44,000 lines are code
+once comments and blank lines are removed, on top of mathlib and the
+Lattice-Probability library.  The count covers `Manhattan.lean` and
+`Manhattan/`, and excludes the `Audit/` comparator surface.
 
 ## Building
 
@@ -171,7 +179,8 @@ The project uses [`elan`](https://github.com/leanprover/elan) (the Lean
 toolchain manager) and Lake.  The toolchain is pinned in
 [`lean-toolchain`](lean-toolchain) (`leanprover/lean4:v4.32.0`), so `elan`
 installs the right Lean version automatically, and the dependencies are pinned
-to commits in `lakefile.lean` and [`lake-manifest.json`](lake-manifest.json).
+to commits in [`lakefile.lean`](lakefile.lean) and
+[`lake-manifest.json`](lake-manifest.json).
 The results that do not depend on the Manhattan model (the semigroup of a
 bounded generator and its Laplace resolvent, the dissipative-skew pair and its
 coercive resolvents, Pólya's theorem in two dimensions, the Nash inequality on
@@ -188,7 +197,8 @@ lake build           # compile the project
 `lake exe cache get` requires the committed
 [`lake-manifest.json`](lake-manifest.json), which pins the exact dependency
 revisions; do not run `lake update`.  Never run `lake clean`: it discards the
-Mathlib build artifacts.
+Mathlib build artifacts.  Further building notes are in
+[`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ```bash
 lake build Manhattan.Meta.AxiomsAudit   # print the axioms of the main theorems and every proved node
@@ -209,7 +219,7 @@ The checkers in `tools/` need Python 3.8 or newer and PyYAML
 | `python3 tools/check_warnings.py` | the build of `Manhattan` emits no warning other than the `sorry` warnings the manifest authorizes (it authorizes none) |
 | `python3 tools/assumptions.py --check` | `ASSUMPTIONS.md` is current with the manifest |
 | `lake env lean tools/lint_fast.lean` | the fast Mathlib environment linters pass on the whole library |
-| `lake env lean tools/lint_simpnf.lean` | the `simpNF` linter passes (slow; nightly) |
+| `lake env lean tools/lint_simpnf.lean` | the `simpNF` linter passes (slow) |
 
 ## Repository layout
 
@@ -234,59 +244,39 @@ Manhattan/
   Meta/               AxiomsAudit.lean, Cone.lean
 Manhattan.lean        the root module (imports the whole library)
 Audit/                Mathlib-only comparator challenges and solutions
-ASSUMPTIONS.md        the cited results assumed (none; generated)
+ASSUMPTIONS.md        the results assumed (none; generated)
 CORRESPONDENCE.md     paper ↔ Lean, node by node
 VERIFICATION.md       statement-by-statement comparison with the arXiv version
-ROADMAP.md            the dependency-ordered phases of the formalization
+CONTRIBUTING.md       building notes and the elaboration policy for new files
 ledger/manifest.yaml  one row per registered statement: hash, paper lines, state
-ledger/reports/       the audit and lane reports of the development
 paper/                the pinned manuscript, its checksum, the unmodified arXiv
                       source (arxiv/) and CHANGES_FROM_ARXIV.md
-simplification/       notes on the shorter argument of the arXiv version
 tools/                the checkers listed under Building
+.github/workflows/    build.yml and comparator.yml, run on request
 bootstrap.sh          first-time setup
+formalization.yaml    models, tooling, cost and review disclosure
+CITATION.cff          citation metadata
 ```
 
 ## How this was built
 
-The Lean code in this repository was written by AI models under the
-supervision of the author.  OpenAI's gpt-5.6-sol, through Codex at reasoning
-effort xhigh, built the scaffold, the model, the Walsh basis, the operator and
-estimate layers, the frozen statements and the first comparator pair in the
-first waves (2026-09-02 and 09-03), and ran read-only audits of the dependency
-cone and of individual statement decisions.  Claude (Fable 5.1, then Opus 5) in Claude Code
-supervised the later work: Fable 5.1 proved the concrete Fourier–Walsh lemmas
-and the first summands of the objective (2026-09-03), and Opus 5 and its
-subagents closed the remaining summands, Proposition 2.2 and both main
-theorems, ran the independent second-key audits, built the second proof of
-Theorem 1.1 along the arXiv version, and prepared the repository
-(2026-09-03 to 09-06).  Claude Haiku 4.5 subagents drafted single-lemma proofs
-for the second proof, each re-checked before it was accepted, and GLM-5.3
-drafted several analytic lemmas (the pieces of `eq:beta` and the central
-binomial bound), each verified before landing.  Claude Opus 5.5 aligned the
-docstrings and `ASSUMPTIONS.md` with the release and wrote
-`Manhattan/MainTheorems.lean`, the comparator surface in `Audit/`, and the
-release documentation (2026-09-23), and on 2026-09-24 moved the development
-to Lean `v4.32.0`, replaced its copies of general results by those of the
-shared library, and corrected the pinned manuscript so that it states what the
-Lean statements state.  The models, tooling, cost, and review
-status are disclosed in full in [`formalization.yaml`](formalization.yaml),
+The Lean code was written by Claude (Fable 5.1, Opus 5, Opus 5.5 and Haiku 4.5),
+GPT-5.6 (Sol) and GLM-5.3 under the close supervision of the author; models,
+tooling and cost are disclosed in [`formalization.yaml`](formalization.yaml),
 following the
 [mathlib-initiative](https://github.com/mathlib-initiative/formalization.yaml)
 standard.
 
-## Authors and citation
+## Authors, citation, acknowledgements
 
-The Lean development is by **Ahmed Bou-Rabee**.  The paper it formalizes is
-joint work of Ahmed Bou-Rabee and Yuval Peres.  If you use this formalization,
-please cite it using the metadata in [`CITATION.cff`](CITATION.cff).
-
-## Acknowledgements
-
-This formalization is built on [Lean 4](https://lean-lang.org),
+The Lean development is by **Ahmed Bou-Rabee**.  The paper it formalizes,
+[arXiv:2609.07621](https://arxiv.org/abs/2609.07621), is joint work of Ahmed
+Bou-Rabee and Yuval Peres.  To cite the formalization, use
+[`CITATION.cff`](CITATION.cff).  This formalization is built on
+[Lean 4](https://lean-lang.org),
 [Mathlib](https://github.com/leanprover-community/mathlib4) and the shared library
-[`Lattice-Probability`](https://github.com/nitromannitol/Lattice-Probability); the comparator
-audit in [`Audit/`](Audit/) is set up for
+[`Lattice-Probability`](https://github.com/nitromannitol/Lattice-Probability); the
+comparator audit in [`Audit/`](Audit/) is set up for
 [`leanprover/comparator`](https://github.com/leanprover/comparator).
 
 ## License

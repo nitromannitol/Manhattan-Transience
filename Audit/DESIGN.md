@@ -106,16 +106,16 @@ without the library.
   reader still has to check the vocabulary against the paper, in particular
   reading 3 above.
 
-## 6. Uncertainties
+## 6. Notes on the checks
 
-- **U1 (instance environments).**  The solutions import both the repository
+- **Instance environments.**  The solutions import both the repository
   and the vocabulary, and both declare `MeasurableSpace` instances on their own
   `Axis` and `Orientation`.  These are instances on different types, and
   `Audit/StatementRegression.lean` checks that no solution statement picked up
   a repository constant.
-- **U2 (resolved).**  `leanprover/comparator` was run on these pairs on
-  2026-09-24 at commit `34b9cb3`; both passed with the Lean kernel and with
-  the independent nanoda kernel (see `Audit/COMPARATOR_RUNS.md`).  The local
-  regression remains useful on its own terms: it compares the solution types
-  with the challenge-environment types up to the auxiliary proof lemmas that a
-  `def` abstracts, while the comparator's own closure check is stricter.
+- **Comparator and local regression.**  `leanprover/comparator` accepts both
+  pairs, with the Lean kernel and with the independent nanoda kernel (see
+  `Audit/COMPARATOR_RUNS.md`).  The local regression is a separate check: it
+  compares the solution types with the challenge-environment types up to the
+  auxiliary proof lemmas that a `def` abstracts, while the comparator's own
+  closure check is stricter.

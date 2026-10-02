@@ -92,9 +92,9 @@ challenge statement and depends only on `propext`, `Classical.choice` and
 `Quot.sound`.
 
 **Status.**  Both solutions build, and the statement regression and the axiom
-prints pass locally.  `leanprover/comparator` itself was run on both pairs on
-2026-09-24 at commit `34b9cb3`, and both passed with the Lean kernel and with
-the independent nanoda kernel; see [`COMPARATOR_RUNS.md`](COMPARATOR_RUNS.md)
-for the full results and reproduction steps.  The workflow
+prints pass.  `leanprover/comparator` accepts both pairs, with the Lean kernel
+and with the independent nanoda kernel; see
+[`COMPARATOR_RUNS.md`](COMPARATOR_RUNS.md) for the results and reproduction
+steps.  The workflow
 [`.github/workflows/comparator.yml`](../.github/workflows/comparator.yml) runs
 the same check on request.

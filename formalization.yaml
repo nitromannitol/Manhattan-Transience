@@ -1,7 +1,20 @@
-version: "v0.3"
+version: "v0.4"
 
 project:
   name: "manhattan-formalization"
+  description: >-
+    A Lean 4 / Mathlib formalization of the paper "The randomly oriented
+    Manhattan lattice in 2D is transient" (Bou-Rabee and Peres): for almost
+    every environment of independent fair-coin orientations of the lines of
+    Z^2, the quenched Green series of the walk is finite at every site
+    (Theorem 1.1), deduced from a uniform bound on the Laplace transforms of
+    the annealed return probability of the continuous-time walk (Theorem 1.2).
+    The formalization also proves the statements the argument passes through
+    (the generator and Green decomposition in Fourier-Walsh coordinates, the
+    variational upper bound, the fixed-frequency estimate, and the degree-one
+    and degree-three estimates) and proves Theorem 1.1 a second time along the
+    shorter argument of the arXiv version.  Both main theorems are
+    independently checked by Mathlib-only comparator challenges under Audit/.
   authors:
     - "Ahmed Bou-Rabee"
   license: "Apache-2.0"
@@ -14,9 +27,25 @@ sources:
     id: "arXiv:2609.07621"
     url: "https://arxiv.org/abs/2609.07621"
     type: "manuscript"
+    relationship: "formalizes"
+    note: >-
+      The paper under formalization.  Theorems 1.1 and 1.2 are both proved.  The
+      statements are pinned to paper/manuscript.tex, which differs from the
+      arXiv version; see fidelity.divergences and paper/CHANGES_FROM_ARXIV.md.
     license: "all rights reserved"
     author_contacted: "n/a"     # the formalizer is an author of the source
     prior_work: ""
+
+related_formalizations:
+  - id: "https://github.com/nitromannitol/Lattice-Probability"
+    relationship: "builds-on"
+    note: >-
+      Shared library of the results that do not depend on the Manhattan model
+      (the semigroup of a bounded generator and its Laplace resolvent, the
+      dissipative-skew pair and its coercive resolvents, Polya's theorem in two
+      dimensions, the Nash inequality on Z^2 and the rate-two Poisson clock);
+      a pinned git dependency at commit
+      bbe0b90a7cf0517db0578139aaab7f152edbc45e.
 
 status:
   scope: >-
@@ -32,10 +61,10 @@ status:
     (formula (15)), the fixed-frequency estimate (Proposition 2.2), the
     degree-one and degree-three estimates (Lemma 4.1, Proposition 4.2), and
     the Fourier-Walsh calculations of Section 5 at the concrete competitor.
-    Theorem 1.1 is proved a second time along the shorter argument of the
-    arXiv version (Manhattan/V4/).  No result from the literature is
-    assumed.  Not formalized: the open questions, the figures and the
-    discussion of related work.  The main theorems are stated in full in
+    Theorem 1.1 is also proved along the shorter argument of the arXiv version
+    (Manhattan/V4/).  No result from the literature is assumed.  Not
+    formalized: the open questions, the figures and the discussion of related
+    work.  The main theorems are stated in full in
     Manhattan/MainTheorems.lean; both are additionally restated over a
     Mathlib-only vocabulary for the Lean comparator (Audit/).
   sorry_count: 0
@@ -81,66 +110,35 @@ automation:
         - "glm-5.3"
         - "claude-opus-5-5"
       framework: >-
-        Codex CLI (OpenAI) for gpt-5.6-sol; Claude Code (Anthropic) as the
-        supervising and proving harness for the Claude models, with
-        claude-opus-5 and claude-haiku-4-5 also run as Claude Code subagents;
-        a scripted API call (tools/glm.sh, not tracked) for glm-5.3
+        Codex CLI (OpenAI) for gpt-5.6-sol; Claude Code (Anthropic) for the
+        Claude models, including work delegated to Claude Code workers; a
+        scripted API call for glm-5.3
       tool_setup: >-
-        The development was written under leanprover/lean4:v4.26.0 with
-        Mathlib v4.26.0 and moved on 2026-09-24 to leanprover/lean4:v4.32.0
-        with Mathlib at revision 81a5d257c8e410db227a6665ed08f64fea08e997 and
-        the shared library Lattice-Probability, at commit bbe0b90, which now
-        carries the general results first proved here.  Division of labour,
-        from the commit history, the
-        Codex logs and the ledger reports: gpt-5.6-sol (Codex CLI, reasoning
-        xhigh, 26 logged runs) built the scaffold, the model, the Walsh basis,
-        the operator and estimate layers, the frozen statements and the first
-        Theorem 1.1 comparator pair in the first seven waves (2026-09-02/03), and ran
-        read-only audits of the dependency cone, of Lemma 4.1 and of the
-        wave 5 and wave 6 seals; claude-fable-5-1 (Claude Code, 36 commits on
-        2026-09-03) proved the concrete Fourier-Walsh layer (the raising and
-        lowering operators of Lemma 5.1, (Hsym), the projection-error bounds,
-        the cubic multiplier) and the first two summands of the objective (22);
-        claude-opus-5 (Claude Code and its subagents, 92 commits from
-        2026-09-03 to 09-06) closed summands three and four, Proposition 2.2
-        and both main theorems, ran the independent second-key audits AUD-2 to
-        AUD-4, built and audited the second proof of Theorem 1.1 along the
-        arXiv version (Manhattan/V4/), and prepared the repository;
-        claude-haiku-4-5 subagents drafted single-lemma proofs for that second
-        proof (2026-09-05), every one re-checked in the tree before it was
-        accepted; glm-5.3 drafted the analytic pieces of eq:beta and the
-        central binomial bound of the Polya argument, since moved to
-        Lattice-Probability (2026-09-05), each verified before landing;
-        claude-opus-5-5 aligned the docstrings and ASSUMPTIONS.md with the
-        release, and wrote Manhattan/MainTheorems.lean, the comparator surface
-        Audit/ and this release documentation (2026-09-23), and ported the
-        development to Lean v4.32.0, replacing its copies of the operator
-        semigroup, the dissipative-skew pair, Polya's theorem, the Nash
-        inequality on Z^2 and the Poisson clock by those of
-        Lattice-Probability and corrected the pinned manuscript so that it
-        states what the Lean statements state (2026-09-24).  A frozen-statement manifest
+        Lake builds under leanprover/lean4:v4.32.0 with Mathlib at revision
+        81a5d257c8e410db227a6665ed08f64fea08e997 and the shared library
+        Lattice-Probability at commit bbe0b90, which carries the general results
+        that do not depend on the Manhattan model.  A frozen-statement manifest
         (ledger/manifest.yaml) pins each registered statement by the SHA-256
         of its text and its dependency closure, and the tools/ checkers verify
         the hashes, a sorry-free and warning-free build and the Mathlib
         environment linters; Manhattan/Meta/AxiomsAudit.lean prints the axiom
         closure of every proved node.  The Lean comparator
-        (leanprover/comparator) was run on both Audit pairs on 2026-09-24 at
-        commit 34b9cb3, and both passed with the Lean kernel and with the
-        independent nanoda kernel; results and reproduction steps are in
-        Audit/COMPARATOR_RUNS.md.  .github/workflows/comparator.yml runs it on
-        request.
+        (leanprover/comparator) accepts both Audit pairs with the Lean kernel
+        and with the independent nanoda kernel; results and reproduction steps
+        are in Audit/COMPARATOR_RUNS.md.  .github/workflows/comparator.yml runs
+        it on request.
       cost:
         wall_time: >-
-          about five days of calendar time for the proofs (2026-09-02 to
-          2026-09-06); the release documentation and the comparator surface
-          on 2026-09-23; the port to Lean v4.32.0 on 2026-09-24
+          about five days of calendar time for the proofs; one further day for
+          the release documentation and the comparator surface, and one for the
+          port to Lean v4.32.0
         spend_usd: "not tracked (subscription and API accounts)"
         hardware: "a 20-thread Intel i9-9900X / 125 GB RAM Ubuntu machine"
       prompting_notes: >-
         Human-directed agent work, supervised by the author, who decided every
-        statement-level question.  Every statement
-        was pinned before its proof was attempted, and proofs were accepted
-        only through the manifest, warning and axiom gates.
+        statement-level question.  Every statement was pinned before its proof
+        was attempted, and proofs were accepted only through the manifest,
+        warning and axiom gates.
   spend_usd: "not tracked (subscription and API accounts)"
   notes: >-
     All Lean code in this repository was written by the listed models under the
@@ -153,23 +151,22 @@ automation:
 
 fidelity:
   divergences: >-
-    The pinned manuscript paper/manuscript.tex is corrected so that it states
-    what the Lean statements state, and paper/CHANGES_FROM_ARXIV.md records
-    every difference between it and arXiv:2609.07621v1, whose unmodified
-    source is paper/arxiv/.  Rendering conventions (not
-    divergences): an environment is indexed by the lines of Z^2 (axis and
-    transverse coordinate) rather than by the paper's redundant omega(z, i);
-    the quenched n-step kernel is the path count 2^-n times the number of
-    axis words from z to z'; the continuous-time kernel is defined by rate-two
-    Poisson subordination of the discrete kernel; finiteness is stated in the
-    extended nonnegative reals.  Formula (15) is formalized in its upper-bound
-    direction only, and Lemma 5.3 on its raw frequency side only.  The manifest
-    is pinned to paper/manuscript.tex, an earlier text than the arXiv
-    version; the arXiv version reaches Theorem 1.1 by a shorter argument,
-    which is formalized separately in Manhattan/V4/, and CORRESPONDENCE.md
-    records which frozen statements it does not print.  The numerical
-    constants 2048 (Theorem 1.2, Proposition 6.1) and 16 (Lemma 5.1) stated
-    in the arXiv version are not certified; the formal statements are
+    The pinned manuscript paper/manuscript.tex states what the Lean statements
+    state, and paper/CHANGES_FROM_ARXIV.md records every difference between it
+    and arXiv:2609.07621v1, whose unmodified source is paper/arxiv/.
+    Rendering conventions (not divergences): an environment is indexed by the
+    lines of Z^2 (axis and transverse coordinate) rather than by the paper's
+    redundant omega(z, i); the quenched n-step kernel is the path count 2^-n
+    times the number of axis words from z to z'; the continuous-time kernel is
+    defined by rate-two Poisson subordination of the discrete kernel;
+    finiteness is stated in the extended nonnegative reals.  Formula (15) is
+    formalized in its upper-bound direction only, and Lemma 5.3 on its raw
+    frequency side only.  The manifest is pinned to paper/manuscript.tex, which
+    differs from the arXiv version; the arXiv version reaches Theorem 1.1 by a
+    shorter argument, which is formalized separately in Manhattan/V4/, and
+    CORRESPONDENCE.md records which frozen statements it does not print.  The
+    numerical constants 2048 (Theorem 1.2, Proposition 6.1) and 16 (Lemma 5.1)
+    stated in the arXiv version are not certified; the formal statements are
     existential in the constant.
 
 review:
@@ -179,12 +176,12 @@ review:
   notes: >-
     Correctness of every proof is guaranteed by the Lean kernel and Mathlib (no
     sorry, no custom axiom).  The author ruled on the statement-level
-    decisions made during development.  Under the project's two-key rule,
-    independent second keys are recorded for part of the frozen surface; the
-    second-key wave for the twelve concrete-lemma anchors frozen on
-    2026-09-04 and for the cone of the main theorems was paused by the
-    author while the paper's core was being replaced, and those
-    keys are not recorded.  This is not external peer review.
+    decisions.  A second, independent reading of the frozen statements is
+    recorded for part of the frozen surface; it is not recorded for the twelve
+    concrete-lemma anchors under Manhattan/Frozen/Glue/ or for the cone of the
+    main theorems.  The statements of the two main theorems are checked
+    independently by the comparator challenges under Audit/.  This is not
+    external peer review.
 
 alignment:
   namespace: "Manhattan"
@@ -203,7 +200,7 @@ alignment:
       lean: "Manhattan.Frozen.Operator.proposition_generator_v2"
       module: "Manhattan.Frozen.Operator.PropositionGeneratorV2"
       status: "proved"
-      note: "Pointwise-fiber successor."
+      note: "Pointwise frequency generator and Green decomposition."
     - source: "Formula (15), upper-bound direction (var-ineq)"
       lean: "Manhattan.Frozen.Operator.resolventQuadratic_le"
       module: "Manhattan.Frozen.Operator.ResolventQuadraticLe"
@@ -213,12 +210,12 @@ alignment:
       lean: "Manhattan.Frozen.Estimates.proposition_frequency"
       module: "Manhattan.Frozen.Estimates.PropositionFrequency"
       status: "proved"
-      note: "Torus-restricted version; provider Manhattan.Glue.proposition_frequency_v2."
+      note: "Torus-restricted statement; proved by Manhattan.Glue.proposition_frequency_v2."
     - source: "Lemma 4.1 (lem:onecoin)"
       lean: "Manhattan.Frozen.Estimates.lemma_one_coin_v3"
       module: "Manhattan.Frozen.Estimates.LemmaOneCoinV3"
       status: "proved"
-      note: "Version 3 adds explicit integral-finiteness certificates."
+      note: "Includes explicit integral-finiteness certificates."
     - source: "Proposition 4.2 (prop:key)"
       lean: "Manhattan.Frozen.Estimates.proposition_key"
       module: "Manhattan.Frozen.Estimates.PropositionKey"
@@ -233,7 +230,7 @@ alignment:
       lean: "Manhattan.V4.theorem_1_1_v4"
       module: "Manhattan.V4"
       status: "proved"
-      note: "Second proof; not a manifest node."
+      note: "Second proof of Theorem 1.1; not a manifest node."
 
 acknowledgements: >-
   The paper is joint work with Yuval Peres.  Built on Lean 4, Mathlib, Lake and

@@ -8,7 +8,9 @@ abstract: >-
   series of the walk is finite at every site (Theorem 1.1), deduced from a
   uniform bound on the Laplace transforms of the annealed continuous-time
   return probability (Theorem 1.2).  No result from the literature is assumed.
-  The development contains no sorry and no custom axiom.
+  The production library contains no sorry and no custom axiom; each of the two
+  Mathlib-only comparator challenges contains one intentional statement-level
+  sorry whose completed solution is checked separately.
 type: software
 authors:
   - family-names: Bou-Rabee
@@ -22,7 +24,8 @@ keywords:
   - transience
   - probability
 license: Apache-2.0
-# Add a Zenodo DOI and the repository URL here once an archived release is minted.
+repository-code: "https://github.com/nitromannitol/Manhattan-Transience"
+# Add a Zenodo DOI here once an archived release is minted.
 references:
   - type: article
     title: "The randomly oriented Manhattan lattice in 2D is transient"
@@ -32,4 +35,7 @@ references:
       - family-names: Peres
         given-names: Yuval
     url: "https://arxiv.org/abs/2609.07621"
+    identifiers:
+      - type: other
+        value: "arXiv:2609.07621"
     notes: "The paper formalized by this repository; see paper/CHANGES_FROM_ARXIV.md for the text the formalization follows."

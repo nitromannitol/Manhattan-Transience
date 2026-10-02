@@ -2,8 +2,8 @@
 
 Checked against `paper/arxiv/main.tex`, the unmodified source of
 arXiv:2609.07621v1 (SHA-256 `08089661c62ee867…`).  Numbers and labels below are
-those of that text.  The manifest follows the earlier text
-`paper/manuscript.tex`; `paper/CHANGES_FROM_ARXIV.md` compares the two.
+those of that text.  The manifest follows `paper/manuscript.tex`, a different
+text of the same paper; `paper/CHANGES_FROM_ARXIV.md` compares the two.
 
 A formalization is only worth what its statements say. This file records, for
 every numbered statement of the paper, whether the Lean statement is the same
@@ -84,11 +84,11 @@ constants below.
 over every environment and both sites, as the paper states.
 
 `eq:time-derivative` is stated in the paper for the **annealed** `f(t) =
-p̄_t(0,0)`. Only the quenched form was formalized, so
-`Paper.abs_deriv_annealedReal_le` was added:
+p̄_t(0,0)`, and `Paper.abs_deriv_annealedReal_le` states it in that form:
 `|deriv annealedReal t| ≤ 2/(√t (1 + t/4))`, together with the `8t^{-3/2}`
-form. Differentiation under the integral is legitimate because the quenched
-bound is uniform in `ω` and `environmentLaw` is a probability measure.
+form. It follows from the quenched bound: differentiation under the integral is
+legitimate because the quenched bound is uniform in `ω` and `environmentLaw` is
+a probability measure.
 
 ## Lemma 3.1 (`lem:raise`) — EQUIVALENT
 
@@ -136,8 +136,7 @@ and `16` in Lemma 5.1.  No Lean statement claims either value.
 
 * The Lean statements of `lem:effective-energy` and `prop:frequency` quantify
   their constant existentially. Lean discharges the first with
-  `v4ConstantSplit < 670` (`Manhattan/V4/SplitConstant.lean`), down from
-  `20,028` and from the `74,869` of the first assembly, and the second with
+  `v4ConstantSplit < 670` (`Manhattan/V4/SplitConstant.lean`) and the second with
   `max(max(1, 8π³ · v4ConstantSplit), outerRegionConstant(1/4))`.
 * For Theorem 1.2 the formalized chain gives
   `∫₀^∞ p̄_t(0,0) dt ≤ 2.75 · 10⁸`
@@ -156,11 +155,11 @@ one. Lean's `670` is `60 + 8·76.2`, and the two differences are exactly:
 | degree-one and two-row | `5` | `60 = 2·6 + 4·12` | `objective_le_v4Move1` splits the residual by Cauchy–Schwarz, with multipliers `2` and `4` |
 | column term | `1 · 11` | `8 · 76.2` | the operator step is a majorant comparison (`A = 291/κ`), not the paper's exact minimization |
 
-Both `eq:beta` evaluations are now proved. `Manhattan/V4/BetaSplit.lean` splits
+Both `eq:beta` evaluations are proved. `Manhattan/V4/BetaSplit.lean` splits
 the fundamental domain at `|β| = √ρ`, integrates the inner reciprocal quadratic
 over the line (`∫_ℝ dβ/(A+Bβ²) = π/√(AB)`, `Manhattan/V4/BetaIntegral.lean`)
-and evaluates both tails, giving `π/(2√(2c)) + π/2` in place of the earlier
-`π² + 1/c`. At the paper's own `c = 1/(2π³)` this is exactly `(π^{5/2}+π)/2`.
+and evaluates both tails, giving `π/(2√(2c)) + π/2`. At the paper's own
+`c = 1/(2π³)` this is exactly `(π^{5/2}+π)/2`.
 
 `Manhattan/V4/SharpConstant.lean` closes the multiplier side:
 `symbolWeight_le_multiplier_one` (`κ = 40 → 1`),
@@ -169,9 +168,9 @@ and evaluates both tails, giving `π/(2√(2c)) + π/2` in place of the earlier
 that the multiplier is *linear in its constant*, so an identity or a
 contraction established at one constant transfers to any other
 (`multiplier_eq_smul`, `integral_multiplier_eq_smul`,
-`rawMultiplierEnergy_eq_smul`); no frozen statement had to move.
+`rawMultiplierEnergy_eq_smul`).
 
-Move 1 is now stated over an abstract shared constant `κ`, operator coefficient
+Move 1 is stated over an abstract shared constant `κ`, operator coefficient
 `A` and column constant `C_β` (`OperatorCoefficient`, `BetaColumnBound`), with
 Move 1 coefficient `4A + 4`. Because the operator estimate reads as
 `A = 291/κ` and `C_β` grows like `√κ`, the product `(4A+4)·C_β` is least at

@@ -2,13 +2,13 @@
 
 The formalization follows [`manuscript.tex`](manuscript.tex), with the five
 corrections listed in Part 2.  That file is not the text of
-[arXiv:2609.07621v1](https://arxiv.org/abs/2609.07621v1): it is an earlier
+[arXiv:2609.07621v1](https://arxiv.org/abs/2609.07621v1): it is a different
 text of the same paper, with the same main theorems but a different proof of
 the frequency bound.  The arXiv source will be replaced.  The unmodified arXiv
 source is [`arxiv/`](arxiv/): `main.tex`, its bibliography `main.bbl` and the
 figure `figures/fig_paths.pdf`, byte for byte as served by arXiv.  Part 1
 compares the two texts result by result.  Part 2 lists every change made to
-`manuscript.tex`.  Line numbers refer to `manuscript.tex` as it stands and to
+`manuscript.tex`.  Line numbers refer to `manuscript.tex` and to
 `arxiv/main.tex`.
 
 ## Part 1. The arXiv text and the formalized text
@@ -99,7 +99,7 @@ states $r_\lambda(p)\leq2048/(\lambda+a(p)^2[1+\log_+(1/(\sqrt\lambda+a(p)))]^{3
 Both texts obtain the logarithmic gain with exponent $3/2$ and deduce
 Theorem 1.2 from it.  The manifest of this repository certifies the route of
 `manuscript.tex`.  The arXiv route is formalized separately in
-`Manhattan/V4/`, which proves Theorem 1.1 again (`Manhattan.V4.theorem_1_1_v4`)
+`Manhattan/V4/`, which proves Theorem 1.1 a second time (`Manhattan.V4.theorem_1_1_v4`)
 and the arXiv Lemma 5.1 and Proposition 6.1 with unspecified constants, as
 described in 1.1.  [`../VERIFICATION.md`](../VERIFICATION.md) compares those
 statements with the arXiv text one by one.

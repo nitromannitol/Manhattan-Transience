@@ -260,10 +260,10 @@ CITATION.cff          citation metadata
 
 ## How this was built
 
-The Lean code was written by Claude (Fable 5.1, Opus 5, Opus 5.5 and Haiku 4.5),
-GPT-5.6 (Sol) and GLM-5.3 under the close supervision of the author; models,
-tooling and cost are disclosed in [`formalization.yaml`](formalization.yaml),
-following the
+The Lean code was written mostly by Claude (Fable 5.1, Opus 5, Opus 5.5 and
+Haiku 4.5), with contributions by OpenAI's gpt-5.6-sol and GLM-5.3, under the
+close supervision of the author; models, tooling, cost and review status are
+disclosed in [`formalization.yaml`](formalization.yaml), following the
 [mathlib-initiative](https://github.com/mathlib-initiative/formalization.yaml)
 standard.
 

@@ -8,6 +8,9 @@ A machine-checked **Lean 4** formalization of the paper
 library [`Lattice-Probability`](https://github.com/nitromannitol/Lattice-Probability)
 (`LatticeProb`).
 
+[![CI](https://github.com/nitromannitol/Manhattan-Transience/actions/workflows/build.yml/badge.svg)](https://github.com/nitromannitol/Manhattan-Transience/actions/workflows/build.yml)
+[![Comparator audit](https://github.com/nitromannitol/Manhattan-Transience/actions/workflows/comparator.yml/badge.svg)](https://github.com/nitromannitol/Manhattan-Transience/actions/workflows/comparator.yml)
+
 Both main theorems of the paper are proved, and no result from the literature is
 assumed.
 

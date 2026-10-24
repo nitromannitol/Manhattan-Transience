@@ -1,15 +1,19 @@
-# manhattan-formalization
+# The randomly oriented Manhattan lattice in 2D is transient
 
 A machine-checked **Lean 4** formalization of the paper
-*The randomly oriented Manhattan lattice in 2D is transient*
-(Ahmed Bou-Rabee and Yuval Peres,
-[arXiv:2609.07621](https://arxiv.org/abs/2609.07621)), built on
-[`mathlib`](https://github.com/leanprover-community/mathlib4) and the shared
-library [`Lattice-Probability`](https://github.com/nitromannitol/Lattice-Probability)
-(`LatticeProb`).
+
+> Ahmed Bou-Rabee and Yuval Peres,
+> [*The randomly oriented Manhattan lattice in 2D is transient*](https://arxiv.org/abs/2609.07621),
+> arXiv:2609.07621.
+
+The development is built on [mathlib](https://github.com/leanprover-community/mathlib4) and the shared library
+[Lattice-Probability](https://github.com/nitromannitol/Lattice-Probability) (`LatticeProb`).
 
 Both main theorems of the paper are proved, and no result from the literature is
 assumed.
+
+[![CI](https://github.com/nitromannitol/Manhattan-Transience/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/nitromannitol/Manhattan-Transience/actions/workflows/build.yml)
+[![Comparator audit](https://github.com/nitromannitol/Manhattan-Transience/actions/workflows/comparator.yml/badge.svg?branch=main)](https://github.com/nitromannitol/Manhattan-Transience/actions/workflows/comparator.yml)
 
 ## What is proved
 

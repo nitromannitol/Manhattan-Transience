@@ -255,7 +255,9 @@ theorem concreteFiberA_eq_walshRaise_sub_walshLower (p : Fin 2 -> Real) :
   rw [concreteFiberA, walshRaise, walshLower, ← Finset.sum_sub_distrib,
     Finset.smul_sum]
   refine Finset.sum_congr rfl fun i _ => ?_
-  rw [walshRaiseDir, walshLowerDir, sub_neg_eq_add, ← smul_add,
+  rw [walshRaiseDir, walshLowerDir, sub_neg_eq_add,
+    ← smul_add ((2 : ℂ)⁻¹) (originRaise i ∘L fiberSkewTerm p i)
+      (originLower i ∘L fiberSkewTerm p i),
     ← ContinuousLinearMap.add_comp, originRaise_add_originLower]
 
 /-- The same statement for the bundled fiber environment.
@@ -275,7 +277,8 @@ theorem walshLower_eq_adjoint_walshRaise (p : Fin 2 -> Real) :
     originRaise_adjoint, fiberSkewTerm_adjoint]
   have hhalf : (starRingEnd ℂ) ((2 : ℂ)⁻¹) = (2 : ℂ)⁻¹ := by
     rw [map_inv₀, map_ofNat]
-  rw [hhalf, ContinuousLinearMap.neg_comp, ← smul_neg]
+  rw [hhalf, ContinuousLinearMap.neg_comp,
+    ← smul_neg ((2 : ℂ)⁻¹) (originLower i ∘L fiberSkewTerm p i)]
   congr 1
   rw [fiberSkewTerm, phasedShift_adjoint, phasedShift,
     ContinuousLinearMap.sub_comp, ContinuousLinearMap.comp_sub,

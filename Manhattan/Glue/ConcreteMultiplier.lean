@@ -427,7 +427,9 @@ def charMul (n : ℕ) (m : Fin n → ℤ) :
     show ‖(memLp_charMul m f).toLp _‖ = ‖f‖
     rw [Lp.norm_toLp, Lp.norm_def]
     congr 1
-    refine le_antisymm (eLpNorm_mono_ae ?_) (eLpNorm_mono_ae ?_)
+    refine le_antisymm
+      (eLpNorm_mono_ae (memLp_charMul m f).aestronglyMeasurable ?_)
+      (eLpNorm_mono_ae (Lp.aestronglyMeasurable f) ?_)
     · filter_upwards with t
       rw [norm_mul, norm_mFourier_apply, one_mul]
     · filter_upwards with t

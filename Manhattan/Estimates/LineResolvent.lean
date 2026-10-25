@@ -1,5 +1,9 @@
-import Manhattan.Estimates.TargetStatements
-import Mathlib.Analysis.SpecialFunctions.Trigonometric.ArctanDeriv
+module
+
+public import Manhattan.Estimates.TargetStatements
+public import Mathlib.Analysis.SpecialFunctions.Trigonometric.ArctanDeriv
+
+@[expose] public section
 
 /-!
 # The one-dimensional resolvent integral

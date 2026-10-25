@@ -1,5 +1,9 @@
-import Manhattan.Glue.SummandThree
-import Manhattan.Glue.CubicDischargeProjection
+module
+
+public import Manhattan.Glue.SummandThree
+public import Manhattan.Glue.CubicDischargeProjection
+
+@[expose] public section
 
 /-!
 # The concrete lowering formula for the actual correction

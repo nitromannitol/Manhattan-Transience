@@ -1,5 +1,9 @@
-import Mathlib.Analysis.Complex.ExponentialBounds
-import Manhattan.Estimates.KernelBound
+module
+
+public import Mathlib.Analysis.Complex.ExponentialBounds
+public import Manhattan.Estimates.KernelBound
+
+@[expose] public section
 
 /-!
 # Version 4, Move 1: the logarithmic scale and the effective weight

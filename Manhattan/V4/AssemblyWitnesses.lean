@@ -1,6 +1,10 @@
-import Manhattan.V4.CompetitorEnergy
-import Manhattan.V4.Frequency.Uniform
-import Manhattan.V4.Energy.Witnesses
+module
+
+public import Manhattan.V4.CompetitorEnergy
+public import Manhattan.V4.Frequency.Uniform
+public import Manhattan.V4.Energy.Witnesses
+
+@[expose] public section
 
 /-!
 # The non-degeneracy certificates

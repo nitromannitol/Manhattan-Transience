@@ -1,4 +1,8 @@
-import Manhattan.Paper.Ergodic.Alternating
+module
+
+public import Manhattan.Paper.Ergodic.Alternating
+
+@[expose] public section
 
 /-!
 # The uniform law on the four alternating environments

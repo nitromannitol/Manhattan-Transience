@@ -1,3 +1,5 @@
+module
+
 /-
 The annealed form of `eq:time-derivative`.
 
@@ -7,9 +9,11 @@ average.  The quenched derivative is bounded uniformly in the environment, and
 the environment law is a probability measure, so differentiation under the
 integral applies and the same bound survives averaging.
 -/
-import Manhattan.Paper.TimeDerivative
-import Manhattan.Paper.ModelLink
-import Mathlib.Analysis.Calculus.ParametricIntegral
+public import Manhattan.Paper.TimeDerivative
+public import Manhattan.Paper.ModelLink
+public import Mathlib.Analysis.Calculus.ParametricIntegral
+
+@[expose] public section
 
 namespace Manhattan.Paper
 

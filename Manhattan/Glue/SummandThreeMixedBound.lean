@@ -1,6 +1,10 @@
-import Manhattan.Glue.SummandThreeMixedFourier
-import Manhattan.Glue.SummandThreeTwoRow
-import Manhattan.Glue.SummandsMixed
+module
+
+public import Manhattan.Glue.SummandThreeMixedFourier
+public import Manhattan.Glue.SummandThreeTwoRow
+public import Manhattan.Glue.SummandsMixed
+
+@[expose] public section
 
 /-!
 # Summand 3 of (22), discharged

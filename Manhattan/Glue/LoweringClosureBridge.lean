@@ -1,5 +1,9 @@
-import Manhattan.Glue.LoweringClosure
-import Manhattan.Glue.ProjectionDischarge
+module
+
+public import Manhattan.Glue.LoweringClosure
+public import Manhattan.Glue.ProjectionDischarge
+
+@[expose] public section
 
 /-!
 # The bridge from the concrete lowering formulas to the projection discharge

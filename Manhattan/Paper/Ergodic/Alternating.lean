@@ -1,5 +1,9 @@
-import Manhattan.Model.Kernel
-import Mathlib.Algebra.Ring.NegOnePow
+module
+
+public import Manhattan.Model.Kernel
+public import Mathlib.Algebra.Ring.NegOnePow
+
+@[expose] public section
 
 /-!
 # The four alternating environments

@@ -1,9 +1,13 @@
-import Manhattan.Glue.Transport
-import Manhattan.Glue.LoweringClosureBridge
-import Manhattan.Glue.DischargeSectors
-import Manhattan.Glue.ConcreteRaisingLowDegree
-import Manhattan.Glue.Summands
-import Manhattan.Estimates.KernelBoundError
+module
+
+public import Manhattan.Glue.Transport
+public import Manhattan.Glue.LoweringClosureBridge
+public import Manhattan.Glue.DischargeSectors
+public import Manhattan.Glue.ConcreteRaisingLowDegree
+public import Manhattan.Glue.Summands
+public import Manhattan.Estimates.KernelBoundError
+
+@[expose] public section
 
 /-!
 # The degree-two transport, for summand 3 of (22)

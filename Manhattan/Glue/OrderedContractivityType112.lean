@@ -1,5 +1,9 @@
-import Manhattan.Glue.OrderedContractivity
-import Manhattan.Walsh.Correction
+module
+
+public import Manhattan.Glue.OrderedContractivity
+public import Manhattan.Walsh.Correction
+
+@[expose] public section
 
 /-!
 # The ordered representative of a raw type-`(1,1,2)` coefficient

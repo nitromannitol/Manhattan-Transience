@@ -1,6 +1,10 @@
-import Manhattan.Estimates.DegreeOne
-import Manhattan.Estimates.DegreeThree
-import Manhattan.Estimates.FinsetRaising
+module
+
+public import Manhattan.Estimates.DegreeOne
+public import Manhattan.Estimates.DegreeThree
+public import Manhattan.Estimates.FinsetRaising
+
+@[expose] public section
 
 /-!
 # Frozen-candidate statement surface for Sections 4--5

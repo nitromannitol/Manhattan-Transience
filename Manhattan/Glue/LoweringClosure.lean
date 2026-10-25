@@ -1,5 +1,9 @@
-import Manhattan.Glue.ConcreteLoweringFourier
-import Manhattan.Glue.ProjectionDischargeIndex
+module
+
+public import Manhattan.Glue.ConcreteLoweringFourier
+public import Manhattan.Glue.ProjectionDischargeIndex
+
+@[expose] public section
 
 /-!
 # The `L²` closure of the concrete lowering formulas (D2a), (D2b)

@@ -1,6 +1,10 @@
-import Manhattan.Walsh.Basic
-import Mathlib.Analysis.InnerProductSpace.Orthonormal
-import Mathlib.LinearAlgebra.Finsupp.LinearCombination
+module
+
+public import Manhattan.Walsh.Basic
+public import Mathlib.Analysis.InnerProductSpace.Orthonormal
+public import Mathlib.LinearAlgebra.Finsupp.LinearCombination
+
+@[expose] public section
 
 /-!
 # Finset-indexed Walsh coefficients and the raising/lowering split

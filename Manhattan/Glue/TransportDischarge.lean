@@ -1,5 +1,9 @@
-import Manhattan.Glue.Transport
-import Manhattan.Glue.OrderedContractivity
+module
+
+public import Manhattan.Glue.Transport
+public import Manhattan.Glue.OrderedContractivity
+
+@[expose] public section
 
 /-!
 # The type-`(1,1,2)` sector of the weighted contractivity, and the `H₃` bound

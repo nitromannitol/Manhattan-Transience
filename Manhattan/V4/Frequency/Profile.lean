@@ -1,4 +1,8 @@
-import Manhattan.V4.LogScale
+module
+
+public import Manhattan.V4.LogScale
+
+@[expose] public section
 
 /-!
 # Version 4, Move 2: the substitution `phi(r) = t √(log(1/|r|))/|r|`

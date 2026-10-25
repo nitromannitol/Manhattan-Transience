@@ -162,8 +162,8 @@ lines of the pinned source they transcribe:
   [`ManhattanAudit/COMPARATOR_RUNS.md`](ManhattanAudit/COMPARATOR_RUNS.md).  The workflow
   [`comparator.yml`](.github/workflows/comparator.yml) runs the comparator on
   request.  See [`ManhattanAudit/README.md`](ManhattanAudit/README.md).
-- **Pinned toolchain.**  Lean `v4.32.0` ([`lean-toolchain`](lean-toolchain)),
-  mathlib at revision `81a5d257c8e410db227a6665ed08f64fea08e997` and
+- **Pinned toolchain.**  Lean `v4.35.0-rc2` ([`lean-toolchain`](lean-toolchain)),
+  mathlib at revision `065356127b1dc0016f66b7283ce0ce2c4055aa55` and
   `Lattice-Probability` at commit `bbe0b90`, pinned in
   [`lakefile.lean`](lakefile.lean) and recorded, with mathlib's own
   dependencies, in [`lake-manifest.json`](lake-manifest.json).
@@ -179,7 +179,7 @@ Lattice-Probability library.  The count covers `Manhattan.lean` and
 
 The project uses [`elan`](https://github.com/leanprover/elan) (the Lean
 toolchain manager) and Lake.  The toolchain is pinned in
-[`lean-toolchain`](lean-toolchain) (`leanprover/lean4:v4.32.0`), so `elan`
+[`lean-toolchain`](lean-toolchain) (`leanprover/lean4:v4.35.0-rc2`), so `elan`
 installs the right Lean version automatically, and the dependencies are pinned
 to commits in [`lakefile.lean`](lakefile.lean) and
 [`lake-manifest.json`](lake-manifest.json).
@@ -294,3 +294,8 @@ Comparator configuration to check. It records the dispatched commit and runs wit
 minimum, source-module, Challenge-closure, licensing and metadata requirements before
 dispatch. A passing preflight is advisory; it is separate from submission, editorial
 review and a public registry record.
+
+The module compatibility revision preserves the mathematical definitions and frozen
+statements. Its pinned Lattice-Probability source adds public module interfaces and
+updates two existing walk-proof calls to the current Mathlib API. Full Palomar
+verification checks the selected Challenge/Solution pair at the dispatched commit.

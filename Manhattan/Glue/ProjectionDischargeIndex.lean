@@ -1,4 +1,8 @@
-import Manhattan.Walsh.LowDegreeSectors
+module
+
+public import Manhattan.Walsh.LowDegreeSectors
+
+@[expose] public section
 
 /-!
 # Ordered coordinates for the two-row Walsh sector

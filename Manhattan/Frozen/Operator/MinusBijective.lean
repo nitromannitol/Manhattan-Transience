@@ -1,4 +1,8 @@
-import Manhattan.Library
+module
+
+public import Manhattan.Library
+
+@[expose] public section
 
 /-! Frozen proved operator statement. -/
 

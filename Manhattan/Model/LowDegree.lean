@@ -1,6 +1,10 @@
-import Manhattan.Model.FiberInstance
-import Manhattan.Operator.Frequency
-import Manhattan.Walsh.LowDegree
+module
+
+public import Manhattan.Model.FiberInstance
+public import Manhattan.Operator.Frequency
+public import Manhattan.Walsh.LowDegree
+
+@[expose] public section
 
 /-!
 # Concrete fiber action in Finset Walsh coordinates

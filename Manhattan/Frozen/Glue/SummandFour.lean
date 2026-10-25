@@ -1,4 +1,8 @@
-import Manhattan.Glue.SummandFourAssembly
+module
+
+public import Manhattan.Glue.SummandFourAssembly
+
+@[expose] public section
 
 /-! Frozen anchor: summand four of the four-sector objective
 `eq:E` = (22) (`manuscript.tex:765-772`) at the concrete competitor. -/

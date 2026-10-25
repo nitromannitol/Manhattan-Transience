@@ -1,5 +1,9 @@
-import Manhattan.Glue.OrderedRaising
-import Manhattan.Glue.ProjectionDischargeTorus
+module
+
+public import Manhattan.Glue.OrderedRaising
+public import Manhattan.Glue.ProjectionDischargeTorus
+
+@[expose] public section
 
 /-!
 # The degree-four raising energy bound

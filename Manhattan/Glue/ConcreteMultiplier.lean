@@ -1,7 +1,11 @@
-import Manhattan.Model.LowDegree
-import Manhattan.Glue.VectorFourier
-import Manhattan.Estimates.Elementary
-import Mathlib.Analysis.Fourier.AddCircleMulti
+module
+
+public import Manhattan.Model.LowDegree
+public import Manhattan.Glue.VectorFourier
+public import Manhattan.Estimates.Elementary
+public import Mathlib.Analysis.Fourier.AddCircleMulti
+
+@[expose] public section
 
 /-!
 # (Hsym) in the concrete model

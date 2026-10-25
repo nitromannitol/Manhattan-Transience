@@ -1,5 +1,9 @@
-import Manhattan.Walsh.LowDegree
-import Manhattan.Estimates.Elementary
+module
+
+public import Manhattan.Walsh.LowDegree
+public import Manhattan.Estimates.Elementary
+
+@[expose] public section
 
 /-!
 # Torus bookkeeping for the four summands of (22)

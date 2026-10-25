@@ -1,4 +1,8 @@
-import Manhattan.Glue.Fiberwise
+module
+
+public import Manhattan.Glue.Fiberwise
+
+@[expose] public section
 
 /-! Frozen pointwise-fiber successor of Proposition 2.1. -/
 

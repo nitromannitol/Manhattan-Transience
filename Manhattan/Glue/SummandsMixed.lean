@@ -1,6 +1,10 @@
-import Manhattan.Glue.SummandsTorus
-import Manhattan.Glue.TransportDischarge
-import Manhattan.Glue.Summands
+module
+
+public import Manhattan.Glue.SummandsTorus
+public import Manhattan.Glue.TransportDischarge
+public import Manhattan.Glue.Summands
+
+@[expose] public section
 
 /-!
 # The momentum bridge for the degree-three summand of (22)

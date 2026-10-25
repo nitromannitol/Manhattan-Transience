@@ -1,4 +1,8 @@
-import Manhattan.V4.Frequency.FixedFrequency
+module
+
+public import Manhattan.V4.Frequency.FixedFrequency
+
+@[expose] public section
 
 /-!
 # Version 4, Move 3: the frequency integration

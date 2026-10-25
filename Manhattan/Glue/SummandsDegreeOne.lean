@@ -1,5 +1,9 @@
-import Manhattan.Glue.SummandsTorus
-import Manhattan.Glue.Correction
+module
+
+public import Manhattan.Glue.SummandsTorus
+public import Manhattan.Glue.Correction
+
+@[expose] public section
 
 /-!
 # The first summand of (22): the degree-one energy `⟨f,H₁f⟩`

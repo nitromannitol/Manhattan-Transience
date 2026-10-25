@@ -1,6 +1,10 @@
-import Manhattan.Estimates.Competitor
-import Manhattan.Estimates.PropositionFiveTwo
-import Mathlib.MeasureTheory.Integral.Prod
+module
+
+public import Manhattan.Estimates.Competitor
+public import Manhattan.Estimates.PropositionFiveTwo
+public import Mathlib.MeasureTheory.Integral.Prod
+
+@[expose] public section
 
 /-!
 # Three-region frequency integration

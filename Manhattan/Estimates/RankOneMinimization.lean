@@ -1,4 +1,8 @@
-import Manhattan.Estimates.TargetStatements
+module
+
+public import Manhattan.Estimates.TargetStatements
+
+@[expose] public section
 
 /-!
 # Rank-one quadratic minimization

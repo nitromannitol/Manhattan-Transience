@@ -1,4 +1,8 @@
-import Manhattan.Estimates.TargetStatements
+module
+
+public import Manhattan.Estimates.TargetStatements
+
+@[expose] public section
 
 /-!
 # Audited obstructions in the wave-1 candidate surface

@@ -1,7 +1,11 @@
-import Manhattan.Model.Kernel
-import Mathlib.Topology.Algebra.InfiniteSum.Constructions
-import Mathlib.Topology.Algebra.InfiniteSum.Order
-import Mathlib.Tactic
+module
+
+public import Manhattan.Model.Kernel
+public import Mathlib.Topology.Algebra.InfiniteSum.Constructions
+public import Mathlib.Topology.Algebra.InfiniteSum.Order
+public import Mathlib.Tactic
+
+@[expose] public section
 
 /-!
 # The quenched discrete-time kernel as a doubly stochastic chain

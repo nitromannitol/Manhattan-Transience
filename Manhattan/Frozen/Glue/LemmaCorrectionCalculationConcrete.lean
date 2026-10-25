@@ -1,4 +1,8 @@
-import Manhattan.Glue.SummandThree
+module
+
+public import Manhattan.Glue.SummandThree
+
+@[expose] public section
 
 /-! Frozen Lemma 5.4 anchor: the squared mixed `H⁻¹` norm of the raw residual
 is `C √L` (`lem:correction-calculation`, `manuscript.tex:1305`; the four steps

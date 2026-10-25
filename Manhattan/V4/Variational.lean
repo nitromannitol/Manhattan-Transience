@@ -1,4 +1,8 @@
-import LatticeProb.Analysis.DissipativeSkewOperator
+module
+
+public import LatticeProb.Analysis.DissipativeSkewOperator
+
+@[expose] public section
 
 /-!
 # Version 4, Step 1: the variational bound by Cauchy-Schwarz

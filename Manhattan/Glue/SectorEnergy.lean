@@ -1,6 +1,10 @@
-import Manhattan.Glue.FinalDischarge
-import Manhattan.Glue.SummandThreeMixedBound
-import Manhattan.Glue.SummandFourAssembly
+module
+
+public import Manhattan.Glue.FinalDischarge
+public import Manhattan.Glue.SummandThreeMixedBound
+public import Manhattan.Glue.SummandFourAssembly
+
+@[expose] public section
 
 /-!
 # Equation (23) for the concrete competitor, and Proposition 2.2

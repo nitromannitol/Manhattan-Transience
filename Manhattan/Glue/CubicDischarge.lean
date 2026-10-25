@@ -1,4 +1,8 @@
-import Manhattan.Glue.CubicDischargeTorus
+module
+
+public import Manhattan.Glue.CubicDischargeTorus
+
+@[expose] public section
 
 /-!
 # Discharge of the cubic multiplier interface

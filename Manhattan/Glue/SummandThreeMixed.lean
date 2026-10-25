@@ -1,4 +1,8 @@
-import Manhattan.Glue.CorrectionLowering
+module
+
+public import Manhattan.Glue.CorrectionLowering
+
+@[expose] public section
 
 /-!
 # The mixed degree-two sector of summand 3: the sign of the correction

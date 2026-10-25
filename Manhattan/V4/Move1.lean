@@ -1,5 +1,9 @@
-import Manhattan.V4.Move1Cost
-import Manhattan.V4.Sectors
+module
+
+public import Manhattan.V4.Move1Cost
+public import Manhattan.V4.Sectors
+
+@[expose] public section
 
 /-!
 # Version 4, Move 1: the effective-energy inequality at the parity competitor

@@ -1,5 +1,9 @@
-import Manhattan.Glue.Discharge
-import Mathlib.Analysis.Real.Pi.Bounds
+module
+
+public import Manhattan.Glue.Discharge
+public import Mathlib.Analysis.Real.Pi.Bounds
+
+@[expose] public section
 
 /-!
 # The corrected low-degree certificate of `Glue/Competitor.lean`

@@ -1,7 +1,11 @@
-import Manhattan.Glue.FinalDischarge
-import Manhattan.Glue.SummandsMixed
-import Manhattan.Glue.ConcreteRaisingFourier
-import Mathlib.Analysis.Real.Pi.Bounds
+module
+
+public import Manhattan.Glue.FinalDischarge
+public import Manhattan.Glue.SummandsMixed
+public import Manhattan.Glue.ConcreteRaisingFourier
+public import Mathlib.Analysis.Real.Pi.Bounds
+
+@[expose] public section
 
 /-!
 # Summand 4 of (22): the degree-four raising sector

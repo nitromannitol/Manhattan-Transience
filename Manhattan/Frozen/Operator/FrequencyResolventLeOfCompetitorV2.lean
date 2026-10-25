@@ -1,4 +1,8 @@
-import Manhattan.Operator.Frequency
+module
+
+public import Manhattan.Operator.Frequency
+
+@[expose] public section
 
 /-! Frozen torus-restricted successor of the fixed-frequency consequence. -/
 

@@ -1,6 +1,10 @@
-import Mathlib
-import Manhattan.MainTheorems
-import ManhattanAudit.AnnealedGreenBound.SolutionBasic
+module
+
+public import Mathlib
+public import Manhattan.MainTheorems
+public import ManhattanAudit.AnnealedGreenBound.SolutionBasic
+
+@[expose] public section
 
 /-!
 # Bridge from the `AnnealedGreenBound` vocabulary to the repository

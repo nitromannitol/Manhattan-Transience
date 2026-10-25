@@ -1,17 +1,21 @@
-import Manhattan.Estimates.Elementary
-import Manhattan.Estimates.DegreeOne
-import Manhattan.Estimates.RankOne
-import Manhattan.Estimates.DegreeThree
-import Manhattan.Estimates.FinsetRaising
-import Manhattan.Estimates.TargetStatements
-import Manhattan.Estimates.LineResolvent
-import Manhattan.Estimates.RankOneMinimization
-import Manhattan.Estimates.ClaimObstructions
-import Manhattan.Estimates.PropositionFiveTwoSupport
-import Manhattan.Estimates.Competitor
-import Manhattan.Estimates.LemmaFourTwoSuccessor
-import Manhattan.Estimates.PropositionFiveTwo
-import Manhattan.Estimates.Regional
+module
+
+public import Manhattan.Estimates.Elementary
+public import Manhattan.Estimates.DegreeOne
+public import Manhattan.Estimates.RankOne
+public import Manhattan.Estimates.DegreeThree
+public import Manhattan.Estimates.FinsetRaising
+public import Manhattan.Estimates.TargetStatements
+public import Manhattan.Estimates.LineResolvent
+public import Manhattan.Estimates.RankOneMinimization
+public import Manhattan.Estimates.ClaimObstructions
+public import Manhattan.Estimates.PropositionFiveTwoSupport
+public import Manhattan.Estimates.Competitor
+public import Manhattan.Estimates.LemmaFourTwoSuccessor
+public import Manhattan.Estimates.PropositionFiveTwo
+public import Manhattan.Estimates.Regional
+
+@[expose] public section
 
 /-!
 # Explicit frequency estimates

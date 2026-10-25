@@ -1,5 +1,9 @@
-import Manhattan.Paper.TimeDerivative
-import Manhattan.Model.Subordination
+module
+
+public import Manhattan.Paper.TimeDerivative
+public import Manhattan.Model.Subordination
+
+@[expose] public section
 
 /-!
 # The real kernel of this development is the model's subordinated kernel

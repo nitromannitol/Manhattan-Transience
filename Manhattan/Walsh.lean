@@ -1,8 +1,12 @@
-import Manhattan.Walsh.Basic
-import Manhattan.Walsh.Coefficients
-import Manhattan.Walsh.Fourier
-import Manhattan.Walsh.Completeness
-import Manhattan.Walsh.LowDegree
+module
+
+public import Manhattan.Walsh.Basic
+public import Manhattan.Walsh.Coefficients
+public import Manhattan.Walsh.Fourier
+public import Manhattan.Walsh.Completeness
+public import Manhattan.Walsh.LowDegree
+
+@[expose] public section
 
 /-!
 # Fourier--Walsh coordinates

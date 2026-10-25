@@ -1,4 +1,8 @@
-import Manhattan.Glue.OrderedInverse
+module
+
+public import Manhattan.Glue.OrderedInverse
+
+@[expose] public section
 
 /-!
 # The ordered raising map and its frequency form

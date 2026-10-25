@@ -1,4 +1,8 @@
-import Manhattan.Glue.ConcreteLowering
+module
+
+public import Manhattan.Glue.ConcreteLowering
+
+@[expose] public section
 
 /-!
 # (D2a) and (D2b): the concrete lowering formulas in line frequencies

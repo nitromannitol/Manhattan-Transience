@@ -1,5 +1,9 @@
-import Manhattan.Glue.EnergyAssembly
-import Manhattan.Walsh.LowDegreeSectors
+module
+
+public import Manhattan.Glue.EnergyAssembly
+public import Manhattan.Walsh.LowDegreeSectors
+
+@[expose] public section
 
 /-!
 # Walsh degree sectors of the corrected competitor residual

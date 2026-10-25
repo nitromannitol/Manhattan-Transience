@@ -1,7 +1,11 @@
-import Manhattan.Glue.ProjectionError
-import Manhattan.Glue.ProjectionDischargeTorus
-import Manhattan.Glue.ProjectionDischargeIndex
-import Mathlib.MeasureTheory.Function.Floor
+module
+
+public import Manhattan.Glue.ProjectionError
+public import Manhattan.Glue.ProjectionDischargeTorus
+public import Manhattan.Glue.ProjectionDischargeIndex
+public import Mathlib.MeasureTheory.Function.Floor
+
+@[expose] public section
 
 /-!
 # Discharge of the two projection-error interfaces

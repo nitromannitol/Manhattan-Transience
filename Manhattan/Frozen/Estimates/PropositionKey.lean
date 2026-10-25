@@ -1,4 +1,8 @@
-import Manhattan.Estimates.PropositionFiveTwo
+module
+
+public import Manhattan.Estimates.PropositionFiveTwo
+
+@[expose] public section
 
 /-! Proposition 4.2 in the explicit degree-three vocabulary. -/
 

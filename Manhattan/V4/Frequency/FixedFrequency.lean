@@ -1,6 +1,10 @@
-import Manhattan.V4.Frequency.Profile
-import Manhattan.V4.ScalarMinimization
-import Manhattan.Estimates.Regional
+module
+
+public import Manhattan.V4.Frequency.Profile
+public import Manhattan.V4.ScalarMinimization
+public import Manhattan.Estimates.Regional
+
+@[expose] public section
 
 /-!
 # Version 4, Moves 2 and 3: the fixed-frequency bound

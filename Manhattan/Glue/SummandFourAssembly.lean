@@ -1,7 +1,11 @@
-import Manhattan.Glue.SummandFour
-import Manhattan.Glue.RaisingEnergy
-import Manhattan.Glue.OrderedContractivityType112
-import Manhattan.Glue.TransportDischarge
+module
+
+public import Manhattan.Glue.SummandFour
+public import Manhattan.Glue.RaisingEnergy
+public import Manhattan.Glue.OrderedContractivityType112
+public import Manhattan.Glue.TransportDischarge
+
+@[expose] public section
 
 /-!
 # Summand 4 of (22), assembled

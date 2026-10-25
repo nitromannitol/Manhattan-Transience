@@ -1,6 +1,10 @@
-import Manhattan.V4.Move1
-import Manhattan.V4.Frequency.Uniform
-import Manhattan.Glue.AxisSwap
+module
+
+public import Manhattan.V4.Move1
+public import Manhattan.V4.Frequency.Uniform
+public import Manhattan.Glue.AxisSwap
+
+@[expose] public section
 
 /-!
 # Version 4: `V4Move2Supply` is a theorem (residue B-4)

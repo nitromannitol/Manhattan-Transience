@@ -1,5 +1,9 @@
-import Manhattan.Glue.Correction
-import Manhattan.Estimates.PropositionFiveTwo
+module
+
+public import Manhattan.Glue.Correction
+public import Manhattan.Estimates.PropositionFiveTwo
+
+@[expose] public section
 
 /-!
 # Scalar identification for the degree-three correction

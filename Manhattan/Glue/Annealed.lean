@@ -1,6 +1,10 @@
-import Manhattan.Model.Subordination
-import Manhattan.Operator.Frequency
-import Mathlib.MeasureTheory.Integral.Lebesgue.Add
+module
+
+public import Manhattan.Model.Subordination
+public import Manhattan.Operator.Frequency
+public import Mathlib.MeasureTheory.Integral.Lebesgue.Add
+
+@[expose] public section
 
 /-!
 # Removing the Laplace damping

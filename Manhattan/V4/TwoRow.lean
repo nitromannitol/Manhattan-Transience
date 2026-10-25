@@ -1,5 +1,9 @@
-import Manhattan.V4.MixedSector
-import Manhattan.Estimates.LineResolvent
+module
+
+public import Manhattan.V4.MixedSector
+public import Manhattan.Estimates.LineResolvent
+
+@[expose] public section
 
 /-!
 # Version 4, Move 1: the two-row half of the degree-two sector (residue B-2)

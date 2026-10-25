@@ -1,6 +1,10 @@
-import Manhattan.Estimates.Regional
-import Manhattan.Glue.ConcreteGreen
-import Mathlib.Analysis.Calculus.ContDiff.Operations
+module
+
+public import Manhattan.Estimates.Regional
+public import Manhattan.Glue.ConcreteGreen
+public import Mathlib.Analysis.Calculus.ContDiff.Operations
+
+@[expose] public section
 
 /-!
 # The concrete Green density

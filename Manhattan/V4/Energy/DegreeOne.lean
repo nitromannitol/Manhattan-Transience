@@ -1,5 +1,9 @@
-import Manhattan.Glue.ConcreteLowering
-import Manhattan.V4.Energy.Weight
+module
+
+public import Manhattan.Glue.ConcreteLowering
+public import Manhattan.V4.Energy.Weight
+
+@[expose] public section
 
 /-!
 # Version 4, Move 1: the degree-one facts and the degree-one cost

@@ -1,7 +1,11 @@
-import Manhattan.V4.Frequency.Integration
-import Manhattan.Glue.Assembly
-import Manhattan.Glue.Competitor
-import Manhattan.Glue.LowLog
+module
+
+public import Manhattan.V4.Frequency.Integration
+public import Manhattan.Glue.Assembly
+public import Manhattan.Glue.Competitor
+public import Manhattan.Glue.LowLog
+
+@[expose] public section
 
 /-!
 # Version 4, Move 3: the complementary region, and the route to Theorem 1.2

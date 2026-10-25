@@ -1,4 +1,8 @@
-import Manhattan.Glue.CubicEnergy
+module
+
+public import Manhattan.Glue.CubicEnergy
+
+@[expose] public section
 
 /-!
 # Transfer between the three-dimensional Fourier torus and the paper's torus

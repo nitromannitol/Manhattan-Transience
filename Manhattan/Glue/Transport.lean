@@ -1,5 +1,9 @@
-import Manhattan.Glue.ConcreteMultiplier
-import Manhattan.Glue.CubicDischarge
+module
+
+public import Manhattan.Glue.ConcreteMultiplier
+public import Manhattan.Glue.CubicDischarge
+
+@[expose] public section
 
 /-!
 # The Plancherel--multiplier transport for the type-`(1,1,2)` sector

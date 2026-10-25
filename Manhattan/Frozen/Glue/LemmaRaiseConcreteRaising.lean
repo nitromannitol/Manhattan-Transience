@@ -1,4 +1,8 @@
-import Manhattan.Glue.ConcreteRaising
+module
+
+public import Manhattan.Glue.ConcreteRaising
+
+@[expose] public section
 
 /-! Frozen Lemma 5.1 anchor, raising side: the concrete Walsh coefficient
 formula for the direction-`i` raising operator (`lem:raise`,

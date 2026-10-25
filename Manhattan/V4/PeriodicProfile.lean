@@ -1,6 +1,10 @@
-import Manhattan.V4.TwoRow
-import Manhattan.V4.Frequency.Profile
-import Manhattan.V4.CompetitorEnergy
+module
+
+public import Manhattan.V4.TwoRow
+public import Manhattan.V4.Frequency.Profile
+public import Manhattan.V4.CompetitorEnergy
+
+@[expose] public section
 
 /-!
 # Version 4: the `2π`-periodic competitor profile, and the composed cost

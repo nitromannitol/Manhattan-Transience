@@ -1,4 +1,8 @@
-import Manhattan.V4.Sectors
+module
+
+public import Manhattan.V4.Sectors
+
+@[expose] public section
 
 /-!
 # Version 4, Move 1: the degree-two mixed sector (residue B-1b)

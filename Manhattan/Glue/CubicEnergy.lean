@@ -1,4 +1,8 @@
-import Manhattan.Glue.ScalarIdentification
+module
+
+public import Manhattan.Glue.ScalarIdentification
+
+@[expose] public section
 
 /-!
 # Degree-three multiplier energy

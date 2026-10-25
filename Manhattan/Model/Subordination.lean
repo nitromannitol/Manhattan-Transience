@@ -1,7 +1,11 @@
-import Manhattan.Model.Kernel
-import Mathlib.Probability.Distributions.Gamma
-import Mathlib.Probability.Distributions.Poisson.Basic
-import Mathlib.MeasureTheory.Constructions.Polish.Basic
+module
+
+public import Manhattan.Model.Kernel
+public import Mathlib.Probability.Distributions.Gamma
+public import Mathlib.Probability.Distributions.Poisson.Basic
+public import Mathlib.MeasureTheory.Constructions.Polish.Basic
+
+@[expose] public section
 
 /-!
 # Rate-two Poisson subordination

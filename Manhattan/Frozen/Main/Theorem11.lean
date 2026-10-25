@@ -1,5 +1,9 @@
-import Manhattan.Model.MainTheorem
-import Manhattan.Glue.SectorEnergy
+module
+
+public import Manhattan.Model.MainTheorem
+public import Manhattan.Glue.SectorEnergy
+
+@[expose] public section
 
 /-! Theorem 1.1: quenched return summability at every site. -/
 

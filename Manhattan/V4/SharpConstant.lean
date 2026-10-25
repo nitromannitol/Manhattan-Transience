@@ -1,3 +1,5 @@
+module
+
 /-
 Sharpening the constant in the operator estimate.
 
@@ -13,8 +15,10 @@ identity or a contraction proved at one constant transfers to every other, and
 and the transferred statements, so the composed bound can be taken at the
 sharp constant without restating anything that is frozen.
 -/
-import Manhattan.V4.OperatorEstimate
-import Manhattan.Estimates.KernelBound
+public import Manhattan.V4.OperatorEstimate
+public import Manhattan.Estimates.KernelBound
+
+@[expose] public section
 
 namespace Manhattan.V4
 

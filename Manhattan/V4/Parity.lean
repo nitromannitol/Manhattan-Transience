@@ -1,4 +1,8 @@
-import Manhattan.V4.EvenMajorant
+module
+
+public import Manhattan.V4.EvenMajorant
+
+@[expose] public section
 
 /-!
 # Version 4, Step 3: the four parity cancellations

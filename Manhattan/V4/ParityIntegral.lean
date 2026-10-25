@@ -1,5 +1,9 @@
-import Manhattan.V4.Parity
-import Manhattan.V4.Energy.BetaIntegral
+module
+
+public import Manhattan.V4.Parity
+public import Manhattan.V4.Energy.BetaIntegral
+
+@[expose] public section
 
 /-!
 # Version 4: the fibre integral `J` in closed form

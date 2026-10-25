@@ -1,4 +1,8 @@
-import Manhattan.V4.PeriodicProfile
+module
+
+public import Manhattan.V4.PeriodicProfile
+
+@[expose] public section
 
 /-!
 # Version 4, Move 1: the pieces of the competitor cost

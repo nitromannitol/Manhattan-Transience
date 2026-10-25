@@ -1,5 +1,9 @@
-import Manhattan.Walsh.Coefficients
-import Mathlib.Analysis.Fourier.AddCircle
+module
+
+public import Manhattan.Walsh.Coefficients
+public import Mathlib.Analysis.Fourier.AddCircle
+
+@[expose] public section
 
 /-!
 # Fourier series in a single line index

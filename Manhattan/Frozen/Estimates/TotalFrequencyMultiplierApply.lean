@@ -1,4 +1,8 @@
-import Manhattan.Estimates.FinsetRaising
+module
+
+public import Manhattan.Estimates.FinsetRaising
+
+@[expose] public section
 
 /-! Frozen proved explicit estimate. -/
 

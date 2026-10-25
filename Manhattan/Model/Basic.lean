@@ -1,5 +1,9 @@
-import Mathlib.Probability.Independence.InfinitePi
-import Mathlib.Probability.Distributions.Uniform
+module
+
+public import Mathlib.Probability.Independence.InfinitePi
+public import Mathlib.Probability.Distributions.Uniform
+
+@[expose] public section
 
 /-!
 # Sites, directed lines, and the fair-coin environment

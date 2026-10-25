@@ -1,7 +1,11 @@
-import Manhattan.Glue.OrderedContractivity
-import Manhattan.Glue.Transport
-import Manhattan.Glue.ConcreteRaisingFourier
-import Manhattan.Walsh.LowDegreeSectors
+module
+
+public import Manhattan.Glue.OrderedContractivity
+public import Manhattan.Glue.Transport
+public import Manhattan.Glue.ConcreteRaisingFourier
+public import Manhattan.Walsh.LowDegreeSectors
+
+@[expose] public section
 
 /-!
 # The inverse of the ordered multiplier, and the symmetrized Fourier representative

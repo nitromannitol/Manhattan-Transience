@@ -1,6 +1,10 @@
-import Manhattan.Glue.EnergyAssembly
-import Manhattan.Glue.GreenDensity
-import Manhattan.Glue.Assembly
+module
+
+public import Manhattan.Glue.EnergyAssembly
+public import Manhattan.Glue.GreenDensity
+public import Manhattan.Glue.Assembly
+
+@[expose] public section
 
 /-!
 # Proposition 2.2 and the handoffs to the main theorems

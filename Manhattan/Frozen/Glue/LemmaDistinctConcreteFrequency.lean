@@ -1,4 +1,8 @@
-import Manhattan.Glue.CorrectionLowering
+module
+
+public import Manhattan.Glue.CorrectionLowering
+
+@[expose] public section
 
 /-! Frozen Lemma 5.3 anchor for the competitor, on the RAW / FREQUENCY side
 (`lem:distinct`, `manuscript.tex:1212-1221`).

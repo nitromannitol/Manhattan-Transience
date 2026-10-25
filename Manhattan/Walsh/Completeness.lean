@@ -1,8 +1,12 @@
-import Manhattan.Walsh.Coefficients
-import Mathlib.MeasureTheory.Constructions.ProjectiveFamilyContent
-import Mathlib.MeasureTheory.Function.SimpleFuncDenseLp
-import Mathlib.MeasureTheory.Measure.SeparableMeasure
-import Mathlib.Analysis.InnerProductSpace.l2Space
+module
+
+public import Manhattan.Walsh.Coefficients
+public import Mathlib.MeasureTheory.Constructions.ProjectiveFamilyContent
+public import Mathlib.MeasureTheory.Function.SimpleFuncDenseLp
+public import Mathlib.MeasureTheory.Measure.SeparableMeasure
+public import Mathlib.Analysis.InnerProductSpace.l2Space
+
+@[expose] public section
 
 /-!
 # Completeness of the infinite Walsh family

@@ -1,7 +1,11 @@
-import Manhattan.Glue.JointFiberization
-import Manhattan.Glue.VectorFourier
-import Manhattan.Glue.ConcreteFiberization
-import Manhattan.Glue.Competitor
-import Manhattan.Glue.Assembly
+module
+
+public import Manhattan.Glue.JointFiberization
+public import Manhattan.Glue.VectorFourier
+public import Manhattan.Glue.ConcreteFiberization
+public import Manhattan.Glue.Competitor
+public import Manhattan.Glue.Assembly
+
+@[expose] public section
 
 /-! Shared operator and theorem assembly. -/

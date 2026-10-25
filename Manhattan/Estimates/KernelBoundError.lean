@@ -1,5 +1,9 @@
-import Manhattan.Estimates.KernelBound
-import Manhattan.Estimates.DegreeThree
+module
+
+public import Manhattan.Estimates.KernelBound
+public import Manhattan.Estimates.DegreeThree
+
+@[expose] public section
 
 /-!
 # Step 3 of Lemma 5.4: the error term at negative row frequencies

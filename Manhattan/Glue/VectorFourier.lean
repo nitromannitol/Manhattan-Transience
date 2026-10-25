@@ -1,5 +1,9 @@
-import Manhattan.Glue.JointFiberization
-import Manhattan.Model.LowDegree
+module
+
+public import Manhattan.Glue.JointFiberization
+public import Manhattan.Model.LowDegree
+
+@[expose] public section
 
 /-!
 # The negative-phase vector-valued position Fourier transform

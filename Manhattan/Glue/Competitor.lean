@@ -1,5 +1,9 @@
-import Manhattan.Estimates.Competitor
-import Manhattan.Model.LowDegree
+module
+
+public import Manhattan.Estimates.Competitor
+public import Manhattan.Model.LowDegree
+
+@[expose] public section
 
 /-!
 # Concrete low-degree competitor boundary

@@ -1,6 +1,10 @@
-import Manhattan.Glue.Lowering
-import Manhattan.Estimates.LineResolvent
-import Mathlib.MeasureTheory.Integral.MeanInequalities
+module
+
+public import Manhattan.Glue.Lowering
+public import Manhattan.Estimates.LineResolvent
+public import Mathlib.MeasureTheory.Integral.MeanInequalities
+
+@[expose] public section
 
 /-!
 # The type-112 diagonal projection error

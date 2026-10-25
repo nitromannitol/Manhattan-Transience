@@ -1,6 +1,10 @@
-import Manhattan.Walsh.Completeness
-import Manhattan.Walsh.Fourier
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
+module
+
+public import Manhattan.Walsh.Completeness
+public import Manhattan.Walsh.Fourier
+public import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
+
+@[expose] public section
 
 /-!
 # Complete homogeneous Walsh synthesis

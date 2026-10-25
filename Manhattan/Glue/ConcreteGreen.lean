@@ -1,10 +1,14 @@
-import Manhattan.Estimates.Elementary
-import Manhattan.Model.FiberInstance
-import Manhattan.Model.Subordination
-import LatticeProb.Analysis.OperatorSemigroup
-import Mathlib.Analysis.Calculus.Deriv.MeanValue
-import Mathlib.Analysis.InnerProductSpace.Calculus
-import Mathlib.MeasureTheory.Function.Holder
+module
+
+public import Manhattan.Estimates.Elementary
+public import Manhattan.Model.FiberInstance
+public import Manhattan.Model.Subordination
+public import LatticeProb.Analysis.OperatorSemigroup
+public import Mathlib.Analysis.Calculus.Deriv.MeanValue
+public import Mathlib.Analysis.InnerProductSpace.Calculus
+public import Mathlib.MeasureTheory.Function.Holder
+
+@[expose] public section
 
 /-!
 # The concrete Green identity

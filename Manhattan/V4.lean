@@ -1,32 +1,36 @@
-import Manhattan.V4.Variational
-import Manhattan.V4.EvenMajorant
-import Manhattan.V4.Parity
-import Manhattan.V4.ParityIntegral
-import Manhattan.V4.LogScale
-import Manhattan.V4.ScalarMinimization
-import Manhattan.V4.Energy.Weight
-import Manhattan.V4.Energy.BetaIntegral
-import Manhattan.V4.Energy.DegreeOne
-import Manhattan.V4.Energy.Move1
-import Manhattan.V4.Energy.Witnesses
-import Manhattan.V4.CompetitorEnergy
-import Manhattan.V4.OperatorEstimate
-import Manhattan.V4.MixedBridge
-import Manhattan.V4.MixedSector
-import Manhattan.V4.TwoRow
-import Manhattan.V4.Sectors
-import Manhattan.V4.Frequency.Profile
-import Manhattan.V4.Frequency.FixedFrequency
-import Manhattan.V4.Frequency.Integration
-import Manhattan.V4.Frequency.Witness
-import Manhattan.V4.Frequency.Uniform
-import Manhattan.V4.AssemblyWitnesses
-import Manhattan.V4.MixedBridgeWitnesses
-import Manhattan.V4.PeriodicProfile
-import Manhattan.V4.Move1Cost
-import Manhattan.V4.Move1
-import Manhattan.V4.Move2Supply
-import Manhattan.V4.SupplyWitnesses
+module
+
+public import Manhattan.V4.Variational
+public import Manhattan.V4.EvenMajorant
+public import Manhattan.V4.Parity
+public import Manhattan.V4.ParityIntegral
+public import Manhattan.V4.LogScale
+public import Manhattan.V4.ScalarMinimization
+public import Manhattan.V4.Energy.Weight
+public import Manhattan.V4.Energy.BetaIntegral
+public import Manhattan.V4.Energy.DegreeOne
+public import Manhattan.V4.Energy.Move1
+public import Manhattan.V4.Energy.Witnesses
+public import Manhattan.V4.CompetitorEnergy
+public import Manhattan.V4.OperatorEstimate
+public import Manhattan.V4.MixedBridge
+public import Manhattan.V4.MixedSector
+public import Manhattan.V4.TwoRow
+public import Manhattan.V4.Sectors
+public import Manhattan.V4.Frequency.Profile
+public import Manhattan.V4.Frequency.FixedFrequency
+public import Manhattan.V4.Frequency.Integration
+public import Manhattan.V4.Frequency.Witness
+public import Manhattan.V4.Frequency.Uniform
+public import Manhattan.V4.AssemblyWitnesses
+public import Manhattan.V4.MixedBridgeWitnesses
+public import Manhattan.V4.PeriodicProfile
+public import Manhattan.V4.Move1Cost
+public import Manhattan.V4.Move1
+public import Manhattan.V4.Move2Supply
+public import Manhattan.V4.SupplyWitnesses
+
+@[expose] public section
 
 /-!
 # Version 4

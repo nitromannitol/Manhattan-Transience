@@ -1,4 +1,8 @@
-import Manhattan.Model.LowDegree
+module
+
+public import Manhattan.Model.LowDegree
+
+@[expose] public section
 
 /-!
 # Exchange of the two coordinate axes

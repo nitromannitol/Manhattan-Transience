@@ -1,9 +1,13 @@
-import Manhattan.Glue.Annealed
-import Manhattan.Glue.Fiberwise
-import Manhattan.Glue.GreenDensity
-import Manhattan.Glue.JointFiberization
-import Manhattan.Model.MainTheorem
-import Manhattan.Operator.Frequency
+module
+
+public import Manhattan.Glue.Annealed
+public import Manhattan.Glue.Fiberwise
+public import Manhattan.Glue.GreenDensity
+public import Manhattan.Glue.JointFiberization
+public import Manhattan.Model.MainTheorem
+public import Manhattan.Operator.Frequency
+
+@[expose] public section
 
 /-!
 # Abstract assembly handoffs

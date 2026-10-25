@@ -1,4 +1,8 @@
-import Manhattan.Glue.SectorEnergy
+module
+
+public import Manhattan.Glue.SectorEnergy
+
+@[expose] public section
 
 /-! Frozen anchor for the paper's estimate `E_p(f_p,k_p) ≤ C √L`: the third
 display of `eq:construction` = (25) (`manuscript.tex:785-790`) for the

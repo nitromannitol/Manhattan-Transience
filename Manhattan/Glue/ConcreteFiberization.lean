@@ -1,4 +1,8 @@
-import Manhattan.Glue.VectorFourier
+module
+
+public import Manhattan.Glue.VectorFourier
+
+@[expose] public section
 
 /-!
 # Concrete joint-generator fiberization

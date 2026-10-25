@@ -1,5 +1,9 @@
-import Manhattan.Glue.Correction
-import Manhattan.Walsh.LowDegreeSectors
+module
+
+public import Manhattan.Glue.Correction
+public import Manhattan.Walsh.LowDegreeSectors
+
+@[expose] public section
 
 /-!
 # Exact lowering components of the corrected type-112 vector

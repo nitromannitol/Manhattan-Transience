@@ -1,4 +1,8 @@
-import Manhattan.Estimates.DegreeThree
+module
+
+public import Manhattan.Estimates.DegreeThree
+
+@[expose] public section
 
 /-! Frozen proved explicit estimate. -/
 

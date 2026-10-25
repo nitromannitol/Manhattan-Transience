@@ -1,4 +1,8 @@
-import Manhattan.Glue.SummandThreeMixed
+module
+
+public import Manhattan.Glue.SummandThreeMixed
+
+@[expose] public section
 
 /-!
 # The mixed degree-two frequency function of summand 3

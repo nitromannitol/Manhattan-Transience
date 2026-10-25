@@ -1,5 +1,9 @@
-import Manhattan.Glue.CubicDischarge
-import Manhattan.Glue.ProjectionDischarge
+module
+
+public import Manhattan.Glue.CubicDischarge
+public import Manhattan.Glue.ProjectionDischarge
+
+@[expose] public section
 
 /-!
 # Consequences of the multiplier identity for Lemma 5.3 and the competitor

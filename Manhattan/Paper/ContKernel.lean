@@ -1,5 +1,9 @@
-import Manhattan.Paper.Walk
-import LatticeProb.Prob.PoissonClock
+module
+
+public import Manhattan.Paper.Walk
+public import LatticeProb.Prob.PoissonClock
+
+@[expose] public section
 
 /-!
 # The continuous-time quenched kernel

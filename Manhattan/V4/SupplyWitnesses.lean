@@ -1,4 +1,8 @@
-import Manhattan.V4.Move2Supply
+module
+
+public import Manhattan.V4.Move2Supply
+
+@[expose] public section
 
 /-!
 # Version 4, : the non-degeneracy record

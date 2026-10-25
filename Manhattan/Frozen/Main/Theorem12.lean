@@ -1,5 +1,9 @@
-import Manhattan.Model.Theorem12
-import Manhattan.Glue.SectorEnergy
+module
+
+public import Manhattan.Model.Theorem12
+public import Manhattan.Glue.SectorEnergy
+
+@[expose] public section
 
 /-! Theorem 1.2: the annealed Green-function bound. -/
 

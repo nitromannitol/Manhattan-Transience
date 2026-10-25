@@ -1,6 +1,10 @@
-import Mathlib
-import Manhattan.MainTheorems
-import ManhattanAudit.Transience.SolutionBasic
+module
+
+public import Mathlib
+public import Manhattan.MainTheorems
+public import ManhattanAudit.Transience.SolutionBasic
+
+@[expose] public section
 
 /-!
 # Bridge from the `Transience` vocabulary to the repository

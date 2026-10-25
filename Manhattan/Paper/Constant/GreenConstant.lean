@@ -1,5 +1,9 @@
-import Manhattan.Paper.Constant.Move3
-import Manhattan.Glue.Annealed
+module
+
+public import Manhattan.Paper.Constant.Move3
+public import Manhattan.Glue.Annealed
+
+@[expose] public section
 
 /-!
 # The paper's constant, part 2: the explicit Green bound Lean proves

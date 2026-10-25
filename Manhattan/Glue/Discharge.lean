@@ -1,5 +1,9 @@
-import Manhattan.Glue.DischargeSectors
-import Manhattan.Glue.PropositionFrequency
+module
+
+public import Manhattan.Glue.DischargeSectors
+public import Manhattan.Glue.PropositionFrequency
+
+@[expose] public section
 
 /-!
 # Discharge of the corrected energy interfaces

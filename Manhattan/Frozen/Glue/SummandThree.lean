@@ -1,4 +1,8 @@
-import Manhattan.Glue.SummandThreeMixedBound
+module
+
+public import Manhattan.Glue.SummandThreeMixedBound
+
+@[expose] public section
 
 /-! Frozen anchor: summand three of the four-sector objective
 `eq:E` = (22) (`manuscript.tex:765-772`) at the concrete competitor. -/

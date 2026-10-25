@@ -1,3 +1,5 @@
+module
+
 /-
 Move 1 at the sharp operator coefficient.
 
@@ -9,9 +11,11 @@ it has coefficient `A = 9`, and `40 = 4·9 + 4`.
 Feeding that through the same assembly gives `C₃ = 4·21 + 4 = 88` and the
 logarithmic weight at `κ = 14`.
 -/
-import Manhattan.V4.Move1
-import Manhattan.V4.Move2Supply
-import Manhattan.V4.SharpConstant
+public import Manhattan.V4.Move1
+public import Manhattan.V4.Move2Supply
+public import Manhattan.V4.SharpConstant
+
+@[expose] public section
 
 noncomputable section
 

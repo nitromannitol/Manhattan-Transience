@@ -1,5 +1,9 @@
-import Manhattan.Glue.ConcreteRaising
-import Manhattan.Glue.ConcreteLoweringFourier
+module
+
+public import Manhattan.Glue.ConcreteRaising
+public import Manhattan.Glue.ConcreteLoweringFourier
+
+@[expose] public section
 
 /-!
 # The lowering coefficient as the adjoint of the raising operator

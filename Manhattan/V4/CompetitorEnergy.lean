@@ -1,10 +1,14 @@
-import Manhattan.V4.Parity
-import Manhattan.V4.Energy.DegreeOne
-import Manhattan.V4.ScalarMinimization
-import Manhattan.Glue.SummandsDegreeOne
-import Manhattan.Glue.Correction
-import Manhattan.V4.ParityIntegral
-import Manhattan.V4.Energy.Move1
+module
+
+public import Manhattan.V4.Parity
+public import Manhattan.V4.Energy.DegreeOne
+public import Manhattan.V4.ScalarMinimization
+public import Manhattan.Glue.SummandsDegreeOne
+public import Manhattan.Glue.Correction
+public import Manhattan.V4.ParityIntegral
+public import Manhattan.V4.Energy.Move1
+
+@[expose] public section
 
 /-!
 # Version 4, Move 1: the two reachable halves of the competitor cost

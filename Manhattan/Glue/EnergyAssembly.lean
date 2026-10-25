@@ -1,4 +1,8 @@
-import Manhattan.Glue.LowLog
+module
+
+public import Manhattan.Glue.LowLog
+
+@[expose] public section
 
 /-!
 # Assembly of the corrected fixed-frequency competitor

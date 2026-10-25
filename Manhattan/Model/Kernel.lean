@@ -1,4 +1,8 @@
-import Manhattan.Model.Basic
+module
+
+public import Manhattan.Model.Basic
+
+@[expose] public section
 
 /-!
 # Quenched discrete-time kernels

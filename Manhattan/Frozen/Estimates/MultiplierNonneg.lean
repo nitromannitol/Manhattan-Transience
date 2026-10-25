@@ -1,4 +1,8 @@
-import Manhattan.Estimates.RankOne
+module
+
+public import Manhattan.Estimates.RankOne
+
+@[expose] public section
 
 /-! Frozen proved explicit estimate. -/
 

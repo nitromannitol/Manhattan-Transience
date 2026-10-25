@@ -1,4 +1,8 @@
-import Manhattan.V4.Energy.Move1
+module
+
+public import Manhattan.V4.Energy.Move1
+
+@[expose] public section
 
 /-!
 # Version 4, Move 1: anti-vacuity witnesses

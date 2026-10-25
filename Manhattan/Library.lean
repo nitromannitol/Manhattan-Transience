@@ -1,3 +1,5 @@
+module
+
 /-
 The abstract operator objects of Section 2 of the paper are those of the
 library modules `LatticeProb.Analysis.DissipativeSkewOperator` and
@@ -7,8 +9,10 @@ generator with its Laplace resolvent.  The frozen statements under
 `Manhattan/Frozen/Operator/` name them with the `Manhattan.Operator` prefix, so
 they are re-exported here under that namespace.
 -/
-import LatticeProb.Analysis.DissipativeSkewOperator
-import LatticeProb.Analysis.OperatorSemigroup
+public import LatticeProb.Analysis.DissipativeSkewOperator
+public import LatticeProb.Analysis.OperatorSemigroup
+
+@[expose] public section
 
 namespace Manhattan.Operator
 

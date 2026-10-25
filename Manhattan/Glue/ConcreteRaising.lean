@@ -1,4 +1,8 @@
-import Manhattan.Model.LowDegree
+module
+
+public import Manhattan.Model.LowDegree
+
+@[expose] public section
 
 /-!
 # Lemma 5.1 in the concrete model: raising and lowering

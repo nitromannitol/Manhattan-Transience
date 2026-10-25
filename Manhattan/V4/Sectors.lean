@@ -1,6 +1,10 @@
-import Manhattan.V4.MixedBridge
-import Manhattan.V4.CompetitorEnergy
-import Manhattan.Glue.SummandThreeTwoRow
+module
+
+public import Manhattan.V4.MixedBridge
+public import Manhattan.V4.CompetitorEnergy
+public import Manhattan.Glue.SummandThreeTwoRow
+
+@[expose] public section
 
 /-!
 # Version 4, Move 1: the sector splitting (residue B-3)

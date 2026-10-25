@@ -1,3 +1,5 @@
+module
+
 /-
 The manuscript's evaluated `β` split, carried through Move 1.
 
@@ -8,8 +10,10 @@ outer pieces exactly.  At the optimal shared constant `κ = 291`, where the oper
 estimate reads with coefficient one, the Move 1 constant falls from `20,028`
 to `669.5`.
 -/
-import Manhattan.V4.BetaSplit
-import Manhattan.V4.SharpMove1
+public import Manhattan.V4.BetaSplit
+public import Manhattan.V4.SharpMove1
+
+@[expose] public section
 
 noncomputable section
 

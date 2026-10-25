@@ -1,7 +1,11 @@
-import Manhattan.Model.Basic
-import Mathlib.MeasureTheory.Function.L2Space
-import Mathlib.Probability.Independence.Integration
-import Mathlib.Probability.ProbabilityMassFunction.Integrals
+module
+
+public import Manhattan.Model.Basic
+public import Mathlib.MeasureTheory.Function.L2Space
+public import Mathlib.Probability.Independence.Integration
+public import Mathlib.Probability.ProbabilityMassFunction.Integrals
+
+@[expose] public section
 
 /-!
 # Walsh characters of the fair-coin environment

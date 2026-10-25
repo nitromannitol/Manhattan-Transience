@@ -1,7 +1,11 @@
-import Manhattan.Glue.Discharge
-import Manhattan.Glue.CubicDischargeProjection
-import Manhattan.Glue.Summands
-import Manhattan.Glue.TransportDischarge
+module
+
+public import Manhattan.Glue.Discharge
+public import Manhattan.Glue.CubicDischargeProjection
+public import Manhattan.Glue.Summands
+public import Manhattan.Glue.TransportDischarge
+
+@[expose] public section
 
 /-!
 # Final assembly of the chain to Theorems 1.1 and 1.2

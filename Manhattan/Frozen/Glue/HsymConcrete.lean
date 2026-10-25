@@ -1,4 +1,8 @@
-import Manhattan.Glue.ConcreteMultiplier
+module
+
+public import Manhattan.Glue.ConcreteMultiplier
+
+@[expose] public section
 
 /-! Frozen (Hsym) anchor: after equation (20) the degree-`n` block `H_n` is
 multiplication by `lambda + theta P` (`eq:Hsym` = (20), `manuscript.tex:749`;

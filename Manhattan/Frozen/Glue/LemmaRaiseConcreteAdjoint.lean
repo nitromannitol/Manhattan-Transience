@@ -1,4 +1,8 @@
-import Manhattan.Glue.ConcreteLowering
+module
+
+public import Manhattan.Glue.ConcreteLowering
+
+@[expose] public section
 
 /-! Frozen Lemma 5.1 anchor, adjoint side: the concrete Walsh coefficients of
 `D* x` in the Finset isometry (`lem:raise`, `manuscript.tex:1179-1191`). -/

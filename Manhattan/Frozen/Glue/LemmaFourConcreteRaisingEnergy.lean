@@ -1,4 +1,8 @@
-import Manhattan.Glue.RaisingEnergy
+module
+
+public import Manhattan.Glue.RaisingEnergy
+
+@[expose] public section
 
 /-! Frozen Lemma 5.2 anchor, operator half: the degree-four raising energy
 bound for a general degree-three coefficient (`lem:four`,

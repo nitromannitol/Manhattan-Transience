@@ -1,3 +1,5 @@
+module
+
 /-
 # Certificate
 
@@ -13,13 +15,15 @@ classical foundation.  Anything else, in particular `sorryAx`, would mean a gap.
 
 What is NOT certified is stated at the end, and in `VERIFICATION.md`.
 -/
-import Manhattan.Frozen
-import Manhattan.MainTheorems
-import Manhattan.V4.Move2Supply
-import Manhattan.Paper.HeatKernel
-import Manhattan.Paper.AnnealedDerivative
-import Manhattan.Paper.Ergodic.Polya
-import LatticeProb.Analysis.DissipativeSkewOperator
+public import Manhattan.Frozen
+public import Manhattan.MainTheorems
+public import Manhattan.V4.Move2Supply
+public import Manhattan.Paper.HeatKernel
+public import Manhattan.Paper.AnnealedDerivative
+public import Manhattan.Paper.Ergodic.Polya
+public import LatticeProb.Analysis.DissipativeSkewOperator
+
+@[expose] public section
 
 namespace Manhattan.Certificate
 

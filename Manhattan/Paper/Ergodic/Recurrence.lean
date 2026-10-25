@@ -1,6 +1,10 @@
-import Manhattan.Paper.Ergodic.Alternating
-import Manhattan.Model.MainTheorem
-import LatticeProb.Walk.PolyaRecurrence
+module
+
+public import Manhattan.Paper.Ergodic.Alternating
+public import Manhattan.Model.MainTheorem
+public import LatticeProb.Walk.PolyaRecurrence
+
+@[expose] public section
 
 /-!
 # Recurrence of the alternating environment

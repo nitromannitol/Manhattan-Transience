@@ -1,5 +1,9 @@
-import Manhattan.Estimates.PropositionFiveTwoSupport
-import Manhattan.Operator.Frequency
+module
+
+public import Manhattan.Estimates.PropositionFiveTwoSupport
+public import Manhattan.Operator.Frequency
+
+@[expose] public section
 
 /-!
 # Handoff to the abstract operator estimates

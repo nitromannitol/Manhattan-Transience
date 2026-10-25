@@ -1,6 +1,10 @@
-import Manhattan.Walsh.LowDegree
-import Manhattan.Estimates.DegreeThree
-import Mathlib.Analysis.Fourier.AddCircleMulti
+module
+
+public import Manhattan.Walsh.LowDegree
+public import Manhattan.Estimates.DegreeThree
+public import Mathlib.Analysis.Fourier.AddCircleMulti
+
+@[expose] public section
 
 /-!
 # Ordered coordinates for the type-`(1,1,2)` correction

@@ -1,4 +1,8 @@
-import Manhattan.Paper.HeatKernel
+module
+
+public import Manhattan.Paper.HeatKernel
+
+@[expose] public section
 
 /-!
 # The time derivative of the return probability

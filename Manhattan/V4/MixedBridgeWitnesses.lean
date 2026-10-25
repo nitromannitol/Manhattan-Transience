@@ -1,5 +1,9 @@
-import Manhattan.V4.MixedBridge
-import Manhattan.V4.AssemblyWitnesses
+module
+
+public import Manhattan.V4.MixedBridge
+public import Manhattan.V4.AssemblyWitnesses
+
+@[expose] public section
 
 /-!
 # The non-degeneracy certificates for the mixed bridge

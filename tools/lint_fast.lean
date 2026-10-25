@@ -1,3 +1,5 @@
+module
+
 /-
 The fast environment linters over the whole library: `docBlame`,
 `unusedArguments`, `dupNamespace`, `defLemma`, dangerous instances and the
@@ -6,6 +8,8 @@ run separately by `tools/lint_simpnf.lean`.
 
     lake env lean tools/lint_fast.lean
 -/
-import Manhattan
+public import Manhattan
+
+@[expose] public section
 
 #lint* in Manhattan

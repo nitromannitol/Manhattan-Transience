@@ -1,5 +1,9 @@
-import Manhattan.Glue.ProjectionDischarge
-import Manhattan.Glue.CubicDischargeTorus
+module
+
+public import Manhattan.Glue.ProjectionDischarge
+public import Manhattan.Glue.CubicDischargeTorus
+
+@[expose] public section
 
 /-!
 # Version 4, Step 2: the even majorant `M` and the majorization of the multiplier

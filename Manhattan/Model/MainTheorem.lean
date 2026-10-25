@@ -1,5 +1,9 @@
-import Manhattan.Model.Subordination
-import Mathlib.MeasureTheory.Integral.Prod
+module
+
+public import Manhattan.Model.Subordination
+public import Mathlib.MeasureTheory.Integral.Prod
+
+@[expose] public section
 
 /-!
 # Theorem 1.1 from Theorem 1.2

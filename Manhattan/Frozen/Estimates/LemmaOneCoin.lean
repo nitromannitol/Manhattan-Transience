@@ -1,4 +1,8 @@
-import Manhattan.Estimates.LemmaFourTwoSuccessor
+module
+
+public import Manhattan.Estimates.LemmaFourTwoSuccessor
+
+@[expose] public section
 
 /-! Corrected Lemma 4.1 in the explicit normalized-torus vocabulary. -/
 

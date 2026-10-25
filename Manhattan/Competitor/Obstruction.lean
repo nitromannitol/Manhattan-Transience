@@ -1,5 +1,9 @@
-import Manhattan.Model.FiberInstance
-import Manhattan.Operator.Frequency
+module
+
+public import Manhattan.Model.FiberInstance
+public import Manhattan.Operator.Frequency
+
+@[expose] public section
 
 /-!
 # Obstruction to the raw-frequency competitor claim

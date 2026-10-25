@@ -1,8 +1,12 @@
-import LatticeProb.Walk.NashZ2
-import Manhattan.Paper.ContKernel
-import Mathlib.Analysis.Calculus.SmoothSeries
-import Mathlib.Analysis.Calculus.Deriv.MeanValue
-import Mathlib.Analysis.Calculus.Deriv.Inv
+module
+
+public import LatticeProb.Walk.NashZ2
+public import Manhattan.Paper.ContKernel
+public import Mathlib.Analysis.Calculus.SmoothSeries
+public import Mathlib.Analysis.Calculus.Deriv.MeanValue
+public import Mathlib.Analysis.Calculus.Deriv.Inv
+
+@[expose] public section
 
 /-!
 # The Nash differential inequality and the `ℓ²` decay

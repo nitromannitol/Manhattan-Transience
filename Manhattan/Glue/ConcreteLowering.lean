@@ -1,5 +1,9 @@
-import Manhattan.Estimates.DegreeOne
-import Manhattan.Walsh.LowDegreeSectors
+module
+
+public import Manhattan.Estimates.DegreeOne
+public import Manhattan.Walsh.LowDegreeSectors
+
+@[expose] public section
 
 /-!
 # The concrete lowering operator `D*` in Finset Walsh coordinates

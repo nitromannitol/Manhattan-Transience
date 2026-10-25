@@ -1,10 +1,14 @@
-import Manhattan.Model.Basic
-import Manhattan.Model.FiberInstance
-import Manhattan.Model.LowDegree
-import Manhattan.Model.Kernel
-import Manhattan.Model.Subordination
-import Manhattan.Model.Theorem12
-import Manhattan.Model.MainTheorem
+module
+
+public import Manhattan.Model.Basic
+public import Manhattan.Model.FiberInstance
+public import Manhattan.Model.LowDegree
+public import Manhattan.Model.Kernel
+public import Manhattan.Model.Subordination
+public import Manhattan.Model.Theorem12
+public import Manhattan.Model.MainTheorem
+
+@[expose] public section
 
 /-!
 # The randomly oriented Manhattan lattice

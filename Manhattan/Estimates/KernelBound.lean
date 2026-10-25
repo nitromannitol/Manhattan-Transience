@@ -1,5 +1,9 @@
-import Manhattan.Estimates.Elementary
-import Mathlib.MeasureTheory.Integral.Bochner.Set
+module
+
+public import Manhattan.Estimates.Elementary
+public import Mathlib.MeasureTheory.Integral.Bochner.Set
+
+@[expose] public section
 
 /-!
 # A direct Hilbert--Schmidt bound for integral kernels on the torus

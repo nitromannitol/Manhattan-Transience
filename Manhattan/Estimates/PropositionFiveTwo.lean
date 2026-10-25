@@ -1,5 +1,9 @@
-import Manhattan.Estimates.PropositionFiveTwoSupport
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
+module
+
+public import Manhattan.Estimates.PropositionFiveTwoSupport
+public import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
+
+@[expose] public section
 
 /-!
 # Completion of Proposition 4.2

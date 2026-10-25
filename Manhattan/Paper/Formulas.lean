@@ -1,3 +1,5 @@
+module
+
 /-
 The lowering formulas of `lem:formulas`, as printed.
 
@@ -13,9 +15,11 @@ between coefficients and elements is an isometry, whereas the Finset convention
 used here puts the factor in the kernel instead.  In the manuscript's own
 normalization the printed identity holds, which is what this file records.
 -/
-import Manhattan.Glue.ProjectionDischarge
-import Manhattan.Glue.RaisingEnergy
-import Manhattan.Glue.ConcreteRaisingFourier
+public import Manhattan.Glue.ProjectionDischarge
+public import Manhattan.Glue.RaisingEnergy
+public import Manhattan.Glue.ConcreteRaisingFourier
+
+@[expose] public section
 
 namespace Manhattan.Paper
 

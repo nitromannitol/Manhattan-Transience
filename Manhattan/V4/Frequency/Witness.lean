@@ -1,5 +1,9 @@
-import Manhattan.V4.Frequency.Integration
-import Mathlib.Analysis.Real.Pi.Bounds
+module
+
+public import Manhattan.V4.Frequency.Integration
+public import Mathlib.Analysis.Real.Pi.Bounds
+
+@[expose] public section
 
 /-!
 # Version 4, : non-degeneracy witnesses

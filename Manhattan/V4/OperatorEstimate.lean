@@ -1,6 +1,10 @@
-import Manhattan.V4.Parity
-import Manhattan.Glue.SummandFourAssembly
-import Manhattan.Glue.FinalDischarge
+module
+
+public import Manhattan.V4.Parity
+public import Manhattan.Glue.SummandFourAssembly
+public import Manhattan.Glue.FinalDischarge
+
+@[expose] public section
 
 /-!
 # Version 4, Step 2: the operator estimate with the even majorant

@@ -1,6 +1,10 @@
-import Manhattan.V4.OperatorEstimate
-import Manhattan.Glue.CorrectionLowering
-import Manhattan.Glue.SummandThreeMixedFourier
+module
+
+public import Manhattan.V4.OperatorEstimate
+public import Manhattan.Glue.CorrectionLowering
+public import Manhattan.Glue.SummandThreeMixedFourier
+
+@[expose] public section
 
 /-!
 # Version 4, the degree-two dual form at the parity kernel

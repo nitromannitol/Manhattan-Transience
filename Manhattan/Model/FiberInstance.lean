@@ -1,5 +1,9 @@
-import Manhattan.Walsh.Completeness
-import Manhattan.Operator.Fourier
+module
+
+public import Manhattan.Walsh.Completeness
+public import Manhattan.Operator.Fourier
+
+@[expose] public section
 
 /-!
 # The concrete environment fiber

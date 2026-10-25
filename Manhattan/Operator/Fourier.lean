@@ -1,6 +1,10 @@
-import LatticeProb.Analysis.DissipativeSkewOperator
-import Mathlib.Analysis.Fourier.AddCircleMulti
-import Mathlib.Analysis.Complex.Trigonometric
+module
+
+public import LatticeProb.Analysis.DissipativeSkewOperator
+public import Mathlib.Analysis.Fourier.AddCircleMulti
+public import Mathlib.Analysis.Complex.Trigonometric
+
+@[expose] public section
 
 /-!
 # Fourier transform in position and certified fiber operators

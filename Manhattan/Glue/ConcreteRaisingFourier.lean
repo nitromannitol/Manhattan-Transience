@@ -1,5 +1,9 @@
-import Manhattan.Glue.ConcreteRaising
-import Mathlib.Analysis.Fourier.AddCircleMulti
+module
+
+public import Manhattan.Glue.ConcreteRaising
+public import Mathlib.Analysis.Fourier.AddCircleMulti
+
+@[expose] public section
 
 /-!
 # Equation (45) in line-frequency coordinates

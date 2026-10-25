@@ -1,5 +1,9 @@
-import Manhattan.Model.Subordination
-import Manhattan.Glue.SectorEnergy
+module
+
+public import Manhattan.Model.Subordination
+public import Manhattan.Glue.SectorEnergy
+
+@[expose] public section
 
 /-!
 # The annealed Green-function anchor

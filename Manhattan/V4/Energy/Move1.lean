@@ -1,5 +1,9 @@
-import Manhattan.V4.Energy.BetaIntegral
-import Manhattan.V4.Energy.DegreeOne
+module
+
+public import Manhattan.V4.Energy.BetaIntegral
+public import Manhattan.V4.Energy.DegreeOne
+
+@[expose] public section
 
 /-!
 # Version 4, Move 1: the effective-energy inequality

@@ -1,3 +1,5 @@
+module
+
 /-
 Pólya's theorem in two dimensions, and the unconditional counterexample.
 
@@ -7,8 +9,10 @@ does not prove.  It is discharged here by Pólya's theorem,
 `LatticeProb.Walk.PolyaRecurrence`, so the counterexample of the closing remark
 of the paper's open-questions section rests on nothing but the standard axioms.
 -/
-import LatticeProb.Walk.PolyaRecurrence
-import Manhattan.Paper.Ergodic.Counterexample
+public import LatticeProb.Walk.PolyaRecurrence
+public import Manhattan.Paper.Ergodic.Counterexample
+
+@[expose] public section
 
 namespace Manhattan.Paper.Ergodic
 

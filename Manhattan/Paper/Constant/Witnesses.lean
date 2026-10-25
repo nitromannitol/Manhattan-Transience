@@ -1,4 +1,8 @@
-import Manhattan.Paper.Constant.GreenConstant
+module
+
+public import Manhattan.Paper.Constant.GreenConstant
+
+@[expose] public section
 
 /-!
 # The paper's constant, part 3: non-degeneracy

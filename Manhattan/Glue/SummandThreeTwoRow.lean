@@ -1,4 +1,8 @@
-import Manhattan.Glue.SummandThree
+module
+
+public import Manhattan.Glue.SummandThree
+
+@[expose] public section
 
 /-!
 # The two-row `(h,h)` sector of summand 3 of (22)

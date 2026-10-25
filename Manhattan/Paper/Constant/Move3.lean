@@ -1,4 +1,8 @@
-import Manhattan.V4.Move2Supply
+module
+
+public import Manhattan.V4.Move2Supply
+
+@[expose] public section
 
 /-!
 # The paper's constant, part 1: tightening Move 3

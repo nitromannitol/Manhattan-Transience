@@ -1,4 +1,8 @@
-import Manhattan.Estimates.Elementary
+module
+
+public import Manhattan.Estimates.Elementary
+
+@[expose] public section
 
 /-!
 # Rank-one minimization and the multiplier

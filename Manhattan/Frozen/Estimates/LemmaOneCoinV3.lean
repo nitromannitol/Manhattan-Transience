@@ -1,4 +1,8 @@
-import Manhattan.Estimates.LemmaFourTwoSuccessor
+module
+
+public import Manhattan.Estimates.LemmaFourTwoSuccessor
+
+@[expose] public section
 
 /-! Lemma 4.1 successor with explicit integral-finiteness certificates. -/
 

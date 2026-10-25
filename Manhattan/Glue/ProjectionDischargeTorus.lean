@@ -1,9 +1,13 @@
-import Manhattan.Estimates.Elementary
-import Manhattan.Estimates.RankOne
-import Mathlib.MeasureTheory.Integral.Prod
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
-import Mathlib.MeasureTheory.Integral.MeanInequalities
-import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
+module
+
+public import Manhattan.Estimates.Elementary
+public import Manhattan.Estimates.RankOne
+public import Mathlib.MeasureTheory.Integral.Prod
+public import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
+public import Mathlib.MeasureTheory.Integral.MeanInequalities
+public import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
+
+@[expose] public section
 
 /-!
 # Normalized torus calculus for the projection-error discharge

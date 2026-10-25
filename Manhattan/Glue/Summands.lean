@@ -1,5 +1,9 @@
-import Manhattan.Glue.SummandsDegreeOne
-import Manhattan.Glue.Discharge
+module
+
+public import Manhattan.Glue.SummandsDegreeOne
+public import Manhattan.Glue.Discharge
+
+@[expose] public section
 
 /-!
 # The four summands of (22), separately

@@ -1,4 +1,8 @@
-import Manhattan.Paper.L2Decay
+module
+
+public import Manhattan.Paper.L2Decay
+
+@[expose] public section
 
 /-!
 # The deterministic heat-kernel bound

@@ -1,4 +1,8 @@
-import Manhattan.Glue.SummandFourAssembly
+module
+
+public import Manhattan.Glue.SummandFourAssembly
+
+@[expose] public section
 
 /-! Frozen Lemma 5.2 anchor, competitor half: the degree-four sector form of
 the concrete correction is bounded by its raw cubic multiplier energy

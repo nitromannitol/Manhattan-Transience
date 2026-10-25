@@ -1,3 +1,5 @@
+module
+
 /-
 The manuscript's `eq:beta` split, on the fundamental domain.
 
@@ -10,8 +12,10 @@ constant `κ = 291` those read `76` and `4521`.
 The two evaluations are in `Manhattan/V4/BetaIntegral.lean`.  This file puts
 them together over `(-π, π]`.
 -/
-import Manhattan.V4.BetaIntegral
-import Manhattan.V4.Energy.BetaIntegral
+public import Manhattan.V4.BetaIntegral
+public import Manhattan.V4.Energy.BetaIntegral
+
+@[expose] public section
 
 namespace Manhattan.V4.Beta
 

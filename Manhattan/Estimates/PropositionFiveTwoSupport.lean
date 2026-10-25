@@ -1,4 +1,8 @@
-import Manhattan.Estimates.TargetStatements
+module
+
+public import Manhattan.Estimates.TargetStatements
+
+@[expose] public section
 
 /-!
 # Final integration step in Proposition 4.2

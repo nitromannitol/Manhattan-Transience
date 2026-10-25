@@ -1,6 +1,10 @@
-import Manhattan.Frozen.Main.Theorem11
-import Manhattan.Frozen.Main.Theorem12
-import Manhattan.Glue.Assembly
+module
+
+public import Manhattan.Frozen.Main.Theorem11
+public import Manhattan.Frozen.Main.Theorem12
+public import Manhattan.Glue.Assembly
+
+@[expose] public section
 
 /-!
 # Main results

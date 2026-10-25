@@ -1,5 +1,9 @@
-import Manhattan.Operator.Fourier
-import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
+module
+
+public import Manhattan.Operator.Fourier
+public import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
+
+@[expose] public section
 
 /-!
 # Fixed-frequency input and uniform assembly

@@ -1,3 +1,5 @@
+module
+
 /-
 Transitive dependency cones.
 
@@ -7,11 +9,13 @@ audit needs: a lemma flagged as weak matters only if the main theorem's proof
 term reaches it.  This file walks the transitive closure of the constants
 occurring in a declaration's type and value, and reports membership.
 -/
-import Manhattan.V4.Move2Supply
-import Manhattan.V4.Energy.Move1
-import Manhattan.V4.Energy.Witnesses
-import Manhattan.Frozen.Main.Theorem11
-import Lean
+public import Manhattan.V4.Move2Supply
+public import Manhattan.V4.Energy.Move1
+public import Manhattan.V4.Energy.Witnesses
+public import Manhattan.Frozen.Main.Theorem11
+public import Lean
+
+@[expose] public section
 
 open Lean Elab Command
 

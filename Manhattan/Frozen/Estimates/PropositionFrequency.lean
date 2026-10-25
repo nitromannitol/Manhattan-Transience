@@ -1,7 +1,11 @@
-import Manhattan.Model.FiberInstance
-import Manhattan.Estimates.Elementary
-import Manhattan.Operator.Frequency
-import Manhattan.Glue.SectorEnergy
+module
+
+public import Manhattan.Model.FiberInstance
+public import Manhattan.Estimates.Elementary
+public import Manhattan.Operator.Frequency
+public import Manhattan.Glue.SectorEnergy
+
+@[expose] public section
 
 /-! Frozen Proposition 2.2 fixed-frequency anchor. -/
 

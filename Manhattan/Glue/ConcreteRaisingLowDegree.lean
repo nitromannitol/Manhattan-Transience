@@ -1,4 +1,8 @@
-import Manhattan.Glue.ConcreteRaisingFourier
+module
+
+public import Manhattan.Glue.ConcreteRaisingFourier
+
+@[expose] public section
 
 /-!
 # The low-degree instances of Lemma 5.1

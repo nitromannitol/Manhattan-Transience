@@ -1,4 +1,8 @@
-import Manhattan.Glue.ConcreteGreen
+module
+
+public import Manhattan.Glue.ConcreteGreen
+
+@[expose] public section
 
 /-! Frozen Proposition 2.1 anchor. -/
 

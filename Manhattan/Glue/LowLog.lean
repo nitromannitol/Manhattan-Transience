@@ -1,6 +1,10 @@
-import Manhattan.Glue.AxisSwap
-import Manhattan.Glue.Correction
-import Manhattan.Estimates.Competitor
+module
+
+public import Manhattan.Glue.AxisSwap
+public import Manhattan.Glue.Correction
+public import Manhattan.Estimates.Competitor
+
+@[expose] public section
 
 /-!
 # The low-logarithmic and zero-frequency competitors

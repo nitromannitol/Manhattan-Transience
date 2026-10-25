@@ -1,4 +1,8 @@
-import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
+module
+
+public import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
+
+@[expose] public section
 
 /-!
 # Version 4: the two scalar minimizations

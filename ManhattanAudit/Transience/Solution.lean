@@ -1,7 +1,11 @@
-import Mathlib
-import Manhattan.MainTheorems
-import ManhattanAudit.Transience.SolutionBasic
-import ManhattanAudit.Support.TransienceBridge
+module
+
+public import Mathlib
+public import Manhattan.MainTheorems
+public import ManhattanAudit.Transience.SolutionBasic
+public import ManhattanAudit.Support.TransienceBridge
+
+@[expose] public section
 
 /-!
 # Solution: Transience

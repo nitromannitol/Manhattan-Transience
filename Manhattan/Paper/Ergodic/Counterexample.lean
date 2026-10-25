@@ -1,5 +1,9 @@
-import Manhattan.Paper.Ergodic.Law
-import Manhattan.Paper.Ergodic.Recurrence
+module
+
+public import Manhattan.Paper.Ergodic.Law
+public import Manhattan.Paper.Ergodic.Recurrence
+
+@[expose] public section
 
 /-!
 # The remark: stationary, ergodic and fair does not imply transient

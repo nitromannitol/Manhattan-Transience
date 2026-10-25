@@ -1,6 +1,10 @@
-import Manhattan.Estimates.LineResolvent
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
-import Mathlib.MeasureTheory.Integral.Prod
+module
+
+public import Manhattan.Estimates.LineResolvent
+public import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
+public import Mathlib.MeasureTheory.Integral.Prod
+
+@[expose] public section
 
 /-!
 # Corrected successor to Lemma 4.1

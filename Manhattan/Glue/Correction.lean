@@ -1,7 +1,11 @@
-import Manhattan.Glue.Competitor
-import Manhattan.Walsh.Correction
-import Manhattan.Estimates.LemmaFourTwoSuccessor
-import Manhattan.Estimates.PropositionFiveTwo
+module
+
+public import Manhattan.Glue.Competitor
+public import Manhattan.Walsh.Correction
+public import Manhattan.Estimates.LemmaFourTwoSuccessor
+public import Manhattan.Estimates.PropositionFiveTwo
+
+@[expose] public section
 
 /-!
 # Concrete corrected low-degree data

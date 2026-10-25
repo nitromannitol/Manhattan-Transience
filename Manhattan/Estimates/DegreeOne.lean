@@ -1,5 +1,9 @@
-import Manhattan.Estimates.Elementary
-import Mathlib.Data.Real.Sign
+module
+
+public import Manhattan.Estimates.Elementary
+public import Mathlib.Data.Real.Sign
+
+@[expose] public section
 
 /-!
 # The degree-one coefficient

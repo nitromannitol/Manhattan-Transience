@@ -1,4 +1,8 @@
-import Manhattan.Operator.Frequency
+module
+
+public import Manhattan.Operator.Frequency
+
+@[expose] public section
 
 /-! Frozen proved fixed-frequency statement. -/
 

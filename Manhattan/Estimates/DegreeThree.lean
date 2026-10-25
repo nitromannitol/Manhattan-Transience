@@ -1,5 +1,9 @@
-import Manhattan.Estimates.RankOne
-import Mathlib.MeasureTheory.Integral.Prod
+module
+
+public import Manhattan.Estimates.RankOne
+public import Mathlib.MeasureTheory.Integral.Prod
+
+@[expose] public section
 
 /-!
 # The degree-three correction and Proposition 4.2 vocabulary

@@ -1,7 +1,11 @@
-import Mathlib
-import Manhattan.MainTheorems
-import ManhattanAudit.AnnealedGreenBound.SolutionBasic
-import ManhattanAudit.Support.AnnealedGreenBoundBridge
+module
+
+public import Mathlib
+public import Manhattan.MainTheorems
+public import ManhattanAudit.AnnealedGreenBound.SolutionBasic
+public import ManhattanAudit.Support.AnnealedGreenBoundBridge
+
+@[expose] public section
 
 /-!
 # Solution: AnnealedGreenBound

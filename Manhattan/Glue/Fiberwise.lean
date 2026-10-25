@@ -1,6 +1,10 @@
-import Manhattan.Glue.ConcreteFiberization
-import Manhattan.Glue.ConcreteGreen
-import Mathlib.MeasureTheory.Function.LpSeminorm.CompareExp
+module
+
+public import Manhattan.Glue.ConcreteFiberization
+public import Manhattan.Glue.ConcreteGreen
+public import Mathlib.MeasureTheory.Function.LpSeminorm.CompareExp
+
+@[expose] public section
 
 /-!
 # Pointwise concrete fibers on the vector-valued Fourier side

@@ -1,4 +1,8 @@
-import Manhattan.Operator.Fourier
+module
+
+public import Manhattan.Operator.Fourier
+
+@[expose] public section
 
 /-!
 # Joint-generator fiberization

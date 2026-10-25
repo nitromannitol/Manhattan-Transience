@@ -1,74 +1,78 @@
-import Manhattan.Frozen.Operator.DampedOrbitHasDerivAt
-import Manhattan.Frozen.Operator.DampedOrbitNormLe
-import Manhattan.Frozen.Operator.FiberAEqFormula
-import Manhattan.Frozen.Operator.FiberANormLe
-import Manhattan.Frozen.Operator.FiberASkewAdjoint
-import Manhattan.Frozen.Operator.FiberSEqFormula
-import Manhattan.Frozen.Operator.FiberSNonpositive
-import Manhattan.Frozen.Operator.FiberSNormLe
-import Manhattan.Frozen.Operator.FiberSSelfAdjoint
-import Manhattan.Frozen.Operator.FrequencyResolventLeOfCompetitorV2
-import Manhattan.Frozen.Operator.GeneratorCommutesOperatorSemigroup
-import Manhattan.Frozen.Operator.HBijective
-import Manhattan.Frozen.Operator.IntegrableOnDampedOrbit
-import Manhattan.Frozen.Operator.IntegrableOnResolventDampedOrbit
-import Manhattan.Frozen.Operator.IntegralInnerOperatorSemigroupEqResolvent
-import Manhattan.Frozen.Operator.LaplaceVectorResolventOperator
-import Manhattan.Frozen.Operator.LogarithmicTailEqTwo
-import Manhattan.Frozen.Operator.MinusBijective
-import Manhattan.Frozen.Operator.OperatorSemigroupHasDerivAt
-import Manhattan.Frozen.Operator.PlusBijective
-import Manhattan.Frozen.Operator.PositionFourierNorm
-import Manhattan.Frozen.Operator.PositionFourierSingle
-import Manhattan.Frozen.Operator.PropositionGeneratorV2
-import Manhattan.Frozen.Operator.RealFormHCoercive
-import Manhattan.Frozen.Operator.RealFormMinusCoercive
-import Manhattan.Frozen.Operator.RealFormPlusCoercive
-import Manhattan.Frozen.Operator.ResolventEquivSymmApply
-import Manhattan.Frozen.Operator.ResolventOperatorBijective
-import Manhattan.Frozen.Operator.ResolventOperatorInjective
-import Manhattan.Frozen.Operator.ResolventOperatorLaplaceVector
-import Manhattan.Frozen.Operator.ResolventQuadraticLe
-import Manhattan.Frozen.Operator.ResolventQuadraticLeHMinusEnergy
-import Manhattan.Frozen.Operator.TendstoDampedOrbitAtTop
-import Manhattan.Frozen.Operator.UniformGreenBoundOfRegionalBounds
-import Manhattan.Frozen.Estimates.CoefficientDegreeErase
-import Manhattan.Frozen.Estimates.CorrectionVEuler
-import Manhattan.Frozen.Estimates.DispersionLeHalfMulSq
-import Manhattan.Frozen.Estimates.DispersionNonneg
-import Manhattan.Frozen.Estimates.DispersionQuadraticBounds
-import Manhattan.Frozen.Estimates.FourEstimateCoreLeMultiplier
-import Manhattan.Frozen.Estimates.HWeightPos
-import Manhattan.Frozen.Estimates.LogScaleIntegral
-import Manhattan.Frozen.Estimates.LogScaleIntegralLe
-import Manhattan.Frozen.Estimates.MixedDenominatorPos
-import Manhattan.Frozen.Estimates.MixedResidualEqIndicator
-import Manhattan.Frozen.Estimates.MultiplierComparisonClaimProved
-import Manhattan.Frozen.Estimates.MultiplierComparisonExplicit
-import Manhattan.Frozen.Estimates.MultiplierNonneg
-import Manhattan.Frozen.Estimates.OneSubSigmaMulCorrectionV
-import Manhattan.Frozen.Estimates.RaisingFormulaFinset
-import Manhattan.Frozen.Estimates.SinNeZeroOnSupport
-import Manhattan.Frozen.Estimates.SineSqDivSqrtLe
-import Manhattan.Frozen.Estimates.ThetaNonneg
-import Manhattan.Frozen.Estimates.TorusIntegralOne
-import Manhattan.Frozen.Estimates.TotalFrequencyMultiplierApply
-import Manhattan.Frozen.Main.Theorem11
-import Manhattan.Frozen.Main.Theorem12
-import Manhattan.Frozen.Estimates.LemmaOneCoinV3
-import Manhattan.Frozen.Estimates.PropositionKey
-import Manhattan.Frozen.Estimates.PropositionFrequency
-import Manhattan.Frozen.Glue.LemmaRaiseConcreteRaising
-import Manhattan.Frozen.Glue.LemmaRaiseConcreteAdjoint
-import Manhattan.Frozen.Glue.HsymConcrete
-import Manhattan.Frozen.Glue.LemmaFourConcreteRaisingEnergy
-import Manhattan.Frozen.Glue.LemmaFourConcreteCompetitor
-import Manhattan.Frozen.Glue.LemmaDistinctConcreteFrequency
-import Manhattan.Frozen.Glue.LemmaCorrectionCalculationConcrete
-import Manhattan.Frozen.Glue.SummandOne
-import Manhattan.Frozen.Glue.SummandTwo
-import Manhattan.Frozen.Glue.SummandThree
-import Manhattan.Frozen.Glue.SummandFour
-import Manhattan.Frozen.Glue.SectorEnergyBound
+module
+
+public import Manhattan.Frozen.Operator.DampedOrbitHasDerivAt
+public import Manhattan.Frozen.Operator.DampedOrbitNormLe
+public import Manhattan.Frozen.Operator.FiberAEqFormula
+public import Manhattan.Frozen.Operator.FiberANormLe
+public import Manhattan.Frozen.Operator.FiberASkewAdjoint
+public import Manhattan.Frozen.Operator.FiberSEqFormula
+public import Manhattan.Frozen.Operator.FiberSNonpositive
+public import Manhattan.Frozen.Operator.FiberSNormLe
+public import Manhattan.Frozen.Operator.FiberSSelfAdjoint
+public import Manhattan.Frozen.Operator.FrequencyResolventLeOfCompetitorV2
+public import Manhattan.Frozen.Operator.GeneratorCommutesOperatorSemigroup
+public import Manhattan.Frozen.Operator.HBijective
+public import Manhattan.Frozen.Operator.IntegrableOnDampedOrbit
+public import Manhattan.Frozen.Operator.IntegrableOnResolventDampedOrbit
+public import Manhattan.Frozen.Operator.IntegralInnerOperatorSemigroupEqResolvent
+public import Manhattan.Frozen.Operator.LaplaceVectorResolventOperator
+public import Manhattan.Frozen.Operator.LogarithmicTailEqTwo
+public import Manhattan.Frozen.Operator.MinusBijective
+public import Manhattan.Frozen.Operator.OperatorSemigroupHasDerivAt
+public import Manhattan.Frozen.Operator.PlusBijective
+public import Manhattan.Frozen.Operator.PositionFourierNorm
+public import Manhattan.Frozen.Operator.PositionFourierSingle
+public import Manhattan.Frozen.Operator.PropositionGeneratorV2
+public import Manhattan.Frozen.Operator.RealFormHCoercive
+public import Manhattan.Frozen.Operator.RealFormMinusCoercive
+public import Manhattan.Frozen.Operator.RealFormPlusCoercive
+public import Manhattan.Frozen.Operator.ResolventEquivSymmApply
+public import Manhattan.Frozen.Operator.ResolventOperatorBijective
+public import Manhattan.Frozen.Operator.ResolventOperatorInjective
+public import Manhattan.Frozen.Operator.ResolventOperatorLaplaceVector
+public import Manhattan.Frozen.Operator.ResolventQuadraticLe
+public import Manhattan.Frozen.Operator.ResolventQuadraticLeHMinusEnergy
+public import Manhattan.Frozen.Operator.TendstoDampedOrbitAtTop
+public import Manhattan.Frozen.Operator.UniformGreenBoundOfRegionalBounds
+public import Manhattan.Frozen.Estimates.CoefficientDegreeErase
+public import Manhattan.Frozen.Estimates.CorrectionVEuler
+public import Manhattan.Frozen.Estimates.DispersionLeHalfMulSq
+public import Manhattan.Frozen.Estimates.DispersionNonneg
+public import Manhattan.Frozen.Estimates.DispersionQuadraticBounds
+public import Manhattan.Frozen.Estimates.FourEstimateCoreLeMultiplier
+public import Manhattan.Frozen.Estimates.HWeightPos
+public import Manhattan.Frozen.Estimates.LogScaleIntegral
+public import Manhattan.Frozen.Estimates.LogScaleIntegralLe
+public import Manhattan.Frozen.Estimates.MixedDenominatorPos
+public import Manhattan.Frozen.Estimates.MixedResidualEqIndicator
+public import Manhattan.Frozen.Estimates.MultiplierComparisonClaimProved
+public import Manhattan.Frozen.Estimates.MultiplierComparisonExplicit
+public import Manhattan.Frozen.Estimates.MultiplierNonneg
+public import Manhattan.Frozen.Estimates.OneSubSigmaMulCorrectionV
+public import Manhattan.Frozen.Estimates.RaisingFormulaFinset
+public import Manhattan.Frozen.Estimates.SinNeZeroOnSupport
+public import Manhattan.Frozen.Estimates.SineSqDivSqrtLe
+public import Manhattan.Frozen.Estimates.ThetaNonneg
+public import Manhattan.Frozen.Estimates.TorusIntegralOne
+public import Manhattan.Frozen.Estimates.TotalFrequencyMultiplierApply
+public import Manhattan.Frozen.Main.Theorem11
+public import Manhattan.Frozen.Main.Theorem12
+public import Manhattan.Frozen.Estimates.LemmaOneCoinV3
+public import Manhattan.Frozen.Estimates.PropositionKey
+public import Manhattan.Frozen.Estimates.PropositionFrequency
+public import Manhattan.Frozen.Glue.LemmaRaiseConcreteRaising
+public import Manhattan.Frozen.Glue.LemmaRaiseConcreteAdjoint
+public import Manhattan.Frozen.Glue.HsymConcrete
+public import Manhattan.Frozen.Glue.LemmaFourConcreteRaisingEnergy
+public import Manhattan.Frozen.Glue.LemmaFourConcreteCompetitor
+public import Manhattan.Frozen.Glue.LemmaDistinctConcreteFrequency
+public import Manhattan.Frozen.Glue.LemmaCorrectionCalculationConcrete
+public import Manhattan.Frozen.Glue.SummandOne
+public import Manhattan.Frozen.Glue.SummandTwo
+public import Manhattan.Frozen.Glue.SummandThree
+public import Manhattan.Frozen.Glue.SummandFour
+public import Manhattan.Frozen.Glue.SectorEnergyBound
+
+@[expose] public section
 
 /-! Frozen statement surface. -/

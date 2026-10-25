@@ -1,4 +1,8 @@
-import Manhattan.Estimates.RankOne
+module
+
+public import Manhattan.Estimates.RankOne
+
+@[expose] public section
 
 /-!
 # Fourier--Walsh raising in Finset coordinates

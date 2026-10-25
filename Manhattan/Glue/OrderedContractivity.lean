@@ -1,4 +1,8 @@
-import Manhattan.Glue.ConcreteMultiplier
+module
+
+public import Manhattan.Glue.ConcreteMultiplier
+
+@[expose] public section
 
 /-!
 # Weighted contractivity of the ordered representative

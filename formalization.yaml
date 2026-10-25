@@ -17,6 +17,8 @@ project:
     independently checked by Mathlib-only comparator challenges under ManhattanAudit/.
   authors:
     - "Ahmed Bou-Rabee"
+  responsible_maintainers:
+    - "Ahmed Bou-Rabee"
   license: "Apache-2.0"
 
 sources:
@@ -207,3 +209,6 @@ alignment:
 acknowledgements: >-
   The paper is joint work with Yuval Peres.  Built on Lean 4, Mathlib, Lake and
   leanprover/comparator.
+
+classification:
+  arxiv: ["math.PR"]

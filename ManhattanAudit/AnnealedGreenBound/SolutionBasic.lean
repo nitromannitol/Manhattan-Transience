@@ -44,8 +44,7 @@ instance : Fintype Axis where
   elems := Finset.mk Axis.enumList Axis.enumList_nodup
   complete := by
     intro x
-    rw [Finset.mem_mk, Multiset.mem_coe, List.mem_iff_getElem?]
-    exact ⟨Axis.ctorIdx x, Axis.enumList_getElem?_ctorIdx_eq x⟩
+    cases x <;> decide
 
 instance : MeasurableSpace Axis := ⊤
 
@@ -79,8 +78,7 @@ instance : Fintype Orientation where
   elems := Finset.mk Orientation.enumList Orientation.enumList_nodup
   complete := by
     intro x
-    rw [Finset.mem_mk, Multiset.mem_coe, List.mem_iff_getElem?]
-    exact ⟨Orientation.ctorIdx x, Orientation.enumList_getElem?_ctorIdx_eq x⟩
+    cases x <;> decide
 
 instance : MeasurableSpace Orientation := ⊤
 

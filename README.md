@@ -297,5 +297,5 @@ review and a public registry record.
 
 The module compatibility revision preserves the mathematical definitions and frozen
 statements. Its pinned Lattice-Probability source adds public module interfaces and
-updates two existing walk-proof calls to the current Mathlib API. Full Palomar
+updates existing walk-proof calls to the current Mathlib API. Full Palomar
 verification checks the selected Challenge/Solution pair at the dispatched commit.

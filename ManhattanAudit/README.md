@@ -97,3 +97,8 @@ Lean kernel and with the independent nanoda kernel; see
 steps.  The workflow
 [`.github/workflows/comparator.yml`](../.github/workflows/comparator.yml) runs
 the same check on request.
+
+The finite-enumeration instances display the exact constructor lists and `Finset.mk`
+construction emitted by Mathlib's `Fintype` deriving handler. This exposes their
+bodies under the module system. The two underlying inductive types, constructor
+order, finite data and all mathematical definitions remain the same.

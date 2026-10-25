@@ -23,7 +23,26 @@ namespace Manhattan
 inductive Axis
   | horizontal
   | vertical
-  deriving DecidableEq, Fintype, Inhabited
+  deriving DecidableEq, Inhabited
+
+/-- The constructor list emitted by Mathlib's finite-enumeration deriving handler. -/
+protected abbrev Axis.enumList : List Axis := [Axis.horizontal, Axis.vertical]
+
+protected theorem Axis.enumList_getElem?_ctorIdx_eq (x : Axis) :
+    Axis.enumList[Axis.ctorIdx x]? = some x := by
+  cases x <;> rfl
+
+protected theorem Axis.enumList_nodup : Axis.enumList.Nodup := by
+  apply List.Nodup.of_map Axis.ctorIdx
+  have h : List.map Axis.ctorIdx Axis.enumList = List.range 2 := rfl
+  exact h ▸ List.nodup_range
+
+instance : Fintype Axis where
+  elems := Finset.mk Axis.enumList Axis.enumList_nodup
+  complete := by
+    intro x
+    rw [Finset.mem_mk, Multiset.mem_coe, List.mem_iff_getElem?]
+    exact ⟨Axis.ctorIdx x, Axis.enumList_getElem?_ctorIdx_eq x⟩
 
 instance : MeasurableSpace Axis := ⊤
 
@@ -39,7 +58,26 @@ abbrev LineIndex := Axis × ℤ
 inductive Orientation
   | negative
   | positive
-  deriving DecidableEq, Fintype, Inhabited
+  deriving DecidableEq, Inhabited
+
+/-- The constructor list emitted by Mathlib's finite-enumeration deriving handler. -/
+protected abbrev Orientation.enumList : List Orientation := [Orientation.negative, Orientation.positive]
+
+protected theorem Orientation.enumList_getElem?_ctorIdx_eq (x : Orientation) :
+    Orientation.enumList[Orientation.ctorIdx x]? = some x := by
+  cases x <;> rfl
+
+protected theorem Orientation.enumList_nodup : Orientation.enumList.Nodup := by
+  apply List.Nodup.of_map Orientation.ctorIdx
+  have h : List.map Orientation.ctorIdx Orientation.enumList = List.range 2 := rfl
+  exact h ▸ List.nodup_range
+
+instance : Fintype Orientation where
+  elems := Finset.mk Orientation.enumList Orientation.enumList_nodup
+  complete := by
+    intro x
+    rw [Finset.mem_mk, Multiset.mem_coe, List.mem_iff_getElem?]
+    exact ⟨Orientation.ctorIdx x, Orientation.enumList_getElem?_ctorIdx_eq x⟩
 
 instance : MeasurableSpace Orientation := ⊤
 

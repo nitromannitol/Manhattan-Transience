@@ -117,7 +117,7 @@ section Support
 
 variable {ι : Type*}
 
-private theorem indicator_norm_rpow_le (s : Set ι) (c : ℓ²(ι, ℂ)) (i : ι) :
+theorem indicator_norm_rpow_le (s : Set ι) (c : ℓ²(ι, ℂ)) (i : ι) :
     ‖s.indicator (fun j => (c j : ℂ)) i‖ ^ ENNReal.toReal 2
       ≤ ‖c i‖ ^ ENNReal.toReal 2 := by
   by_cases h : i ∈ s
@@ -126,7 +126,7 @@ private theorem indicator_norm_rpow_le (s : Set ι) (c : ℓ²(ι, ℂ)) (i : ι
       Real.zero_rpow (by norm_num : ENNReal.toReal 2 ≠ 0)]
     positivity
 
-private theorem memlp_indicator (s : Set ι) (c : ℓ²(ι, ℂ)) :
+theorem memlp_indicator (s : Set ι) (c : ℓ²(ι, ℂ)) :
     Memℓp (s.indicator (fun j => (c j : ℂ))) 2 := by
   apply memℓp_gen
   exact Summable.of_nonneg_of_le (fun _ => by positivity)
@@ -298,7 +298,7 @@ theorem norm_orderedRepresentativeProjection_le (c : OrderedCoefficient n) :
     ‖orderedRepresentativeProjection n c‖ ≤ ‖c‖ :=
   norm_l2SupportProjection_le _ c
 
-private theorem memlp_orderedRestrict (c : OrderedCoefficient n) :
+theorem memlp_orderedRestrict (c : OrderedCoefficient n) :
     Memℓp (fun S : WalshDegreeIndex n => (c (degreeEnum S) : ℂ)) 2 := by
   apply memℓp_gen
   simpa [Function.comp_def] using

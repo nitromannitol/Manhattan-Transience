@@ -77,7 +77,7 @@ section L2Restrict
 
 variable {ι κ : Type*}
 
-private theorem memlp_l2Restrict (f : ι → κ) (hf : Function.Injective f) (c : ℓ²(κ, ℂ)) :
+theorem memlp_l2Restrict (f : ι → κ) (hf : Function.Injective f) (c : ℓ²(κ, ℂ)) :
     Memℓp (fun i : ι => (c (f i) : ℂ)) 2 := by
   apply memℓp_gen
   simpa [Function.comp_def] using

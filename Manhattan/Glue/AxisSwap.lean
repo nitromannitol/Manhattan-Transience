@@ -156,7 +156,7 @@ theorem axisSwapWalshIndex_toggle (i : Fin 2)
   rw [axisSwapLineEquiv.symm_apply_eq]
   simp only [axisSwap_originLine]
 
-private noncomputable def axisSwapWalshBasis :
+noncomputable def axisSwapWalshBasis :
     HilbertBasis (Finset Manhattan.LineIndex) ℂ Manhattan.WalshL2 :=
   HilbertBasis.mk
     (Manhattan.orthonormal_walshL2.comp axisSwapWalshIndexEquiv

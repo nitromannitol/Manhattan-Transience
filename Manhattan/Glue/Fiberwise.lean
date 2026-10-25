@@ -49,7 +49,7 @@ def frequencyCharacter (x : Manhattan.Operator.Lattice)
     (t : UnitAddTorus (Fin 2)) : ℂ :=
   UnitAddTorus.mFourier x t
 
-private theorem frequencyCharacter_memLp_top (x : Manhattan.Operator.Lattice) :
+theorem frequencyCharacter_memLp_top (x : Manhattan.Operator.Lattice) :
     MemLp (frequencyCharacter x) ∞
       (Measure.pi fun _ : Fin 2 ↦
         (AddCircle.haarAddCircle : Measure UnitAddCircle)) := by
@@ -73,7 +73,7 @@ theorem frequencyPhaseMultiply_apply_ae (x : Manhattan.Operator.Lattice)
       fun t ↦ frequencyCharacter x t * f t :=
   MemLp.coeFn_toLp ((Lp.memLp f).mul' (frequencyCharacter_memLp_top x))
 
-private theorem frequencyPhaseMultiply_add (x : Manhattan.Operator.Lattice)
+theorem frequencyPhaseMultiply_add (x : Manhattan.Operator.Lattice)
     (f g : PositionFrequencyL2) :
     frequencyPhaseMultiply x (f + g) =
       frequencyPhaseMultiply x f + frequencyPhaseMultiply x g := by
@@ -100,7 +100,7 @@ private theorem frequencyPhaseMultiply_add (x : Manhattan.Operator.Lattice)
     _ = (frequencyPhaseMultiply x f +
         frequencyPhaseMultiply x g) t := hadd'_t.symm
 
-private theorem frequencyPhaseMultiply_smul (x : Manhattan.Operator.Lattice)
+theorem frequencyPhaseMultiply_smul (x : Manhattan.Operator.Lattice)
     (c : ℂ) (f : PositionFrequencyL2) :
     frequencyPhaseMultiply x (c • f) = c • frequencyPhaseMultiply x f := by
   apply Lp.ext
@@ -120,7 +120,7 @@ private theorem frequencyPhaseMultiply_smul (x : Manhattan.Operator.Lattice)
     _ = c * frequencyPhaseMultiply x f t := by rw [hf]
     _ = (c • frequencyPhaseMultiply x f) t := hsmul'_t.symm
 
-private theorem frequencyPhaseMultiply_norm (x : Manhattan.Operator.Lattice)
+theorem frequencyPhaseMultiply_norm (x : Manhattan.Operator.Lattice)
     (f : PositionFrequencyL2) : ‖frequencyPhaseMultiply x f‖ = ‖f‖ := by
   unfold frequencyPhaseMultiply
   rw [Lp.norm_toLp, Lp.norm_def]

@@ -82,7 +82,7 @@ private theorem torusProductMeasure_apply_ne_top (s : Set (ℝ × ℝ)) :
     torusProductMeasure s ≠ ⊤ :=
   ((measure_mono (subset_univ s)).trans_lt torusProductMeasure_lt_top).ne
 
-private theorem ae_mem_torusProduct :
+theorem ae_mem_torusProduct :
     ∀ᵐ z ∂torusProductMeasure, z.1 ∈ torus ∧ z.2 ∈ torus := by
   rw [torusProductMeasure, Measure.ae_prod_iff_ae_ae]
   · filter_upwards [ae_restrict_mem measurableSet_Ioc] with x hx
@@ -1126,7 +1126,7 @@ theorem frequencyMajorant_le_inv_lambda {r0 lambda : ℝ} (hlambda : 0 < lambda)
       rw [one_div, one_div]
       exact (inv_le_inv₀ hdenPos hlambda).2 (le_add_of_nonneg_right hthetaNonneg)
 
-private theorem frequencyDensity_integrable {f : ℝ × ℝ → ℝ}
+theorem frequencyDensity_integrable {f : ℝ × ℝ → ℝ}
     {C r0 lambda : ℝ} (hC : 0 ≤ C) (hlambda : 0 < lambda)
     (hf : Measurable f) (hfNonneg : ∀ z, 0 ≤ f z)
     (hpoint : ∀ z, z.1 ∈ torus → z.2 ∈ torus →

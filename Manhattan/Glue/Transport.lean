@@ -33,7 +33,7 @@ namespace Manhattan.Glue
 
 /-! ### Extension by zero along an injection -/
 
-private theorem orthonormal_l2Single' (ι : Type*) [DecidableEq ι] :
+theorem orthonormal_l2Single' (ι : Type*) [DecidableEq ι] :
     Orthonormal ℂ (fun i : ι => lp.single 2 i (1 : ℂ)) := by
   rw [orthonormal_iff_ite]
   intro i j

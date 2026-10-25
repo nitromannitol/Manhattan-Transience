@@ -37,14 +37,14 @@ theorem latticeToSite_add (x y : Operator.Lattice) :
     latticeToSite (x + y) = latticeToSite x + latticeToSite y := by
   ext <;> rfl
 
-private noncomputable def reindexedWalshBasis
+noncomputable def reindexedWalshBasis
     (e : Finset LineIndex ≃ Finset LineIndex) :
     HilbertBasis (Finset LineIndex) ℂ WalshL2 :=
   HilbertBasis.mk (orthonormal_walshL2.comp e e.injective) <| by
     rw [e.surjective.range_comp, ← walshClosedSpan, walsh_complete]
 
 /-- The unitary operator induced by a permutation of the Walsh indices. -/
-private noncomputable def walshPermutation
+noncomputable def walshPermutation
     (e : Finset LineIndex ≃ Finset LineIndex) : WalshL2 ≃ₗᵢ[ℂ] WalshL2 :=
   walshBasis.repr.trans (reindexedWalshBasis e).repr.symm
 
@@ -64,11 +64,11 @@ private theorem walshPermutation_symm_apply
   simp only [LinearIsometryEquiv.apply_symm_apply, walshPermutation_apply,
     Equiv.apply_symm_apply]
 
-private def translateFinset (x : Operator.Lattice) :
+def translateFinset (x : Operator.Lattice) :
     Finset LineIndex ≃ Finset LineIndex :=
   (lineTranslation (latticeToSite x)).finsetCongr
 
-private def toggleFinset (l : LineIndex) :
+def toggleFinset (l : LineIndex) :
     Finset LineIndex ≃ Finset LineIndex where
   toFun S := S ∆ {l}
   invFun S := S ∆ {l}
@@ -96,7 +96,7 @@ private theorem translateFinset_neg (x : Operator.Lattice) (S : Finset LineIndex
   ext l
   rcases l with ⟨i, k⟩
   cases i <;>
-    simp [translateFinset, Equiv.finsetCongr_apply, lineTranslation, latticeToSite,
+    simp [translateFinset, Equiv.finsetCongr_symm, Equiv.finsetCongr_apply, lineTranslation, latticeToSite,
       transverseCoordinate]
 
 private theorem translateFinset_zero (S : Finset LineIndex) :
@@ -187,7 +187,7 @@ theorem originSignMultiplier_norm_le (i : Fin 2) :
   apply continuousLinearMap_ext_walsh
   intro S
   rw [environmentShift_walshL2, translateFinset_zero]
-  rfl
+  all_goals rfl
 
 theorem environmentShift_add (x y : Operator.Lattice) :
     environmentShift (x + y) = environmentShift x ∘L environmentShift y := by
@@ -294,7 +294,7 @@ theorem originSignMultiplier_commute_axis (i : Fin 2) (sign : ℤ)
   ·
     simp only [ContinuousLinearMap.comp_apply, environmentShift_walshL2,
       originSignMultiplier_walshL2]
-    rw [translate_toggle_axis i sign S]
+    all_goals rw [translate_toggle_axis i sign S]
 
 /-- A unitary environment shift with the Fourier phase from Proposition 2.1. -/
 noncomputable def phasedShift (p : Fin 2 → ℝ) (i : Fin 2) : WalshL2 →L[ℂ] WalshL2 :=
@@ -469,7 +469,9 @@ theorem concreteFiberA_formula (p : Fin 2 → ℝ) :
 theorem concreteFiberS_selfAdjoint (p : Fin 2 → ℝ) :
     IsSelfAdjoint (concreteFiberS p) := by
   have hsum : IsSelfAdjoint (∑ i, fiberSymmetricTerm p i) :=
-    isSelfAdjoint_sum Finset.univ fun i _ => fiberSymmetricTerm_isSelfAdjoint p i
+    isSelfAdjoint_sum (R := WalshL2 →L[ℂ] WalshL2)
+      (x := fun i => fiberSymmetricTerm p i) Finset.univ
+      fun i _ => fiberSymmetricTerm_isSelfAdjoint p i
   have hhalf : IsSelfAdjoint ((2 : ℂ)⁻¹) := by
     norm_num [isSelfAdjoint_iff]
   exact hhalf.smul hsum

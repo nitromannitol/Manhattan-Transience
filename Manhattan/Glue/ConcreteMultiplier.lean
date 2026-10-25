@@ -34,15 +34,15 @@ Equation (20) needs an ordering of the `n` lines of a Walsh index.  Sorting by
 axis first and transverse coordinate second is preserved by every lattice
 translation, which is what makes the resulting enumeration equivariant. -/
 
-private def axisNum : Axis → ℤ
+def axisNum : Axis → ℤ
   | .horizontal => 0
   | .vertical => 1
 
-private theorem axisNum_injective : Function.Injective axisNum := by decide
+theorem axisNum_injective : Function.Injective axisNum := by decide
 
-private def lineKey (l : LineIndex) : ℤ ×ₗ ℤ := toLex (axisNum l.1, l.2)
+def lineKey (l : LineIndex) : ℤ ×ₗ ℤ := toLex (axisNum l.1, l.2)
 
-private theorem lineKey_injective : Function.Injective lineKey := by
+theorem lineKey_injective : Function.Injective lineKey := by
   rintro ⟨i, k⟩ ⟨j, m⟩ h
   have h' : ((axisNum i, k) : ℤ × ℤ) = (axisNum j, m) := congrArg ofLex h
   simp only [Prod.mk.injEq] at h'
@@ -171,7 +171,7 @@ tuple's axis pattern.  This is the elementary vector of equation (20). -/
 def orderedFreqFamily (n : ℕ) (t : Fin n → LineIndex) : LineFreqL2 n :=
   lp.single 2 (tuplePattern t) (mFourierLp 2 (tupleCoord t))
 
-private theorem orthonormal_l2Single (ι : Type*) [DecidableEq ι] :
+theorem orthonormal_l2Single (ι : Type*) [DecidableEq ι] :
     Orthonormal ℂ (fun i : ι => lp.single 2 i (1 : ℂ)) := by
   rw [orthonormal_iff_ite]
   intro i j
@@ -1072,7 +1072,7 @@ the tuples with distinct entries.  Lattice translations permute those tuples,
 so every operator assembled from translations, in particular the multiplier by
 `lambda + theta P`, commutes with the projection. -/
 
-private theorem offDiagonal_norm_le {n : ℕ} (c : OrderedCoefficient n)
+theorem offDiagonal_norm_le {n : ℕ} (c : OrderedCoefficient n)
     (t : Fin n → LineIndex) :
     ‖(if Function.Injective t then (c t : ℂ) else 0)‖ ^ ENNReal.toReal 2 ≤
       ‖c t‖ ^ ENNReal.toReal 2 := by
@@ -1082,7 +1082,7 @@ private theorem offDiagonal_norm_le {n : ℕ} (c : OrderedCoefficient n)
       Real.zero_rpow (by norm_num : ENNReal.toReal 2 ≠ 0)]
     positivity
 
-private theorem memlp_offDiagonal {n : ℕ} (c : OrderedCoefficient n) :
+theorem memlp_offDiagonal {n : ℕ} (c : OrderedCoefficient n) :
     Memℓp (fun t : Fin n → LineIndex =>
       if Function.Injective t then (c t : ℂ) else 0) 2 := by
   apply memℓp_gen

@@ -33,8 +33,8 @@ noncomputable def rateTwoPoissonWeight (t : ℝ) (n : ℕ) : ℝ≥0∞ :=
 theorem rateTwoPoissonWeight_of_nonneg {t : ℝ} (ht : 0 ≤ t) (n : ℕ) :
     rateTwoPoissonWeight t n =
       ENNReal.ofReal (Real.exp (-(2 * t)) * (2 * t) ^ n / n.factorial) := by
-  rw [rateTwoPoissonWeight, dif_pos ht, poissonMeasure_singleton]
-  rfl
+  simpa only [rateTwoPoissonWeight, dif_pos ht] using
+    (poissonMeasure_singleton (⟨2 * t, mul_nonneg (by norm_num) ht⟩ : ℝ≥0) n)
 
 theorem rateTwoPoissonWeight_of_neg {t : ℝ} (ht : t < 0) (n : ℕ) :
     rateTwoPoissonWeight t n = 0 := by

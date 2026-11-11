@@ -7,9 +7,11 @@ A machine-checked **Lean 4** formalization of the paper
 > [arXiv:2609.07621](https://arxiv.org/abs/2609.07621).
 
 The pinned manuscript, its bibliography and the unmodified arXiv source are included under
-[`paper/`](paper/). The 2 main theorems of the paper are proved, in the form in which its
-introduction states them, **for the randomly oriented Manhattan lattice of the paper**, with no
-hypothesis and no result from the literature assumed.
+[`paper/`](paper/). The 2 main theorems are proved, in the form in which the introduction of
+the pinned manuscript [`paper/manuscript.tex`](paper/manuscript.tex) states them (Theorem 1.2
+with an unspecified constant where the arXiv version states `2048`), **for the randomly
+oriented Manhattan lattice of the paper**, with no hypothesis and no result from the
+literature assumed.
 
 The development is built on [mathlib](https://github.com/leanprover-community/mathlib4) and on
 the shared library [Lattice-Probability](https://github.com/nitromannitol/Lattice-Probability)
@@ -30,9 +32,9 @@ continuous-time walk with total jump rate two, the Laplace transforms
 `λ ∈ (0, 1]`, and hence `∫_0^∞ p̄_t(0,0) dt < ∞`. The model is stated precisely in
 [Standing assumptions and scope](#standing-assumptions-and-scope).
 
-The 2 main results, formalized as stated in the introduction of the paper, are collected in
-[`Manhattan/MainTheorems.lean`](Manhattan/MainTheorems.lean). Each is proved by direct
-application of its certified counterpart in `Manhattan/Frozen/Main/`, and neither has a
+The 2 main results, formalized as stated in the introduction of the pinned manuscript, are
+collected in [`Manhattan/MainTheorems.lean`](Manhattan/MainTheorems.lean). Each is proved by
+direct application of its certified counterpart in `Manhattan/Frozen/Main/`, and neither has a
 hypothesis.
 
 | Paper | Lean declaration | Content |
@@ -166,8 +168,10 @@ pinned source they transcribe:
   `Manhattan.transience` and `Manhattan.annealed_green_bound` through a bridge, so neither
   theorem rests on any other axiom.
   [`Manhattan/Meta/AxiomsAudit.lean`](Manhattan/Meta/AxiomsAudit.lean) prints the axioms of
-  every proved node, and [`Manhattan/Certificate.lean`](Manhattan/Certificate.lean) restates
-  the main results in self-contained form and prints the axioms each rests on. The
+  the two main theorems and of every proved node that is not superseded (118 reports, a count
+  the CI workflow checks), and
+  [`Manhattan/Certificate.lean`](Manhattan/Certificate.lean) restates the main results in
+  self-contained form and prints the axioms each rests on. The
   axiom-audit and certificate steps of the [`build.yml`](.github/workflows/build.yml)
   workflow fail on `sorryAx` or on any other axiom, and `python3 tools/check_manifest.py`
   checks that no `axiom`, `admit` or `sorryAx` token occurs in the production tree.
@@ -220,8 +224,9 @@ resolvent, the dissipative-skew pair and its coercive resolvents, Pólya's theor
 dimensions, the Nash inequality on `ℤ²` and the rate-two Poisson clock) come from
 Lattice-Probability. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for further building notes.
 
-`import Manhattan` loads the whole development, and `import Manhattan.MainTheorems` loads the
-main theorems and what they use.
+`import Manhattan` loads every module except nine (the three superseded statements, two
+`Glue/` modules and `Paper/Constant/`), which `lake build` compiles through the library glob,
+and `import Manhattan.MainTheorems` loads the main theorems and what they use.
 
 The dependencies are public repositories, pinned to exact commits in
 [`lake-manifest.json`](lake-manifest.json):
@@ -281,7 +286,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for build conventions.
 ## Repository layout
 
 ```text
-Manhattan.lean            the root module, importing the whole library
+Manhattan.lean            the root module, importing all but nine modules (see Building)
 Manhattan/
   MainTheorems.lean       the main theorems, stated in full
   Certificate.lean        self-contained restatements of what is proved, with their axioms
@@ -299,8 +304,8 @@ Manhattan/
                           of the main theorems
   V4/                     the second proof of Theorem 1.1, along the arXiv version
   Paper/                  further statements of the arXiv version
-  Meta/                   AxiomsAudit.lean (the axiom report, compiled by `lake build`,
-                          not imported by the root), Cone.lean
+  Meta/                   AxiomsAudit.lean (the axiom report, imported by the root, so
+                          `lake build` prints it), Cone.lean
 ManhattanAudit/           the mathlib-only restatements and their solutions
 ASSUMPTIONS.md            the results assumed (none; generated)
 CORRESPONDENCE.md         paper to Lean, node by node

@@ -23,7 +23,7 @@ The main results `Manhattan.transience` and `Manhattan.annealed_green_bound` are
 `Manhattan/MainTheorems.lean`. To print their axiom reports:
 
 ```bash
-lake build Manhattan.Meta.AxiomsAudit   # the main theorems and every proved node
+lake build Manhattan.Meta.AxiomsAudit   # the main theorems and every proved node not superseded
 lake build Manhattan.Certificate        # the self-contained certificate
 ```
 

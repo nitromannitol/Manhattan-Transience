@@ -239,7 +239,7 @@ The dependencies are public repositories, pinned to exact commits in
 To reproduce the axiom reports and build the certificate and the comparator libraries:
 
 ```bash
-lake build Manhattan.Meta.AxiomsAudit   # print the axioms of the main theorems and every proved node
+lake build Manhattan.Meta.AxiomsAudit   # the main theorems and every proved node not superseded
 lake build Manhattan.Certificate        # the self-contained certificate of what is proved
 lake build ManhattanAudit               # the comparator challenges and solutions
 ```

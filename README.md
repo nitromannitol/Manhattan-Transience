@@ -70,6 +70,14 @@ fixed-frequency estimate (Proposition 2.2), the degree-one and degree-three esti
 concrete competitor. Theorem 1.1 is also proved a second time, along the shorter argument of
 the arXiv version (`Manhattan/V4/`).
 
+## Corrections to the published version
+
+The formalization follows `paper/manuscript.tex`, a corrected text of the paper. It is a
+different text from [arXiv:2609.07621v1](https://arxiv.org/abs/2609.07621v1), with a different
+proof of the frequency bound, and it carries five corrections.
+[`paper/CHANGES_FROM_ARXIV.md`](paper/CHANGES_FROM_ARXIV.md) compares the two texts result by
+result and lists every change against the arXiv version.
+
 ## Standing assumptions and scope
 
 1. **Every theorem is about the one model of the paper.** The model has no parameter. An

@@ -278,9 +278,8 @@ runs the two pairs one after the other in a single job on GitHub-hosted runners.
 
 There are two continuous-integration workflows: **CI** builds the library and checks the
 manifest, the warnings, the linters, the certificate and the axiom reports; **Comparator
-audit** checks both challenge/solution pairs. CI runs on pushes to `main` that change code or
-build configuration, and Comparator audit only on request. Both workflows can be started
-manually from the [Actions page](https://github.com/nitromannitol/Manhattan-Transience/actions).
+audit** checks both challenge/solution pairs. The builds are Mathlib-scale, so both workflows
+run only on request; they are started from the [Actions page](https://github.com/nitromannitol/Manhattan-Transience/actions).
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) for build conventions.
 
 ## Repository layout

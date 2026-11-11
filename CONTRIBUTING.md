@@ -94,8 +94,6 @@ missing tool or a failed kernel check is a failure.
 
 - `build.yml` (**CI**) checks the frozen-statement manifest, builds `Manhattan` and enforces the
   registered warning multiset, runs the environment linters, and checks the certificate and
-  the axiom reports. It runs on pushes to `main` that change code or build configuration
-  (documentation, `paper/`, `formalization.yaml` and `CITATION.cff` are ignored), and on
-  request.
+  the axiom reports. The builds are Mathlib-scale, so it runs only on request.
 - `comparator.yml` (**Comparator audit**) builds `ManhattanAudit` and runs the comparator on both
   pairs. It runs on request only.

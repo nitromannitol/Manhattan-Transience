@@ -1,7 +1,15 @@
 name: CI
 
-# Manual trigger only: these builds are Mathlib-scale, so they run on request.
+# Build current source, statements and audit tooling on each main-branch change
+# that touches code or build configuration, and on request.
 on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**/*.md'
+      - 'paper/**'
+      - 'formalization.yaml'
+      - 'CITATION.cff'
   workflow_dispatch:
 
 concurrency:

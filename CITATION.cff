@@ -1,8 +1,10 @@
 cff-version: 1.2.0
 message: "If you use this formalization, please cite it as below."
-title: "manhattan-formalization: a Lean 4 formalization of The randomly oriented Manhattan lattice in 2D is transient"
+title: "The randomly oriented Manhattan lattice in 2D is transient"
+type: software
+repository-code: "https://github.com/nitromannitol/Manhattan-Transience"
 abstract: >-
-  A machine-checked Lean 4 / mathlib formalization of the paper "The randomly
+  A machine-checked Lean 4 and Mathlib formalization of the paper "The randomly
   oriented Manhattan lattice in 2D is transient" (Bou-Rabee and Peres): for
   almost every fair-coin orientation of the lines of Z^2, the quenched Green
   series of the walk is finite at every site (Theorem 1.1), deduced from a
@@ -11,7 +13,6 @@ abstract: >-
   The production library contains no sorry and no custom axiom; each of the two
   Mathlib-only comparator challenges contains one intentional statement-level
   sorry whose completed solution is checked separately.
-type: software
 authors:
   - family-names: Bou-Rabee
     given-names: Ahmed
@@ -24,8 +25,6 @@ keywords:
   - transience
   - probability
 license: Apache-2.0
-repository-code: "https://github.com/nitromannitol/Manhattan-Transience"
-# Add a Zenodo DOI here once an archived release is minted.
 references:
   - type: article
     title: "The randomly oriented Manhattan lattice in 2D is transient"
@@ -38,4 +37,4 @@ references:
     identifiers:
       - type: other
         value: "arXiv:2609.07621"
-    notes: "The paper formalized by this repository; see paper/CHANGES_FROM_ARXIV.md for the text the formalization follows."
+    notes: "The paper formalized by this repository (arXiv:2609.07621). Its source is in paper/; paper/CHANGES_FROM_ARXIV.md records the text the formalization follows."

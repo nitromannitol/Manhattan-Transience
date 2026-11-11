@@ -1,7 +1,7 @@
 version: "v0.4"
 
 project:
-  name: "manhattan-formalization"
+  name: "Manhattan-Transience"
   description: >-
     A Lean 4 / Mathlib formalization of the paper "The randomly oriented
     Manhattan lattice in 2D is transient" (Bou-Rabee and Peres): for almost

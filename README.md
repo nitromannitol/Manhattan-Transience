@@ -201,7 +201,7 @@ pinned source they transcribe:
 
 ## Size
 
-The library contains 227 Lean files with 56,150 physical lines, on top of mathlib and
+The library contains 226 Lean files with 55,974 physical lines, on top of mathlib and
 Lattice-Probability. The count covers `Manhattan.lean` and `Manhattan/`. The comparator
 sources (8 files, 1,124 lines) are counted separately.
 

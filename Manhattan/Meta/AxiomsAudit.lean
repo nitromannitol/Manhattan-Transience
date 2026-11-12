@@ -189,7 +189,6 @@ equation (23)` is at the end of the file: none of it may report `sorryAx`.
 #print axioms Manhattan.Glue.normalizedObjective_eq
 #print axioms Manhattan.Glue.correctedLowDegreeData_cancelsAt
 #print axioms Manhattan.Glue.correctedLowDegreeData_exists_horizontal
-#print axioms Manhattan.Glue.not_all_frequency_exactCancellation
 
 #print axioms Manhattan.Glue.exists_concreteSectorEnergyBound
 #print axioms Manhattan.Glue.proposition_frequency_v2

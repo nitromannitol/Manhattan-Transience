@@ -108,54 +108,9 @@ def LowDegreeCompetitorData.CancelsAt (d : LowDegreeCompetitorData)
   inner ℂ (walshL2 ∅)
     (walshL2 ∅ - concreteFiberA p d.competitor) = 0
 
-/-- Requiring exact cancellation at every frequency is inconsistent: at
-`p=0`, skew-adjointness and `A₀ 1=0` force the residual constant to equal
-one. -/
-theorem not_all_frequency_exactCancellation :
-    ¬(∀ p : Fin 2 → ℝ, ∃ d : LowDegreeCompetitorData, d.CancelsAt p) := by
-  intro h
-  obtain ⟨d, hd⟩ := h 0
-  rw [LowDegreeCompetitorData.CancelsAt,
-    inner_empty_residual_zero_frequency] at hd
-  norm_num at hd
-
-/-- Retired interface.  It demands a *horizontal* degree-one plus type-(1,1,2)
-competitor at every frequency, whereas the paper exchanges rows and columns
-first (`manuscript.tex:1156`).  It is unsatisfiable: see
-`Manhattan.Glue.not_correctedLowDegreeCertificate`.  New consumers must use
-`CorrectedCompetitorCertificate` below. -/
-def CorrectedLowDegreeCertificate (r0 C : ℝ) : Prop :=
-  0 < r0 ∧ r0 < 1 ∧ 1 ≤ C ∧
-    ∀ (lambda : ℝ), ∀ hlambda : 0 < lambda, lambda ≤ 1 →
-      ∀ p : Fin 2 → ℝ,
-        p 0 ∈ Estimates.torus → p 1 ∈ Estimates.torus →
-          ∃ d : LowDegreeCompetitorData,
-            (concreteFiberEnvironment.dissipativeSkewPair p).hEnergy
-                  lambda d.competitor +
-                (concreteFiberEnvironment.dissipativeSkewPair p).hMinusEnergy
-                  hlambda (walshL2 ∅ - concreteFiberA p d.competitor) ≤
-              C * Operator.correctedMajorant r0 lambda p
-
-/-- A corrected low-degree certificate, together with the proved `g=0`
-branch, yields W5B's torus-restricted operator claim. -/
-theorem competitorBoundClaimV2_of_correctedLowDegreeCertificate
-    {r0 C : ℝ} (h : CorrectedLowDegreeCertificate r0 C) :
-    Operator.CompetitorBoundClaimV2 concreteFiberEnvironment (walshL2 ∅) := by
-  refine Estimates.competitorBoundClaimV2_of_two_branches
-    concreteFiberEnvironment (walshL2 ∅) r0 C h.1 h.2.1
-      (zero_le_one.trans h.2.2.1) ?_ ?_
-  · intro lambda hlambda _ p _ _
-    obtain ⟨g, hg⟩ := concrete_driftless_competitor lambda hlambda p
-    refine ⟨g, hg.trans ?_⟩
-    exact (le_mul_of_one_le_left (driftlessMajorant_nonneg hlambda p)
-      h.2.2.1)
-  · intro lambda hlambda hlambdaOne p hp0 hp1
-    obtain ⟨d, hd⟩ := h.2.2.2 lambda hlambda hlambdaOne p hp0 hp1
-    exact ⟨d.competitor, hd⟩
-
 /-- The corrected certificate: the competitor is an arbitrary Walsh vector,
 exactly as in Proposition 2.2 and as the row/column exchange at
-`manuscript.tex:1156` requires.  This is the version that is provable. -/
+`manuscript.tex:1156` requires. -/
 def CorrectedCompetitorCertificate (r0 C : ℝ) : Prop :=
   0 < r0 ∧ r0 < 1 ∧ 1 ≤ C ∧
     ∀ (lambda : ℝ), ∀ hlambda : 0 < lambda, lambda ≤ 1 →
@@ -201,24 +156,5 @@ theorem proposition_frequency_of_correctedCompetitorCertificate
                 C * Operator.frequencyMajorant r0 lambda p := by
   refine ⟨concreteFiberEnvironment, rfl, rfl, ?_⟩
   exact competitorBoundClaimV2_of_correctedCompetitorCertificate h
-
-/-- Exact version-2 Proposition 2.2 conclusion, conditional only on the
-paper-specific corrected low-degree certificate above. -/
-theorem proposition_frequency_of_correctedLowDegreeCertificate
-    {r0 C : ℝ} (h : CorrectedLowDegreeCertificate r0 C) :
-    ∃ D : Operator.FiberEnvironment WalshL2,
-      D.shift = environmentShift ∧
-      D.omega = originSignMultiplier ∧
-      ∃ r0 C : ℝ, 0 < r0 ∧ r0 < 1 ∧ 0 ≤ C ∧
-        ∀ (lambda : ℝ), ∀ hlambda : 0 < lambda, lambda ≤ 1 →
-          ∀ p : Fin 2 → ℝ,
-            p 0 ∈ Estimates.torus → p 1 ∈ Estimates.torus →
-            ∃ g : WalshL2,
-              (D.dissipativeSkewPair p).hEnergy lambda g +
-                  (D.dissipativeSkewPair p).hMinusEnergy
-                    hlambda (walshL2 ∅ - D.fiberA p g) ≤
-                C * Operator.frequencyMajorant r0 lambda p := by
-  refine ⟨concreteFiberEnvironment, rfl, rfl, ?_⟩
-  exact competitorBoundClaimV2_of_correctedLowDegreeCertificate h
 
 end Manhattan.Glue

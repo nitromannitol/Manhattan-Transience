@@ -31,10 +31,7 @@ here reaches it; the mixed identity for the competitor is
 `Manhattan.Glue.mixedFourierCoefficient_correction`, packaged as
 `Manhattan.Glue.concreteLoweringFormula_correction_certified`
 (`Manhattan/Glue/CorrectionLowering.lean`), and Lemma 5.3 for the competitor is
-`Manhattan.Glue.lemma_distinct_correction` there.  Consequently
-`Manhattan.Glue.lemma_distinct_shiftedRawCoefficient` below is vacuous as a
-rendering of Lemma 5.3 and must not be sealed as one; its honest content is that `Pi_3` acts trivially
-on diagonal-free kernels.
+`Manhattan.Glue.lemma_distinct_correction` there.
 
 The missing bookkeeping step named in is
 `twoRowFourierCoefficient_orderedFreqTwo_shift`: the two-row Walsh coefficient
@@ -429,36 +426,6 @@ theorem rawProjectionDifferenceIdentification_shiftedRawCoefficient
       (rawDiagonalPart (p 1)
         (scaleRaw ((Real.sqrt 2 : ℝ) : ℂ) (shiftedRawCoefficient p k))) :=
   rawProjectionDifferenceIdentification_of_lowering
-    (torusBounded₃_shiftedRawCoefficient p k)
-    (shiftedRawCoefficient_periodic p k)
-    (concreteLoweringFormula_shiftedRawCoefficient p hdiag)
-
-/-- **Π₃ acts trivially on diagonal-free kernels.**  NOT a rendering of Lemma 5.3
-(`manuscript.tex:1212-1221`), despite the shape of the conclusion: the
-hypothesis `hdiag` makes the statement vacuous as such.  Under `hdiag`,
-`rawDiagonalPart_shiftedRawCoefficient` forces the coincident-row carrier to
-zero, so the quantitative clause reads `0 ≤ 2 * energy` and the qualitative
-clause is definitional.  Lemma 5.3 is precisely about a `k̃` WITH coincident
-rows, so this must never be sealed or cited as Lemma 5.3.
-
-Lemma 5.3 itself is `Manhattan.Glue.lemma_distinct_of_concreteLowering`, which
-is not vacuous, and for the paper's actual competitor it is
-`Manhattan.Glue.lemma_distinct_correction` and
-`Manhattan.Glue.lemma_distinct_correction_sigmaEnergy`
-(`Manhattan/Glue/CorrectionLowering.lean`), both with no diagonal-freeness
-hypothesis.  The universal constant here is `‖sqrt 2‖² = 2`. -/
-theorem lemma_distinct_shiftedRawCoefficient {q : Estimates.Parameters}
-    (hlambda : 0 < q.lambda) (p : Fin 2 → ℝ) {k : (ℤ × ℤ × ℤ) →₀ ℂ}
-    (hdiag : ∀ a c : ℤ, k (a, a, c) = 0) :
-    (rawProjectionDifference 1 ((Real.sqrt 2 : ℝ) : ℂ) (p 1)
-        (shiftedRawCoefficient p k) (shiftedTwoRowCoefficient p k)
-        (shiftedMixedCoefficient p k)).twoRow = 0 ∧
-      projectionErrorHMinusSq q
-          (rawDiagonalPart (p 1)
-            (scaleRaw ((Real.sqrt 2 : ℝ) : ℂ) (shiftedRawCoefficient p k))) ≤
-        ‖((Real.sqrt 2 : ℝ) : ℂ)‖ ^ 2 *
-          rawMultiplierEnergy 40 q (p 1) (shiftedRawCoefficient p k) :=
-  lemma_distinct_of_concreteLowering hlambda
     (torusBounded₃_shiftedRawCoefficient p k)
     (shiftedRawCoefficient_periodic p k)
     (concreteLoweringFormula_shiftedRawCoefficient p hdiag)

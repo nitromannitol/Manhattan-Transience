@@ -6,12 +6,8 @@ import Manhattan.Glue.CubicDischargeProjection
 
 `Manhattan.Glue.lemma_distinct_of_concreteLowering` proves Lemma 5.3
 (`manuscript.tex:1212-1219`) for any raw type-`112` coefficient that satisfies
-the concrete lowering formula `Manhattan.Glue.ConcreteLoweringFormula`.  Its
-only previous instantiation,
-`Manhattan.Glue.lemma_distinct_shiftedRawCoefficient`, carries a
-diagonal-freeness hypothesis under which the coincident-row carrier vanishes
-identically, so it says nothing about the competitor.  This file supplies the
-missing instance: the paper's explicit degree-three correction
+the concrete lowering formula `Manhattan.Glue.ConcreteLoweringFormula`.  This file
+supplies the instance for the paper's competitor: the paper's explicit degree-three correction
 `Manhattan.Estimates.correctionCoefficient`, periodized in its second row
 frequency, satisfies the concrete lowering formula with both Finset
 normalizations equal to one.

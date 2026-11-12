@@ -500,8 +500,6 @@ Status of the three thirds of Lemma 5.4 that feed it:
   content is `Manhattan.Glue.mixedFourierCoefficient_correction`).  The scalar
   right-hand side is evaluated s
   `Manhattan.Glue.projectionErrorHMinusSq_correction_le_two_correctionSigmaEnergy`.
-  `Manhattan.Glue.lemma_distinct_shiftedRawCoefficient` is NOT one of these:
-  it assumes a diagonal-free kernel and is vacuous as a rendering of Lemma 5.3.
 
 Steps 2--4 themselves are now proved on the frequency side, in
 `Manhattan/Glue/SummandThree.lean`: `rawD2StarTwoRow_correctionCoefficient`

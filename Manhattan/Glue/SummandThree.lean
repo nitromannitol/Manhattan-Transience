@@ -23,11 +23,8 @@ PACKAGED theorem, since the bare
 `Manhattan.Glue.concreteLoweringFormula_correction` discharges its mixed clause
 definitionally and must not be cited alone; the content of that clause is
 `Manhattan.Glue.mixedFourierCoefficient_correction`).
-`Manhattan.Glue.lemma_distinct_shiftedRawCoefficient` is NOT an ingredient
-here: it assumes a diagonal-free kernel, under which `Π₃` acts trivially, so it
-is vacuous as a rendering of Lemma 5.3.  What was missing was
-the transport that turns a degree-two Walsh vector into the weighted torus
-integral those statements are written in.  The docstrings of
+This file supplies the transport that turns a degree-two Walsh vector into the
+weighted torus integral those statements are written in.  The docstrings of
 `Manhattan/Glue/ScalarIdentification.lean` and
 `Manhattan/Glue/FinalDischarge.lean` name exactly the two gaps this file
 closes:

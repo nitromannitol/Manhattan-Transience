@@ -129,7 +129,7 @@ comparator challenges under [`ManhattanAudit/`](ManhattanAudit/).
 ## Unfrozen public audit and assembly support
 
 These declarations are public support rather than additional frozen paper
-anchors. They are listed so that the obstruction and the damping-removal step
+anchors. They are listed so that the assembly and the damping-removal step
 are traceable.
 
 | Source | Lean declaration | File | Status |

@@ -151,13 +151,10 @@ theorem mixedFourierCoefficient_raising {p : Fin 2 → ℝ} {g : ℝ → ℂ}
     inner_mixedPair_walshRaise_axisDegreeOne p _ m n]
   by_cases hn : n = 0 <;> simp [hn]
 
-/-- **(B-1b), with the shift phase moved across.**  This is the shape
-recorded, with the two corrections that shape needs: the degree-one competitor
-is the **shifted** row synthesis (the one `Manhattan.Glue.hEnergy_degreeOneRowShift`
-evaluates), and the phase is `intCharacter m (p 1) * intCharacter n (p 0)`, the
-same phase `Manhattan.V4.type112DStarMixed_parityKernel` carries on the lowering
-half.  With `intCharacter (-m)`, `intCharacter (-n)` the identity is false: at
-`m = n = 0` the two sides differ by `e^{i p₂}`. -/
+/-- **(B-1b), with the shift phase moved across.**  The degree-one competitor is the
+**shifted** row synthesis (the one `Manhattan.Glue.hEnergy_degreeOneRowShift` evaluates), and
+the phase is `intCharacter m (p 1) * intCharacter n (p 0)`, the same phase
+`Manhattan.V4.type112DStarMixed_parityKernel` carries on the lowering half. -/
 theorem type12WalshAnalysis_walshRaise_eq {p : Fin 2 → ℝ} {g : ℝ → ℂ}
     (hgper : Function.Periodic g (2 * Real.pi))
     (hg : MemLp g 2 (volume.restrict (Ioc (-Real.pi) Real.pi))) (m n : ℤ) :

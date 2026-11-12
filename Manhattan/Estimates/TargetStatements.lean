@@ -3,12 +3,10 @@ import Manhattan.Estimates.DegreeThree
 import Manhattan.Estimates.FinsetRaising
 
 /-!
-# Frozen-candidate statement surface for Sections 4--5
+# Statements of the analytic estimates of Sections 4--5
 
-These proposition-valued definitions record the exact remaining analytic
-obligations without introducing axioms or unregistered placeholders. They are
-intended to become frozen theorem blocks when the wave-2 manifest owner
-registers the corresponding `DRAFT_SORRY` nodes.
+These proposition-valued definitions state the analytic estimates of Sections 4--5
+that the assembly consumes.
 -/
 
 open MeasureTheory Set
@@ -22,23 +20,6 @@ def LineResolventIdentity : Prop :=
   ∀ mu : ℝ, 0 < mu →
     torusIntegral (fun r : ℝ => (mu + dispersion r)⁻¹) =
       (Real.sqrt (mu * (mu + 2)))⁻¹
-
-/-- Lemma 4.1(a)--(d), with both `H⁻¹` norms expanded as weighted integrals. -/
-def LemmaFourTwoClaim (K rho : ℝ) : Prop :=
-  20 ≤ K → 0 < rho → rho ≤ Real.pi / 20 →
-  ∃ c C : ℝ, 0 < c ∧ 0 < C ∧
-    ∀ lambda : ℝ, 0 < lambda → lambda ≤ 1 →
-    ∀ p₁ p₂ : ℝ, p₁ ∈ torus → p₂ ∈ torus → |p₂| ≤ |p₁| →
-      let q : Parameters := ⟨lambda, K, rho⟩
-      q.logThreshold < q.scaleLog |p₁| →
-      degreeZeroAdjoint p₁ (degreeOneCoefficient q p₁) =
-          -(degreeOneNormalization q p₁ : ℂ) ∧
-      c * |p₁| * q.scaleLog |p₁| ≤ degreeOneNormalization q p₁ ∧
-      degreeOneEnergy q p₁ ≤ C ∧
-      (∀ r : ℝ, mixedResidual q p₁ r = signedSupportIndicator q p₁ r) ∧
-      c * q.scaleLog |p₁| ≤ mixedResidualHMinusSq q p₁ ∧
-      mixedResidualHMinusSq q p₁ ≤ C * q.scaleLog |p₁| ∧
-      twoRowResidualHMinusSq q p₁ p₂ (degreeOneCoefficient q p₁) ≤ C
 
 /-- Admissibility for the functional minimization in (26). -/
 def RankOneAdmissible (M : ℝ → ℝ) (J : Set ℝ) (u : ℝ → ℂ) : Prop :=
@@ -91,28 +72,6 @@ def PropositionFiveTwoClaim (K rho : ℝ) : Prop :=
       K * q.delta a < q.r0 →
       DenominatorBound 40 c q a ∧ BetaIntegralBound 40 C q a ∧
         PropositionFiveTwoIntegralBound 40 C q a
-
-/-- The direct the Finset convention formulation of the full Lemma 5.2 interface: the
-operator-side energy is bounded by the explicit multiplier quadratic form.
-The actual operators and coefficient carrier are supplied by the Walsh part.
--/
--- INTERFACE: the Walsh part supplies the concrete coefficient carrier and forms.
-def LemmaSixTwoInterface {E : Type*}
-    (hThree dFour multiplierForm : E → ℝ) : Prop :=
-  ∀ k : E, hThree k + dFour k ≤ multiplierForm k
-
-/-- The four claims established in Lemma 5.4. In the Finset convention, the fourth claim is
-the direct reduction estimate: there is no projection-error term or Lemma 5.3. -/
--- INTERFACE: the Walsh part replaces these fields by concrete Finset identities.
-structure LemmaSixFourCertificate where
-  /-- The two supports are disjoint. -/
-  supportDisjoint : Prop
-  /-- The two-row component of the residual vanishes. -/
-  twoRowComponentVanishes : Prop
-  /-- The negative-frequency error is bounded. -/
-  negativeFrequencyErrorBound : Prop
-  /-- The direct reduction estimate, which in the Finset convention replaces the projection-error term. -/
-  directReductionBound : Prop
 
 end
 

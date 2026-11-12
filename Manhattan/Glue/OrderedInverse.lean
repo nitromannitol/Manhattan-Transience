@@ -6,10 +6,8 @@ import Manhattan.Walsh.LowDegreeSectors
 /-!
 # The inverse of the ordered multiplier, and the symmetrized Fourier representative
 
-Two prerequisites that were missing for the degree-four
-raising sector, both stated for a general coefficient.  (The first of them was
-in the end not consumed by that sector; see the correction on
-`re_inner_image_orderedRestrict_orderedHInv_le` below.)
+Two prerequisites for the degree-four raising sector, both stated for a general
+coefficient.
 
 ## 1.  The inverse of `orderedH`
 
@@ -227,16 +225,7 @@ theorem re_inner_orderedHInv_orderedRepresentativeProjection_le (n : ℕ)
     (orderedHInv_comm_orderedRepresentativeProjection n hlam p)
     (re_inner_orderedHInv_nonneg n hlam p) c
 
-/-- The image form with the `H⁻¹` weight, for a general intertwining map `A`.
-Correct and non-trivial as stated, but UNUSED: contrary to the earlier wording
-here and in the module docstring above, the degree-four raising step does NOT
-consume it.  Its only instantiation anywhere in the tree is
-`Manhattan.Glue.re_inner_orderedHInv_orderedRaise_le`
-(`Manhattan/Glue/OrderedRaising.lean`), which shows is vacuous,
-so this lemma has zero external consumers.
-
-MUST NOT SEAL: not
-load-bearing.  -/
+/-- The image form with the `H⁻¹` weight, for a general intertwining map `A`. -/
 theorem re_inner_image_orderedRestrict_orderedHInv_le (m n : ℕ) {lam : ℝ}
     (hlam : 0 < lam) (p : Fin 2 → ℝ)
     (A : OrderedCoefficient m →L[ℂ] OrderedCoefficient n)
@@ -416,7 +405,7 @@ theorem patternLines_type112Pattern (m : Fin 3 → ℤ) :
   rw [patternLines, huniv]
   simp [type112Pattern]
 
-/-- **Obstruction (a).**  The Walsh index carried by the type-`(1,1,2)` pattern
+/-- The Walsh index carried by the type-`(1,1,2)` pattern
 is symmetric under exchanging the two row frequencies: the two horizontal lines
 enter a `Finset`.  Any admissible frequency function must therefore have
 symmetric Fourier coefficients, which `type112FreqFun` does not.

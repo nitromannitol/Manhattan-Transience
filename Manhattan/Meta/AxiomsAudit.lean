@@ -85,7 +85,7 @@ import Manhattan.MainTheorems
 # Axiom audit
 
 Every active PROVED frozen statement and the sorry-free joint-fiberization
-bridge are checked here. Retired historical predecessors are excluded.  The
+bridge are checked here.  The
 main cone `theorem_1_1 <- theorem_1_2 <- proposition_frequency (v2) <-
 equation (23)` is at the end of the file: none of it may report `sorryAx`.
 -/

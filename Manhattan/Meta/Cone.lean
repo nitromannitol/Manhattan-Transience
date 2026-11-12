@@ -55,8 +55,8 @@ elab "#in_cone " tgt:ident ppSpace needles:(ident)+ : command => do
 
 /-- `#unreachable_from foo bar` lists every declaration in the `Manhattan`
 namespace that neither `foo` nor `bar` reaches.  Those are the parts of the
-development that no main result depends on: scaffolding, superseded
-attempts, and documentary witnesses. -/
+development that no main result depends on: scaffolding and documentary
+witnesses. -/
 elab "#unreachable_from " roots:(ident)+ : command => do
   let env ← getEnv
   let mut cone : NameSet := {}

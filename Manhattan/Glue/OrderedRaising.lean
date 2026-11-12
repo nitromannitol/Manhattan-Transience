@@ -6,7 +6,7 @@ import Manhattan.Glue.OrderedInverse
 Steps 3 and 4 of the degree-four raising sector, for a general degree-three
 coefficient.
 
-## Obstruction (b): the appended line is not last
+## The appended line is not last
 
 `lineIndexFourier` reads a degree-four coefficient through `degreeEnum`, which
 *sorts* the four lines.  The appended line is the origin line `(finAxis i, 0)`,
@@ -35,15 +35,6 @@ Fourier symbol of `manuscript.tex:1181-1188` followed by the appending of the
 origin line), and the sorted enumeration `walshOrdered 4`.  It is bounded by
 `1`, and it realizes `walshRaiseDir p i` (`degreeRaiseDir_apply`,
 `orderedRaise_apply_degreeEnum`).
-
-Because `orderedRaise` already begins with `orderedRestrict 3` and ends with
-`walshOrdered 4`, the passage to the ordered representative happens *inside* it.
-The two declarations at the end of this section that were once advertised as the
-intertwining hypothesis and as equation (46) for the ordered raising map,
-`orderedRaise_orderedRepresentativeProjection` and
-`re_inner_orderedHInv_orderedRaise_le`, are for that reason trivial: after
-unfolding they read `X = X` and `X ≤ X`.  They are kept, with corrected
-docstrings, and MUST NOT BE SEALED.
 
 ## The frequency form
 
@@ -305,27 +296,6 @@ theorem norm_orderedRaise_le (p : Fin 2 → ℝ) (i : Fin 2) (c : OrderedCoeffic
   rw [norm_orderedRestrict]
   exact norm_orderedRepresentativeProjection_le 3 c
 
-/-- **A trivial identity.  NOT the intertwining hypothesis it was once
-advertised as.**  Both sides are the same term as `orderedRaise p i c`:
-`orderedRaise` starts with `orderedRestrict 3`, so
-`orderedRestrict_orderedRepresentativeProjection` erases the inner projection,
-and it ends with `walshOrdered 4`, so `orderedRepresentativeProjection_walshOrdered`
-erases the outer one.  The passage to the ordered representative already happens
-inside `orderedRaise`; after unfolding this statement reads `X = X` and carries
-no mathematical content.
-
-MUST NOT SEAL: vacuous.
-Never cite it as equation (46) (`eq:contract`, `manuscript.tex:1193-1198`) or as
-any other paper statement.  It is used only to instantiate
-`re_inner_image_orderedRestrict_orderedHInv_le` below, which is itself unused. -/
-theorem orderedRaise_orderedRepresentativeProjection (p : Fin 2 → ℝ) (i : Fin 2)
-    (c : OrderedCoefficient 3) :
-    orderedRaise p i (orderedRepresentativeProjection 3 c)
-      = orderedRepresentativeProjection 4 (orderedRaise p i c) := by
-  rw [orderedRaise_apply, orderedRaise_apply,
-    orderedRestrict_orderedRepresentativeProjection,
-    orderedRepresentativeProjection_walshOrdered]
-
 /-- **The ordered raising map realizes `walshRaiseDir`.**  Read at the sorted
 enumeration of a degree-four Walsh index, the ordered raising map returns the
 degree-four Walsh coefficient of the raised vector.
@@ -336,28 +306,6 @@ theorem orderedRaise_apply_degreeEnum (p : Fin 2 → ℝ) (i : Fin 2)
       inner ℂ (Manhattan.walshL2 T.1)
         (walshRaiseDir p i (homogeneousWalshSynthesis 3 d)) := by
   rw [orderedRaise_walshOrdered, walshOrdered_apply_degreeEnum, degreeRaiseDir_apply]
-
-/-- **A trivial inequality.  NOT equation (46) for the ordered raising map.**
-Its two sides are the same term, because
-`orderedRaise p i (orderedRepresentativeProjection 3 c) = orderedRaise p i c`
-by `orderedRaise_orderedRepresentativeProjection`, which is itself `X = X`.
-After unfolding this statement therefore reads `X ≤ X`.  The genuine ordered
-form of equation (46) is
-`re_inner_orderedHInv_orderedRepresentativeProjection_le`
-(`Manhattan/Glue/OrderedInverse.lean`), which compares a real projection against
-the raw coefficient.
-
-MUST NOT SEAL: vacuous.
-Never cite it as equation (46) (`eq:contract`, `manuscript.tex:1193-1198`).
--/
-theorem re_inner_orderedHInv_orderedRaise_le {lam : ℝ} (hlam : 0 < lam) (p : Fin 2 → ℝ)
-    (i : Fin 2) (c : OrderedCoefficient 3) :
-    RCLike.re (inner ℂ (orderedHInv 4 hlam p
-          (orderedRaise p i (orderedRepresentativeProjection 3 c)))
-        (orderedRaise p i (orderedRepresentativeProjection 3 c)))
-      ≤ RCLike.re (inner ℂ (orderedHInv 4 hlam p (orderedRaise p i c)) (orderedRaise p i c)) :=
-  re_inner_image_orderedRestrict_orderedHInv_le 3 4 hlam p (orderedRaise p i)
-    (orderedRaise_orderedRepresentativeProjection p i) c
 
 /-! ### The insertion position
 
@@ -430,7 +378,7 @@ theorem lt_of_insertRank_le {n : ℕ} {a : LineIndex} {t : Fin n → LineIndex}
 theorem strictMono_degreeEnum {n : ℕ} (S : WalshDegreeIndex n) :
     StrictMono (degreeEnum S) := (S.1.orderEmbOfFin S.2).strictMono
 
-/-- **The permutation of obstruction (b).**  The sorted enumeration of a Walsh
+/-- **The insertion permutation.**  The sorted enumeration of a Walsh
 index enlarged by one new line is the sorted enumeration of the original index
 with the new line inserted at its rank, not appended at the end. -/
 theorem degreeEnum_eq_insertNth {n : ℕ} (a : LineIndex) (S : WalshDegreeIndex n)

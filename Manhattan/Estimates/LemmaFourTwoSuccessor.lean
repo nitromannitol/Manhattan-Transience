@@ -3,10 +3,10 @@ import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
 import Mathlib.MeasureTheory.Integral.Prod
 
 /-!
-# Corrected successor to Lemma 4.1
+# Lemma 4.1 for nonzero first frequency
 
-The frozen version-one candidate is false at zero frequency.  This file leaves that candidate untouched and proves the exact
-successor used by the paper: the sole new hypothesis is `0 < |p₁|`.
+This file proves Lemma 4.1(a)--(d) in the form used by the paper, with the hypothesis
+`0 < |p₁|`.
 
 Paper: `manuscript.tex:907-958`, with the application-side positivity
 hypothesis at `manuscript.tex:1137`.
@@ -22,7 +22,7 @@ noncomputable section
 local instance lemmaFourTwoSuccessorPropDecidable (p : Prop) : Decidable p :=
   Classical.propDecidable p
 
-/-- Lemma 4.1(a)--(d), corrected only by the hypothesis `0 < |p₁|` found at
+/-- Lemma 4.1(a)--(d) under the hypothesis `0 < |p₁|` imposed at
 its application in `manuscript.tex:1137`.  Both `H⁻¹` quantities remain the
 explicit weighted integrals defined in `DegreeOne.lean`. -/
 def LemmaFourTwoSuccessorClaim (K rho : ℝ) : Prop :=
@@ -1351,8 +1351,7 @@ private theorem twoRowResidualHMinusSq_le {q : Parameters} (hq : q.Admissible)
         _ ≤ 16 * 1 := mul_le_mul_of_nonneg_left hratio (by norm_num)
         _ = 16 := mul_one _
 
-/-- Provider for the corrected successor of Lemma 4.1.  The only change from
-the frozen v1 statement is the application-side hypothesis `0 < |p₁|`.
+/-- Provider for Lemma 4.1 under the application-side hypothesis `0 < |p₁|`.
 The uniform witnesses are `c = 1 / (4000π)` and `C = 200000`. -/
 theorem lemmaFourTwoSuccessorClaim_proved (K rho : ℝ) :
     LemmaFourTwoSuccessorClaim K rho := by

@@ -6,7 +6,6 @@ import Manhattan.Estimates.FinsetRaising
 import Manhattan.Estimates.TargetStatements
 import Manhattan.Estimates.LineResolvent
 import Manhattan.Estimates.RankOneMinimization
-import Manhattan.Estimates.ClaimObstructions
 import Manhattan.Estimates.PropositionFiveTwoSupport
 import Manhattan.Estimates.Competitor
 import Manhattan.Estimates.LemmaFourTwoSuccessor

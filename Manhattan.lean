@@ -8,7 +8,6 @@ import Manhattan.Frozen
 import Manhattan.MainTheorems
 import Manhattan.V4
 import Manhattan.V4.SplitConstant
-import Manhattan.Competitor.Obstruction
 import Manhattan.Meta.AxiomsAudit
 import Manhattan.Meta.Cone
 import Manhattan.Paper.AnnealedDerivative

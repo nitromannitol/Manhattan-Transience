@@ -43,42 +43,9 @@ theorem operator_frequencyLogScale_eq_scaleLog (q : Parameters)
   simp [Operator.frequencyLogScale, Operator.logPos, Parameters.scaleLog,
     Parameters.delta, logPos, max_comm]
 
-/-- `-- INTERFACE`: separate driftless and corrected competitors imply the
-minimum bound expected by the operator interfaces.  The witnesses may differ; the
+/-- `-- INTERFACE`: separate driftless and corrected competitors on the torus fundamental
+domain imply the minimum bound of `CompetitorBoundClaimV2`.  The witnesses may differ; the
 proof selects the appropriate one pointwise in frequency. -/
-theorem competitorBoundClaim_of_two_branches {E : Type*}
-    [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E]
-    (D : Operator.FiberEnvironment E) (V : E) (r0 C : ℝ)
-    (hr0 : 0 < r0) (hr0One : r0 < 1) (hC : 0 ≤ C)
-    (hdriftless : ∀ (lambda : ℝ), ∀ hlambda : 0 < lambda,
-      lambda ≤ 1 → ∀ p : Fin 2 → ℝ,
-        ∃ g : E,
-          (D.dissipativeSkewPair p).hEnergy lambda g +
-              (D.dissipativeSkewPair p).hMinusEnergy
-                hlambda (V - D.fiberA p g) ≤
-            C * Operator.driftlessMajorant lambda p)
-    (hcorrected : ∀ (lambda : ℝ), ∀ hlambda : 0 < lambda,
-      lambda ≤ 1 → ∀ p : Fin 2 → ℝ,
-        ∃ g : E,
-          (D.dissipativeSkewPair p).hEnergy lambda g +
-              (D.dissipativeSkewPair p).hMinusEnergy
-                hlambda (V - D.fiberA p g) ≤
-            C * Operator.correctedMajorant r0 lambda p) :
-    Operator.CompetitorBoundClaim D V := by
-  refine ⟨r0, C, hr0, hr0One, hC, ?_⟩
-  intro lambda hlambda hlambdaOne p
-  by_cases hle : Operator.driftlessMajorant lambda p ≤
-      Operator.correctedMajorant r0 lambda p
-  · obtain ⟨g, hg⟩ := hdriftless lambda hlambda hlambdaOne p
-    refine ⟨g, ?_⟩
-    simpa [Operator.frequencyMajorant, min_eq_left hle] using hg
-  · obtain ⟨g, hg⟩ := hcorrected lambda hlambda hlambdaOne p
-    refine ⟨g, ?_⟩
-    have hle' : Operator.correctedMajorant r0 lambda p ≤
-        Operator.driftlessMajorant lambda p := le_of_not_ge hle
-    simpa [Operator.frequencyMajorant, min_eq_right hle'] using hg
-
-/-- Torus-restricted two-branch constructor for the successor. -/
 theorem competitorBoundClaimV2_of_two_branches {E : Type*}
     [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E]
     (D : Operator.FiberEnvironment E) (V : E) (r0 C : ℝ)

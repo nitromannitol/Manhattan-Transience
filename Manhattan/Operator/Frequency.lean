@@ -5,11 +5,9 @@ import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
 # Fixed-frequency input and uniform assembly
 
 This file separates the model-specific competitor estimate from its abstract
-operator consequence.  The raw-frequency `CompetitorBoundClaim` is retained
-only for the frozen version-1 record and its refutation; the live interface is
-the torus-restricted `CompetitorBoundClaimV2`.  Once that interface is
-supplied, the one-sided variational inequality gives the resolvent bound
-without any further probabilistic input.
+operator consequence.  The interface is the torus-restricted
+`CompetitorBoundClaimV2`.  Once it is supplied, the one-sided variational
+inequality gives the resolvent bound without any further probabilistic input.
 
 The final part records the three-region integration argument.  Its only
 improper integral is evaluated exactly, rather than hidden in an `O(1)`.
@@ -58,41 +56,12 @@ def frequencyMajorant (r0 lambda : ℝ) (p : Fin 2 → ℝ) : ℝ :=
 /-- The paper's chosen representatives of the one-dimensional torus. -/
 def frequencyTorus : Set ℝ := Set.Ioc (-Real.pi) Real.pi
 
-/-- Retired version-1 interface for the model-specific content of Proposition
-2.2.  New consumers must use `CompetitorBoundClaimV2`.
+/-- Interface for the model-specific content of Proposition 2.2, for frequencies in the
+torus fundamental domain as in the paper (`manuscript.tex:644-661`).
 
 The concrete environment/Walsh parts must construct this value.  Keeping it
 as proposition-valued data avoids postulating a theorem about arbitrary
-unitary actions, for which the logarithmic estimate would be false. -/
-def CompetitorBoundClaim {E : Type*} [NormedAddCommGroup E]
-    [InnerProductSpace ℂ E] [CompleteSpace E]
-    (D : FiberEnvironment E) (V : E) : Prop :=
-  ∃ r0 C : ℝ, 0 < r0 ∧ r0 < 1 ∧ 0 ≤ C ∧
-    ∀ (lambda : ℝ), ∀ hlambda : 0 < lambda, lambda ≤ 1 → ∀ p : Fin 2 → ℝ,
-      ∃ g : E,
-        (D.dissipativeSkewPair p).hEnergy lambda g +
-            (D.dissipativeSkewPair p).hMinusEnergy
-              hlambda (V - D.fiberA p g) ≤
-          C * frequencyMajorant r0 lambda p
-
-/-- Retired raw-frequency consequence retained for its frozen version-1
-wrapper.  `frequency_resolvent_le_of_competitor_v2` is the live theorem. -/
-theorem frequency_resolvent_le_of_competitor {E : Type*}
-    [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E]
-    (D : FiberEnvironment E) (V : E) (h : CompetitorBoundClaim D V) :
-    ∃ r0 C : ℝ, 0 < r0 ∧ r0 < 1 ∧ 0 ≤ C ∧
-      ∀ (lambda : ℝ), ∀ hlambda : 0 < lambda, lambda ≤ 1 → ∀ p : Fin 2 → ℝ,
-        (D.dissipativeSkewPair p).resolventQuadratic
-            hlambda V ≤
-          C * frequencyMajorant r0 lambda p := by
-  obtain ⟨r0, C, hr0, hr01, hC, hcompetitor⟩ := h
-  refine ⟨r0, C, hr0, hr01, hC, ?_⟩
-  intro lambda hlambda hlambda1 p
-  obtain ⟨g, hg⟩ := hcompetitor lambda hlambda hlambda1 p
-  exact ((D.dissipativeSkewPair p).resolventQuadratic_le hlambda V g).trans hg
-
-/-- Version-2 successor to `CompetitorBoundClaim`, restricted to the torus
-fundamental domain as in Proposition 2.2 (`manuscript.tex:644-661`). -/
+unitary actions. -/
 def CompetitorBoundClaimV2 {E : Type*} [NormedAddCommGroup E]
     [InnerProductSpace ℂ E] [CompleteSpace E]
     (D : FiberEnvironment E) (V : E) : Prop :=
@@ -105,8 +74,8 @@ def CompetitorBoundClaimV2 {E : Type*} [NormedAddCommGroup E]
               hlambda (V - D.fiberA p g) ≤
           C * frequencyMajorant r0 lambda p
 
-/-- Torus-restricted version-2 successor of
-`frequency_resolvent_le_of_competitor`. -/
+/-- The fixed-frequency resolvent bound of Proposition 2.2 on the torus fundamental
+domain, from the competitor interface `CompetitorBoundClaimV2`. -/
 theorem frequency_resolvent_le_of_competitor_v2 {E : Type*}
     [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E]
     (D : FiberEnvironment E) (V : E) (h : CompetitorBoundClaimV2 D V) :

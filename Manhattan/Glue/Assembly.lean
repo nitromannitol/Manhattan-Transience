@@ -25,17 +25,6 @@ open Manhattan.Operator
 open LatticeProb.Analysis
 open scoped ENNReal
 
-/-- A model-specific competitor gives the paper's fixed-frequency resolvent
-majorant through the one-sided variational inequality. -/
-theorem frequency_bound_of_competitor {E : Type*}
-    [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E]
-    (D : FiberEnvironment E) (V : E) (h : CompetitorBoundClaim D V) :
-    ∃ r0 C : ℝ, 0 < r0 ∧ r0 < 1 ∧ 0 ≤ C ∧
-      ∀ (lambda : ℝ), ∀ hlambda : 0 < lambda, lambda ≤ 1 → ∀ p : Fin 2 → ℝ,
-        (D.dissipativeSkewPair p).resolventQuadratic hlambda V ≤
-          C * frequencyMajorant r0 lambda p :=
-  frequency_resolvent_le_of_competitor D V h
-
 /-- The three regional integral estimates imply a uniform Green bound. -/
 theorem uniform_green_bound {green : ℝ → ℝ} (B : RegionalIntegralBounds green) :
     ∀ lambda : ℝ, 0 < lambda → lambda ≤ 1 →

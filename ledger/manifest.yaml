@@ -144,19 +144,6 @@ nodes:
     provider: Manhattan.Operator.FiberEnvironment.fiberS_selfAdjoint
     draft_allowlist: []
     approved: 2026-09-02
-  - id: op-frequency-resolvent-le-of-competitor
-    version: 1
-    kind: theorem
-    source: manuscript.tex:640-666
-    file: Manhattan/Frozen/Operator/FrequencyResolventLeOfCompetitor.lean
-    export: Manhattan.Frozen.Operator.frequency_resolvent_le_of_competitor
-    state: PROVED
-    superseded_by: op-frequency-resolvent-le-of-competitor-v2
-    frozen_sha256: e16355e2d5e2177395a2919684099d098b3d0f6206e8877eb38c40e713c1e978
-    closure_sha256: 51e231c727ab9d4e38cdb78cf6b6790e9354d8f8efa9b940eb2b8d497826d330
-    provider: Manhattan.Operator.frequency_resolvent_le_of_competitor
-    draft_allowlist: []
-    approved: 2026-09-02
   - id: op-frequency-resolvent-le-of-competitor-v2
     version: 2
     kind: theorem

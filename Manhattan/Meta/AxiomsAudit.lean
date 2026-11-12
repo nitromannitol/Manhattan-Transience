@@ -56,7 +56,6 @@ import Manhattan.Frozen.Estimates.ThetaNonneg
 import Manhattan.Frozen.Estimates.TorusIntegralOne
 import Manhattan.Frozen.Estimates.TotalFrequencyMultiplierApply
 import Manhattan.Glue.JointFiberization
-import Manhattan.Competitor.Obstruction
 import Manhattan.Glue.Annealed
 import Manhattan.Estimates.LemmaFourTwoSuccessor
 import Manhattan.Estimates.Regional
@@ -154,8 +153,6 @@ equation (23)` is at the end of the file: none of it may report `sorryAx`.
 #print axioms Manhattan.Frozen.Estimates.totalFrequencyMultiplier_apply
 #print axioms Manhattan.Glue.jointGenerator_fiberizes
 #print axioms Manhattan.Glue.jointGenerator_eq_transform_symm
-#print axioms Manhattan.Competitor.not_competitorBoundClaim_of_raw_frequency
-#print axioms Manhattan.Competitor.not_proposition_frequency
 #print axioms Manhattan.Glue.annealedGreenBound_of_uniform_damped
 #print axioms Manhattan.Glue.annealedGreenBound_of_regional_identity
 #print axioms Manhattan.Estimates.denominatorBound_proved

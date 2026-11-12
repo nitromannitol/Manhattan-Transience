@@ -59,7 +59,6 @@ comparator challenges under [`ManhattanAudit/`](ManhattanAudit/).
 | `manuscript.tex:576-585` / `op-fiber-s-nonpositive` | `Manhattan.Frozen.Operator.fiberS_nonpositive` | `Manhattan/Frozen/Operator/FiberSNonpositive.lean` | proved |
 | `manuscript.tex:576-585` / `op-fiber-s-norm-le` | `Manhattan.Frozen.Operator.fiberS_norm_le` | `Manhattan/Frozen/Operator/FiberSNormLe.lean` | proved |
 | `manuscript.tex:576-585` / `op-fiber-s-self-adjoint` | `Manhattan.Frozen.Operator.fiberS_selfAdjoint` | `Manhattan/Frozen/Operator/FiberSSelfAdjoint.lean` | proved |
-| `manuscript.tex:640-666` / `op-frequency-resolvent-le-of-competitor` | `Manhattan.Frozen.Operator.frequency_resolvent_le_of_competitor` | `Manhattan/Frozen/Operator/FrequencyResolventLeOfCompetitor.lean` | proved (superseded by `op-frequency-resolvent-le-of-competitor-v2`) |
 | `manuscript.tex:640-666` / `op-frequency-resolvent-le-of-competitor-v2` | `Manhattan.Frozen.Operator.frequency_resolvent_le_of_competitor_v2` | `Manhattan/Frozen/Operator/FrequencyResolventLeOfCompetitorV2.lean` | proved |
 | `manuscript.tex:564-607` / `op-generator-commutes-operator-semigroup` | `Manhattan.Frozen.Operator.generator_commutes_operatorSemigroup` | `Manhattan/Frozen/Operator/GeneratorCommutesOperatorSemigroup.lean` | proved |
 | `manuscript.tex:610-638` / `op-h-bijective` | `Manhattan.Frozen.Operator.H_bijective` | `Manhattan/Frozen/Operator/HBijective.lean` | proved |
@@ -135,8 +134,6 @@ are traceable.
 
 | Source | Lean declaration | File | Status |
 |---|---|---|---|
-| `manuscript.tex:612`, `manuscript.tex:644-660` | `Manhattan.Competitor.not_competitorBoundClaim_of_raw_frequency` | `Manhattan/Competitor/Obstruction.lean` | proved (audit evidence) |
-| `manuscript.tex:612`, `manuscript.tex:644-660` | `Manhattan.Competitor.not_proposition_frequency` | `Manhattan/Competitor/Obstruction.lean` | proved (audit evidence) |
 | `manuscript.tex:668-681` | `Manhattan.Glue.annealedGreenBound_of_uniform_damped` | `Manhattan/Glue/Annealed.lean` | proved (assembly support) |
 | `manuscript.tex:640-681` | `Manhattan.Glue.annealedGreenBound_of_regional_identity` | `Manhattan/Glue/Annealed.lean` | proved (assembly support) |
 | `manuscript.tex:207-214` | `Manhattan.AnnealedGreenBound` | `Manhattan/Model/Subordination.lean` | definition (assembly interface) |

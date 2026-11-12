@@ -168,7 +168,7 @@ pinned source they transcribe:
   `Manhattan.transience` and `Manhattan.annealed_green_bound` through a bridge, so neither
   theorem rests on any other axiom.
   [`Manhattan/Meta/AxiomsAudit.lean`](Manhattan/Meta/AxiomsAudit.lean) prints the axioms of
-  the two main theorems and of every proved node that is not superseded (118 reports, a count
+  the two main theorems and of every proved node that is not superseded (115 reports, a count
   the CI workflow checks), and
   [`Manhattan/Certificate.lean`](Manhattan/Certificate.lean) restates the main results in
   self-contained form and prints the axioms each rests on. The
@@ -298,7 +298,6 @@ Manhattan/
                           resolvent bound
   Library.lean            the operator objects re-exported from Lattice-Probability
   Estimates/              the degree-one and degree-three estimates
-  Competitor/             the competitor and the obstruction to the raw frequency version
   Glue/                   the concrete competitor, the four summands, the assembly
                           of the main theorems
   V4/                     the second proof of Theorem 1.1, along the arXiv version

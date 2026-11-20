@@ -121,7 +121,6 @@ theorem integral_inv_sq_neg_le {a b : ℝ} (ha : 0 < a) (hab : a ≤ b) :
 
 /-! ## The `β` integral (6) -/
 
-set_option maxHeartbeats 1000000 in
 theorem torusIntegral_inv_le
     {rho c m : ℝ} {Phi : ℝ → ℝ} (hmeas : Measurable Phi)
     (hc : 0 < c) (hrho : 0 < rho) (hrho' : rho ≤ 1 / 4)
@@ -135,27 +134,35 @@ theorem torusIntegral_inv_le
   have hpi2' : (2:ℝ) ≤ Real.pi := Real.two_le_pi
   have hpi2 : (0:ℝ) < Real.pi ^ 2 := by positivity
   have hL1 : 1 < Real.log (1 / rho) := one_lt_log_inv hrho hrho'
-  have hL0 : (0:ℝ) < Real.log (1 / rho) := by linarith
+  have hL0 : (0:ℝ) < Real.log (1 / rho) := by linarith only [hL1]
   have hL2 : rho * Real.log (1 / rho) ≤ 1 := mul_log_inv_le_one hrho hrho'
   set S : ℝ := Real.sqrt (Real.log (1 / rho)) with hSdef
   have hS0 : 0 < S := Real.sqrt_pos.mpr hL0
   have hSsq : S ^ 2 = Real.log (1 / rho) := Real.sq_sqrt hL0.le
-  have hS1 : 1 < S := by nlinarith
+  have hS1 : 1 < S := (one_lt_sq_iff₀ hS0.le).1 (by rw [hSsq]; exact hL1)
   set t2 : ℝ := Real.sqrt rho with ht2
   have ht2pos : 0 < t2 := Real.sqrt_pos.mpr hrho
   have ht2sq : t2 * t2 = rho := Real.mul_self_sqrt hrho.le
   have ht2half : t2 ≤ 1 / 2 := sqrt_le_half hrho'
-  have hrt2 : rho ≤ t2 := le_sqrt_self hrho.le (by linarith)
+  have hrt2 : rho ≤ t2 := le_sqrt_self hrho.le (by linarith only [hrho'])
   clear_value S t2
   set t1 : ℝ := rho / S with ht1
   have ht1pos : 0 < t1 := div_pos hrho hS0
-  have ht1le : t1 ≤ rho := by rw [ht1, div_le_iff₀ hS0]; nlinarith
+  have ht1le : t1 ≤ rho := by
+    rw [ht1, div_le_iff₀ hS0]
+    exact le_mul_of_one_le_right hrho.le hS1.le
   have ht12 : t1 ≤ t2 := le_trans ht1le hrt2
-  have ht2pi : t2 ≤ Real.pi := by linarith
+  have ht2pi : t2 ≤ Real.pi := by linarith only [ht2half, hpi2']
   clear_value t1
   -- `t2 S ≤ 1`, hence `ρ S ≤ t2`: this absorbs the outer piece into the main term.
-  have ht2S : t2 * S ≤ 1 := by nlinarith [mul_pos ht2pos hS0]
-  have hrhoS : rho * S ≤ t2 := by nlinarith
+  have ht2S : t2 * S ≤ 1 := by
+    refine (sq_le_one_iff₀ (mul_pos ht2pos hS0).le).1 ?_
+    rw [mul_pow, hSsq, sq, ht2sq]
+    exact hL2
+  have hrhoS : rho * S ≤ t2 :=
+    calc rho * S = t2 * (t2 * S) := by rw [← ht2sq]; ring
+      _ ≤ t2 * 1 := mul_le_mul_of_nonneg_left ht2S ht2pos.le
+      _ = t2 := mul_one t2
   have hq0 : (0:ℝ) < 2 / Real.pi ^ 2 * rho ^ 2 := by positivity
   have hPhipos : ∀ b, 0 < Phi b := fun b => lt_of_lt_of_le hm (hglob b)
   set F : ℝ → ℝ := fun b => (Phi b)⁻¹ with hF
@@ -187,13 +194,13 @@ theorem torusIntegral_inv_le
     (hFii (-Real.pi) t2) (hFii t2 Real.pi)
   -- middle piece: the constant bound `Φ ≥ 2ρ²/π²`
   have b3 : (∫ x in (-t1)..t1, F x) ≤ 2 * t1 * (Real.pi ^ 2 / (2 * rho ^ 2)) := by
-    have hle : -t1 ≤ t1 := by linarith
+    have hle : -t1 ≤ t1 := by linarith only [ht1pos]
     have h := intervalIntegral.integral_mono_on hle (hFii (-t1) t1)
       _root_.intervalIntegrable_const (fun x hx => hFub x (by
         rw [abs_le]
         constructor
-        · linarith [hx.1]
-        · linarith [hx.2]))
+        · linarith only [hx.1, ht12, ht2pi]
+        · linarith only [hx.2, ht12, ht2pi]))
     rw [intervalIntegral.integral_const, smul_eq_mul] at h
     calc (∫ x in (-t1)..t1, F x) ≤ (t1 - -t1) * (Real.pi ^ 2 / (2 * rho ^ 2)) := h
       _ = 2 * t1 * (Real.pi ^ 2 / (2 * rho ^ 2)) := by ring
@@ -222,12 +229,12 @@ theorem torusIntegral_inv_le
     rw [intervalIntegral.integral_const_mul] at hmono
     exact hmono.trans (mul_le_mul_of_nonneg_left (integral_inv_sq_le ht1pos ht12) hcoef)
   have b2 : (∫ x in (-t2)..(-t1), F x) ≤ (1 / (c * Real.log (1 / rho))) * (1 / t1) := by
-    have hle : -t2 ≤ -t1 := by linarith
+    have hle : -t2 ≤ -t1 := by linarith only [ht12]
     have hpt : ∀ x ∈ Set.Icc (-t2) (-t1),
         F x ≤ (1 / (c * Real.log (1 / rho))) * (x ^ 2)⁻¹ := by
       intro x hx
-      have hxneg : x < 0 := lt_of_le_of_lt hx.2 (by linarith)
-      exact hlogpt x (ne_of_lt hxneg) (by rw [abs_of_neg hxneg]; linarith [hx.1])
+      have hxneg : x < 0 := lt_of_le_of_lt hx.2 (by linarith only [ht1pos])
+      exact hlogpt x (ne_of_lt hxneg) (by rw [abs_of_neg hxneg]; linarith only [hx.1])
     have hg : IntervalIntegrable
         (fun x : ℝ => (1 / (c * Real.log (1 / rho))) * (x ^ 2)⁻¹) volume (-t2) (-t1) :=
       (intervalIntegrable_inv_sq_neg ht1pos ht12).const_mul _
@@ -258,11 +265,11 @@ theorem torusIntegral_inv_le
     rw [intervalIntegral.integral_const_mul] at hmono
     exact hmono.trans (mul_le_mul_of_nonneg_left (integral_inv_sq_le ht2pos ht2pi) hcoef2)
   have b1 : (∫ x in (-Real.pi)..(-t2), F x) ≤ (Real.pi ^ 2 / 2) * (1 / t2) := by
-    have hle : -Real.pi ≤ -t2 := by linarith
+    have hle : -Real.pi ≤ -t2 := by linarith only [ht2pi]
     have hpt : ∀ x ∈ Set.Icc (-Real.pi) (-t2), F x ≤ (Real.pi ^ 2 / 2) * (x ^ 2)⁻¹ := by
       intro x hx
-      exact houtpt x (ne_of_lt (lt_of_le_of_lt hx.2 (by linarith)))
-        (by rw [abs_of_neg (lt_of_le_of_lt hx.2 (by linarith))]; linarith [hx.1])
+      exact houtpt x (ne_of_lt (lt_of_le_of_lt hx.2 (by linarith only [ht2pos])))
+        (by rw [abs_of_neg (lt_of_le_of_lt hx.2 (by linarith only [ht2pos]))]; linarith only [hx.1])
     have hg : IntervalIntegrable
         (fun x : ℝ => (Real.pi ^ 2 / 2) * (x ^ 2)⁻¹) volume (-Real.pi) (-t2) :=
       (intervalIntegrable_inv_sq_neg ht2pos ht2pi).const_mul _
@@ -276,7 +283,7 @@ theorem torusIntegral_inv_le
     rw [ht1, ← hSsq]; field_simp
   have c5 : (Real.pi ^ 2 / 2) * (1 / t2) ≤ Real.pi ^ 2 / (2 * (rho * S)) := by
     rw [mul_one_div, div_div]
-    exact div_le_div_of_nonneg_left (by positivity) (by positivity) (by nlinarith)
+    exact div_le_div_of_nonneg_left (by positivity) (by positivity) (by linarith only [hrhoS])
   have hb3 : (∫ x in (-t1)..t1, F x) ≤ Real.pi ^ 2 / (rho * S) := by rw [← c3]; exact b3
   have hb4 : (∫ x in t1..t2, F x) ≤ 1 / (c * (rho * S)) := by rw [← c4]; exact b4
   have hb2 : (∫ x in (-t2)..(-t1), F x) ≤ 1 / (c * (rho * S)) := by rw [← c4]; exact b2
@@ -286,7 +293,7 @@ theorem torusIntegral_inv_le
       ≤ 2 * (Real.pi ^ 2 / (2 * (rho * S)))
         + 2 * (1 / (c * (rho * S)))
         + Real.pi ^ 2 / (rho * S) := by
-    linarith [e1, e2, e3, e4, hb1, hb2, hb3, hb4, hb5]
+    linarith only [e1, e2, e3, e4, hb1, hb2, hb3, hb4, hb5]
   have hAsum' : (∫ x in (-Real.pi)..Real.pi, F x)
       ≤ (2 * Real.pi ^ 2 + 2 / c) / (rho * S) := by
     have hsplit : (2 * Real.pi ^ 2 + 2 / c) / (rho * S)
@@ -300,7 +307,8 @@ theorem torusIntegral_inv_le
       = (Real.pi ^ 2 + 1 / c) / (Real.pi * (rho * S)) := by
     field_simp
   have hnum : (0:ℝ) ≤ Real.pi ^ 2 + 1 / c := by positivity
-  have hden : rho * S ≤ Real.pi * (rho * S) := by nlinarith
+  have hden : rho * S ≤ Real.pi * (rho * S) :=
+    le_mul_of_one_le_left hT.le (by linarith only [hpi2'])
   calc (2 * Real.pi)⁻¹ * ∫ x in (-Real.pi)..Real.pi, F x
       ≤ (2 * Real.pi)⁻¹ * ((2 * Real.pi ^ 2 + 2 / c) / (rho * S)) :=
         mul_le_mul_of_nonneg_left hAsum' (by positivity)

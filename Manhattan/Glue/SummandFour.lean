@@ -202,7 +202,6 @@ theorem correctionInterval_bounds_strong {q : Manhattan.Estimates.Parameters}
 private theorem pi_sq_le_ten : Real.pi ^ 2 ≤ 10 := by
   nlinarith [Real.pi_lt_d4, Real.pi_pos]
 
-set_option maxHeartbeats 1000000 in
 /-- **The scalar momentum comparison.**  When the frequency `α` is separated
 from the origin by `80(a+√λ+|β|)` and stays in `[-π/20,0]`, shifting the two
 total-frequency coordinates by amounts of size at most `a` and `2a` costs at
@@ -228,15 +227,16 @@ theorem sineSqDivSqrt_shift_le_scalar {lam a c0 c1 alpha beta : ℝ}
   have hpipos : 0 < Real.pi := Real.pi_pos
   set u : ℝ := -alpha with hu
   have hualpha : alpha = -u := by rw [hu]; ring
-  have hupos : 0 < u := by rw [hu]; linarith
-  have hau : a ≤ u / 80 := by rw [hu]; linarith
-  have hsu : Real.sqrt lam ≤ u / 80 := by rw [hu]; linarith
-  have hbu : |beta| ≤ u / 80 := by rw [hu]; linarith
-  have hurho : u ≤ Real.pi / 20 := by rw [hu]; linarith
-  have husmall : u ≤ 0.1571 := by linarith
-  have hlamu : lam ≤ u ^ 2 / 6400 := by
-    have h := Real.sq_sqrt hlam.le
-    nlinarith [hsu, hsqrtnn, hupos]
+  have hupos : 0 < u := by rw [hu]; linarith only [hsep, hsqrtpos, ha, hbetann]
+  have hau : a ≤ u / 80 := by rw [hu]; linarith only [hsep, hsqrtnn, hbetann]
+  have hsu : Real.sqrt lam ≤ u / 80 := by rw [hu]; linarith only [hsep, ha, hbetann]
+  have hbu : |beta| ≤ u / 80 := by rw [hu]; linarith only [hsep, ha, hsqrtnn]
+  have hurho : u ≤ Real.pi / 20 := by rw [hu]; linarith only [hlow]
+  have husmall : u ≤ 0.1571 := by linarith only [hurho, hpid4]
+  have hlamu : lam ≤ u ^ 2 / 6400 :=
+    calc lam = Real.sqrt lam ^ 2 := (Real.sq_sqrt hlam.le).symm
+      _ ≤ (u / 80) ^ 2 := pow_le_pow_left₀ hsqrtnn hsu 2
+      _ = u ^ 2 / 6400 := by ring
   have hsqrt2 : Real.sqrt 2 * Real.sqrt 2 = 2 := Real.mul_self_sqrt (by norm_num)
   have hsqrt2nn : (0 : ℝ) ≤ Real.sqrt 2 := Real.sqrt_nonneg 2
   have hupper : ∀ y : ℝ, Real.sin y ^ 2 /
@@ -256,10 +256,10 @@ theorem sineSqDivSqrt_shift_le_scalar {lam a c0 c1 alpha beta : ℝ}
     rw [hualpha, abs_neg, abs_of_nonneg hupos.le]
   have hshift0 : |beta + c0| ≤ u / 40 := by
     have h := abs_add_le beta c0
-    linarith
+    linarith only [h, hbu, hc0, hau]
   have hshift1 : |alpha + c1| ≤ u * (1 + 1 / 40) := by
     have h1 := abs_add_le alpha c1
-    linarith
+    linarith only [h1, habsalpha, hc1, hau]
   have hT0 : Real.sin (beta + c0) ^ 2 /
       Real.sqrt (lam + Manhattan.Estimates.dispersion (beta + c0)) ≤
         Real.sqrt 2 * (u / 40) :=
@@ -279,7 +279,7 @@ theorem sineSqDivSqrt_shift_le_scalar {lam a c0 c1 alpha beta : ℝ}
       2.1 * u := by
     refine le_trans (mul_le_mul_of_nonneg_left (add_le_add hT0 hT1) hsqrt2nn) ?_
     exact le_of_eq hexp
-  have habspi : |alpha| ≤ Real.pi := by rw [habsalpha]; linarith
+  have habspi : |alpha| ≤ Real.pi := by rw [habsalpha]; linarith only [hurho, hpipos]
   obtain ⟨hdlo, hdhi⟩ := Manhattan.Estimates.dispersion_quadratic_bounds habspi
   set d : ℝ := Manhattan.Estimates.dispersion alpha with hd
   have halphasq : alpha ^ 2 = u ^ 2 := by rw [hualpha]; ring
@@ -289,10 +289,14 @@ theorem sineSqDivSqrt_shift_le_scalar {lam a c0 c1 alpha beta : ℝ}
   have hdlo' : u ^ 2 / 5 ≤ d := by
     have hstep : u ^ 2 / 5 ≤ 2 * u ^ 2 / Real.pi ^ 2 := by
       rw [le_div_iff₀ hp2]
-      nlinarith [hupos, hpisq]
-    linarith
-  have husq : u ^ 2 ≤ 0.025 := by nlinarith [hupos, husmall]
-  have hdsmall : d ≤ 0.02 := by linarith
+      calc u ^ 2 / 5 * Real.pi ^ 2 ≤ u ^ 2 / 5 * 10 :=
+            mul_le_mul_of_nonneg_left hpisq (by positivity)
+        _ = 2 * u ^ 2 := by ring
+    linarith only [hstep, hdlo]
+  have husq : u ^ 2 ≤ 0.025 :=
+    calc u ^ 2 ≤ 0.1571 ^ 2 := pow_le_pow_left₀ hupos.le husmall 2
+      _ ≤ 0.025 := by norm_num
+  have hdsmall : d ≤ 0.02 := by linarith only [hdhi, husq]
   have hsinid : Real.sin alpha ^ 2 = d * (2 - d) := by
     have h := Real.sin_sq_add_cos_sq alpha
     rw [hd]
@@ -303,22 +307,22 @@ theorem sineSqDivSqrt_shift_le_scalar {lam a c0 c1 alpha beta : ℝ}
   have hdenle : Real.sqrt (lam + d) ≤ 0.72 * u := by
     have hsq : (0.72 * u) ^ 2 = 0.5184 * u ^ 2 := by ring
     have hle : lam + d ≤ (0.72 * u) ^ 2 := by
-      rw [hsq]; linarith [sq_nonneg u]
+      rw [hsq]; linarith only [hlamu, hdhi, sq_nonneg u]
     calc Real.sqrt (lam + d) ≤ Real.sqrt ((0.72 * u) ^ 2) := Real.sqrt_le_sqrt hle
       _ = 0.72 * u := Real.sqrt_sq (by positivity)
-  have hdenpos : 0 < Real.sqrt (lam + d) := Real.sqrt_pos.mpr (by linarith)
+  have hdenpos : 0 < Real.sqrt (lam + d) := Real.sqrt_pos.mpr (by linarith only [hlam, hdnn])
   have hmul : (1 / 2 : ℝ) * u * Real.sqrt (lam + d) ≤ (1 / 2 : ℝ) * u * (0.72 * u) :=
     mul_le_mul_of_nonneg_left hdenle (by positivity)
   have hdd : 1.98 * d ≤ d * (2 - d) := by
-    have h : 0 ≤ d * (0.02 - d) := mul_nonneg hdnn (by linarith)
-    linarith
+    have h : 0 ≤ d * (0.02 - d) := mul_nonneg hdnn (by linarith only [hdsmall])
+    linarith only [h]
   have hkey : (1 / 2 : ℝ) * u ≤ Real.sin alpha ^ 2 / Real.sqrt (lam + d) := by
     rw [le_div_iff₀ hdenpos, hsinid]
-    linarith
+    linarith only [hmul, hdd, hdlo', sq_nonneg u]
   have hbetann2 : (0 : ℝ) ≤ Real.sin beta ^ 2 /
       Real.sqrt (lam + Manhattan.Estimates.dispersion beta) :=
     div_nonneg (sq_nonneg _) (Real.sqrt_nonneg _)
-  linarith
+  linarith only [hLHS, hkey, hbetann2, hupos]
 
 /-- **The momentum comparison at the concrete competitor.**  Wherever the
 manuscript's `k̃` is nonzero, the raising density at the objective's momentum

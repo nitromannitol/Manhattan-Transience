@@ -362,7 +362,6 @@ theorem denominatorBound_proved {q : Parameters} (hq : q.Admissible)
     mul_nonneg (sq_nonneg _) (le_max_left _ _)
   nlinarith
 
-set_option maxHeartbeats 1600000
 /-- Equation (34), with a deliberately round uniform constant. -/
 theorem betaIntegralBound_proved {q : Parameters} (hq : q.Admissible)
     {a : ℝ} (ha : 0 ≤ a) : BetaIntegralBound 40 200000 q a := by
@@ -531,9 +530,9 @@ theorem betaIntegralBound_proved {q : Parameters} (hq : q.Admissible)
               Real.log_div (add_pos_of_pos_of_nonneg hrPos (abs_nonneg _)).ne' hrPos.ne']
             ring
           have hrawLog : L / 2 ≤ Real.log (q.r0 / (r + |beta|)) := by
+            have hLdef : L = 1 + Real.log (q.r0 / r) := rfl
             rw [hlogDecomp]
-            dsimp [L]
-            nlinarith
+            linarith only [hlogGrowth, habsDiv, hsqrtQuarter, hLlarge, hLdef]
           have hlogFactor : L / 2 ≤ 1 + logPos (q.r0 / (r + |beta|)) := by
             calc
               L / 2 ≤ Real.log (q.r0 / (r + |beta|)) := hrawLog
@@ -543,13 +542,19 @@ theorem betaIntegralBound_proved {q : Parameters} (hq : q.Admissible)
           have hcoreLower : c * (r ^ 2 + D ^ 2 * beta ^ 2) ≤
               correctionB q r beta + correctionSigma 40 q a r beta := by
             have hDsq : D ^ 2 = L / 4 := by
-              dsimp [D]
-              nlinarith
+              dsimp only [D]
+              rw [div_pow, hsqrtSq]
+              norm_num
             have hinside : r ^ 2 + D ^ 2 * beta ^ 2 ≤
                 q.lambda + r ^ 2 + beta ^ 2 *
                   (1 + logPos (q.r0 / (r + |beta|))) := by
               rw [hDsq]
-              nlinarith [sq_nonneg beta, hq.1]
+              have hmul : L / 4 * beta ^ 2 ≤
+                  beta ^ 2 * (1 + logPos (q.r0 / (r + |beta|))) := by
+                rw [mul_comm]
+                exact mul_le_mul_of_nonneg_left (by linarith only [hlogFactor, hLPos])
+                  (sq_nonneg beta)
+              linarith only [hmul, hq.1]
             exact (mul_le_mul_of_nonneg_left hinside hcPos.le).trans (by simpa [c] using hden)
           have hcorePos : 0 < c * (r ^ 2 + D ^ 2 * beta ^ 2) := by positivity
           have hinv := (inv_le_inv₀ hdenPos hcorePos).2 hcoreLower
@@ -576,16 +581,18 @@ theorem betaIntegralBound_proved {q : Parameters} (hq : q.Admissible)
                   (1 + logPos (q.r0 / (r + |beta|))) := by
                 have hfactor : 1 ≤ 1 + logPos (q.r0 / (r + |beta|)) := by
                   dsimp [logPos]
-                  linarith [le_max_left 0 (Real.log (q.r0 / (r + |beta|)))]
+                  linarith only [le_max_left 0 (Real.log (q.r0 / (r + |beta|)))]
                 have hmul := mul_le_mul_of_nonneg_left hfactor (sq_nonneg beta)
-                nlinarith [sq_nonneg r, hq.1]
+                linarith only [hmul, sq_nonneg r, hq.1]
               exact (mul_le_mul_of_nonneg_left hins hcPos.le).trans (by simpa [c] using hden)
-            have hhalfLower : (c / 2) * (s ^ 2 + beta ^ 2) ≤ c * beta ^ 2 := by
-              nlinarith [hcPos, hsBeta]
+            have hhalfLower : (c / 2) * (s ^ 2 + beta ^ 2) ≤ c * beta ^ 2 :=
+              calc (c / 2) * (s ^ 2 + beta ^ 2) ≤ (c / 2) * (beta ^ 2 + beta ^ 2) :=
+                    mul_le_mul_of_nonneg_left (by linarith only [hsBeta])
+                      (by linarith only [hcPos])
+                _ = c * beta ^ 2 := by ring
             exact hhalfLower.trans hsimple
           have houterPos : 0 < (c / 2) * (s ^ 2 + beta ^ 2) := by
-            have hbetaSqPos : 0 < beta ^ 2 := by
-              nlinarith [sq_pos_of_pos hsPos, hsBeta]
+            have hbetaSqPos : 0 < beta ^ 2 := (sq_pos_of_pos hsPos).trans_le hsBeta
             positivity
           have hinv := (inv_le_inv₀ hdenPos houterPos).2 houterLower
           dsimp [g, majorant, first, second]

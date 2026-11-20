@@ -726,7 +726,6 @@ theorem evenMajorant_mul_norm_parityKernel_sq (hkappa : 0 < kappa) (hdelta : 0 <
   rw [hsq]
   ring
 
-set_option maxHeartbeats 1000000 in
 /-- The inner `r'`-integral of the energy: the cross term is killed by (P1). -/
 theorem torusIntegral_energy_inner (hkappa : 0 < kappa) (hdelta : 0 < delta)
     (v : ParityProfile) (r beta : ℝ) :
@@ -806,7 +805,6 @@ theorem torusIntegral_energy_inner (hkappa : 0 < kappa) (hdelta : 0 < delta)
     torusIntegral_add_of_bounded (hmA.fun_add hmB) hmC hbAB hbC,
     torusIntegral_add_of_bounded hmA hmB hbA hbB, hA, hB, hC, add_zero]
 
-set_option maxHeartbeats 1000000 in
 /-- The second diagonal term symmetrizes into the first: this is the swap
 `r ↔ r'`, legitimate because `M` is symmetric in the two row frequencies. -/
 theorem torusIntegral_energy_swap (hkappa : 0 < kappa) (hdelta : 0 < delta)
@@ -844,7 +842,6 @@ theorem torusIntegral_energy_swap (hkappa : 0 < kappa) (hdelta : 0 < delta)
   rw [hswap, torusIntegral_real_smul, torusIntegral_real_smul]
   rfl
 
-set_option maxHeartbeats 2000000 in
 /-- **(P4).**  `∫ M |K|² = ∫ σ |v|²`: the cross term vanishes by (P1) and the
 two diagonal terms are equal by the `r ↔ r'` symmetry of `M`.  This is an
 identity, with the note's normalization `K = (i sin β/(√2 M))(v + v')` and the
@@ -866,7 +863,9 @@ theorem evenMajorantEnergy_parityKernel (hkappa : 0 < kappa) (hdelta : 0 < delta
   have hm1 : Measurable fun r : ℝ => 2⁻¹ * (Real.sin beta ^ 2 *
       (v.toFun r beta * (v.toFun r beta * parityJ kappa delta r beta))) := by
     have hJ : Measurable fun r : ℝ => parityJ kappa delta r beta :=
-      parityJ_measurable.comp (measurable_id.prodMk measurable_const)
+      Measurable.comp (f := fun r : ℝ => ((r, beta) : ℝ × ℝ))
+        (g := fun z : ℝ × ℝ => parityJ kappa delta z.1 z.2) parityJ_measurable
+        (measurable_id.prodMk measurable_const)
     exact measurable_const.mul (measurable_const.mul ((v.measurable_row beta).mul
       ((v.measurable_row beta).mul hJ)))
   have hm2 : Measurable fun r : ℝ => 2⁻¹ * (Real.sin beta ^ 2 *

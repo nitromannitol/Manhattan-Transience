@@ -101,7 +101,6 @@ theorem summable_poissonWeightPrev_mul (ω : Environment) {t : ℝ} (ht : 0 ≤ 
         mul_le_mul_of_nonneg_left (dk_le_one ω _ z y) (poissonWeight_nonneg ht m)
     _ = poissonWeight t m := mul_one _
 
-set_option maxHeartbeats 1000000 in
 theorem hasDerivAt_ck (ω : Environment) {t : ℝ} (ht : 0 < t) (z y : Site) :
     HasDerivAt (fun s => ck ω s z y)
       (ck ω t (directedNeighbor ω z Axis.horizontal) y
@@ -301,7 +300,6 @@ theorem tsum_ode_eq (ω : Environment) {t : ℝ} (ht : 0 ≤ t) (y : Site) :
   rw [hb1, hb2]
   ring
 
-set_option maxHeartbeats 1000000 in
 theorem hasDerivAt_colL2 (ω : Environment) {t : ℝ} (ht : 0 < t) (y : Site) :
     HasDerivAt (fun s => ∑' z, ck ω s z y ^ 2) (-(energy fun z => ck ω t z y)) t := by
   set b : ℝ := t + 1 with hbdef
@@ -353,7 +351,6 @@ theorem nash_energy_bound (ω : Environment) {s : ℝ} (hs : 0 ≤ s) (y : Site)
   rw [tsum_ck_col ω hs y] at h
   nlinarith [h]
 
-set_option maxHeartbeats 1000000 in
 theorem colSq_le (ω : Environment) {t : ℝ} (ht : 0 ≤ t) (y : Site) :
     (∑' z, ck ω t z y ^ 2) ≤ 1 / (1 + 2 * t) := by
   rcases eq_or_lt_of_le ht with h0 | hpos

@@ -82,7 +82,6 @@ theorem torusBounded₃_correctionCoefficient {kappa : ℝ}
       fun r r' beta =>
         correctionCoefficient_norm_bound hkappa hlambda a p₂ r r' beta⟩⟩
 
-set_option maxHeartbeats 1000000 in
 /-- Equation (30) in the shifted frequency variables used by Lemma 5.3. -/
 theorem rawMultiplierEnergy_correctionCoefficient
     {q : Estimates.Parameters} (hlambda : 0 < q.lambda) (hK : 1 ≤ q.K)

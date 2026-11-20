@@ -115,7 +115,6 @@ theorem rawTorusFun_measurable {k : ℝ → ℝ → ℝ → ℂ} (hk : Glue.Toru
         Manhattan.unitTorusAngle (x 2)) : ℝ × ℝ × ℝ) := h0.prodMk (h1.prodMk h2)
   exact hk.1.comp hcoord
 
-set_option maxHeartbeats 1000000 in
 theorem rawTorusFun_memLp {k : ℝ → ℝ → ℝ → ℂ} (hk : Glue.TorusBoundedThree k) :
     MemLp (rawTorusFun k) 2 (volume : Measure (UnitAddTorus (Fin 3))) := by
   obtain ⟨C, hC⟩ := hk.2

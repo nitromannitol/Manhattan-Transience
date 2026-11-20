@@ -25,7 +25,6 @@ abbrev PositionFrequencyL2 :=
   Lp ℂ 2 (Measure.pi fun _ : Fin 2 =>
     (AddCircle.haarAddCircle : Measure UnitAddCircle))
 
-set_option maxHeartbeats 800000 in
 /-- The negative-phase Fourier basis `z ↦ exp(-2πi z·t)`. -/
 noncomputable def negativeMFourierBasis :
     HilbertBasis Operator.Lattice ℂ PositionFrequencyL2 := by
@@ -101,8 +100,6 @@ noncomputable def l2CongrRight {I E F : Type*}
     (e : E ≃ₗᵢ[ℂ] F) (x : ℓ²(I, E)) (i : I) :
     l2CongrRight e x i = e (x i) := rfl
 
-set_option maxHeartbeats 800000
-
 /-- Reindex an infinite Hilbert sum by an equivalence of its coordinates. -/
 noncomputable def l2CongrLeft {I J E : Type*}
     [NormedAddCommGroup E] [InnerProductSpace ℂ E]
@@ -136,8 +133,6 @@ noncomputable def l2CongrLeft {I J E : Type*}
     [NormedAddCommGroup E] [InnerProductSpace ℂ E]
     (e : I ≃ J) (x : ℓ²(I, E)) (j : J) :
     l2CongrLeft e x j = x (e.symm j) := rfl
-
-set_option maxHeartbeats 200000
 
 /-- Joint position functions after Walsh expansion: each Walsh coefficient
 is an `ℓ²(ℤ²)` position function. -/

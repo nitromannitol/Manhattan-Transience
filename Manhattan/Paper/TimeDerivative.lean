@@ -143,7 +143,6 @@ theorem dck_chapman (ω : Environment) {s : ℝ} (hs : 0 ≤ s) (x y : Site) :
     Summable.tsum_add (hsum _) (hsum _), tsum_mul_left,
     ← ck_chapman ω hs hs, ← ck_chapman ω hs hs, ← ck_chapman ω hs hs, dck]
 
-set_option maxHeartbeats 1000000 in
 theorem abs_dck_le_sharp (ω : Environment) {t : ℝ} (ht : 0 < t) (x y : Site) :
     |dck ω t x y| ≤ 4 / (Real.sqrt t * (2 + t)) := by
   have hs : (0:ℝ) < t / 2 := by linarith

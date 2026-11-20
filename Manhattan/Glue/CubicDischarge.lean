@@ -505,7 +505,6 @@ theorem correctionSigmaEnergy_eq_double (q : Estimates.Parameters) (a : ℝ) :
         Estimates.correctionSigma 40 q a r beta *
           Estimates.correctionV 40 q a r beta ^ 2 := rfl
 
-set_option maxHeartbeats 1000000 in
 /-- Equation (30): the raw multiplier energy of the symmetrized type-`112`
 coefficient is exactly twice the scalar energy of one summand. -/
 theorem rawCubicMultiplierEnergy_eq_two_correctionSigmaEnergy

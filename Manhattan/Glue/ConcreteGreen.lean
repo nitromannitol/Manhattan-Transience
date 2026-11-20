@@ -128,7 +128,6 @@ private theorem poisson_nstep_term_eq (t : ℝ) (ht : 0 ≤ t) (n : ℕ) :
   rw [mul_assoc, ← mul_pow]
   norm_num
 
-set_option maxHeartbeats 800000 in
 private theorem annealedContinuousKernel_eq_ofReal_tsum (t : ℝ) (ht : 0 ≤ t) :
     Manhattan.annealedContinuousKernel t 0 0 =
       ENNReal.ofReal (∑' n : ℕ,

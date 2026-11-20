@@ -120,7 +120,6 @@ theorem concreteJointGenerator_eq_fourier_conjugate (F : JointPositionL2) :
         (concreteJointFiberOperator (jointPositionFourier F)) := by
   exact jointGenerator_eq_transform_symm concreteJointFiberization F
 
-set_option maxHeartbeats 800000 in
 /-- The elementary joint shift sends `(S,z)` to
 `(τ_x S,z-x)`, exactly the coefficient action of `F(τ_xω,z+x)`. -/
 @[simp] theorem jointTranslatedStep_single (x : Operator.Lattice)

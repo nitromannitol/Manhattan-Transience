@@ -166,7 +166,6 @@ theorem tsum_prod_eq_tsum_antidiagonal {G : ℕ × ℕ → ℝ} (hG : Summable G
   rw [tsum_congr hrhs, ← (Finset.HasAntidiagonal.sigmaAntidiagonalEquivProd (A := ℕ)).tsum_eq G]
   exact hσ.tsum_sigma' fun n => (hasSum_fintype _).summable
 
-set_option maxHeartbeats 1000000 in
 /-- The Chapman-Kolmogorov identity for the subordinated kernel. -/
 theorem ck_chapman (ω : Environment) {a b : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) (x y : Site) :
     ck ω (a + b) x y = ∑' z, ck ω a x z * ck ω b z y := by

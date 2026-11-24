@@ -39,7 +39,7 @@ restated over a Mathlib-only vocabulary for the comparator (see
 ## The frozen surface
 
 The table below is the complete frozen surface; counts and states are checked
-against `ledger/manifest.yaml`. That manifest has **76 nodes, all in state
+against `ledger/manifest.yaml`. That manifest has **75 nodes, all in state
 `PROVED`**; each has exactly one row below. A second, independent reading of the
 frozen statements is recorded for part of the surface. It is not recorded for the
 twelve concrete-lemma rows (`lem-raise-concrete-raising` to
@@ -173,7 +173,7 @@ they name, so the frozen surface stays internally consistent.  What follows is
 the correspondence to the arXiv text, computed by anchoring on `\label` names
 rather than on line numbers.
 
-**64 of the 76 frozen nodes** anchor on statements that the arXiv text also
+**63 of the 75 frozen nodes** anchor on statements that the arXiv text also
 prints.  The remaining **12** anchor only on statements it does not print:
 
 | Node | Pinned lines | Anchors absent from the arXiv text |

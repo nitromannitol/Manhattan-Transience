@@ -126,7 +126,7 @@ result and lists every change against the arXiv version.
 
 ## Registered statements
 
-The manifest [`ledger/manifest.yaml`](ledger/manifest.yaml) registers 76 statements, all in the
+The manifest [`ledger/manifest.yaml`](ledger/manifest.yaml) registers 75 statements, all in the
 state `PROVED`. The pinned source is [`paper/manuscript.tex`](paper/manuscript.tex), whose
 SHA-256 is recorded in [`paper/SOURCE_PIN.txt`](paper/SOURCE_PIN.txt) and in the manifest. A
 registered statement's text between the lines `-- FROZEN-STATEMENT-BEGIN` and

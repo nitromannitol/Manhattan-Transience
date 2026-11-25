@@ -1233,6 +1233,77 @@ theorem coincidentProfile_le {kappa : ℝ} (hkappa : 0 ≤ kappa) {q : Estimates
   rw [h1]
   exact h2.trans h3
 
+/-- **`lem:distinct`** (`manuscript.tex:1212-1221`).  Let `k̃` be the coefficient
+of type `112` with normalized coefficient function `K(r, r', β)`, symmetric in
+the two row frequencies and without the restriction that the two row indices
+be distinct, and let `k = Π₃ k̃`.  Then the difference
+`Π₂ D̃₂* k̃ - D₂* k = Π₂ D̃₂* (k̃ - Π₃ k̃)` has only a mixed component, and its
+squared `H⁻¹` norm `2! ⟨·, (λ + θ(P))⁻¹ ·⟩` is at most `6/κ` times
+`⟨k̃, M k̃⟩ = 3! ⟨k̃, M k̃⟩_{ℓ²}` for the multiplier `M` of `eq:M`. -/
+theorem lemma_distinct {kappa : ℝ} (hkappa : 0 < kappa) {q : Estimates.Parameters}
+    (hlam : 0 < q.lambda) (p : Fin 2 → ℝ) (K : Lp ℂ 2 (LineTorusMeasure 3))
+    (hK : torusPerm 3 (Equiv.swap 0 1) K = K) :
+    (∀ v : Fin 2 → LineIndex, (tuplePattern v = twoRowPattern ∨
+        tuplePattern v = ![Axis.vertical, Axis.vertical]) → rawLowerDifference p K v = 0) ∧
+      2 * RCLike.re (inner ℂ (rawLowerDifference p K)
+          (orderedMultiplier 2 p (hInvMap hlam) (rawLowerDifference p K))) ≤
+        6 / kappa * (6 * RCLike.re (inner ℂ (type112Coeff K)
+          (orderedMultiplier 3 p (multiplierMapC kappa q) (type112Coeff K)))) := by
+  have hsupp : ∀ v : Fin 2 → LineIndex, (tuplePattern v = twoRowPattern ∨
+      tuplePattern v = ![Axis.vertical, Axis.vertical]) → rawLowerDifference p K v = 0 :=
+    fun v hv => rawLowerDifference_apply_eq_zero p K v hv
+  refine ⟨hsupp, ?_⟩
+  set D := rawLowerDifference p K with hD
+  set Y := coincidentProfile K with hY
+  set I := ∫ z, Estimates.multiplier kappa q (totalFrequency 2 p (rowColPattern 0) z) *
+      ‖(Y : UnitAddTorus (Fin 2) → ℂ) z‖ ^ 2 ∂(LineTorusMeasure 2) with hI
+  have hmix0 : (mixedPattern : Fin 2 → Axis) = rowColPattern 0 := by
+    funext a; fin_cases a <;> rfl
+  have hsec0 : ∀ σ : Fin 2 → Axis, σ ≠ rowColPattern 0 → σ ≠ rowColPattern 1 →
+      (orderedFourier 2 D) σ = 0 := by
+    intro σ h0 h1
+    have hσ : σ = twoRowPattern ∨ σ = ![Axis.vertical, Axis.vertical] := by
+      have hc : σ = ![σ 0, σ 1] := by funext a; fin_cases a <;> rfl
+      rw [hc] at h0 h1 ⊢
+      revert h0 h1
+      rcases σ 0 <;> rcases σ 1 <;> intro h0 h1 <;>
+        first
+          | exact Or.inl rfl
+          | exact Or.inr rfl
+          | exact absurd (by decide) h0
+          | exact absurd (by decide) h1
+    have h := orderedFourier_sector_congr 2 σ (c := D) (c' := 0)
+      (fun t ht => by rw [hsupp t (ht ▸ hσ)]; rfl)
+    rw [h]
+    simp
+  rw [re_inner_orderedMultiplier_hInv,
+    Fintype.sum_eq_add (rowColPattern 0) (rowColPattern 1) (by decide) (fun σ hσ => by
+      rw [hsec0 σ hσ.1 hσ.2]
+      simp)]
+  have hA : ∫ t, (symbolWeight 2 q.lambda p (rowColPattern 0) t)⁻¹ *
+      ‖((orderedFourier 2 D) (rowColPattern 0) : UnitAddTorus (Fin 2) → ℂ) t‖ ^ 2
+        ∂(LineTorusMeasure 2) ≤ 9 / kappa * I := by
+    have h := orderedFourier_rawLowerDifference_mixed p K hK
+    rw [hmix0] at h
+    rw [h]
+    exact integral_mixedSector_le hkappa hlam p 0 Y
+  have hB : ∫ t, (symbolWeight 2 q.lambda p (rowColPattern 1) t)⁻¹ *
+      ‖((orderedFourier 2 D) (rowColPattern 1) : UnitAddTorus (Fin 2) → ℂ) t‖ ^ 2
+        ∂(LineTorusMeasure 2) ≤ 9 / kappa * I := by
+    rw [orderedFourier_rawLowerDifference_colRow p K hK]
+    exact integral_mixedSector_le hkappa hlam p 1 Y
+  have hC := coincidentProfile_le hkappa.le hlam.le p K
+  have hk : 0 < 9 / kappa := by positivity
+  have h9 : 9 / kappa * I ≤ 9 / kappa * RCLike.re (inner ℂ (type112Coeff K)
+      (orderedMultiplier 3 p (multiplierMapC kappa q) (type112Coeff K))) :=
+    mul_le_mul_of_nonneg_left hC hk.le
+  have e : 6 / kappa * (6 * RCLike.re (inner ℂ (type112Coeff K)
+      (orderedMultiplier 3 p (multiplierMapC kappa q) (type112Coeff K)))) =
+      4 * (9 / kappa * RCLike.re (inner ℂ (type112Coeff K)
+        (orderedMultiplier 3 p (multiplierMapC kappa q) (type112Coeff K)))) := by ring
+  rw [e]
+  linarith
+
 end
 
 end Manhattan.Paper

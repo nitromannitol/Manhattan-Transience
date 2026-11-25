@@ -409,6 +409,134 @@ theorem lowering_twoRow (p : Fin 2 → ℝ) (k : Lp ℂ 2 (LineTorusMeasure 3)) 
   push_cast
   field_simp
 
+/-- **`eq:D2b`** (`manuscript.tex:833-834`).  In the normalization of
+Section 3.4, the mixed component of `D̃₂* k` is
+`-i √2 sin(β) ∫ k(r, r', β) dm(r')`, for a type-`112` coefficient `k`
+symmetric in its two row frequencies. -/
+theorem lowering_mixed (p : Fin 2 → ℝ) (k : Lp ℂ 2 (LineTorusMeasure 3))
+    (hk : torusPerm 3 (Equiv.swap 0 1) k = k) :
+    ((2 : ℂ) • rawLowerFreq 2 p (type112Freq k) mixedPattern :
+        UnitAddTorus (Fin 2) → ℂ) =ᵐ[LineTorusMeasure 2] fun θ =>
+      -Complex.I * (Real.sqrt 2 : ℂ) * (Real.sin (totalFrequency 2 p mixedPattern θ 0) : ℂ) *
+        ∫ t, (k : UnitAddTorus (Fin 3) → ℂ) (Fin.insertNth 1 t θ)
+          ∂(AddCircle.haarAddCircle : Measure UnitAddCircle) := by
+  have hsector : rawLowerFreq 2 p (type112Freq k) mixedPattern =
+      ((3 : ℂ) * (Real.sqrt 18 : ℂ)⁻¹) •
+        contMul 2 (star (raisingSymbolMap 2 p 0 mixedPattern)) (slotIntegral 2 1 k) := by
+    rw [rawLowerFreq_apply, rawLowerSector, Fin.sum_univ_three]
+    simp only [sum_axis, type112Freq_apply]
+    have e0 : slotIntegral 2 0 k = slotIntegral 2 1 k := by
+      conv_lhs => rw [← hk]
+      exact slotIntegral_torusPerm 2 _ (fun θ => by funext a; fin_cases a <;> rfl) k
+    have e2 : slotIntegral 2 2 (torusPerm 3 (Equiv.swap 1 2) k) = slotIntegral 2 1 k :=
+      slotIntegral_torusPerm 2 _ (fun θ => by funext a; fin_cases a <;> rfl) k
+    simp (config := { decide := true }) only [if_true, if_false, add_zero, zero_add,
+      map_zero, map_smul, e0, e2]
+    simp only [contMul_zero, add_zero, contMul_smul_right,
+      show axisIndex Axis.horizontal = 0 from rfl]
+    module
+  rw [hsector]
+  filter_upwards [Lp.coeFn_smul ((3 : ℂ) * (Real.sqrt 18 : ℂ)⁻¹)
+      (contMul 2 (star (raisingSymbolMap 2 p 0 mixedPattern)) (slotIntegral 2 1 k)),
+    coeFn_contMul (star (raisingSymbolMap 2 p 0 mixedPattern)) (slotIntegral 2 1 k),
+    coeFn_slotIntegral 2 1 k] with θ h2 h3 h4
+  rw [Pi.smul_apply, h2, Pi.smul_apply, h3, h4, star_raisingSymbolMap_apply, smul_eq_mul,
+    smul_eq_mul, sqrt_eighteen_eq, Complex.ofReal_mul, Complex.ofReal_ofNat]
+  have hsq : (Real.sqrt 2 : ℂ) * (Real.sqrt 2 : ℂ) = 2 := by
+    rw [← Complex.ofReal_mul, Real.mul_self_sqrt (by norm_num)]
+    norm_num
+  have hs0 : (Real.sqrt 2 : ℂ) ≠ 0 := by
+    exact_mod_cast (Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)).ne'
+  have hcoef : (2 : ℂ) * (3 * (3 * (Real.sqrt 2 : ℂ))⁻¹) = (Real.sqrt 2 : ℂ) := by
+    rw [mul_inv, ← mul_assoc (3 : ℂ), mul_inv_cancel₀ (by norm_num : (3 : ℂ) ≠ 0), one_mul,
+      ← hsq, mul_assoc, mul_inv_cancel₀ hs0, mul_one]
+  linear_combination (-Complex.I * (Real.sin (totalFrequency 2 p mixedPattern θ 0) : ℂ) *
+    ∫ t, (k : UnitAddTorus (Fin 3) → ℂ) (Fin.insertNth 1 t θ)
+      ∂(AddCircle.haarAddCircle : Measure UnitAddCircle)) * hcoef
+
+theorem totalFrequency_zero_eq (p : Fin 2 → ℝ) (θ : UnitAddTorus (Fin 0)) (i : Fin 2) :
+    totalFrequency 0 p ![] θ i = p i := by
+  simp [totalFrequency, lineFrequency]
+
+theorem totalFrequency_twoRow_zero (p : Fin 2 → ℝ) (θ : UnitAddTorus (Fin 2)) :
+    totalFrequency 2 p twoRowPattern θ 0 = p 0 := by
+  simp [totalFrequency, lineFrequency, lineShiftVector_axisVector, finAxis, Fin.sum_univ_two]
+
+/-- **`eq:D1`, first formula** (`manuscript.tex:838`).  For a degree-one
+coefficient carrying only a row sign, `D₀* f = -i sin(p₁) ∫ f dm`. -/
+theorem lowering_degreeOne (p : Fin 2 → ℝ) (c : OrderedCoefficient 1)
+    (hc : (orderedFourier 1 c) columnPattern = 0) :
+    ((orderedFourier 0 (rawLower 0 p c)) ![] : UnitAddTorus (Fin 0) → ℂ)
+      =ᵐ[LineTorusMeasure 0] fun θ =>
+        -Complex.I * (Real.sin (p 0) : ℂ) *
+          ∫ t, ((orderedFourier 1 c) rowPattern : UnitAddTorus (Fin 1) → ℂ) (Fin.insertNth 0 t θ)
+            ∂(AddCircle.haarAddCircle : Measure UnitAddCircle) := by
+  rw [orderedFourier_rawLower, rawLowerFreq_apply, rawLowerSector, Fin.sum_univ_one, sum_axis]
+  have hv : (orderedFourier 1 c) (Fin.insertNth 0 Axis.vertical ![]) = 0 := by
+    rw [show (Fin.insertNth 0 Axis.vertical ![] : Fin 1 → Axis) = columnPattern by
+      funext a; fin_cases a; rfl]
+    exact hc
+  rw [hv, map_zero, contMul_zero, add_zero,
+    show (Fin.insertNth 0 Axis.horizontal ![] : Fin 1 → Axis) = rowPattern by
+      funext a; fin_cases a; rfl]
+  filter_upwards [coeFn_contMul (star (raisingSymbolMap 0 p (axisIndex Axis.horizontal) ![]))
+      (slotIntegral 0 0 ((orderedFourier 1 c) rowPattern)),
+    coeFn_slotIntegral 0 0 ((orderedFourier 1 c) rowPattern)] with θ h1 h2
+  rw [h1, h2, star_raisingSymbolMap_apply, show axisIndex Axis.horizontal = 0 from rfl,
+    totalFrequency_zero_eq]
+
+/-- **`eq:D1`, second formula** (`manuscript.tex:839`).  In the normalization
+of Section 3.4, the two-row component of `D̃₁ f` is
+`(i/√2) sin(p₁) [f(r) + f(r')]`. -/
+theorem raising_twoRow (p : Fin 2 → ℝ) (c : OrderedCoefficient 1) :
+    (((Real.sqrt 2 : ℝ) : ℂ) • (orderedFourier 2 (rawRaise 1 p c)) twoRowPattern :
+        UnitAddTorus (Fin 2) → ℂ) =ᵐ[LineTorusMeasure 2] fun θ =>
+      Complex.I / (Real.sqrt 2 : ℂ) * (Real.sin (p 0) : ℂ) *
+        (((orderedFourier 1 c) rowPattern : UnitAddTorus (Fin 1) → ℂ) (Fin.removeNth 0 θ) +
+          ((orderedFourier 1 c) rowPattern : UnitAddTorus (Fin 1) → ℂ) (Fin.removeNth 1 θ)) := by
+  filter_upwards [orderedFourier_rawRaise 1 p c twoRowPattern] with θ h
+  rw [Pi.smul_apply, h, Fin.sum_univ_two]
+  have hr0 : Fin.removeNth 0 twoRowPattern = rowPattern := by funext a; fin_cases a; rfl
+  have hr1 : Fin.removeNth 1 twoRowPattern = rowPattern := by funext a; fin_cases a; rfl
+  rw [hr0, hr1, show twoRowPattern 0 = Axis.horizontal from rfl,
+    show twoRowPattern 1 = Axis.horizontal from rfl,
+    show axisIndex Axis.horizontal = 0 from rfl, totalFrequency_twoRow_zero]
+  have hsq : (Real.sqrt 2 : ℂ) * (Real.sqrt 2 : ℂ) = 2 := by
+    rw [← Complex.ofReal_mul, Real.mul_self_sqrt (by norm_num)]
+    norm_num
+  have hcoef : (Real.sqrt 2 : ℂ) * 2⁻¹ = ((Real.sqrt 2 : ℝ) : ℂ)⁻¹ := by
+    apply eq_inv_of_mul_eq_one_left
+    rw [mul_right_comm, hsq]
+    norm_num
+  rw [smul_eq_mul, show ((1 + 1 : ℕ) : ℂ) = 2 by norm_num]
+  linear_combination (Complex.I * (Real.sin (p 0) : ℂ) *
+    (((orderedFourier 1 c) rowPattern : UnitAddTorus (Fin 1) → ℂ) (Fin.removeNth 0 θ) +
+      ((orderedFourier 1 c) rowPattern : UnitAddTorus (Fin 1) → ℂ) (Fin.removeNth 1 θ))) * hcoef
+
+/-- **`eq:D1`, third formula** (`manuscript.tex:839`).  In the normalization
+of Section 3.4, the mixed component of `D̃₁ f` for a degree-one coefficient
+carrying only a row sign is `i sin(r) f(r)`, where `r` is the second total
+frequency of the mixed coefficient. -/
+theorem raising_mixed (p : Fin 2 → ℝ) (c : OrderedCoefficient 1)
+    (hc : (orderedFourier 1 c) columnPattern = 0) :
+    ((2 : ℂ) • (orderedFourier 2 (rawRaise 1 p c)) mixedPattern :
+        UnitAddTorus (Fin 2) → ℂ) =ᵐ[LineTorusMeasure 2] fun θ =>
+      Complex.I * (Real.sin (totalFrequency 2 p mixedPattern θ 1) : ℂ) *
+        ((orderedFourier 1 c) rowPattern : UnitAddTorus (Fin 1) → ℂ) (Fin.removeNth 1 θ) := by
+  have hzero : ((orderedFourier 1 c) columnPattern : UnitAddTorus (Fin 1) → ℂ)
+      =ᵐ[LineTorusMeasure 1] 0 := by
+    rw [hc]
+    exact Lp.coeFn_zero ℂ 2 (LineTorusMeasure 1)
+  have hzero' := (measurePreserving_removeNthTorus 1 0).quasiMeasurePreserving.ae_eq_comp hzero
+  filter_upwards [orderedFourier_rawRaise 1 p c mixedPattern, hzero'] with θ h hz
+  rw [Pi.smul_apply, h, Fin.sum_univ_two]
+  have hr0 : Fin.removeNth 0 mixedPattern = columnPattern := by funext a; fin_cases a; rfl
+  have hr1 : Fin.removeNth 1 mixedPattern = rowPattern := by funext a; fin_cases a; rfl
+  simp only [Function.comp_apply, Pi.zero_apply] at hz
+  rw [hr0, hr1, hz, show mixedPattern 1 = Axis.vertical from rfl,
+    show axisIndex Axis.vertical = 1 from rfl, smul_eq_mul]
+  ring
+
 end
 
 end Manhattan.Paper

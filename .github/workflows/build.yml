@@ -10,7 +10,7 @@ concurrency:
 
 env:
   # Bump with each added or removed `#print axioms` sentinel.
-  EXPECTED_AXIOM_REPORTS: "115"
+  EXPECTED_AXIOM_REPORTS: "135"
 
 jobs:
   build:

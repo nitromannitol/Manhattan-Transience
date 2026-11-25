@@ -285,6 +285,169 @@ theorem symCoeff_walshRaise (n : ℕ) (p : Fin 2 → ℝ) (F : WalshL2) :
     · rw [if_neg hi, dif_neg hi, mul_zero, mul_zero]
   · rw [if_neg hu, if_neg hu]
 
+/-! ### `eq:raise` on the line-frequency side -/
+
+/-- The index in `Fin 2` of an axis: `0` for rows, `1` for columns. -/
+def axisIndex : Axis → Fin 2
+  | .horizontal => 0
+  | .vertical => 1
+
+@[simp] theorem finAxis_axisIndex (a : Axis) : finAxis (axisIndex a) = a := by
+  cases a <;> simp [finAxis, axisIndex]
+
+theorem sum_ite_finAxis {E : Type*} [AddCommMonoid E] (a : Axis) (X : Fin 2 → E) :
+    (∑ i : Fin 2, if a = finAxis i then X i else 0) = X (axisIndex a) := by
+  cases a <;> simp [Fin.sum_univ_two, finAxis, axisIndex]
+
+theorem coeFn_finset_sum {α ι : Type*} [MeasurableSpace α] {μ : Measure α}
+    (s : Finset ι) (f : ι → Lp ℂ 2 μ) :
+    ⇑(∑ j ∈ s, f j) =ᵐ[μ] fun x => ∑ j ∈ s, (f j : α → ℂ) x := by
+  classical
+  refine Finset.induction_on s ?_ ?_
+  · filter_upwards [Lp.coeFn_zero ℂ 2 μ] with x hx
+    rw [Finset.sum_empty, hx, Finset.sum_empty, Pi.zero_apply]
+  · intro a s ha ih
+    rw [Finset.sum_insert ha]
+    filter_upwards [Lp.coeFn_add (f a) (∑ j ∈ s, f j), ih] with x h1 h2
+    rw [h1, Pi.add_apply, h2, Finset.sum_insert ha]
+
+/-- The shift of the direction-`i` raising acts in every axis sector as
+multiplication by the raising symbol. -/
+theorem orderedFourier_orderedRaiseShift (n : ℕ) (p : Fin 2 → ℝ) (i : Fin 2)
+    (c : OrderedCoefficient n) (τ : Fin n → Axis) :
+    ((orderedFourier n (orderedRaiseShift n p i c)) τ : UnitAddTorus (Fin n) → ℂ)
+      =ᵐ[LineTorusMeasure n] fun t =>
+        raisingSymbol p i τ t * ((orderedFourier n c) τ : UnitAddTorus (Fin n) → ℂ) t := by
+  set v : LineFreqL2 n := orderedFourier n c with hv
+  have hsmul : ∀ (a : ℂ) (w : LineFreqL2 n),
+      ((a • w : LineFreqL2 n) : (Fin n → Axis) → Lp ℂ 2 (LineTorusMeasure n)) τ
+        = a • ((w : (Fin n → Axis) → Lp ℂ 2 (LineTorusMeasure n)) τ) := by
+    intro a w
+    rw [lp.coeFn_smul]
+    rfl
+  have hsub : ∀ (w w' : LineFreqL2 n),
+      ((w - w' : LineFreqL2 n) : (Fin n → Axis) → Lp ℂ 2 (LineTorusMeasure n)) τ
+        = ((w : (Fin n → Axis) → Lp ℂ 2 (LineTorusMeasure n)) τ)
+          - ((w' : (Fin n → Axis) → Lp ℂ 2 (LineTorusMeasure n)) τ) := by
+    intro w w'
+    rw [lp.coeFn_sub]
+    rfl
+  have hshift : ∀ (x : Operator.Lattice) (w : LineFreqL2 n),
+      ((freqShift n x w : LineFreqL2 n) : (Fin n → Axis) → Lp ℂ 2 (LineTorusMeasure n)) τ
+        = charMul n (lineShiftVector n x τ)
+            ((w : (Fin n → Axis) → Lp ℂ 2 (LineTorusMeasure n)) τ) := by
+    intro x w
+    rw [freqShift, l2CongrRightDep_apply]
+  have hF : orderedFourier n (orderedRaiseShift n p i c)
+      = (2 : ℂ)⁻¹ • (Complex.exp (Complex.I * p i) • freqShift n (Operator.axisVector i) v -
+          Complex.exp (-Complex.I * p i) • freqShift n (-Operator.axisVector i) v) := by
+    rw [orderedRaiseShift]
+    simp only [smul_apply, sub_apply, LinearIsometryEquiv.coe_toLinearIsometry,
+      LinearIsometry.coe_toContinuousLinearMap, map_smul, map_sub,
+      orderedFourier_orderedTranslate, hv]
+  have hsector : (orderedFourier n (orderedRaiseShift n p i c)) τ
+      = (2 : ℂ)⁻¹ • (Complex.exp (Complex.I * p i) •
+            charMul n (patternShift i τ) (v τ) -
+          Complex.exp (-Complex.I * p i) •
+            charMul n (-patternShift i τ) (v τ)) := by
+    rw [hF, hsmul, hsub, hsmul, hsmul, hshift, hshift, lineShiftVector_eq_patternShift,
+      lineShiftVector_neg, lineShiftVector_eq_patternShift]
+  rw [hsector]
+  filter_upwards [Lp.coeFn_smul ((2 : ℂ)⁻¹)
+      (Complex.exp (Complex.I * p i) • charMul n (patternShift i τ) (v τ) -
+        Complex.exp (-Complex.I * p i) • charMul n (-patternShift i τ) (v τ)),
+    Lp.coeFn_sub (Complex.exp (Complex.I * p i) • charMul n (patternShift i τ) (v τ))
+      (Complex.exp (-Complex.I * p i) • charMul n (-patternShift i τ) (v τ)),
+    Lp.coeFn_smul (Complex.exp (Complex.I * p i)) (charMul n (patternShift i τ) (v τ)),
+    Lp.coeFn_smul (Complex.exp (-Complex.I * p i)) (charMul n (-patternShift i τ) (v τ)),
+    coeFn_charMul n (patternShift i τ) (v τ),
+    coeFn_charMul n (-patternShift i τ) (v τ)] with t h1 h2 h3 h4 h5 h6
+  rw [h1, Pi.smul_apply, h2, Pi.sub_apply, h3, h4, Pi.smul_apply, Pi.smul_apply, h5, h6,
+    raisingSymbol]
+  simp only [smul_eq_mul]
+  ring
+
+/-- The raising symbol is `i sin(P_i)` at the total frequency. -/
+theorem raisingSymbol_eq_sin (n : ℕ) (p : Fin 2 → ℝ) (i : Fin 2) (τ : Fin n → Axis)
+    (t : UnitAddTorus (Fin n)) :
+    raisingSymbol p i τ t = Complex.I * (Real.sin (totalFrequency n p τ t i) : ℂ) := by
+  have ht : t = fun a => ((torusLift (t a) : ℝ) : UnitAddCircle) := by
+    funext a
+    rw [torusLift_coe]
+  have hfreq : totalFrequency n p τ t i
+      = p i + 2 * Real.pi * ∑ a : Fin n, ((axisShift i (τ a) : ℤ) : ℝ) * torusLift (t a) := by
+    simp only [totalFrequency, lineFrequency, lineShiftVector_eq_axisShift]
+  rw [show raisingSymbol p i τ t
+      = raisingSymbol p i τ (fun a => ((torusLift (t a) : ℝ) : UnitAddCircle)) from
+    congrArg _ ht, raisingSymbol_apply, hfreq]
+
+/-- Deleting a line of axis `i` does not change the `i`-th total frequency,
+because the frequency of a line of axis `i` has vanishing `i`-th component. -/
+theorem totalFrequency_removeNth {n : ℕ} (p : Fin 2 → ℝ) (σ : Fin (n + 1) → Axis)
+    (θ : UnitAddTorus (Fin (n + 1))) (r : Fin (n + 1)) (i : Fin 2) (hσ : σ r = finAxis i) :
+    totalFrequency n p (Fin.removeNth r σ) (Fin.removeNth r θ) i =
+      totalFrequency (n + 1) p σ θ i := by
+  have h := totalFrequency_insertNth p i r (Fin.removeNth r σ) (θ r) (Fin.removeNth r θ) i
+  rw [axisShift_finAxis_self, ← hσ, Fin.insertNth_self_removeNth,
+    Fin.insertNth_self_removeNth] at h
+  rw [h]
+  simp
+
+/-- **`eq:raise`** (`manuscript.tex:1182`).  In the sector of axis pattern `σ`,
+the line-frequency coefficient of `D̃_n c` at `θ` is
+`(i/(n+1)) ∑_a sin(P_{σ_a}) ĉ_{σ without a}(θ without a)`, where
+`P = totalFrequency (n+1) p σ θ` is the total frequency of the result. -/
+theorem orderedFourier_rawRaise (n : ℕ) (p : Fin 2 → ℝ) (c : OrderedCoefficient n)
+    (σ : Fin (n + 1) → Axis) :
+    ((orderedFourier (n + 1) (rawRaise n p c)) σ : UnitAddTorus (Fin (n + 1)) → ℂ)
+      =ᵐ[LineTorusMeasure (n + 1)] fun θ =>
+        Complex.I / ((n + 1 : ℕ) : ℂ) * ∑ r : Fin (n + 1),
+          (Real.sin (totalFrequency (n + 1) p σ θ (axisIndex (σ r))) : ℂ) *
+            ((orderedFourier n c) (Fin.removeNth r σ) : UnitAddTorus (Fin n) → ℂ)
+              (Fin.removeNth r θ) := by
+  set G : Fin (n + 1) → Lp ℂ 2 (LineTorusMeasure (n + 1)) := fun r =>
+    torusRemove n r ((orderedFourier n (orderedRaiseShift n p (axisIndex (σ r)) c))
+      (Fin.removeNth r σ)) with hG
+  have e1 : orderedFourier (n + 1) (rawRaise n p c) = (((n + 1 : ℕ) : ℂ)⁻¹) •
+      ∑ i : Fin 2, ∑ r : Fin (n + 1),
+        orderedFourier (n + 1) (insertLine n r i (orderedRaiseShift n p i c)) := by
+    rw [rawRaise]
+    simp only [smul_apply, sum_apply, ContinuousLinearMap.comp_apply, map_smul, map_sum]
+  have hsector : (orderedFourier (n + 1) (rawRaise n p c)) σ =
+      (((n + 1 : ℕ) : ℂ)⁻¹) • ∑ r : Fin (n + 1), G r := by
+    rw [e1, ← freqEval_apply (n + 1) σ, map_smul]
+    simp only [map_sum, freqEval_apply, orderedFourier_insertLine_apply]
+    rw [Finset.sum_comm]
+    congr 1
+    refine Finset.sum_congr rfl fun r _ => ?_
+    exact sum_ite_finAxis (σ r) (fun i => torusRemove n r
+      ((orderedFourier n (orderedRaiseShift n p i c)) (Fin.removeNth r σ)))
+  have hterm : ∀ r : Fin (n + 1), (G r : UnitAddTorus (Fin (n + 1)) → ℂ)
+      =ᵐ[LineTorusMeasure (n + 1)] fun θ =>
+        Complex.I * (Real.sin (totalFrequency (n + 1) p σ θ (axisIndex (σ r))) : ℂ) *
+          ((orderedFourier n c) (Fin.removeNth r σ) : UnitAddTorus (Fin n) → ℂ)
+            (Fin.removeNth r θ) := by
+    intro r
+    have h1 := coeFn_torusRemove n r
+      ((orderedFourier n (orderedRaiseShift n p (axisIndex (σ r)) c)) (Fin.removeNth r σ))
+    have h2 := (measurePreserving_removeNthTorus n r).quasiMeasurePreserving.ae_eq_comp
+      (orderedFourier_orderedRaiseShift n p (axisIndex (σ r)) c (Fin.removeNth r σ))
+    filter_upwards [h1, h2] with θ hθ1 hθ2
+    rw [hG]
+    simp only at hθ1 ⊢
+    rw [hθ1]
+    simp only [Function.comp_apply] at hθ2
+    rw [hθ2, raisingSymbol_eq_sin, totalFrequency_removeNth p σ θ r _
+      (finAxis_axisIndex (σ r)).symm]
+  rw [hsector]
+  filter_upwards [Lp.coeFn_smul (((n + 1 : ℕ) : ℂ)⁻¹) (∑ r : Fin (n + 1), G r),
+    coeFn_finset_sum Finset.univ G, ae_all_iff.mpr hterm] with θ h1 h2 h3
+  rw [h1, Pi.smul_apply, h2, smul_eq_mul, Finset.sum_congr rfl fun r _ => h3 r,
+    Finset.mul_sum, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun r _ => ?_
+  rw [div_eq_mul_inv]
+  ring
+
 end
 
 end Manhattan.Paper

@@ -365,7 +365,7 @@ theorem type112Freq_apply (k : Lp ℂ 2 (LineTorusMeasure 3)) (σ : Fin 3 → Ax
   classical
   simp only [type112Freq, lp.coeFn_add, Pi.add_apply, lp.single_apply, Pi.single_apply]
 
-theorem sum_axis {E : Type*} [AddCommMonoid E] (F : Axis → E) :
+theorem sum_univ_axis {E : Type*} [AddCommMonoid E] (F : Axis → E) :
     (∑ x : Axis, F x) = F Axis.horizontal + F Axis.vertical := by
   rw [show (Finset.univ : Finset Axis) = {Axis.horizontal, Axis.vertical} from rfl,
     Finset.sum_pair (by decide)]
@@ -387,7 +387,7 @@ theorem lowering_twoRow (p : Fin 2 → ℝ) (k : Lp ℂ 2 (LineTorusMeasure 3)) 
       ((3 : ℂ) * (Real.sqrt 18 : ℂ)⁻¹) •
         contMul 2 (star (raisingSymbolMap 2 p 1 twoRowPattern)) (slotIntegral 2 2 k) := by
     rw [rawLowerFreq_apply, rawLowerSector, Fin.sum_univ_three]
-    simp only [sum_axis, type112Freq_apply]
+    simp only [sum_univ_axis, type112Freq_apply]
     have e0 : slotIntegral 2 0 (torusPerm 3 (finRotate 3) k) = slotIntegral 2 2 k :=
       slotIntegral_torusPerm 2 _ (fun θ => by funext a; fin_cases a <;> rfl) k
     have e1 : slotIntegral 2 1 (torusPerm 3 (Equiv.swap 1 2) k) = slotIntegral 2 2 k :=
@@ -424,7 +424,7 @@ theorem lowering_mixed (p : Fin 2 → ℝ) (k : Lp ℂ 2 (LineTorusMeasure 3))
       ((3 : ℂ) * (Real.sqrt 18 : ℂ)⁻¹) •
         contMul 2 (star (raisingSymbolMap 2 p 0 mixedPattern)) (slotIntegral 2 1 k) := by
     rw [rawLowerFreq_apply, rawLowerSector, Fin.sum_univ_three]
-    simp only [sum_axis, type112Freq_apply]
+    simp only [sum_univ_axis, type112Freq_apply]
     have e0 : slotIntegral 2 0 k = slotIntegral 2 1 k := by
       conv_lhs => rw [← hk]
       exact slotIntegral_torusPerm 2 _ (fun θ => by funext a; fin_cases a <;> rfl) k
@@ -471,7 +471,7 @@ theorem lowering_degreeOne (p : Fin 2 → ℝ) (c : OrderedCoefficient 1)
         -Complex.I * (Real.sin (p 0) : ℂ) *
           ∫ t, ((orderedFourier 1 c) rowPattern : UnitAddTorus (Fin 1) → ℂ) (Fin.insertNth 0 t θ)
             ∂(AddCircle.haarAddCircle : Measure UnitAddCircle) := by
-  rw [orderedFourier_rawLower, rawLowerFreq_apply, rawLowerSector, Fin.sum_univ_one, sum_axis]
+  rw [orderedFourier_rawLower, rawLowerFreq_apply, rawLowerSector, Fin.sum_univ_one, sum_univ_axis]
   have hv : (orderedFourier 1 c) (Fin.insertNth 0 Axis.vertical ![]) = 0 := by
     rw [show (Fin.insertNth 0 Axis.vertical ![] : Fin 1 → Axis) = columnPattern by
       funext a; fin_cases a; rfl]

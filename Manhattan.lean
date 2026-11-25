@@ -19,6 +19,11 @@ import Manhattan.Paper.LemmaRaiseMultiplier
 import Manhattan.Paper.LowDegreeFormulas
 import Manhattan.Paper.LemmaDistinct
 import Manhattan.Paper.LemmaCorrection
+import Manhattan.Paper.ParityMajorant
+import Manhattan.Paper.ParityTransport
+import Manhattan.Paper.EffectiveEnergy
+import Manhattan.Paper.FrequencyBound
+import Manhattan.Paper.AnnealedConstant
 import Manhattan.Paper.HeatKernel
 import Manhattan.Paper.ModelLink
 import Manhattan.Paper.TimeDerivative

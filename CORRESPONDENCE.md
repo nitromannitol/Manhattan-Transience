@@ -146,6 +146,16 @@ are traceable.
 | `manuscript.tex:1212-1221` | `Manhattan.Paper.lemma_distinct` | `Manhattan/Paper/LemmaDistinct.lean` | proved (Lemma 5.3 for every coefficient of type `112`: only a mixed component, squared `H⁻¹` norm at most `(6/κ)⟨k̃, M k̃⟩`) |
 | `manuscript.tex:725-728`, `:749` | `Manhattan.Paper.hMinusEnergy_eq_symCoeff` | `Manhattan/Paper/SymmetricIso.lean` | proved (`eq:iso` and `eq:Hsym` in symmetric coefficients: `‖F‖²_{H⁻¹} = n! ⟨f, (λ+θ(P))⁻¹ f⟩`) |
 | `manuscript.tex:1200-1207` | `Manhattan.Paper.lemma_four` | `Manhattan/Paper/LemmaFour.lean` | proved (Lemma 5.2 for every `k ∈ ℋ₃`, `κ = 97`) |
+| `manuscript.tex:1305-1420` | `Manhattan.Paper.lemma_correction_calculation` | `Manhattan/Paper/LemmaCorrection.lean` | proved (Lemma 5.4 at the operator level for the competitor: `(D₂*k)₁₁ = 0` and `eq:reduce` with constant `26 + 12/(K³ρ)`) |
+| `arxiv/main.tex:813-854` | `Manhattan.Paper.sectorForms_type112_le` | `Manhattan/Paper/ParityMajorant.lean` | proved (`lem:parity`, Step 1: `‖k‖₊² + ‖D₃k‖₋²` for `k` of type `112`, three row and two column slot terms) |
+| `arxiv/main.tex:813-854` (`eq:majorant`) | `Manhattan.Paper.sectorForms_rawWalsh_le` | `Manhattan/Paper/ParityTransport.lean` | proved (`eq:majorant` with constant one, `M = 4(δ + |r| + |r'| + |β|)`) |
+| `arxiv/main.tex:966-973` (`eq:uncancelled`) | `Manhattan.Paper.objective_eq_sectors` | `Manhattan/Paper/EffectiveEnergy.lean` | proved (exact split of the objective into its sectors) |
+| `arxiv/main.tex:870-873` (`eq:scalar-energy`) | `Manhattan.Paper.parityCost_eq` | `Manhattan/Paper/EffectiveEnergy.lean` | proved (completed square, integrated) |
+| `arxiv/main.tex:951-1033` (`lem:effective-energy`) | `Manhattan.Paper.move1_objective_sixteen` | `Manhattan/Paper/EffectiveEnergy.lean` | proved (constant `16`, profiles `φ = t/q` on `Γ_δ`) |
+| `arxiv/main.tex:1059-1067` (`eq:optimized`) | `Manhattan.Paper.move2Supply_sixteen` | `Manhattan/Paper/EffectiveEnergy.lean` | proved (`r_λ(p) ≤ 1/(H₀ + s² Z_δ/16)`) |
+| `arxiv/main.tex:1070-1092` (`prop:frequency`) | `Manhattan.Paper.frequencyBound_2048` | `Manhattan/Paper/FrequencyBound.lean` | proved (constant `2048`) |
+| `arxiv/main.tex:180-188`, `:1094-1121` (`thm:annealed`) | `Manhattan.Paper.annealed_laplace_le_2048` | `Manhattan/Paper/AnnealedConstant.lean` | proved (constant `2048`) |
+| `arxiv/main.tex:1118-1120` (`eq:green-explicit`) | `Manhattan.Paper.annealed_green_le_2048` | `Manhattan/Paper/AnnealedConstant.lean` | proved (`∫₀^∞ p̄_t(0,0) dt ≤ 2048`) |
 | `manuscript.tex:668-681` | `Manhattan.Glue.annealedGreenBound_of_uniform_damped` | `Manhattan/Glue/Annealed.lean` | proved (assembly support) |
 | `manuscript.tex:640-681` | `Manhattan.Glue.annealedGreenBound_of_regional_identity` | `Manhattan/Glue/Annealed.lean` | proved (assembly support) |
 | `manuscript.tex:207-214` | `Manhattan.AnnealedGreenBound` | `Manhattan/Model/Subordination.lean` | definition (assembly interface) |

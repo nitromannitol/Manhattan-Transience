@@ -46,17 +46,13 @@ arXiv, lines 181-184:
 > $\lambda\in(0,1]$,
 
 The formalized statement `Manhattan.Frozen.Main.theorem_1_2` is the second
-one: the constant is existential.  The numeral $2048$ is not formalized.  For
-the undamped integral the development proves
-$\int_0^\infty\overline p_t(0,0)\,dt\leq2.75\cdot10^8$
-(`Manhattan.Paper.Constant.annealed_green_le_numeral`).  The same applies to
-the numeral $2048$ in Proposition 6.1 and to the numeral $16$ in Lemma 5.1 of
-the arXiv text; the formalization proves both statements with an unspecified
-constant, and the constant of Lemma 5.1 below $670$
-(`Manhattan.V4.v4ConstantSplit_lt`).  Consequently the sentence of the arXiv
-Section 1.5, lines 432-434, "Every theorem, lemma and proposition of this
-paper has been formalized", holds for Theorem 1.2, Lemma 5.1 and
-Proposition 6.1 only with their numerals replaced by a constant.
+one: the constant is existential.  The numeral $2048$ is proved separately:
+`Manhattan.Paper.annealed_laplace_le_2048` bounds the Laplace transform by $2048$
+for every $\lambda\in(0,1]$ and `Manhattan.Paper.annealed_green_le_2048` bounds
+the undamped integral by $2048$.  The numeral $2048$ of Proposition 6.1 is
+`Manhattan.Paper.frequencyBound_2048`, and the numeral $16$ of Lemma 5.1 is
+`Manhattan.Paper.move1_objective_sixteen`, for the profiles $\varphi=t/q$ on
+$\Gamma_\delta$ used in Section 6.
 
 ### 1.2 The variational bound
 

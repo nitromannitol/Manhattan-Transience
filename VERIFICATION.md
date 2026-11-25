@@ -37,13 +37,15 @@ like it:
 Proved twice, by independent routes: `Frozen.Main.theorem_1_1` and
 `V4.theorem_1_1_v4`.
 
-## Theorem 1.2 (`thm:annealed`) — WEAKER
+## Theorem 1.2 (`thm:annealed`) — EXACT (with the numeral)
 
 Both conjuncts are present, with the same range `λ ∈ (0,1]`, and the closing
-"and hence" is a conjunct rather than a remark.  The arXiv statement bounds the
-Laplace transform by `2048`; the Lean statement asserts a constant `C < ∞`,
-which is what `paper/manuscript.tex` states.  The numeral is not certified;
-see the explicit constants below.
+"and hence" is a conjunct rather than a remark.  The frozen statement asserts a
+constant `C < ∞`, which is what `paper/manuscript.tex` states.  The arXiv
+numeral is proved separately: `Manhattan.Paper.annealed_laplace_le_2048` is
+`∫₀^∞ e^{-λt} p̄_t(0,0) dt ≤ 2048` for every `λ ∈ (0,1]`, and
+`Manhattan.Paper.annealed_green_le_2048` is `eq:green-explicit`,
+`∫₀^∞ p̄_t(0,0) dt ≤ 2048` (`Manhattan/Paper/AnnealedConstant.lean`).
 
 ## Proposition 2.1 (`prop:generator`) — EXACT
 
@@ -65,7 +67,7 @@ Split across frozen nodes, each matching the printed formula:
 `0 ≤ r ≤ ‖g‖₊² + ‖V - A g‖₋²`, with no hypothesis on `g`, as in the paper.
 Its halves are `resolventQuadratic_nonneg` and `resolventQuadratic_le`.
 
-## Proposition 6.1 (`prop:frequency`) — WEAKER
+## Proposition 6.1 (`prop:frequency`) — EXACT (with the numeral)
 
 `V4FrequencyBound C` is `r_λ(p) ≤ C · v4Majorant λ p` for `λ ∈ (0,1]` and `p`
 on the torus, with
@@ -74,9 +76,9 @@ on the torus, with
     maxFrequency p = max |p₀| |p₁| = a(p).
 
 The exponent `3/2` is real division, confirmed by the accompanying lemma
-`x ^ (3/2 : ℝ) = x * √x`. The majorant is the paper's.  The paper's constant is
-the numeral `2048`; the Lean constant `C` is existential.  See the explicit
-constants below.
+`x ^ (3/2 : ℝ) = x * √x`. The majorant is the paper's.  The statement with the
+paper's numeral, `V4FrequencyBound 2048`, is `Manhattan.Paper.frequencyBound_2048`
+(`Manhattan/Paper/FrequencyBound.lean`).
 
 ## Proposition 6.2 (`prop:time`) — EXACT, both equations
 
@@ -154,37 +156,62 @@ The construction is formalized (`rawMultiplierEnergy_le_evenMajorantEnergy`,
 `operatorEstimate`, `effectiveWeight`), and `effectiveWeight r = |r|/√(log(1/|r|))`
 is the paper's `q(r)` exactly.
 
-**WEAKER in the constant only.** `lem:effective-energy` asserts
+`lem:effective-energy` asserts
 
     r_λ(p) ≤ (1 - s ∫ φ)²/H₀ + 16 ∫ q(r) φ(r)² dm(r).
 
-Lean proves the same inequality with `16` replaced by
-`Manhattan.V4.v4ConstantSplit`, certified below `670` by `v4ConstantSplit_lt`.
-That constant is universal and independent of `λ`, `p` and `φ`, so the Lean
-statement is the paper's with a larger numeral.
+`Manhattan.Paper.move1_objective_sixteen` proves it with the constant `16`, for
+the profiles `φ = t/q` on `Γ_δ` that the proof of `prop:frequency` uses
+(`Manhattan/Paper/EffectiveEnergy.lean`); `Manhattan.Paper.move2Supply_sixteen`
+is `eq:optimized`.  The route is the paper's: `eq:majorant` with constant one
+and `M = 4(δ + |r| + |r'| + |β|)` (`Manhattan.Paper.sectorForms_rawWalsh_le`),
+the exact splitting of the objective into its sectors
+(`Manhattan.Paper.objective_eq_sectors`), the completed square of
+`eq:scalar-energy` (`Manhattan.Paper.parityCost_eq`), and `eq:beta` with the
+constant `(π^{5/2}+π)/2 < 11`.  Two intermediate steps are bounded slightly
+differently, with the same conclusion: the weight
+`λ + θ(P) + 6|sin(P₁/2)| + 6|sin(P₂/2)|` in place of the paper's bracket
+(both are below `M`), and the two-row bound `4 s² J(μ)` of
+`Manhattan.V4.hMinusEnergy_twoRow_le` in place of the paper's `2 s² J(μ)`
+(the degree-one cost is then `15/4 ∫ q φ²`, below the paper's `5`).
+The earlier route, with `16` replaced by `Manhattan.V4.v4ConstantSplit < 670`,
+remains in `Manhattan/V4/`.
 
 ## The explicit constants
 
 The paper states two numerals: `2048` in Theorem 1.2 and Proposition 6.1,
-and `16` in Lemma 5.1.  No Lean statement claims either value.
+and `16` in Lemma 5.1.  Both are proved, in `Manhattan/Paper/`, outside the
+frozen manifest (whose statements quantify the constant existentially, as
+`paper/manuscript.tex` does):
 
-* The Lean statements of `lem:effective-energy` and `prop:frequency` quantify
-  their constant existentially. Lean discharges the first with
-  `v4ConstantSplit < 670` (`Manhattan/V4/SplitConstant.lean`) and the second with
-  `max(max(1, 8π³ · v4ConstantSplit), outerRegionConstant(1/4))`.
-* For Theorem 1.2 the formalized chain gives
-  `∫₀^∞ p̄_t(0,0) dt ≤ 2.75 · 10⁸`
-  (`Manhattan.Paper.Constant.annealed_green_le_numeral`).
-* The formalized proofs reach the paper's inequalities along a lossier route,
-  so they produce larger values.
+| statement | numeral | Lean |
+| --- | --- | --- |
+| `lem:effective-energy` | `16` | `Manhattan.Paper.move1_objective_sixteen` |
+| `eq:optimized` | `16` | `Manhattan.Paper.move2Supply_sixteen` |
+| `prop:frequency` | `2048` | `Manhattan.Paper.frequencyBound_2048` |
+| `thm:annealed` | `2048` | `Manhattan.Paper.annealed_laplace_le_2048` |
+| `eq:green-explicit` | `2048` | `Manhattan.Paper.annealed_green_le_2048` |
 
-### Where the remaining gap is
+The paper's `16` is `5 + 11`.  The proof reaches `15/4 + (π^{5/2}+π)/2`: the
+degree-one and two-row costs give `3/4 + 3`, and the column integral `eq:beta`
+at `M = 4(δ + |r| + |r'| + |β|)` gives `(π^{5/2}+π)/2 < 11` with coefficient
+one.  Coefficient one needs the three exact steps of the paper:
+`eq:majorant` with constant one (`Manhattan.Paper.sectorForms_rawWalsh_le`:
+three slot terms when a row is added and two when a column is added, and the
+ordered row pairs carry half the energy of a symmetric kernel), the exact
+splitting of the objective (`Manhattan.Paper.objective_eq_sectors`), and the
+completed square (`Manhattan.Paper.parityCost_eq`).  `prop:frequency` follows
+with `10π² · 16 < 1580` on the improvement region and `83` on its complement,
+and `thm:annealed` with `1/π² + 2^{7/2}·2048/(π²√(1 + log 4)) + log(4π) < 2048`
+(`Manhattan.Paper.greenConstant_le_2048`).
 
-The paper's `16` is `5 + 11`: the degree-one cost contributes `5`, and the
-column integral `eq:beta` contributes `11 = (π^{5/2}+π)/2` with coefficient
-one. Lean's `670` is `60 + 8·76.2`, and the two differences are exactly:
+### The earlier route
 
-| step | paper | Lean | why |
+`Manhattan/V4/` reaches the same inequalities with larger constants:
+`v4ConstantSplit < 670` for Lemma 5.1 and `2.75 · 10⁸` for the Green integral
+(`Manhattan.Paper.Constant.annealed_green_le_numeral`).  The differences are:
+
+| step | paper | earlier Lean route | why |
 | --- | --- | --- | --- |
 | degree-one and two-row | `5` | `60 = 2·6 + 4·12` | `objective_le_v4Move1` splits the residual by Cauchy–Schwarz, with multipliers `2` and `4` |
 | column term | `1 · 11` | `8 · 76.2` | the operator step is a majorant comparison (`A = 291/κ`), not the paper's exact minimization |
@@ -217,6 +244,6 @@ Move 1 coefficient is `4A + 4` and `C_β` grows like `√κ`, running at `A = 1`
 gives `60 + 8·C_β(κ)` with `κ = A·κ`. Even a perfect operator step, `A·κ = 1`,
 would leave `60 + 8·5.94 ≈ 108`: the `2`/`4` Cauchy–Schwarz multipliers of
 `objective_le_v4Move1` are the binding constraint, not the operator estimate.
-Closing the rest means replacing that splitting, and the majorant comparison,
-by the paper's exact minimization of the degree-three form. Neither affects any
-statement, only the value of the constant.
+`Manhattan/Paper/EffectiveEnergy.lean` replaces that splitting, and the
+majorant comparison, by the paper's exact minimization of the degree-three
+form.

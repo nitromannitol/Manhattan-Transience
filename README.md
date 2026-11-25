@@ -111,12 +111,14 @@ result and lists every change against the arXiv version.
      whose ordered coefficient can contain coincident rows, is built on an ordered carrier and
      projected, with the projection error bounded.
 5. **Numerical constants.** The arXiv version states Theorem 1.2 and Proposition 6.1 with the
-   constant `2048` and Lemma 5.1 with the constant `16`; the formal statements have an
-   unspecified constant, as `paper/manuscript.tex` does, the formal proofs reach them along a
-   lossier route, and the constant of Lemma 5.1 is discharged below `670` by
-   `Manhattan.V4.v4ConstantSplit_lt`.
+   constant `2048` and Lemma 5.1 with the constant `16`.  The frozen statements have an
+   unspecified constant, as `paper/manuscript.tex` does; the numerals are proved separately in
+   `Manhattan/Paper/`: `Manhattan.Paper.annealed_laplace_le_2048` and
+   `Manhattan.Paper.annealed_green_le_2048` (Theorem 1.2), `Manhattan.Paper.frequencyBound_2048`
+   (Proposition 6.1) and `Manhattan.Paper.move1_objective_sixteen` (Lemma 5.1).
 6. **Statements without a formal counterpart.** Every numbered statement registered in the
-   manifest is machine-checked, but the numerals of the arXiv version are not. The pinned
+   manifest is machine-checked; the numerals of the arXiv version are proved outside the
+   manifest (item 5). The pinned
    manuscript states what the Lean statements state;
    [`paper/CHANGES_FROM_ARXIV.md`](paper/CHANGES_FROM_ARXIV.md) records every difference
    between it and the arXiv version, whose unmodified source is

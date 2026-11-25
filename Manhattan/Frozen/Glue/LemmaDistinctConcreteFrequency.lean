@@ -8,7 +8,9 @@ scalar.  Nothing in the tree proves it equal to the operator-level
 `‖Π₂ D̃₂* k̃ - D₂* k‖²_{H⁻¹}` of an actual Walsh vector; that bridge is still open.  This node must therefore NOT be read as
 an operator-level rendering of Lemma 5.3.  The qualitative clause is
 independently covered at the Walsh level by
-`Manhattan.Glue.type112DStarTwoRow_correction`. -/
+`Manhattan.Glue.type112DStarTwoRow_correction`.  Lemma 5.3 itself, for every coefficient
+of type `112` and with the `H⁻¹` norm of the symmetric coefficients, is
+`Manhattan.Paper.lemma_distinct`. -/
 
 open MeasureTheory Set
 open Manhattan Manhattan.Glue

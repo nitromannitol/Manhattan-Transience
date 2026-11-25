@@ -160,8 +160,11 @@ pinned source they transcribe:
 Lemma 3.1 is proved in the normalization of the paper, for every square-integrable coefficient,
 by `Manhattan.Paper.lowering_twoRow` (`eq:D2a`), `Manhattan.Paper.lowering_mixed` (`eq:D2b`),
 `Manhattan.Paper.lowering_degreeOne`, `Manhattan.Paper.raising_twoRow` and
-`Manhattan.Paper.raising_mixed` (`eq:D1`).  Lemmas 5.1 and 5.2 are also proved in the full
-generality of the paper, as public statements outside the manifest: `Manhattan.Paper.orderedFourier_rawRaise` (equation (45) at every degree),
+`Manhattan.Paper.raising_mixed` (`eq:D1`).  Lemma 5.3 is proved for every coefficient of type
+`112` by `Manhattan.Paper.lemma_distinct`, with the `H⁻¹` norm in symmetric coefficients
+identified with that of the Walsh vector by `Manhattan.Paper.hMinusEnergy_eq_symCoeff`.  Lemmas
+5.1 and 5.2 are also proved in the full generality of the paper, as public statements outside
+the manifest: `Manhattan.Paper.orderedFourier_rawRaise` (equation (45) at every degree),
 `Manhattan.Paper.symCoeff_walshRaise` (`D_n = Π_{n+1} D̃_n Π_n`),
 `Manhattan.Paper.offDiagonalProjection_comp_orderedMultiplier` (`Π_n` commutes with every
 continuous multiplier of the total frequency) and `Manhattan.Paper.lemma_four` (Lemma 5.2 for

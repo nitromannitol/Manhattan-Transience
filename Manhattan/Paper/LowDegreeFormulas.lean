@@ -110,6 +110,152 @@ theorem coeFn_slotIntegral (n : ℕ) (r : Fin (n + 1)) (g : Lp ℂ 2 (LineTorusM
   · simp only [Set.indicator_of_mem hθ, one_mul]
   · simp only [Set.indicator_of_notMem hθ, zero_mul, integral_zero]
 
+/-! ### Multiplication by a continuous function is normal -/
+
+theorem inner_contMul_left (n : ℕ) (g : C(UnitAddTorus (Fin n), ℂ))
+    (u v : Lp ℂ 2 (LineTorusMeasure n)) :
+    inner ℂ (contMul n g u) v = inner ℂ u (contMul n (star g) v) := by
+  rw [L2.inner_def, L2.inner_def]
+  refine integral_congr_ae ?_
+  filter_upwards [coeFn_contMul g u, coeFn_contMul (star g) v] with t h1 h2
+  rw [h1, h2, RCLike.inner_apply, RCLike.inner_apply, ContinuousMap.star_apply, map_mul]
+  simp only [RCLike.star_def]
+  ring
+
+/-! ### The raising symbol as a continuous function -/
+
+/-- The raising symbol `i sin(P_i)` of the sector `τ`, as a continuous function. -/
+def raisingSymbolMap (n : ℕ) (p : Fin 2 → ℝ) (i : Fin 2) (τ : Fin n → Axis) :
+    C(UnitAddTorus (Fin n), ℂ) :=
+  ⟨raisingSymbol p i τ, by
+    unfold raisingSymbol
+    exact continuous_const.mul ((continuous_const.mul (mFourier _).continuous).sub
+      (continuous_const.mul (mFourier _).continuous))⟩
+
+theorem raisingSymbolMap_apply (n : ℕ) (p : Fin 2 → ℝ) (i : Fin 2) (τ : Fin n → Axis)
+    (t : UnitAddTorus (Fin n)) :
+    raisingSymbolMap n p i τ t = Complex.I * (Real.sin (totalFrequency n p τ t i) : ℂ) :=
+  raisingSymbol_eq_sin n p i τ t
+
+theorem star_raisingSymbolMap_apply (n : ℕ) (p : Fin 2 → ℝ) (i : Fin 2) (τ : Fin n → Axis)
+    (t : UnitAddTorus (Fin n)) :
+    star (raisingSymbolMap n p i τ) t = -Complex.I * (Real.sin (totalFrequency n p τ t i) : ℂ) := by
+  rw [ContinuousMap.star_apply, raisingSymbolMap_apply, RCLike.star_def, map_mul,
+    Complex.conj_I, Complex.conj_ofReal]
+
+theorem orderedFourier_orderedRaiseShift_eq (n : ℕ) (p : Fin 2 → ℝ) (i : Fin 2)
+    (c : OrderedCoefficient n) (τ : Fin n → Axis) :
+    (orderedFourier n (orderedRaiseShift n p i c)) τ =
+      contMul n (raisingSymbolMap n p i τ) ((orderedFourier n c) τ) := by
+  apply Lp.ext
+  filter_upwards [orderedFourier_orderedRaiseShift n p i c τ,
+    coeFn_contMul (raisingSymbolMap n p i τ) ((orderedFourier n c) τ)] with t h1 h2
+  rw [h1, h2]
+  rfl
+
+/-- The sector `σ` of the line-frequency coefficient of `D̃_n c`, as an
+identity in `L²`. -/
+theorem orderedFourier_rawRaise_sector (n : ℕ) (p : Fin 2 → ℝ) (c : OrderedCoefficient n)
+    (σ : Fin (n + 1) → Axis) :
+    (orderedFourier (n + 1) (rawRaise n p c)) σ =
+      (((n + 1 : ℕ) : ℂ)⁻¹) • ∑ r : Fin (n + 1),
+        torusRemove n r (contMul n (raisingSymbolMap n p (axisIndex (σ r)) (Fin.removeNth r σ))
+          ((orderedFourier n c) (Fin.removeNth r σ))) := by
+  have e1 : orderedFourier (n + 1) (rawRaise n p c) = (((n + 1 : ℕ) : ℂ)⁻¹) •
+      ∑ i : Fin 2, ∑ r : Fin (n + 1),
+        orderedFourier (n + 1) (insertLine n r i (orderedRaiseShift n p i c)) := by
+    rw [rawRaise]
+    simp only [smul_apply, sum_apply, ContinuousLinearMap.comp_apply, map_smul, map_sum]
+  rw [e1, ← freqEval_apply (n + 1) σ, map_smul]
+  simp only [map_sum, freqEval_apply, orderedFourier_insertLine_apply]
+  rw [Finset.sum_comm]
+  congr 1
+  refine Finset.sum_congr rfl fun r _ => ?_
+  rw [sum_ite_finAxis (σ r) (fun i => torusRemove n r
+      ((orderedFourier n (orderedRaiseShift n p i c)) (Fin.removeNth r σ))),
+    orderedFourier_orderedRaiseShift_eq]
+
+/-! ### The raw lowering operator `D̃_n*` -/
+
+/-- **The raw lowering operator** `D̃_n*`, the adjoint of `D̃_n` for the
+inner products `⟨F, G⟩ = n! ⟨f, g⟩` of `eq:iso`. -/
+def rawLower (n : ℕ) (p : Fin 2 → ℝ) :
+    OrderedCoefficient (n + 1) →L[ℂ] OrderedCoefficient n :=
+  ((n + 1 : ℕ) : ℂ) • ContinuousLinearMap.adjoint (rawRaise n p)
+
+/-- `D̃_n*` is the adjoint of `D̃_n` for the inner products of `eq:iso`. -/
+theorem factorial_mul_inner_rawRaise (n : ℕ) (p : Fin 2 → ℝ) (c : OrderedCoefficient n)
+    (k : OrderedCoefficient (n + 1)) :
+    ((n + 1).factorial : ℂ) * inner ℂ (rawRaise n p c) k =
+      (n.factorial : ℂ) * inner ℂ c (rawLower n p k) := by
+  rw [rawLower, smul_apply, inner_smul_right, ContinuousLinearMap.adjoint_inner_right,
+    Nat.factorial_succ]
+  push_cast
+  ring
+
+theorem sum_piFinSuccAbove {E : Type*} [AddCommMonoid E] {n : ℕ} (r : Fin (n + 1))
+    (F : (Fin (n + 1) → Axis) → E) :
+    (∑ σ : Fin (n + 1) → Axis, F σ) =
+      ∑ τ : Fin n → Axis, ∑ x : Axis, F (Fin.insertNth r x τ) := by
+  have h := Equiv.sum_comp (Fin.insertNthEquiv (fun _ : Fin (n + 1) => Axis) r) F
+  rw [← h, Fintype.sum_prod_type, Finset.sum_comm]
+  rfl
+
+/-- The line-frequency coefficient of `D̃_n* k` in the sector `τ`. -/
+def rawLowerSector (n : ℕ) (p : Fin 2 → ℝ) (v : LineFreqL2 (n + 1)) (τ : Fin n → Axis) :
+    Lp ℂ 2 (LineTorusMeasure n) :=
+  ∑ r : Fin (n + 1), ∑ x : Axis,
+    contMul n (star (raisingSymbolMap n p (axisIndex x) τ))
+      (slotIntegral n r (v (Fin.insertNth r x τ)))
+
+/-- The line-frequency coefficient of `D̃_n* k`. -/
+def rawLowerFreq (n : ℕ) (p : Fin 2 → ℝ) (v : LineFreqL2 (n + 1)) : LineFreqL2 n :=
+  ∑ τ : Fin n → Axis, lp.single 2 τ (rawLowerSector n p v τ)
+
+theorem rawLowerFreq_apply (n : ℕ) (p : Fin 2 → ℝ) (v : LineFreqL2 (n + 1))
+    (τ : Fin n → Axis) : rawLowerFreq n p v τ = rawLowerSector n p v τ := by
+  classical
+  rw [← freqEval_apply n τ, rawLowerFreq, map_sum]
+  simp only [freqEval_apply, lp.single_apply]
+  rw [Finset.sum_pi_single, if_pos (Finset.mem_univ τ)]
+
+theorem inner_lineFreq (n : ℕ) (v w : LineFreqL2 n) :
+    inner ℂ v w = ∑ τ : Fin n → Axis, inner ℂ (v τ) (w τ) := by
+  rw [lp.inner_eq_tsum, tsum_fintype]
+
+/-- **The adjoint of `eq:raise`.** -/
+theorem orderedFourier_rawLower (n : ℕ) (p : Fin 2 → ℝ) (k : OrderedCoefficient (n + 1)) :
+    orderedFourier n (rawLower n p k) = rawLowerFreq n p (orderedFourier (n + 1) k) := by
+  apply ext_inner_left ℂ
+  intro w
+  obtain ⟨c, rfl⟩ : ∃ c, orderedFourier n c = w :=
+    ⟨(orderedFourierEquiv n).symm w, by
+      rw [← orderedFourierEquiv_apply, LinearIsometryEquiv.apply_symm_apply]⟩
+  rw [(orderedFourier n).inner_map_map]
+  have hfac : (n.factorial : ℂ) ≠ 0 := by exact_mod_cast (Nat.factorial_pos n).ne'
+  have hlow : inner ℂ c (rawLower n p k) =
+      ((n + 1 : ℕ) : ℂ) * inner ℂ (rawRaise n p c) k := by
+    have h := factorial_mul_inner_rawRaise n p c k
+    rw [Nat.factorial_succ] at h
+    push_cast at h ⊢
+    field_simp at h ⊢
+    linear_combination -h
+  rw [hlow, ← (orderedFourier (n + 1)).inner_map_map, inner_lineFreq, inner_lineFreq]
+  have hn : ((n + 1 : ℕ) : ℂ) ≠ 0 := by exact_mod_cast Nat.succ_ne_zero n
+  simp only [orderedFourier_rawRaise_sector, inner_smul_left, sum_inner, rawLowerFreq_apply,
+    rawLowerSector, inner_sum, map_inv₀, map_natCast]
+  rw [Finset.mul_sum]
+  simp only [← mul_assoc, mul_inv_cancel₀ hn, one_mul]
+  rw [Finset.sum_comm]
+  conv_rhs => rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun r _ => ?_
+  rw [sum_piFinSuccAbove r (fun σ => inner ℂ (torusRemove n r
+    (contMul n (raisingSymbolMap n p (axisIndex (σ r)) (Fin.removeNth r σ))
+      ((orderedFourier n c) (Fin.removeNth r σ)))) ((orderedFourier (n + 1) k) σ))]
+  refine Finset.sum_congr rfl fun τ _ => Finset.sum_congr rfl fun x _ => ?_
+  simp only [Fin.removeNth_insertNth, Fin.insertNth_apply_same]
+  rw [← inner_slotIntegral, inner_contMul_left]
+
 end
 
 end Manhattan.Paper

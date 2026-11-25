@@ -117,18 +117,36 @@ trigonometric polynomials. The concrete Walsh matrix elements
 (`lemma_raise_concrete_raising`, `lemma_raise_concrete_adjoint`) remain the
 registered nodes.
 
-## Lemma 3.2 (`lem:formulas`) — EXACT for two of three, EQUIVALENT for the third
+## Lemma 3.2 (`lem:formulas`) — EXACT
 
-* `eq:D1`, first formula: `dStarZero_degreeOneRealFrequency` is
-  `-(i sin p₀) ∫ f`, matching `(D₀*f)(p) = -i sin(p₁) ∫ f dm` including the
-  sign.
-* `eq:D2a`: `rawD2StarTwoRow` is `-i sin(α) ∫ k dm(β)`, matching.
-* `eq:D2b`: the paper carries `-i√2 sin(β) ∫ k dm(r')`; Lean's
-  `rawD2StarMixed` carries **no** `√2`. This is a deliberate normalization
-  difference, documented at `Manhattan/V4/MixedBridge.lean:40`: the `(√2)⁻¹`
-  is placed in the kernel instead, so the mixed symbol is `(√2)⁻¹ σ v`. Both
-  factors are pinned by strict inequalities in `MixedBridgeWitnesses.lean`, so
-  neither can be silently doubled or halved. Consistent, but not verbatim.
+All five formulas are Lean statements in the paper's normalization (the
+coefficients of types `11`, `12` and `112` multiplied by `√2`, `2` and `√18`),
+for the raw operators `D̃` and `D̃*` of `lem:raise`, at every square-integrable
+coefficient.  They are derived from `eq:raise` at every degree
+(`Manhattan.Paper.orderedFourier_rawRaise`) and from its adjoint
+(`Manhattan.Paper.orderedFourier_rawLower`); `D̃*` is the adjoint of `D̃` for
+the inner products of `eq:iso` (`Manhattan.Paper.factorial_mul_inner_rawRaise`),
+and the integral over the frequency of one line is
+`Manhattan.Paper.slotIntegral`, identified with the integral by
+`coeFn_slotIntegral`.
+
+| paper | Lean (`Manhattan/Paper/LowDegreeFormulas.lean`) |
+| --- | --- |
+| `eq:D2a`, `-i sin(α) ∫ k dm(β)` | `Manhattan.Paper.lowering_twoRow` |
+| `eq:D2b`, `-i√2 sin(β) ∫ k dm(r')` | `Manhattan.Paper.lowering_mixed` |
+| `eq:D1`, `D₀* f = -i sin(p₁) ∫ f dm` | `Manhattan.Paper.lowering_degreeOne` |
+| `eq:D1`, `(D̃₁f)₁₁ = (i/√2) sin(p₁)[f(r) + f(r')]` | `Manhattan.Paper.raising_twoRow` |
+| `eq:D1`, `(D̃₁f)₁₂ = i sin(r) f(r)` | `Manhattan.Paper.raising_mixed` |
+
+A coefficient of type `112` is the function `k(r, r', β)` of the two row
+frequencies and the column frequency; `Manhattan.Paper.type112Freq` places it,
+with the factor `1/√18`, in the three axis patterns of the symmetric
+coefficient.  `eq:D2b` uses the symmetry of `k` in its two row frequencies.
+
+The development that proves the main theorems uses the earlier raw symbols
+`rawD2StarTwoRow` and `rawD2StarMixed`, which carry the Finset normalization:
+`rawD2StarMixed` has no `√2`, which is placed in the kernel instead
+(`Manhattan/V4/MixedBridge.lean:40`).
 
 ## Lemma 4.1 (`lem:parity`) and Lemma 5.1 (`lem:effective-energy`)
 

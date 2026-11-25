@@ -374,7 +374,7 @@ theorem sqrt_eighteen_eq : Real.sqrt 18 = 3 * Real.sqrt 2 := by
   rw [show (18 : ℝ) = 3 ^ 2 * 2 by norm_num, Real.sqrt_mul (by norm_num),
     Real.sqrt_sq (by norm_num)]
 
-/-- **`eq:D2a`** (`manuscript.tex:832`).  In the normalization of Section 3.4,
+/-- **`eq:D2a`** (`manuscript.tex:830-831`).  In the normalization of Section 3.4,
 the two-row component of `D̃₂* k` is `-i sin(α) ∫ k(r, r', β) dm(β)`, where
 `α` is the second total frequency of the two-row coefficient. -/
 theorem lowering_twoRow (p : Fin 2 → ℝ) (k : Lp ℂ 2 (LineTorusMeasure 3)) :
@@ -409,7 +409,7 @@ theorem lowering_twoRow (p : Fin 2 → ℝ) (k : Lp ℂ 2 (LineTorusMeasure 3)) 
   push_cast
   field_simp
 
-/-- **`eq:D2b`** (`manuscript.tex:833-834`).  In the normalization of
+/-- **`eq:D2b`** (`manuscript.tex:832-833`).  In the normalization of
 Section 3.4, the mixed component of `D̃₂* k` is
 `-i √2 sin(β) ∫ k(r, r', β) dm(r')`, for a type-`112` coefficient `k`
 symmetric in its two row frequencies. -/
@@ -462,7 +462,7 @@ theorem totalFrequency_twoRow_zero (p : Fin 2 → ℝ) (θ : UnitAddTorus (Fin 2
     totalFrequency 2 p twoRowPattern θ 0 = p 0 := by
   simp [totalFrequency, lineFrequency, lineShiftVector_axisVector, finAxis, Fin.sum_univ_two]
 
-/-- **`eq:D1`, first formula** (`manuscript.tex:838`).  For a degree-one
+/-- **`eq:D1`, first formula** (`manuscript.tex:837`).  For a degree-one
 coefficient carrying only a row sign, `D₀* f = -i sin(p₁) ∫ f dm`. -/
 theorem lowering_degreeOne (p : Fin 2 → ℝ) (c : OrderedCoefficient 1)
     (hc : (orderedFourier 1 c) columnPattern = 0) :
@@ -485,7 +485,7 @@ theorem lowering_degreeOne (p : Fin 2 → ℝ) (c : OrderedCoefficient 1)
   rw [h1, h2, star_raisingSymbolMap_apply, show axisIndex Axis.horizontal = 0 from rfl,
     totalFrequency_zero_eq]
 
-/-- **`eq:D1`, second formula** (`manuscript.tex:839`).  In the normalization
+/-- **`eq:D1`, second formula** (`manuscript.tex:838`).  In the normalization
 of Section 3.4, the two-row component of `D̃₁ f` is
 `(i/√2) sin(p₁) [f(r) + f(r')]`. -/
 theorem raising_twoRow (p : Fin 2 → ℝ) (c : OrderedCoefficient 1) :

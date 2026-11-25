@@ -134,6 +134,12 @@ are traceable.
 
 | Source | Lean declaration | File | Status |
 |---|---|---|---|
+| `manuscript.tex:827-841` (`eq:D2a` at :831) | `Manhattan.Paper.lowering_twoRow` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (Lemma 3.1, `eq:D2a`, in the normalization of Section 3.4) |
+| `manuscript.tex:827-841` (`eq:D2b` at :833) | `Manhattan.Paper.lowering_mixed` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (Lemma 3.1, `eq:D2b`) |
+| `manuscript.tex:827-841` (`eq:D1` at :837) | `Manhattan.Paper.lowering_degreeOne` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (Lemma 3.1, first formula of `eq:D1`) |
+| `manuscript.tex:827-841` (`eq:D1` at :838) | `Manhattan.Paper.raising_twoRow` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (Lemma 3.1, second formula of `eq:D1`) |
+| `manuscript.tex:827-841` (`eq:D1` at :839) | `Manhattan.Paper.raising_mixed` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (Lemma 3.1, third formula of `eq:D1`) |
+| `manuscript.tex:1179-1191` | `Manhattan.Paper.orderedFourier_rawLower` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (the adjoint of `eq:raise`: `D̃_n*` at every degree) |
 | `manuscript.tex:1179-1191` (`eq:raise` at :1182) | `Manhattan.Paper.orderedFourier_rawRaise` | `Manhattan/Paper/LemmaRaise.lean` | proved (Lemma 5.1, `eq:raise` at every degree) |
 | `manuscript.tex:1188-1189` | `Manhattan.Paper.symCoeff_walshRaise` | `Manhattan/Paper/LemmaRaise.lean` | proved (Lemma 5.1, `D_n = Π_{n+1} D̃_n Π_n` at every degree) |
 | `manuscript.tex:1189-1190` | `Manhattan.Paper.offDiagonalProjection_comp_orderedMultiplier` | `Manhattan/Paper/LemmaRaiseMultiplier.lean` | proved (Lemma 5.1, `Π_n` commutes with continuous multipliers of `P`) |

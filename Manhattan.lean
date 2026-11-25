@@ -16,6 +16,7 @@ import Manhattan.Paper.Formulas
 import Manhattan.Paper.LemmaFour
 import Manhattan.Paper.LemmaRaise
 import Manhattan.Paper.LemmaRaiseMultiplier
+import Manhattan.Paper.LowDegreeFormulas
 import Manhattan.Paper.HeatKernel
 import Manhattan.Paper.ModelLink
 import Manhattan.Paper.TimeDerivative

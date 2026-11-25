@@ -391,6 +391,333 @@ theorem normalizedFrequencyIntegral_le_radial {f : ℝ × ℝ → ℝ} {φ : ℝ
   rw [h2]
   linarith
 
+/-! ### The one-dimensional integral -/
+
+theorem measurable_annulusKernel : Measurable annulusKernel := by
+  unfold annulusKernel
+  fun_prop
+
+theorem measurable_greenRadial (lambda : ℝ) : Measurable (greenRadial lambda) := by
+  unfold greenRadial
+  refine Measurable.ite (measurableSet_le measurable_id measurable_const) measurable_const ?_
+  refine Measurable.ite (measurableSet_lt measurable_id measurable_const) ?_ ?_
+  · exact (measurable_const.mul measurable_annulusKernel).div measurable_id
+  · exact measurable_const.div (measurable_const.mul (measurable_id.pow_const 2))
+
+theorem annulusKernel_nonneg {b : ℝ} (hb : 0 < b) : 0 ≤ annulusKernel b := by
+  unfold annulusKernel
+  positivity
+
+/-- `annulusKernel b ≤ 1/b` for `0 < b ≤ 1`. -/
+theorem annulusKernel_le_inv {b : ℝ} (hb : 0 < b) (hb1 : b ≤ 1) : annulusKernel b ≤ b⁻¹ := by
+  unfold annulusKernel
+  have hlog := Real.log_nonpos hb.le hb1
+  have h1 : 1 ≤ Real.sqrt (1 - Real.log b) := Real.one_le_sqrt.mpr (by linarith)
+  have h3 : 1 ≤ Real.sqrt (1 - Real.log b) ^ 3 := one_le_pow₀ h1
+  rw [mul_inv]
+  have : (Real.sqrt (1 - Real.log b) ^ 3)⁻¹ ≤ 1 := inv_le_one_of_one_le₀ h3
+  have hbinv : 0 < b⁻¹ := inv_pos.2 hb
+  nlinarith
+
+theorem greenRadial_nonneg {lambda : ℝ} (hlambda : 0 < lambda) (b : ℝ) :
+    0 ≤ greenRadial lambda b := by
+  unfold greenRadial
+  split_ifs with h1 h2
+  · positivity
+  · have hb : 0 < b := (Real.sqrt_pos.2 hlambda).trans (lt_of_not_ge h1)
+    have := annulusKernel_nonneg hb
+    have := middleConstant_pos
+    positivity
+  · positivity
+
+theorem greenRadial_le {lambda : ℝ} (hlambda : 0 < lambda) (b : ℝ) :
+    greenRadial lambda b ≤ lambda⁻¹ + middleConstant * lambda⁻¹ + 16 * Real.pi ^ 2 := by
+  have hK := middleConstant_pos
+  have hl : 0 < lambda⁻¹ := inv_pos.2 hlambda
+  have hpi := Real.pi_pos
+  unfold greenRadial
+  split_ifs with h1 h2
+  · have : 0 ≤ middleConstant * lambda⁻¹ := by positivity
+    have : 0 ≤ 16 * Real.pi ^ 2 := by positivity
+    linarith
+  · have hs := Real.sqrt_pos.2 hlambda
+    have hb : Real.sqrt lambda < b := lt_of_not_ge h1
+    have hbpos : 0 < b := hs.trans hb
+    have hak := annulusKernel_le_inv hbpos (by linarith)
+    have hb2 : lambda ≤ b ^ 2 := by
+      have := Real.sq_sqrt hlambda.le
+      nlinarith
+    have hinv : (b ^ 2)⁻¹ ≤ lambda⁻¹ := inv_anti₀ hlambda hb2
+    have hstep : middleConstant * annulusKernel b / b ≤ middleConstant * (b ^ 2)⁻¹ := by
+      rw [mul_div_assoc]
+      refine mul_le_mul_of_nonneg_left ?_ hK.le
+      calc annulusKernel b / b ≤ b⁻¹ / b := div_le_div_of_nonneg_right hak hbpos.le
+        _ = (b ^ 2)⁻¹ := by field_simp
+    have := mul_le_mul_of_nonneg_left hinv hK.le
+    nlinarith
+  · have hb4 : 1 / 4 ≤ b := le_of_not_gt h2
+    have hbpos : 0 < b := by linarith
+    have : Real.pi ^ 2 / (2 * b ^ 2) ≤ 8 * Real.pi ^ 2 := by
+      rw [div_le_iff₀ (by positivity)]
+      have hb2 : 1 / 16 ≤ b ^ 2 := by nlinarith
+      nlinarith [mul_le_mul_of_nonneg_left hb2 (sq_nonneg Real.pi)]
+    nlinarith
+
+theorem intervalIntegrable_of_bound {f : ℝ → ℝ} (hf : Measurable f) {a b C : ℝ} (hab : a ≤ b)
+    (hC : ∀ x ∈ Ioc a b, |f x| ≤ C) : IntervalIntegrable f volume a b := by
+  rw [intervalIntegrable_iff_integrableOn_Ioc_of_le hab]
+  refine Measure.integrableOn_of_bounded (M := C) measure_Ioc_lt_top.ne hf.aestronglyMeasurable ?_
+  filter_upwards [ae_restrict_mem measurableSet_Ioc] with x hx
+  rw [Real.norm_eq_abs]
+  exact hC x hx
+
+/-- `∫_s^{1/4} db/(b (1 + log(1/b))^{3/2}) ≤ 2/√(1 + log 4)`. -/
+theorem integral_annulusKernel_le {s : ℝ} (hs : 0 < s) (hs4 : s ≤ 1 / 4) :
+    (∫ x in s..(1 / 4 : ℝ), annulusKernel x) ≤ 2 / Real.sqrt (1 + Real.log 4) := by
+  have hderiv : ∀ x ∈ Set.uIcc s (1 / 4 : ℝ),
+      HasDerivAt (fun y : ℝ => 2 * (Real.sqrt (1 - Real.log y))⁻¹) (annulusKernel x) x := by
+    intro x hx
+    rw [Set.uIcc_of_le hs4] at hx
+    exact annulusKernel_hasDerivAt (hs.trans_le hx.1) (hx.2.trans (by norm_num))
+  have hint : IntervalIntegrable annulusKernel volume s (1 / 4) := by
+    refine intervalIntegrable_of_bound measurable_annulusKernel hs4 (C := s⁻¹) ?_
+    intro x hx
+    have hxpos : 0 < x := hs.trans hx.1
+    rw [abs_of_nonneg (annulusKernel_nonneg hxpos)]
+    exact (annulusKernel_le_inv hxpos (by linarith [hx.2])).trans
+      (inv_anti₀ hs hx.1.le)
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv hint]
+  have hleft : 0 ≤ 2 * (Real.sqrt (1 - Real.log s))⁻¹ := by positivity
+  have hlog4 : Real.log (1 / 4 : ℝ) = -Real.log 4 := by
+    rw [one_div, Real.log_inv]
+  rw [hlog4, sub_neg_eq_add, div_eq_mul_inv]
+  linarith
+
+/-- **The one-dimensional integral of the three bounds.** -/
+theorem integral_mul_greenRadial_le {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : lambda ≤ 1) :
+    (∫ b in (0:ℝ)..Real.pi, b * greenRadial lambda b) ≤
+      1 / 2 + middleConstant * (2 / Real.sqrt (1 + Real.log 4)) +
+        Real.pi ^ 2 / 2 * Real.log (4 * Real.pi) := by
+  have hpi := Real.pi_pos
+  have hpi3 := Real.pi_gt_three
+  set s := Real.sqrt lambda with hsdef
+  have hs : 0 < s := Real.sqrt_pos.2 hlambda
+  have hs1 : s ≤ 1 := Real.sqrt_le_one.mpr hlambda1
+  have hsq : s ^ 2 = lambda := Real.sq_sqrt hlambda.le
+  have hK := middleConstant_pos
+  set Cb := lambda⁻¹ + middleConstant * lambda⁻¹ + 16 * Real.pi ^ 2 with hCb
+  have hGm := measurable_greenRadial lambda
+  have hFm : Measurable fun b => b * greenRadial lambda b := measurable_id.mul hGm
+  have hFint : ∀ a c : ℝ, 0 ≤ a → a ≤ c → c ≤ Real.pi →
+      IntervalIntegrable (fun b => b * greenRadial lambda b) volume a c := by
+    intro a c ha hac hc
+    refine intervalIntegrable_of_bound hFm hac (C := Real.pi * Cb) ?_
+    intro x hx
+    have hx0 : 0 ≤ x := ha.trans hx.1.le
+    rw [abs_mul, abs_of_nonneg hx0, abs_of_nonneg (greenRadial_nonneg hlambda x)]
+    exact mul_le_mul (hx.2.trans hc) (greenRadial_le hlambda x)
+      (greenRadial_nonneg hlambda x) hpi.le
+  rw [← intervalIntegral.integral_add_adjacent_intervals (b := s)
+    (hFint 0 s le_rfl hs.le (by linarith)) (hFint s Real.pi hs.le (by linarith) le_rfl)]
+  -- the small square
+  have h1 : (∫ b in (0:ℝ)..s, b * greenRadial lambda b) = 1 / 2 := by
+    have hcongr : (∫ b in (0:ℝ)..s, b * greenRadial lambda b) =
+        ∫ b in (0:ℝ)..s, b * lambda⁻¹ := by
+      refine intervalIntegral.integral_congr_ae (Filter.Eventually.of_forall fun x hx => ?_)
+      rw [Set.uIoc_of_le hs.le] at hx
+      rw [greenRadial, if_pos (show x ≤ Real.sqrt lambda from hx.2)]
+    rw [hcongr, intervalIntegral.integral_mul_const, integral_id, hsq]
+    field_simp
+    ring
+  -- the rest of the circle
+  set G2 : ℝ → ℝ := fun x => if x < 1 / 4 then middleConstant * annulusKernel x
+    else Real.pi ^ 2 / 2 * x⁻¹ with hG2
+  have h2 : (∫ b in s..Real.pi, b * greenRadial lambda b) = ∫ b in s..Real.pi, G2 b := by
+    refine intervalIntegral.integral_congr_ae (Filter.Eventually.of_forall fun x hx => ?_)
+    rw [Set.uIoc_of_le (by linarith)] at hx
+    have hxs : ¬ x ≤ s := not_le.mpr hx.1
+    have hxpos : 0 < x := hs.trans hx.1
+    rw [greenRadial, if_neg (show ¬ x ≤ Real.sqrt lambda from hxs)]
+    simp only [hG2]
+    split_ifs
+    · rw [← mul_div_assoc, mul_div_cancel_left₀ _ hxpos.ne']
+    · field_simp
+  have hG2m : Measurable G2 := by
+    refine Measurable.ite (measurableSet_lt measurable_id measurable_const)
+      (measurable_const.mul measurable_annulusKernel) (measurable_const.mul measurable_inv)
+  have hG2int : ∀ a c : ℝ, s ≤ a → a ≤ c → IntervalIntegrable G2 volume a c := by
+    intro a c ha hac
+    refine intervalIntegrable_of_bound hG2m hac (C := middleConstant * s⁻¹ +
+      Real.pi ^ 2 / 2 * s⁻¹) ?_
+    intro x hx
+    have hxpos : 0 < x := hs.trans_le (ha.trans hx.1.le)
+    have hxs : s ≤ x := ha.trans hx.1.le
+    have hxinv : x⁻¹ ≤ s⁻¹ := inv_anti₀ hs hxs
+    simp only [hG2]
+    split_ifs with hx4
+    · rw [abs_of_nonneg (mul_nonneg hK.le (annulusKernel_nonneg hxpos))]
+      have := annulusKernel_le_inv hxpos (by linarith)
+      have := mul_le_mul_of_nonneg_left (this.trans hxinv) hK.le
+      have : 0 ≤ Real.pi ^ 2 / 2 * s⁻¹ := by positivity
+      linarith
+    · rw [abs_of_nonneg (by positivity)]
+      have := mul_le_mul_of_nonneg_left hxinv (by positivity : (0:ℝ) ≤ Real.pi ^ 2 / 2)
+      have : 0 ≤ middleConstant * s⁻¹ := by positivity
+      linarith
+  have hlogint : ∀ a : ℝ, 0 < a → a ≤ Real.pi →
+      (∫ x in a..Real.pi, Real.pi ^ 2 / 2 * x⁻¹) = Real.pi ^ 2 / 2 * Real.log (Real.pi / a) := by
+    intro a ha _
+    rw [intervalIntegral.integral_const_mul, integral_inv_of_pos ha hpi]
+  have hlogle : ∀ a : ℝ, 1 / 4 ≤ a → a ≤ Real.pi →
+      Real.pi ^ 2 / 2 * Real.log (Real.pi / a) ≤ Real.pi ^ 2 / 2 * Real.log (4 * Real.pi) := by
+    intro a ha _
+    refine mul_le_mul_of_nonneg_left (Real.log_le_log (by positivity) ?_) (by positivity)
+    rw [div_le_iff₀ (by linarith)]
+    nlinarith
+  have hKterm : 0 ≤ middleConstant * (2 / Real.sqrt (1 + Real.log 4)) := by positivity
+  rw [h1, h2]
+  rcases lt_or_ge s (1 / 4) with hs4 | hs4
+  · rw [← intervalIntegral.integral_add_adjacent_intervals (b := 1 / 4)
+      (hG2int s (1 / 4) le_rfl hs4.le) (hG2int (1 / 4) Real.pi hs4.le (by linarith))]
+    have hmid : (∫ x in s..(1 / 4 : ℝ), G2 x) ≤
+        ∫ x in s..(1 / 4 : ℝ), middleConstant * annulusKernel x := by
+      refine intervalIntegral.integral_mono_on hs4.le (hG2int s (1 / 4) le_rfl hs4.le) ?_ ?_
+      · refine (intervalIntegrable_of_bound measurable_annulusKernel hs4.le (C := s⁻¹) ?_).const_mul
+          middleConstant
+        intro x hx
+        have hxpos : 0 < x := hs.trans hx.1
+        rw [abs_of_nonneg (annulusKernel_nonneg hxpos)]
+        exact (annulusKernel_le_inv hxpos (by linarith [hx.2])).trans (inv_anti₀ hs hx.1.le)
+      · intro x hx
+        simp only [hG2]
+        split_ifs with hx4
+        · exact le_rfl
+        · have hx14 : x = 1 / 4 := le_antisymm hx.2 (le_of_not_gt hx4)
+          subst hx14
+          -- at the endpoint: `2π² ≤ K · annulusKernel (1/4)`
+          have hak : 1 ≤ annulusKernel (1 / 4) := by
+            unfold annulusKernel
+            have hlog4 : Real.log (1 / 4 : ℝ) = -Real.log 4 := by rw [one_div, Real.log_inv]
+            rw [hlog4, sub_neg_eq_add]
+            have hl4 : Real.log 4 < 1.4964 := by
+              have h2 := Real.log_two_lt_d9
+              rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
+              push_cast
+              linarith
+            have hl4' : 0 ≤ Real.log 4 := Real.log_nonneg (by norm_num)
+            have hsq : Real.sqrt (1 + Real.log 4) ≤ 1.58 := by
+              rw [show (1.58 : ℝ) = Real.sqrt (1.58 ^ 2) from (Real.sqrt_sq (by norm_num)).symm]
+              exact Real.sqrt_le_sqrt (by nlinarith)
+            have hsq0 : 0 ≤ Real.sqrt (1 + Real.log 4) := Real.sqrt_nonneg _
+            have hcube : Real.sqrt (1 + Real.log 4) ^ 3 ≤ 4 := by
+              have : Real.sqrt (1 + Real.log 4) ^ 3 ≤ 1.58 ^ 3 :=
+                pow_le_pow_left₀ hsq0 hsq 3
+              nlinarith
+            have hpos : 0 < 1 / 4 * Real.sqrt (1 + Real.log 4) ^ 3 := by
+              have : 0 < Real.sqrt (1 + Real.log 4) := Real.sqrt_pos.2 (by linarith)
+              positivity
+            rw [one_le_inv₀ hpos]
+            linarith
+          have hKbig : 20 ≤ middleConstant := by
+            unfold middleConstant
+            have : 1 ≤ Real.sqrt 2 := Real.one_le_sqrt.mpr (by norm_num)
+            nlinarith
+          have hpisq : Real.pi ^ 2 ≤ 10 := by nlinarith [Real.pi_lt_d2]
+          have : Real.pi ^ 2 / 2 * (1 / 4 : ℝ)⁻¹ ≤ 20 := by nlinarith
+          nlinarith
+    have hmid2 : (∫ x in s..(1 / 4 : ℝ), middleConstant * annulusKernel x) ≤
+        middleConstant * (2 / Real.sqrt (1 + Real.log 4)) := by
+      rw [intervalIntegral.integral_const_mul]
+      exact mul_le_mul_of_nonneg_left (integral_annulusKernel_le hs hs4.le) hK.le
+    have hout : (∫ x in (1 / 4 : ℝ)..Real.pi, G2 x) =
+        Real.pi ^ 2 / 2 * Real.log (4 * Real.pi) := by
+      rw [← show Real.pi / (1 / 4) = 4 * Real.pi by field_simp,
+        ← hlogint (1 / 4) (by norm_num) (by linarith)]
+      refine intervalIntegral.integral_congr_ae (Filter.Eventually.of_forall fun x hx => ?_)
+      rw [Set.uIoc_of_le (by linarith)] at hx
+      simp only [hG2, if_neg (not_lt.mpr hx.1.le)]
+    linarith
+  · have hout : (∫ x in s..Real.pi, G2 x) = Real.pi ^ 2 / 2 * Real.log (Real.pi / s) := by
+      rw [← hlogint s hs (by linarith)]
+      refine intervalIntegral.integral_congr_ae (Filter.Eventually.of_forall fun x hx => ?_)
+      rw [Set.uIoc_of_le (by linarith)] at hx
+      simp only [hG2, if_neg (not_lt.mpr (hs4.trans hx.1.le))]
+    rw [hout]
+    have := hlogle s hs4 (by linarith)
+    linarith
+
+/-- The numerical value: `1/π² + 2^{7/2}·2048/(π²√(1 + log 4)) + log(4π) < 2048`. -/
+theorem greenConstant_le_2048 :
+    2 / Real.pi ^ 2 * (1 / 2 + middleConstant * (2 / Real.sqrt (1 + Real.log 4)) +
+      Real.pi ^ 2 / 2 * Real.log (4 * Real.pi)) ≤ 2048 := by
+  have hpi := Real.pi_pos
+  have hpisq : (9.8696 : ℝ) ≤ Real.pi ^ 2 := Constant.pi_sq_ge
+  have hl2 := Real.log_two_gt_d9
+  have hlog4 : (1.25 : ℝ) ≤ Real.log 4 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
+    push_cast
+    linarith
+  have hX : (1.5 : ℝ) ≤ Real.sqrt (1 + Real.log 4) := by
+    rw [show (1.5 : ℝ) = Real.sqrt (1.5 ^ 2) from (Real.sqrt_sq (by norm_num)).symm]
+    exact Real.sqrt_le_sqrt (by nlinarith)
+  have hX0 : 0 < Real.sqrt (1 + Real.log 4) := by linarith
+  have hs2 : Real.sqrt 2 ≤ 1.4143 := by
+    rw [show (1.4143 : ℝ) = Real.sqrt (1.4143 ^ 2) from (Real.sqrt_sq (by norm_num)).symm]
+    exact Real.sqrt_le_sqrt (by norm_num)
+  have hK : middleConstant ≤ 5793 := by
+    unfold middleConstant
+    nlinarith
+  have hK0 := middleConstant_pos
+  have hfrac : 2 / Real.sqrt (1 + Real.log 4) ≤ 4 / 3 := by
+    rw [div_le_iff₀ hX0]
+    nlinarith
+  have hKX : middleConstant * (2 / Real.sqrt (1 + Real.log 4)) ≤ 7724 := by
+    have h0 : 0 ≤ 2 / Real.sqrt (1 + Real.log 4) := by positivity
+    nlinarith
+  have hlog : Real.log (4 * Real.pi) ≤ 4 * Real.pi - 1 :=
+    Real.log_le_sub_one_of_pos (by positivity)
+  have hpi4 : Real.pi ≤ 3.1416 := by linarith [Real.pi_lt_d4]
+  have hsplit : 2 / Real.pi ^ 2 * (1 / 2 + middleConstant * (2 / Real.sqrt (1 + Real.log 4)) +
+      Real.pi ^ 2 / 2 * Real.log (4 * Real.pi)) =
+      2 / Real.pi ^ 2 * (1 / 2 + middleConstant * (2 / Real.sqrt (1 + Real.log 4))) +
+        Real.log (4 * Real.pi) := by
+    field_simp
+  rw [hsplit]
+  have hc : 2 / Real.pi ^ 2 ≤ 2 / 9.8696 := div_le_div_of_nonneg_left (by norm_num) (by norm_num) hpisq
+  have hpos : 0 ≤ 1 / 2 + middleConstant * (2 / Real.sqrt (1 + Real.log 4)) := by positivity
+  have := mul_le_mul hc (show 1 / 2 + middleConstant * (2 / Real.sqrt (1 + Real.log 4)) ≤ 7724.5
+    by linarith) hpos (by norm_num)
+  nlinarith
+
+/-! ### `thm:annealed` -/
+
+/-- The frequency integral of `r_λ` is at most `2048`, uniformly in `λ ∈ (0,1]`. -/
+theorem normalizedGreenIntegral_le_2048 {lambda : ℝ} (hlambda : 0 < lambda)
+    (hlambda1 : lambda ≤ 1) :
+    normalizedFrequencyIntegral (Manhattan.Glue.concreteGreenDensity lambda) ≤ 2048 := by
+  have hrad := normalizedFrequencyIntegral_le_radial (φ := greenRadial lambda)
+    (Manhattan.Glue.concreteGreenDensity_nonneg lambda) (measurable_greenRadial lambda)
+    (greenRadial_nonneg hlambda) (greenRadial_le hlambda)
+    (fun z h1 h2 => concreteGreenDensity_le_greenRadial hlambda hlambda1 h1 h2)
+  have hint := integral_mul_greenRadial_le hlambda hlambda1
+  have hpi := Real.pi_pos
+  have hmul := mul_le_mul_of_nonneg_left hint (by positivity : (0:ℝ) ≤ 2 / Real.pi ^ 2)
+  exact hrad.trans (hmul.trans greenConstant_le_2048)
+
+/-- **`thm:annealed`** (`paper/arxiv/main.tex:180-188`), with the constant `2048`
+of the paper: for every `λ ∈ (0,1]`, `∫₀^∞ e^{-λt} p̄_t(0,0) dt ≤ 2048`. -/
+theorem annealed_laplace_le_2048 {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : lambda ≤ 1) :
+    (∫⁻ t in Ici (0:ℝ), ENNReal.ofReal (Real.exp (-lambda * t)) *
+        Manhattan.annealedContinuousKernel t 0 0) ≤ ENNReal.ofReal 2048 := by
+  rw [Manhattan.Glue.concreteGreenIdentity lambda hlambda]
+  exact ENNReal.ofReal_le_ofReal (normalizedGreenIntegral_le_2048 hlambda hlambda1)
+
+/-- **`eq:green-explicit`** (`paper/arxiv/main.tex:1118-1120`):
+`∫₀^∞ p̄_t(0,0) dt ≤ 2048`. -/
+theorem annealed_green_le_2048 :
+    (∫⁻ t in Ici (0:ℝ), Manhattan.annealedContinuousKernel t 0 0) ≤ ENNReal.ofReal 2048 :=
+  Constant.undamped_le_of_uniform_damped _ fun _ hl hl1 => annealed_laplace_le_2048 hl hl1
+
 end
 
 end Manhattan.Paper

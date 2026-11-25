@@ -54,13 +54,17 @@ status:
     as finiteness of the quenched Green series at every site (Theorem 1.1),
     and the uniform bound on the Laplace transforms of the annealed
     continuous-time return probability with finiteness of the annealed Green
-    function (Theorem 1.2).  The frozen-statement manifest registers 75
-    statements of the pinned manuscript paper/manuscript.tex, all PROVED: the
-    model and its kernels, the countable Fourier-Walsh coordinates, the Fourier
-    transform in position and Proposition 2.1, the variational upper bound
-    (formula (15)), the fixed-frequency estimate (Proposition 2.2), the
-    degree-one and degree-three estimates (Lemma 4.1, Proposition 4.2), and
-    the Fourier-Walsh calculations of Section 5 at the concrete competitor.
+    function (Theorem 1.2).  The frozen-statement manifest registers 95
+    statements, all PROVED.  Of these, 87 transcribe the pinned manuscript
+    paper/manuscript.tex: the model and its kernels, the countable
+    Fourier-Walsh coordinates, the Fourier transform in position and
+    Proposition 2.1, the variational upper bound (formula (15)), the
+    fixed-frequency estimate (Proposition 2.2), the degree-one and
+    degree-three estimates (Lemma 4.1, Proposition 4.2), Lemma 3.1 and the
+    Fourier-Walsh calculations of Section 5 (Lemmas 5.1 to 5.4).  The other 8
+    transcribe the arXiv version: eq:majorant, eq:uncancelled,
+    eq:scalar-energy, Lemma 5.1 with 16, eq:optimized, Proposition 6.1,
+    Theorem 1.2 and eq:green-explicit with 2048.
     Theorem 1.1 is also proved along the shorter argument of the arXiv version
     (Manhattan/V4/).  No result from the literature is assumed.  Not
     formalized: the open questions, the figures and the discussion of related
@@ -132,14 +136,15 @@ fidelity:
     times the number of axis words from z to z'; the continuous-time kernel is
     defined by rate-two Poisson subordination of the discrete kernel;
     finiteness is stated in the extended nonnegative reals.  Formula (15) is
-    formalized in its upper-bound direction only, and Lemma 5.3 on its raw
-    frequency side only.  The manifest is pinned to paper/manuscript.tex, which
-    differs from the arXiv version; the arXiv version reaches Theorem 1.1 by a
+    formalized in its upper-bound direction only.  The manifest's source pin is
+    paper/manuscript.tex, which differs from the arXiv version (eight nodes
+    transcribe the arXiv text instead); the arXiv version reaches Theorem 1.1 by a
     shorter argument, which is formalized separately in Manhattan/V4/, and
     CORRESPONDENCE.md records which frozen statements it does not print.  The
-    numerical constants 2048 (Theorem 1.2, Proposition 6.1) and 16 (Lemma 5.1)
-    stated in the arXiv version are not certified; the formal statements are
-    existential in the constant.
+    frozen statements of paper/manuscript.tex are existential in the
+    constant; the arXiv numerals 2048 (Theorem 1.2, Proposition 6.1) are
+    proved in Manhattan/Paper/, and 16 (Lemma 5.1) for the profiles
+    phi = t/q on Gamma_delta, all registered as nodes of the manifest.
 
 review:
   status: "author-verified"
@@ -150,8 +155,9 @@ review:
     sorry, no custom axiom).  The author ruled on the statement-level
     decisions.  A second, independent reading of the frozen statements is
     recorded for part of the frozen surface; it is not recorded for the twelve
-    concrete-lemma anchors under Manhattan/Frozen/Glue/ or for the cone of the
-    main theorems.  The statements of the two main theorems are checked
+    concrete-lemma anchors under Manhattan/Frozen/Glue/, for the twenty
+    anchors under Manhattan/Frozen/Paper/ or for the cone of the main
+    theorems.  The statements of the two main theorems are checked
     independently by the comparator challenges under ManhattanAudit/.  This is not
     external peer review.
 

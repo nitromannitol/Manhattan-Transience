@@ -9,7 +9,8 @@ A machine-checked **Lean 4** formalization of the paper
 The pinned manuscript, its bibliography and the unmodified arXiv source are included under
 [`paper/`](paper/). The 2 main theorems are proved, in the form in which the introduction of
 the pinned manuscript [`paper/manuscript.tex`](paper/manuscript.tex) states them (Theorem 1.2
-with an unspecified constant where the arXiv version states `2048`), **for the randomly
+with an unspecified constant where the arXiv version states `2048`; the numeral is proved
+separately, item 5 below), **for the randomly
 oriented Manhattan lattice of the paper**, with no hypothesis and no result from the
 literature assumed.
 
@@ -115,10 +116,12 @@ result and lists every change against the arXiv version.
    unspecified constant, as `paper/manuscript.tex` does; the numerals are proved separately in
    `Manhattan/Paper/`: `Manhattan.Paper.annealed_laplace_le_2048` and
    `Manhattan.Paper.annealed_green_le_2048` (Theorem 1.2), `Manhattan.Paper.frequencyBound_2048`
-   (Proposition 6.1) and `Manhattan.Paper.move1_objective_sixteen` (Lemma 5.1).
+   (Proposition 6.1) and `Manhattan.Paper.move1_objective_sixteen` (Lemma 5.1, for the profiles
+   `φ = t/q` on `Γ_δ` that the proof of Proposition 6.1 uses; the arXiv lemma is stated for
+   every real even `φ ∈ L²` vanishing off `Γ_δ`).
 6. **Statements without a formal counterpart.** Every numbered statement registered in the
-   manifest is machine-checked; the numerals of the arXiv version are proved outside the
-   manifest (item 5). The pinned
+   manifest is machine-checked; the numerals of the arXiv version are proved (item 5), the `16`
+   of Lemma 5.1 for that family of profiles only. The pinned
    manuscript states what the Lean statements state;
    [`paper/CHANGES_FROM_ARXIV.md`](paper/CHANGES_FROM_ARXIV.md) records every difference
    between it and the arXiv version, whose unmodified source is
@@ -128,7 +131,7 @@ result and lists every change against the arXiv version.
 
 ## Registered statements
 
-The manifest [`ledger/manifest.yaml`](ledger/manifest.yaml) registers 75 statements, all in the
+The manifest [`ledger/manifest.yaml`](ledger/manifest.yaml) registers 95 statements, all in the
 state `PROVED`. The pinned source is [`paper/manuscript.tex`](paper/manuscript.tex), whose
 SHA-256 is recorded in [`paper/SOURCE_PIN.txt`](paper/SOURCE_PIN.txt) and in the manifest. A
 registered statement's text between the lines `-- FROZEN-STATEMENT-BEGIN` and
@@ -158,19 +161,26 @@ pinned source they transcribe:
 | `lem-correction-calculation-concrete` | Lemma 5.4, the raw mixed residual | `manuscript.tex:1305-1400` |
 | `eq-e-summand-one` … `-four` | the four summands of the objective (22) | `manuscript.tex:765-772` |
 | `eq-construction-sector-energy` | `E_p(f_p,k_p) ≤ C √L`, third display of (25) | `manuscript.tex:785-790` |
+| `lem-formulas-d2a` … `-d1-mixed` | Lemma 3.1, the five formulas `eq:D2a`, `eq:D2b`, `eq:D1` | `manuscript.tex:827-841` |
+| `lem-raise-eq-raise`, `-projection`, `-commute` | Lemma 5.1 at every degree | `manuscript.tex:1179-1191` |
+| `eq-iso-hminus-energy` | `eq:iso` and `eq:Hsym` for the `H⁻¹` energy | `manuscript.tex:725-728`, `:749` |
+| `lem-four` | Lemma 5.2 for every `k ∈ ℋ₃`, `κ = 97` | `manuscript.tex:1200-1207` |
+| `lem-distinct` | Lemma 5.3 for every coefficient of type `112` | `manuscript.tex:1212-1221` |
+| `lem-correction-calculation` | Lemma 5.4 at the operator level for the competitor | `manuscript.tex:1305-1420` |
+| `arxiv-eq-majorant` | `eq:majorant`, constant one, bounded kernels | `arxiv/main.tex:813-854` |
+| `arxiv-lem-effective-energy` | Lemma 5.1 with `16`, profiles `φ = t/q` on `Γ_δ` | `arxiv/main.tex:951-1033` |
+| `arxiv-eq-optimized` | `eq:optimized` with `16`, for some `s` with `s² ≥ (2/π)² a(p)²` | `arxiv/main.tex:1052-1067` |
+| `arxiv-prop-frequency` | Proposition 6.1 with `2048` | `arxiv/main.tex:1070-1092` |
+| `arxiv-thm-annealed` | Theorem 1.2 with `2048` | `arxiv/main.tex:180-188` |
+| `arxiv-eq-green-explicit` | `eq:green-explicit` with `2048` | `arxiv/main.tex:1115-1121` |
 
-Lemma 3.1 is proved in the normalization of the paper, for every square-integrable coefficient,
-by `Manhattan.Paper.lowering_twoRow` (`eq:D2a`), `Manhattan.Paper.lowering_mixed` (`eq:D2b`),
-`Manhattan.Paper.lowering_degreeOne`, `Manhattan.Paper.raising_twoRow` and
-`Manhattan.Paper.raising_mixed` (`eq:D1`).  Lemma 5.3 is proved for every coefficient of type
-`112` by `Manhattan.Paper.lemma_distinct`, with the `H⁻¹` norm in symmetric coefficients
-identified with that of the Walsh vector by `Manhattan.Paper.hMinusEnergy_eq_symCoeff`.  Lemmas
-5.1 and 5.2 are also proved in the full generality of the paper, as public statements outside
-the manifest: `Manhattan.Paper.orderedFourier_rawRaise` (equation (45) at every degree),
-`Manhattan.Paper.symCoeff_walshRaise` (`D_n = Π_{n+1} D̃_n Π_n`),
-`Manhattan.Paper.offDiagonalProjection_comp_orderedMultiplier` (`Π_n` commutes with every
-continuous multiplier of the total frequency) and `Manhattan.Paper.lemma_four` (Lemma 5.2 for
-every degree-three element, with `κ = 97`).
+The `manuscript.tex` nodes `lem-formulas-*`, `lem-raise-*`, `eq-iso-hminus-energy`,
+`lem-four`, `lem-distinct` and `lem-correction-calculation` state Lemmas 3.1 and 5.1 to 5.4 in
+the normalization and generality of the paper (Lemma 5.4 for the competitor of Section 4).
+The `arxiv/main.tex` nodes state the arXiv version's `eq:majorant`, `eq:uncancelled`,
+`eq:scalar-energy`, Lemma 5.1, `eq:optimized`, Proposition 6.1, Theorem 1.2 and
+`eq:green-explicit`, with the printed numerals; [`CORRESPONDENCE.md`](CORRESPONDENCE.md) gives
+the scope and hypotheses of each.
 
 ## Guarantees
 

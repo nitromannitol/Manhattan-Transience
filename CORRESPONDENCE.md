@@ -39,13 +39,13 @@ restated over a Mathlib-only vocabulary for the comparator (see
 ## The frozen surface
 
 The table below is the complete frozen surface; counts and states are checked
-against `ledger/manifest.yaml`. That manifest has **75 nodes, all in state
+against `ledger/manifest.yaml`. That manifest has **95 nodes, all in state
 `PROVED`**; each has exactly one row below. A second, independent reading of the
 frozen statements is recorded for part of the surface. It is not recorded for the
 twelve concrete-lemma rows (`lem-raise-concrete-raising` to
-`eq-construction-sector-energy`, the rows of `Manhattan/Frozen/Glue/`) or for the
-four rows `thm-main`, `thm-annealed`, `thm-annealed-model-interface` and
-`prop-frequency`; the two main theorems are in addition checked by the
+`eq-construction-sector-energy`, the rows of `Manhattan/Frozen/Glue/`), for the
+twenty rows of `Manhattan/Frozen/Paper/`, or for the four rows `thm-main`,
+`thm-annealed`, `thm-annealed-model-interface` and `prop-frequency`; the two main theorems are in addition checked by the
 comparator challenges under [`ManhattanAudit/`](ManhattanAudit/).
 
 | Source / manifest node | Lean declaration | File | Status |
@@ -125,6 +125,26 @@ comparator challenges under [`ManhattanAudit/`](ManhattanAudit/).
 | `manuscript.tex:765-772 (eq:E = (22))` / `eq-e-summand-three` | `Manhattan.Frozen.Glue.summand_three_bound` | `Manhattan/Frozen/Glue/SummandThree.lean` | proved (summand 3 of (22)) |
 | `manuscript.tex:765-772 (eq:E = (22))` / `eq-e-summand-four` | `Manhattan.Frozen.Glue.summand_four_bound` | `Manhattan/Frozen/Glue/SummandFour.lean` | proved (summand 4 of (22)) |
 | `manuscript.tex:785-790 (third display of eq:construction = (25))` / `eq-construction-sector-energy` | `Manhattan.Frozen.Glue.sector_energy_bound` | `Manhattan/Frozen/Glue/SectorEnergyBound.lean` | proved (the repository's "(23)", E_p(f_p,k_p) <= C sqrt(L)) |
+| `manuscript.tex:827-841 (eq:D2a at :831)` / `lem-formulas-d2a` | `Manhattan.Frozen.Paper.lowering_twoRow` | `Manhattan/Frozen/Paper/LoweringTwoRow.lean` | proved (Lemma 3.1, `eq:D2a`, in the normalization of Section 3.4) |
+| `manuscript.tex:827-841 (eq:D2b at :833)` / `lem-formulas-d2b` | `Manhattan.Frozen.Paper.lowering_mixed` | `Manhattan/Frozen/Paper/LoweringMixed.lean` | proved (Lemma 3.1, `eq:D2b`, for `k` symmetric in its two row frequencies) |
+| `manuscript.tex:827-841 (eq:D1 at :837)` / `lem-formulas-d1-lowering` | `Manhattan.Frozen.Paper.lowering_degreeOne` | `Manhattan/Frozen/Paper/LoweringDegreeOne.lean` | proved (Lemma 3.1, first formula of `eq:D1`, for `f` carrying only a row sign) |
+| `manuscript.tex:827-841 (eq:D1 at :838)` / `lem-formulas-d1-two-row` | `Manhattan.Frozen.Paper.raising_twoRow` | `Manhattan/Frozen/Paper/RaisingTwoRow.lean` | proved (Lemma 3.1, second formula of `eq:D1`) |
+| `manuscript.tex:827-841 (eq:D1 at :839)` / `lem-formulas-d1-mixed` | `Manhattan.Frozen.Paper.raising_mixed` | `Manhattan/Frozen/Paper/RaisingMixed.lean` | proved (Lemma 3.1, third formula of `eq:D1`, for `f` carrying only a row sign) |
+| `manuscript.tex:1179-1191 (eq:raise at :1182)` / `lem-raise-eq-raise` | `Manhattan.Frozen.Paper.orderedFourier_rawRaise` | `Manhattan/Frozen/Paper/RawRaiseFourier.lean` | proved (Lemma 5.1, `eq:raise` at every degree) |
+| `manuscript.tex:1188-1189` / `lem-raise-projection` | `Manhattan.Frozen.Paper.symCoeff_walshRaise` | `Manhattan/Frozen/Paper/SymCoeffWalshRaise.lean` | proved (Lemma 5.1, `D_n = Π_{n+1} D̃_n Π_n` at every degree) |
+| `manuscript.tex:1189-1190` / `lem-raise-commute` | `Manhattan.Frozen.Paper.offDiagonalProjection_comp_orderedMultiplier` | `Manhattan/Frozen/Paper/OffDiagonalProjectionCommute.lean` | proved (Lemma 5.1, `Π_n` commutes with every continuous multiplier of `P`; the paper also states it for bounded Borel functions) |
+| `manuscript.tex:725-728, :749 (eq:iso, eq:Hsym)` / `eq-iso-hminus-energy` | `Manhattan.Frozen.Paper.hMinusEnergy_eq_symCoeff` | `Manhattan/Frozen/Paper/HMinusEnergySymCoeff.lean` | proved (`‖F‖²_{H⁻¹} = n! ⟨f, (λ + θ(P))⁻¹ f⟩` in symmetric coefficients) |
+| `manuscript.tex:1200-1207` / `lem-four` | `Manhattan.Frozen.Paper.lemma_four` | `Manhattan/Frozen/Paper/LemmaFour.lean` | proved (Lemma 5.2 for every `k ∈ ℋ₃`, with `κ = 97`) |
+| `manuscript.tex:1212-1221` / `lem-distinct` | `Manhattan.Frozen.Paper.lemma_distinct` | `Manhattan/Frozen/Paper/LemmaDistinct.lean` | proved (Lemma 5.3 for every coefficient of type `112` symmetric in its row frequencies: only a mixed component, squared `H⁻¹` norm at most `(6/κ)⟨k̃, M k̃⟩`) |
+| `manuscript.tex:1305-1420` / `lem-correction-calculation` | `Manhattan.Frozen.Paper.lemma_correction_calculation` | `Manhattan/Frozen/Paper/LemmaCorrectionCalculation.lean` | proved (Lemma 5.4 at the operator level for the competitor `k_p = sgn(sin p₁) Π₃k̃` and `w = sgn(sin p₁) 1_I`, the mixed component of `D₁f_p`: `(D₂*k_p)₁₁ = 0` and `eq:reduce` with constant `26 + 12/(K³ρ)`; `M` of `eq:M` with `κ = 40`; assumes `|p₂| ≤ |p₁|` and `Kδ < r₀`, the hypotheses of `prop:key`, `b_p ≠ 0` (which excludes `p₁ = 0`), and the integrability certificate `LemmaFourTwoIntegralCertificate`, which `Manhattan.Estimates.lemmaFourTwoIntegralCertificate_proved` supplies when `p₁ ≠ 0`) |
+| `arxiv/main.tex:813-854 (eq:majorant at :818)` / `arxiv-eq-majorant` | `Manhattan.Frozen.Paper.sectorForms_rawWalsh_le` | `Manhattan/Frozen/Paper/Majorant.lean` | proved (`eq:majorant` with constant one, `M = 4(δ + |r| + |r'| + |β|)`, for bounded measurable kernels (`TorusBoundedThree`) in place of `K ∈ L²(𝕋³)`, under `λ + 4|p₂| ≤ 4δ`; the bound reads `½∫M|k|²` because the paper's `K` is `k/√2`) |
+| `arxiv/main.tex:966-973 (eq:uncancelled at :972)` / `arxiv-eq-uncancelled` | `Manhattan.Frozen.Paper.objective_eq_sectors` | `Manhattan/Frozen/Paper/ObjectiveSectors.lean` | proved (the objective of `lem:variational-bound` is the uncancelled degree-zero term plus the summands of `eq:E`, the degree-two summand split into its two-row and mixed sectors, for `f` carrying only row signs and `k` of type `112` with `(D₂*k)₁₁ = 0`) |
+| `arxiv/main.tex:868-901 (eq:scalar-energy, eq:parity-energy)` / `arxiv-eq-scalar-energy` | `Manhattan.Frozen.Paper.parityCost_eq` | `Manhattan/Frozen/Paper/ParityCost.lean` | proved (the completed square at `V = w/(B+σ)`, integrated, for bounded measurable `w`) |
+| `arxiv/main.tex:951-1033` / `arxiv-lem-effective-energy` | `Manhattan.Frozen.Paper.move1_objective_sixteen` | `Manhattan/Frozen/Paper/EffectiveEnergy.lean` | proved (Lemma 5.1 with `16` for the profiles `φ = t/q` on `Γ_δ` that `prop:frequency` uses: bounds the objective of `lem:variational-bound` at a test function `g`) |
+| `arxiv/main.tex:1052-1067 (eq:optimized at :1066)` / `arxiv-eq-optimized` | `Manhattan.Frozen.Paper.move2Supply_sixteen` | `Manhattan/Frozen/Paper/Optimized.lean` | proved (`r_λ(p) ≤ 1/(H₀ + s² Z_δ/16)` on `√λ + a(p) ≤ 1/256` for some `s` with `s² ≥ (2/π)² a(p)²`, the form `prop:frequency` uses; the proof takes `s = sin p₁` after exchanging rows and columns) |
+| `arxiv/main.tex:1070-1092` / `arxiv-prop-frequency` | `Manhattan.Frozen.Paper.frequencyBound_2048` | `Manhattan/Frozen/Paper/FrequencyBound.lean` | proved (constant `2048`; the proof reaches `10π²·16 < 1580`) |
+| `arxiv/main.tex:180-188, :1094-1121` / `arxiv-thm-annealed` | `Manhattan.Frozen.Paper.annealed_laplace_le_2048` | `Manhattan/Frozen/Paper/AnnealedLaplace.lean` | proved (constant `2048`; the proof reaches about `1578`) |
+| `arxiv/main.tex:1115-1121 (eq:green-explicit at :1118)` / `arxiv-eq-green-explicit` | `Manhattan.Frozen.Paper.annealed_green_le_2048` | `Manhattan/Frozen/Paper/GreenExplicit.lean` | proved (`∫₀^∞ p̄_t(0,0) dt ≤ 2048`; the proof reaches about `1578`) |
 
 ## Unfrozen public audit and assembly support
 
@@ -134,28 +154,8 @@ are traceable.
 
 | Source | Lean declaration | File | Status |
 |---|---|---|---|
-| `manuscript.tex:827-841` (`eq:D2a` at :831) | `Manhattan.Paper.lowering_twoRow` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (Lemma 3.1, `eq:D2a`, in the normalization of Section 3.4) |
-| `manuscript.tex:827-841` (`eq:D2b` at :833) | `Manhattan.Paper.lowering_mixed` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (Lemma 3.1, `eq:D2b`) |
-| `manuscript.tex:827-841` (`eq:D1` at :837) | `Manhattan.Paper.lowering_degreeOne` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (Lemma 3.1, first formula of `eq:D1`) |
-| `manuscript.tex:827-841` (`eq:D1` at :838) | `Manhattan.Paper.raising_twoRow` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (Lemma 3.1, second formula of `eq:D1`) |
-| `manuscript.tex:827-841` (`eq:D1` at :839) | `Manhattan.Paper.raising_mixed` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (Lemma 3.1, third formula of `eq:D1`) |
 | `manuscript.tex:1179-1191` | `Manhattan.Paper.orderedFourier_rawLower` | `Manhattan/Paper/LowDegreeFormulas.lean` | proved (the adjoint of `eq:raise`: `D̃_n*` at every degree) |
-| `manuscript.tex:1179-1191` (`eq:raise` at :1182) | `Manhattan.Paper.orderedFourier_rawRaise` | `Manhattan/Paper/LemmaRaise.lean` | proved (Lemma 5.1, `eq:raise` at every degree) |
-| `manuscript.tex:1188-1189` | `Manhattan.Paper.symCoeff_walshRaise` | `Manhattan/Paper/LemmaRaise.lean` | proved (Lemma 5.1, `D_n = Π_{n+1} D̃_n Π_n` at every degree) |
-| `manuscript.tex:1189-1190` | `Manhattan.Paper.offDiagonalProjection_comp_orderedMultiplier` | `Manhattan/Paper/LemmaRaiseMultiplier.lean` | proved (Lemma 5.1, `Π_n` commutes with continuous multipliers of `P`) |
-| `manuscript.tex:1212-1221` | `Manhattan.Paper.lemma_distinct` | `Manhattan/Paper/LemmaDistinct.lean` | proved (Lemma 5.3 for every coefficient of type `112`: only a mixed component, squared `H⁻¹` norm at most `(6/κ)⟨k̃, M k̃⟩`) |
-| `manuscript.tex:725-728`, `:749` | `Manhattan.Paper.hMinusEnergy_eq_symCoeff` | `Manhattan/Paper/SymmetricIso.lean` | proved (`eq:iso` and `eq:Hsym` in symmetric coefficients: `‖F‖²_{H⁻¹} = n! ⟨f, (λ+θ(P))⁻¹ f⟩`) |
-| `manuscript.tex:1200-1207` | `Manhattan.Paper.lemma_four` | `Manhattan/Paper/LemmaFour.lean` | proved (Lemma 5.2 for every `k ∈ ℋ₃`, `κ = 97`) |
-| `manuscript.tex:1305-1420` | `Manhattan.Paper.lemma_correction_calculation` | `Manhattan/Paper/LemmaCorrection.lean` | proved (Lemma 5.4 at the operator level for the competitor: `(D₂*k)₁₁ = 0` and `eq:reduce` with constant `26 + 12/(K³ρ)`) |
-| `arxiv/main.tex:813-854` | `Manhattan.Paper.sectorForms_type112_le` | `Manhattan/Paper/ParityMajorant.lean` | proved (`lem:parity`, Step 1: `‖k‖₊² + ‖D₃k‖₋²` for `k` of type `112`, three row and two column slot terms) |
-| `arxiv/main.tex:813-854` (`eq:majorant`) | `Manhattan.Paper.sectorForms_rawWalsh_le` | `Manhattan/Paper/ParityTransport.lean` | proved (`eq:majorant` with constant one, `M = 4(δ + |r| + |r'| + |β|)`) |
-| `arxiv/main.tex:966-973` (`eq:uncancelled`) | `Manhattan.Paper.objective_eq_sectors` | `Manhattan/Paper/EffectiveEnergy.lean` | proved (exact split of the objective into its sectors) |
-| `arxiv/main.tex:870-873` (`eq:scalar-energy`) | `Manhattan.Paper.parityCost_eq` | `Manhattan/Paper/EffectiveEnergy.lean` | proved (completed square, integrated) |
-| `arxiv/main.tex:951-1033` (`lem:effective-energy`) | `Manhattan.Paper.move1_objective_sixteen` | `Manhattan/Paper/EffectiveEnergy.lean` | proved (constant `16`, profiles `φ = t/q` on `Γ_δ`) |
-| `arxiv/main.tex:1059-1067` (`eq:optimized`) | `Manhattan.Paper.move2Supply_sixteen` | `Manhattan/Paper/EffectiveEnergy.lean` | proved (`r_λ(p) ≤ 1/(H₀ + s² Z_δ/16)`) |
-| `arxiv/main.tex:1070-1092` (`prop:frequency`) | `Manhattan.Paper.frequencyBound_2048` | `Manhattan/Paper/FrequencyBound.lean` | proved (constant `2048`) |
-| `arxiv/main.tex:180-188`, `:1094-1121` (`thm:annealed`) | `Manhattan.Paper.annealed_laplace_le_2048` | `Manhattan/Paper/AnnealedConstant.lean` | proved (constant `2048`) |
-| `arxiv/main.tex:1118-1120` (`eq:green-explicit`) | `Manhattan.Paper.annealed_green_le_2048` | `Manhattan/Paper/AnnealedConstant.lean` | proved (`∫₀^∞ p̄_t(0,0) dt ≤ 2048`) |
+| `arxiv/main.tex:813-854` | `Manhattan.Paper.sectorForms_type112_le` | `Manhattan/Paper/ParityMajorant.lean` | proved (`lem:parity`, Step 1: `‖k‖₊² + ‖D₃k‖₋²` for `k` of type `112`, three row and two column slot terms, bounded by the form of `λ + θ(P) + 3(2|sin(P₁/2)| + 2|sin(P₂/2)|)`, which is at most `M`, in place of the paper's bracket) |
 | `manuscript.tex:668-681` | `Manhattan.Glue.annealedGreenBound_of_uniform_damped` | `Manhattan/Glue/Annealed.lean` | proved (assembly support) |
 | `manuscript.tex:640-681` | `Manhattan.Glue.annealedGreenBound_of_regional_identity` | `Manhattan/Glue/Annealed.lean` | proved (assembly support) |
 | `manuscript.tex:207-214` | `Manhattan.AnnealedGreenBound` | `Manhattan/Model/Subordination.lean` | definition (assembly interface) |
@@ -190,13 +190,15 @@ is `paper/arxiv/main.tex`, and
 [`paper/CHANGES_FROM_ARXIV.md`](paper/CHANGES_FROM_ARXIV.md) compares the two
 texts.
 
-The pin and every `source:` line range in the manifest agree with the file
-they name, so the frozen surface stays internally consistent.  What follows is
+Every `source:` line range in the manifest agrees with the file it names: the
+pin `paper/manuscript.tex` for 87 nodes, and the unmodified arXiv source
+`paper/arxiv/main.tex` for the 8 nodes whose source reads `arxiv/main.tex`.  What follows is
 the correspondence to the arXiv text, computed by anchoring on `\label` names
 rather than on line numbers.
 
-**63 of the 75 frozen nodes** anchor on statements that the arXiv text also
-prints.  The remaining **12** anchor only on statements it does not print:
+**80 of the 95 frozen nodes** anchor on statements that the arXiv text also
+prints (the 8 `arxiv/main.tex` nodes among them).  The remaining **15** anchor
+only on statements it does not print:
 
 | Node | Pinned lines | Anchors absent from the arXiv text |
 | --- | --- | --- |
@@ -212,8 +214,11 @@ prints.  The remaining **12** anchor only on statements it does not print:
 | `lem-distinct-concrete-frequency` | 1212-1221 | `lem:distinct`, `eq:distinct` |
 | `lem-correction-calculation-concrete` | 1305-1400 | `lem:correction-calculation`, `eq:kenergy`, `eq:err`, `eq:onI`, `eq:support`, `eq:sigmalow`, `eq:ebound` |
 | `eq-construction-sector-energy` | 785-790 | `eq:construction` |
+| `lem-four` | 1200-1207 | `lem:four`, `eq:four` |
+| `lem-distinct` | 1212-1221 | `lem:distinct`, `eq:distinct` |
+| `lem-correction-calculation` | 1305-1420 | `lem:correction-calculation`, `eq:kenergy`, `eq:err`, `eq:onI`, `eq:support`, `eq:sigmalow`, `eq:ebound`, `eq:reduce` (:1059) |
 
-These twelve are proved, they
+These fifteen are proved, they
 carry only the three standard axioms, and they are part of the frozen route to
 `Manhattan.Frozen.Main.theorem_1_1`. What they certify is the decomposition of
 `paper/manuscript.tex`: a single key proposition, a degree-four lemma, a
@@ -222,5 +227,6 @@ The arXiv text reaches the same theorem through the parity construction, the
 even majorant and the effective weight, and that route is certified separately
 by `Manhattan.V4.theorem_1_1_v4`.
 
-So both routes are complete: the frozen surface is pinned to
-`paper/manuscript.tex`, and the arXiv argument is certified separately.
+So both routes are complete: the frozen surface follows
+`paper/manuscript.tex`, the arXiv argument is certified by
+`Manhattan.V4.theorem_1_1_v4`, and the arXiv numerals are frozen nodes.

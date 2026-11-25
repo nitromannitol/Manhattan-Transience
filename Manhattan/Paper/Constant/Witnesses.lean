@@ -3,20 +3,22 @@ import Manhattan.Paper.Constant.GreenConstant
 /-!
 # The paper's constant, part 3: non-degeneracy
 
-Anti-vacuity for the constants, in the shape the sibling files use.
+Non-degeneracy checks for the Version 4 constants, in the shape the sibling
+files use.
 
 * `frequencyConstant_gt` / `frequencyConstant_lt` pin the composed
   fixed-frequency constant strictly between two numerals, so it is a genuine
-  real and not a junk value, and so the bounds proved about it are not
-  vacuously about `⊤` or `0`.
+  real and not a junk value, and the bounds proved about it are not
+  statements about `⊤` or `0`.
 
 * `tightened_lt_v4` and `move3_rhs_strict` are **strict**: the constant this
   file composes is strictly smaller than the one `Manhattan/V4/` composes, at
   every frequency.  No link in this file is an `X ≤ X`.
 
-* `green_constant_gt_paper` is the honest statement of the residual gap: what
-  the Version 4 chain proves for `∫₀^∞ p̄_t(0,0) dt` exceeds the manuscript's
-  `2048` by more than a factor `10⁵`.
+* `green_constant_gt_paper` compares the Version 4 constant for
+  `∫₀^∞ p̄_t(0,0) dt` with the arXiv `2048`, which
+  `Manhattan.Paper.annealed_green_le_2048` proves: the Version 4 constant is
+  larger by more than a factor `10⁵`.
 
 * `greenDensity_integrable`, `annulusWedgeX_integrable`,
   `annulusWedgeY_integrable`, `logSqrt_intervalIntegrable` and
@@ -73,11 +75,11 @@ theorem move3_rhs_strict {lambda : ℝ} (hlambda : 0 < lambda) (p : Fin 2 → �
   rw [max_eq_right hlow, max_eq_right (by linarith : (1:ℝ) ≤ 8 * Real.pi ^ 3 * v4Constant)]
   exact mul_lt_mul_of_pos_right hstrict hmpos
 
-/-! ### The residual gap against the manuscript -/
+/-! ### The Version 4 constant against the arXiv numeral -/
 
-/-- **The gap, machine-checked.**  The manuscript's `eq:green-explicit` asserts
-`∫₀^∞ p̄_t(0,0) dt ≤ 2048`.  The constant the Version 4 chain composes for the
-same integral is more than `10⁵` times larger. -/
+/-- The arXiv `eq:green-explicit` asserts `∫₀^∞ p̄_t(0,0) dt ≤ 2048`, which
+`Manhattan.Paper.annealed_green_le_2048` proves.  The constant the Version 4
+chain composes for the same integral is more than `10⁵` times larger. -/
 theorem green_constant_gt_paper :
     (2048 : ℝ) * 100000
       < frequencyConstant + 2 * (8 * frequencyConstant)
@@ -89,8 +91,7 @@ theorem green_constant_gt_paper :
     nlinarith [pi_sq_ge]
   nlinarith [mul_le_mul_of_nonneg_left hcoef hFnn.le]
 
-/-- The paper's own number is far below the numeral this file lands, so the
-landed numeral is not a restatement of the paper's claim. -/
+/-- The arXiv numeral `2048` is far below the Version 4 numeral. -/
 theorem paper_constant_lt_numeral : (2048 : ℝ) < 275000000 := by norm_num
 
 /-! ### Every integral carries an integrability proof -/

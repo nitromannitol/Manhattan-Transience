@@ -3,7 +3,8 @@ import Manhattan.Paper.LemmaDistinct
 /-! Lemma 5.3 (`lem:distinct`, `manuscript.tex:1212-1221`): for a coefficient function
 `K` of type `112` symmetric in its two row frequencies, without the restriction to
 distinct row indices, and `k = Π₃ k̃`, the difference `Π₂ D̃₂* k̃ - D₂* k` has only a mixed
-component and its squared `H⁻¹` norm is at most `6/κ` times `⟨k̃, M k̃⟩`, for every `κ > 0`. -/
+component and its squared `H⁻¹` norm is at most `6/κ` times `⟨k̃, M k̃⟩`, for every `κ > 0`
+(both sides in ordered coefficients, with the factors `2!` and `3!` of `eq:iso`). -/
 
 open MeasureTheory UnitAddTorus
 open Manhattan Manhattan.Glue Manhattan.Paper

@@ -52,7 +52,10 @@ for every $\lambda\in(0,1]$ and `Manhattan.Paper.annealed_green_le_2048` bounds
 the undamped integral by $2048$.  The numeral $2048$ of Proposition 6.1 is
 `Manhattan.Paper.frequencyBound_2048`, and the numeral $16$ of Lemma 5.1 is
 `Manhattan.Paper.move1_objective_sixteen`, for the profiles $\varphi=t/q$ on
-$\Gamma_\delta$ used in Section 6.
+$\Gamma_\delta$ used in Section 6.  Consequently the sentence of the arXiv
+Section 1.5, lines 432-434, "Every theorem, lemma and proposition of this
+paper has been formalized", holds for Lemma 5.1 only for the profiles
+$\varphi=t/q$ on $\Gamma_\delta$.
 
 ### 1.2 The variational bound
 
@@ -96,7 +99,9 @@ Both texts obtain the logarithmic gain with exponent $3/2$ and deduce
 Theorem 1.2 from it.  The manifest of this repository certifies the route of
 `manuscript.tex`.  The arXiv route is formalized separately in
 `Manhattan/V4/`, which proves Theorem 1.1 a second time (`Manhattan.V4.theorem_1_1_v4`)
-and the arXiv Lemma 5.1 and Proposition 6.1 with unspecified constants, as
+and the arXiv Lemma 5.1 and Proposition 6.1 with unspecified constants;
+`Manhattan/Paper/` proves Proposition 6.1 and Theorem 1.2 with $2048$ and
+Lemma 5.1 with $16$ for the profiles $\varphi=t/q$ on $\Gamma_\delta$, as
 described in 1.1.  [`../VERIFICATION.md`](../VERIFICATION.md) compares those
 statements with the arXiv text one by one.
 

@@ -2,23 +2,24 @@ import Manhattan.Paper.Constant.Move3
 import Manhattan.Glue.Annealed
 
 /-!
-# The paper's constant, part 2: the explicit Green bound Lean proves
+# The Green bound of the Version 4 chain
 
 The arXiv version (`paper/arxiv/main.tex`, arXiv:2609.07621v1),
 `eq:green-explicit`, asserts
 
     ∫₀^∞ p̄_t(0,0) dt ≤ 2048 .
 
-This file records, as a
-machine-checked numeral rather than as prose, what the Version 4 Lean chain
-actually delivers for the same integral.
+That numeral is proved in `Manhattan/Paper/AnnealedConstant.lean`
+(`Manhattan.Paper.annealed_green_le_2048`).  This file records the numeral that
+the Version 4 chain of `Manhattan/V4/`, with its larger constants, delivers for
+the same integral.
 
 Three constants compose.
 
-* `Manhattan.V4.v4Constant = 60 + 40(π² + 60π³) ≈ 7.4870 · 10⁴` is Move 1's
-  effective-energy coefficient.  The manuscript's `eq:effective-energy` has
-  `16` in the same slot.  This part cannot change it: it is proved inside
-  `Manhattan/V4/`, which is frozen for this part.
+* `Manhattan.V4.v4Constant = 60 + 40(π² + 60π³) ≈ 7.4870 · 10⁴` is the
+  effective-energy coefficient of the Version 4 Move 1.  The arXiv
+  `lem:effective-energy` has `16` in the same slot, proved for the profiles
+  `φ = t/q` on `Γ_δ` by `Manhattan.Paper.move1_objective_sixteen`.
 
 * `frequencyConstant = max (max 1 (10π² · v4Constant)) (outerRegionConstant (1/4))`
   is the fixed-frequency constant, `Manhattan.Paper.Constant.v4FrequencyBound_tight`
@@ -31,9 +32,9 @@ Three constants compose.
   `≈ 37.14`.  The manuscript's counterpart is `2^{7/2}/(π²√(1+log 4)) ≈ 0.742`
   together with the additive `1/π² + log(4π) ≈ 2.63`.
 
-The composed numeral is `2.75 · 10⁸`, about `1.34 · 10⁵` times the paper's
-`2048`.  `Manhattan/Paper/Constant/Witnesses.lean` records that gap as a strict
-machine-checked inequality.
+The composed numeral is `2.75 · 10⁸`, about `1.34 · 10⁵` times `2048`.
+`Manhattan/Paper/Constant/Witnesses.lean` compares the two as a strict
+inequality.
 -/
 
 noncomputable section
@@ -142,9 +143,9 @@ theorem uniform_green_tight {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : la
       exact v4FrequencyBound_tight_proved l hl hl1 (Manhattan.Glue.concreteFrequency z) hz1 hz2)
     hlambda hlambda1
 
-/-- The manuscript's `∫_{T²} r_λ(p) dm(p)`, as an explicit numeral, uniformly
-in `λ ∈ (0,1]`.  The manuscript's own bound on the same quantity is `2048`
-(`thm:annealed`, whose proof in fact gives `< 1825`). -/
+/-- `∫_{T²} r_λ(p) dm(p)` with the Version 4 constant, as an explicit numeral,
+uniformly in `λ ∈ (0,1]`.  The bound `2048` of the arXiv `thm:annealed` on the
+same quantity is `Manhattan.Paper.normalizedGreenIntegral_le_2048`. -/
 theorem uniform_green_numeral {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : lambda ≤ 1) :
     Manhattan.Estimates.normalizedFrequencyIntegral
         (Manhattan.Glue.concreteGreenDensity lambda) ≤ 275000000 := by
@@ -232,9 +233,10 @@ theorem undamped_le_of_uniform_damped (C : ℝ≥0∞)
     _ ≤ C := liminf_le_of_frequently_le'
       (Frequently.of_forall fun n => hbound (lambda n) (hlambdaPos n) (hlambdaOne n))
 
-/-- **The explicit annealed Green bound that the Version 4 chain proves.**
-The manuscript's `eq:green-explicit` asserts the same integral is at most
-`2048`; the formalized chain reaches `2.75 · 10⁸`. -/
+/-- **The explicit annealed Green bound of the Version 4 chain.**  The bound
+`2048` of the arXiv `eq:green-explicit` on the same integral is
+`Manhattan.Paper.annealed_green_le_2048`; the Version 4 chain reaches
+`2.75 · 10⁸`. -/
 theorem annealed_green_le_numeral :
     (∫⁻ t in Ici (0:ℝ), Manhattan.annealedContinuousKernel t 0 0)
       ≤ ENNReal.ofReal 275000000 := by

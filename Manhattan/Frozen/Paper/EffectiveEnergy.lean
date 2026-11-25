@@ -4,8 +4,9 @@ import Manhattan.Paper.EffectiveEnergy
 with the constant `16`, for the profiles `φ = t/q` on `Γ_δ` that the proof of
 `prop:frequency` uses (not for every real even `φ ∈ L²` vanishing off `Γ_δ`): there is a
 test function `g` at which the objective of `lem:variational-bound` is at most
-`(1 - s ∫ φ)²/H₀ + 16 ∫ q φ²`.  Hypotheses: `λ + 4|p₂| ≤ 4δ`, `√δ ≤ r₀ ≤ 1/4` and
-`λ + d(p₁) ≤ δ²`, which hold for `δ = √λ + a(p) ≤ r₀⁴` and `λ ≤ 1`. -/
+`(1 - s ∫ φ)²/H₀ + 16 ∫ q φ²`, with `s = sin p₁`, `φ = t/q` on `Γ_δ` for a real `t`
+and `H₀ = λ + θ(p)`.  Hypotheses: `δ > 0`, `λ + 4|p₂| ≤ 4δ`, `√δ ≤ r₀ ≤ 1/4` and
+`λ + d(p₁) ≤ δ²`. -/
 
 open scoped lp
 open MeasureTheory Set UnitAddTorus

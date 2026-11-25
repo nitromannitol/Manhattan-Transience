@@ -670,8 +670,10 @@ theorem move1_at_sixteen {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : lambd
   exact move1_objective_sixteen (q := v4Parameters lambda) hlambda p hdelta hlamdelta hr014
     hsqle hmud t
 
-/-- **`eq:optimized` with the constant `16`**: `r_λ(p) ≤ 1/(H₀ + s² Z_δ/16)` in the
-improvement region, `s = sin p₁` after exchanging rows and columns. -/
+/-- **`eq:optimized` with the constant `16`**, in the form `prop:frequency` uses: on
+`√λ + a(p) ≤ r₀⁴`, `r_λ(p) ≤ 1/(H₀ + s² Z_δ/16)` for some `s` with
+`s² ≥ (2/π)² a(p)²`.  The proof takes `s = sin p₁` after exchanging rows and
+columns. -/
 theorem move2Supply_sixteen {r0 : ℝ} (hr0 : 0 < r0) (hr014 : r0 ≤ 1 / 4) :
     Frequency.V4Move2Supply r0 16 := by
   have hCpos : (0:ℝ) < 16 := by norm_num

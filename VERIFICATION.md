@@ -160,10 +160,19 @@ is the paper's `q(r)` exactly.
 
     r_λ(p) ≤ (1 - s ∫ φ)²/H₀ + 16 ∫ q(r) φ(r)² dm(r).
 
-`Manhattan.Paper.move1_objective_sixteen` proves it with the constant `16`, for
-the profiles `φ = t/q` on `Γ_δ` that the proof of `prop:frequency` uses
-(`Manhattan/Paper/EffectiveEnergy.lean`); `Manhattan.Paper.move2Supply_sixteen`
-is `eq:optimized`.  The route is the paper's: `eq:majorant` with constant one
+**WEAKER in scope.** The constant `16` is proved for the one-parameter family
+`φ = t/q` on `Γ_δ`, which is the case `prop:frequency` uses, not for every real
+even `φ ∈ L²` vanishing off `Γ_δ`.
+
+`Manhattan.Paper.move1_objective_sixteen` bounds the objective of
+`lem:variational-bound` at a test function `g` by
+`(1 - s ∫ φ)²/H₀ + 16 ∫ q φ²` for these profiles
+(`Manhattan/Paper/EffectiveEnergy.lean`); the step from the objective to
+`r_λ(p)` is `resolventQuadratic_le`.  `Manhattan.Paper.move2Supply_sixteen`
+is `eq:optimized` in the form `prop:frequency` uses:
+`r_λ(p) ≤ 1/(H₀ + s² Z_δ/16)` on `√λ + a(p) ≤ 1/256` for some `s` with
+`s² ≥ (2/π)² a(p)²` (the proof takes `s = sin p₁` after exchanging rows and
+columns).  The route is the paper's: `eq:majorant` with constant one
 and `M = 4(δ + |r| + |r'| + |β|)` (`Manhattan.Paper.sectorForms_rawWalsh_le`),
 the exact splitting of the objective into its sectors
 (`Manhattan.Paper.objective_eq_sectors`), the completed square of
@@ -180,14 +189,14 @@ remains in `Manhattan/V4/`.
 ## The explicit constants
 
 The paper states two numerals: `2048` in Theorem 1.2 and Proposition 6.1,
-and `16` in Lemma 5.1.  Both are proved, in `Manhattan/Paper/`, outside the
-frozen manifest (whose statements quantify the constant existentially, as
-`paper/manuscript.tex` does):
+and `16` in Lemma 5.1.  Both are proved in `Manhattan/Paper/` and registered as
+frozen nodes in `Manhattan/Frozen/Paper/` (the statements pinned to
+`paper/manuscript.tex` quantify the constant existentially, as that text does):
 
 | statement | numeral | Lean |
 | --- | --- | --- |
-| `lem:effective-energy` | `16` | `Manhattan.Paper.move1_objective_sixteen` |
-| `eq:optimized` | `16` | `Manhattan.Paper.move2Supply_sixteen` |
+| `lem:effective-energy` | `16` | `Manhattan.Paper.move1_objective_sixteen` (profiles `φ = t/q` on `Γ_δ`) |
+| `eq:optimized` | `16` | `Manhattan.Paper.move2Supply_sixteen` (on `√λ + a(p) ≤ 1/256`, for some `s` with `s² ≥ (2/π)² a(p)²`) |
 | `prop:frequency` | `2048` | `Manhattan.Paper.frequencyBound_2048` |
 | `thm:annealed` | `2048` | `Manhattan.Paper.annealed_laplace_le_2048` |
 | `eq:green-explicit` | `2048` | `Manhattan.Paper.annealed_green_le_2048` |
@@ -205,13 +214,13 @@ with `10π² · 16 < 1580` on the improvement region and `83` on its complement,
 and `thm:annealed` with `1/π² + 2^{7/2}·2048/(π²√(1 + log 4)) + log(4π) < 2048`
 (`Manhattan.Paper.greenConstant_le_2048`).
 
-### The earlier route
+### The Version 4 constants
 
-`Manhattan/V4/` reaches the same inequalities with larger constants:
+`Manhattan/V4/` proves the same inequalities with larger constants:
 `v4ConstantSplit < 670` for Lemma 5.1 and `2.75 · 10⁸` for the Green integral
 (`Manhattan.Paper.Constant.annealed_green_le_numeral`).  The differences are:
 
-| step | paper | earlier Lean route | why |
+| step | paper | `Manhattan/V4/` | why |
 | --- | --- | --- | --- |
 | degree-one and two-row | `5` | `60 = 2·6 + 4·12` | `objective_le_v4Move1` splits the residual by Cauchy–Schwarz, with multipliers `2` and `4` |
 | column term | `1 · 11` | `8 · 76.2` | the operator step is a majorant comparison (`A = 291/κ`), not the paper's exact minimization |
@@ -244,6 +253,5 @@ Move 1 coefficient is `4A + 4` and `C_β` grows like `√κ`, running at `A = 1`
 gives `60 + 8·C_β(κ)` with `κ = A·κ`. Even a perfect operator step, `A·κ = 1`,
 would leave `60 + 8·5.94 ≈ 108`: the `2`/`4` Cauchy–Schwarz multipliers of
 `objective_le_v4Move1` are the binding constraint, not the operator estimate.
-`Manhattan/Paper/EffectiveEnergy.lean` replaces that splitting, and the
-majorant comparison, by the paper's exact minimization of the degree-three
-form.
+`Manhattan/Paper/EffectiveEnergy.lean` uses the paper's exact minimization of
+the degree-three form instead of that splitting and of the majorant comparison.

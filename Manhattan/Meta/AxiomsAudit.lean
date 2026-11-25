@@ -80,6 +80,26 @@ import Manhattan.Frozen.Main.Theorem12
 import Manhattan.V4.Move2Supply
 import Manhattan.Frozen.Main.Theorem11
 import Manhattan.MainTheorems
+import Manhattan.Frozen.Paper.LoweringTwoRow
+import Manhattan.Frozen.Paper.LoweringMixed
+import Manhattan.Frozen.Paper.LoweringDegreeOne
+import Manhattan.Frozen.Paper.RaisingTwoRow
+import Manhattan.Frozen.Paper.RaisingMixed
+import Manhattan.Frozen.Paper.RawRaiseFourier
+import Manhattan.Frozen.Paper.SymCoeffWalshRaise
+import Manhattan.Frozen.Paper.OffDiagonalProjectionCommute
+import Manhattan.Frozen.Paper.HMinusEnergySymCoeff
+import Manhattan.Frozen.Paper.LemmaFour
+import Manhattan.Frozen.Paper.LemmaDistinct
+import Manhattan.Frozen.Paper.LemmaCorrectionCalculation
+import Manhattan.Frozen.Paper.Majorant
+import Manhattan.Frozen.Paper.ObjectiveSectors
+import Manhattan.Frozen.Paper.ParityCost
+import Manhattan.Frozen.Paper.EffectiveEnergy
+import Manhattan.Frozen.Paper.Optimized
+import Manhattan.Frozen.Paper.FrequencyBound
+import Manhattan.Frozen.Paper.AnnealedLaplace
+import Manhattan.Frozen.Paper.GreenExplicit
 
 /-!
 # Axiom audit
@@ -206,6 +226,27 @@ equation (23)` is at the end of the file: none of it may report `sorryAx`.
 #print axioms Manhattan.Frozen.Glue.summand_three_bound
 #print axioms Manhattan.Frozen.Glue.summand_four_bound
 #print axioms Manhattan.Frozen.Glue.sector_energy_bound
+
+#print axioms Manhattan.Frozen.Paper.lowering_twoRow
+#print axioms Manhattan.Frozen.Paper.lowering_mixed
+#print axioms Manhattan.Frozen.Paper.lowering_degreeOne
+#print axioms Manhattan.Frozen.Paper.raising_twoRow
+#print axioms Manhattan.Frozen.Paper.raising_mixed
+#print axioms Manhattan.Frozen.Paper.orderedFourier_rawRaise
+#print axioms Manhattan.Frozen.Paper.symCoeff_walshRaise
+#print axioms Manhattan.Frozen.Paper.offDiagonalProjection_comp_orderedMultiplier
+#print axioms Manhattan.Frozen.Paper.hMinusEnergy_eq_symCoeff
+#print axioms Manhattan.Frozen.Paper.lemma_four
+#print axioms Manhattan.Frozen.Paper.lemma_distinct
+#print axioms Manhattan.Frozen.Paper.lemma_correction_calculation
+#print axioms Manhattan.Frozen.Paper.sectorForms_rawWalsh_le
+#print axioms Manhattan.Frozen.Paper.objective_eq_sectors
+#print axioms Manhattan.Frozen.Paper.parityCost_eq
+#print axioms Manhattan.Frozen.Paper.move1_objective_sixteen
+#print axioms Manhattan.Frozen.Paper.move2Supply_sixteen
+#print axioms Manhattan.Frozen.Paper.frequencyBound_2048
+#print axioms Manhattan.Frozen.Paper.annealed_laplace_le_2048
+#print axioms Manhattan.Frozen.Paper.annealed_green_le_2048
 
 -- The Version 4 route to Theorem 1.1 (`Manhattan/V4/`, no manifest node).
 #print axioms Manhattan.V4.v4Move2Supply_proved

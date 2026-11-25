@@ -70,5 +70,25 @@ import Manhattan.Frozen.Glue.SummandTwo
 import Manhattan.Frozen.Glue.SummandThree
 import Manhattan.Frozen.Glue.SummandFour
 import Manhattan.Frozen.Glue.SectorEnergyBound
+import Manhattan.Frozen.Paper.LoweringTwoRow
+import Manhattan.Frozen.Paper.LoweringMixed
+import Manhattan.Frozen.Paper.LoweringDegreeOne
+import Manhattan.Frozen.Paper.RaisingTwoRow
+import Manhattan.Frozen.Paper.RaisingMixed
+import Manhattan.Frozen.Paper.RawRaiseFourier
+import Manhattan.Frozen.Paper.SymCoeffWalshRaise
+import Manhattan.Frozen.Paper.OffDiagonalProjectionCommute
+import Manhattan.Frozen.Paper.HMinusEnergySymCoeff
+import Manhattan.Frozen.Paper.LemmaFour
+import Manhattan.Frozen.Paper.LemmaDistinct
+import Manhattan.Frozen.Paper.LemmaCorrectionCalculation
+import Manhattan.Frozen.Paper.Majorant
+import Manhattan.Frozen.Paper.ObjectiveSectors
+import Manhattan.Frozen.Paper.ParityCost
+import Manhattan.Frozen.Paper.EffectiveEnergy
+import Manhattan.Frozen.Paper.Optimized
+import Manhattan.Frozen.Paper.FrequencyBound
+import Manhattan.Frozen.Paper.AnnealedLaplace
+import Manhattan.Frozen.Paper.GreenExplicit
 
 /-! Frozen statement surface. -/

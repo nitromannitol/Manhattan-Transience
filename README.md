@@ -157,6 +157,13 @@ pinned source they transcribe:
 | `eq-e-summand-one` … `-four` | the four summands of the objective (22) | `manuscript.tex:765-772` |
 | `eq-construction-sector-energy` | `E_p(f_p,k_p) ≤ C √L`, third display of (25) | `manuscript.tex:785-790` |
 
+Lemmas 5.1 and 5.2 are also proved in the full generality of the paper, as public statements
+outside the manifest: `Manhattan.Paper.orderedFourier_rawRaise` (equation (45) at every degree),
+`Manhattan.Paper.symCoeff_walshRaise` (`D_n = Π_{n+1} D̃_n Π_n`),
+`Manhattan.Paper.offDiagonalProjection_comp_orderedMultiplier` (`Π_n` commutes with every
+continuous multiplier of the total frequency) and `Manhattan.Paper.lemma_four` (Lemma 5.2 for
+every degree-three element, with `κ = 97`).
+
 ## Guarantees
 
 - **No `sorry`.** The sources of the library contain no `sorry`, `admit` or `axiom` token

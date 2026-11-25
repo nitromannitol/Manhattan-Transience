@@ -90,16 +90,32 @@ form. It follows from the quenched bound: differentiation under the integral is
 legitimate because the quenched bound is uniform in `ω` and `environmentLaw` is
 a probability measure.
 
-## Lemma 3.1 (`lem:raise`) — EQUIVALENT
+## Lemma 3.1 (`lem:raise`) — EXACT for the formula and the factorization; the commutation clause for continuous multipliers
 
 The paper states the averaged formula
-`(D̃_n f)_{j₁…j_{n+1}} = (i/(n+1)) ∑_a sin(P_{j_a}) f_{…ĵ_a…}`.
-Lean proves the concrete Walsh matrix elements
-(`lemma_raise_concrete_raising`, `lemma_raise_concrete_adjoint`), from which
-the printed formula follows by `(e^{ip} - e^{-ip})/2 = i sin p`, together with
-the slot sum itself at the degree the development uses
-(`Paper.Formulas.raise_slot_sum`, `n = 3`). The content is the same; the
-printed averaged form at general `n` is not itself a Lean statement.
+`(D̃_n f)_{j₁…j_{n+1}} = (i/(n+1)) ∑_a sin(P_{j_a}) f_{…ĵ_a…}`, the
+factorization `D_n = Π_{n+1} D̃_n Π_n`, and that `Π_n` commutes with every
+bounded multiplier that is a function of `P`. The first two are Lean
+statements at every degree `n`, in the symmetric coefficients of the paper.
+The commutation is proved for every continuous multiplier that is a function of
+`P`, which is the statement of `paper/manuscript.tex` (line 1190); the
+multipliers the argument uses are continuous
+(`paper/CHANGES_FROM_ARXIV.md`, 1.3).
+
+| paper | Lean |
+| --- | --- |
+| symmetric coefficient `f` of `F`, `(n!)⁻¹⟨W_S, F⟩` at each ordering of `S` | `Manhattan.Paper.symCoeff`, `symCoeff_apply` |
+| `D̃_n`: shift, append the origin line, distribute over the `n+1` slots | `Manhattan.Paper.rawRaise` |
+| `eq:raise` | `Manhattan.Paper.orderedFourier_rawRaise` |
+| `D_n = Π_{n+1} D̃_n Π_n` | `Manhattan.Paper.symCoeff_walshRaise` |
+| `Π_n` commutes with continuous multipliers of `P` | `Manhattan.Paper.offDiagonalProjection_comp_orderedMultiplier` |
+
+`Π_n` is `Manhattan.Glue.offDiagonalProjection n`, a multiplier `m(P)` is
+given by a continuous function `m` on the two-torus `ℝ²/(2πℤ)²`, and the
+commutation is proved as in the paper, by uniform approximation of `m` by
+trigonometric polynomials. The concrete Walsh matrix elements
+(`lemma_raise_concrete_raising`, `lemma_raise_concrete_adjoint`) remain the
+registered nodes.
 
 ## Lemma 3.2 (`lem:formulas`) — EXACT for two of three, EQUIVALENT for the third
 

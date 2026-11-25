@@ -134,6 +134,10 @@ are traceable.
 
 | Source | Lean declaration | File | Status |
 |---|---|---|---|
+| `manuscript.tex:1179-1191` (`eq:raise` at :1182) | `Manhattan.Paper.orderedFourier_rawRaise` | `Manhattan/Paper/LemmaRaise.lean` | proved (Lemma 5.1, `eq:raise` at every degree) |
+| `manuscript.tex:1188-1189` | `Manhattan.Paper.symCoeff_walshRaise` | `Manhattan/Paper/LemmaRaise.lean` | proved (Lemma 5.1, `D_n = Π_{n+1} D̃_n Π_n` at every degree) |
+| `manuscript.tex:1189-1190` | `Manhattan.Paper.offDiagonalProjection_comp_orderedMultiplier` | `Manhattan/Paper/LemmaRaiseMultiplier.lean` | proved (Lemma 5.1, `Π_n` commutes with continuous multipliers of `P`) |
+| `manuscript.tex:1200-1207` | `Manhattan.Paper.lemma_four` | `Manhattan/Paper/LemmaFour.lean` | proved (Lemma 5.2 for every `k ∈ ℋ₃`, `κ = 97`) |
 | `manuscript.tex:668-681` | `Manhattan.Glue.annealedGreenBound_of_uniform_damped` | `Manhattan/Glue/Annealed.lean` | proved (assembly support) |
 | `manuscript.tex:640-681` | `Manhattan.Glue.annealedGreenBound_of_regional_identity` | `Manhattan/Glue/Annealed.lean` | proved (assembly support) |
 | `manuscript.tex:207-214` | `Manhattan.AnnealedGreenBound` | `Manhattan/Model/Subordination.lean` | definition (assembly interface) |

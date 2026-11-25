@@ -256,6 +256,159 @@ theorem orderedFourier_rawLower (n : ℕ) (p : Fin 2 → ℝ) (k : OrderedCoeffi
   simp only [Fin.removeNth_insertNth, Fin.insertNth_apply_same]
   rw [← inner_slotIntegral, inner_contMul_left]
 
+/-! ### Permuting the line frequencies -/
+
+/-- The permutation `θ ↦ θ ∘ π` of the line frequencies. -/
+def torusPermMap (n : ℕ) (π : Equiv.Perm (Fin n)) :
+    UnitAddTorus (Fin n) ≃ᵐ UnitAddTorus (Fin n) :=
+  MeasurableEquiv.arrowCongr' π.symm (MeasurableEquiv.refl UnitAddCircle)
+
+theorem torusPermMap_apply (n : ℕ) (π : Equiv.Perm (Fin n)) (θ : UnitAddTorus (Fin n)) :
+    torusPermMap n π θ = θ ∘ π := rfl
+
+theorem measurePreserving_torusPermMap (n : ℕ) (π : Equiv.Perm (Fin n)) :
+    MeasurePreserving (torusPermMap n π) (LineTorusMeasure n) (LineTorusMeasure n) :=
+  measurePreserving_arrowCongr' (fun _ => (AddCircle.haarAddCircle : Measure UnitAddCircle))
+    (fun _ => (AddCircle.haarAddCircle : Measure UnitAddCircle)) π.symm
+    (MeasurableEquiv.refl UnitAddCircle) (fun _ => MeasurePreserving.id _)
+
+/-- Composition with a permutation of the line frequencies. -/
+def torusPerm (n : ℕ) (π : Equiv.Perm (Fin n)) :
+    Lp ℂ 2 (LineTorusMeasure n) →ₗᵢ[ℂ] Lp ℂ 2 (LineTorusMeasure n) :=
+  Lp.compMeasurePreservingₗᵢ ℂ (torusPermMap n π) (measurePreserving_torusPermMap n π)
+
+theorem coeFn_torusPerm (n : ℕ) (π : Equiv.Perm (Fin n)) (f : Lp ℂ 2 (LineTorusMeasure n)) :
+    (torusPerm n π f : UnitAddTorus (Fin n) → ℂ) =ᵐ[LineTorusMeasure n]
+      fun θ => (f : UnitAddTorus (Fin n) → ℂ) (θ ∘ π) :=
+  Lp.coeFn_compMeasurePreserving f (measurePreserving_torusPermMap n π)
+
+theorem torusPerm_symm_apply (n : ℕ) (π : Equiv.Perm (Fin n)) (f : Lp ℂ 2 (LineTorusMeasure n)) :
+    torusPerm n π (torusPerm n π.symm f) = f := by
+  apply Lp.ext
+  have h := (measurePreserving_torusPermMap n π).quasiMeasurePreserving.ae_eq_comp
+    (coeFn_torusPerm n π.symm f)
+  filter_upwards [coeFn_torusPerm n π (torusPerm n π.symm f), h] with θ h1 h2
+  rw [h1]
+  simp only [Function.comp_apply, torusPermMap_apply] at h2
+  rw [h2]
+  congr 1
+  funext a
+  simp
+
+theorem inner_torusPerm_right (n : ℕ) (π : Equiv.Perm (Fin n))
+    (f g : Lp ℂ 2 (LineTorusMeasure n)) :
+    inner ℂ f (torusPerm n π g) = inner ℂ (torusPerm n π.symm f) g := by
+  conv_lhs => rw [← torusPerm_symm_apply n π f]
+  exact (torusPerm n π).inner_map_map _ _
+
+theorem torusPerm_torusRemove (n : ℕ) (π : Equiv.Perm (Fin (n + 1))) {r r' : Fin (n + 1)}
+    (h : ∀ θ : UnitAddTorus (Fin (n + 1)), Fin.removeNth r (θ ∘ π) = Fin.removeNth r' θ)
+    (f : Lp ℂ 2 (LineTorusMeasure n)) :
+    torusPerm (n + 1) π (torusRemove n r f) = torusRemove n r' f := by
+  apply Lp.ext
+  have hc := (measurePreserving_torusPermMap (n + 1) π).quasiMeasurePreserving.ae_eq_comp
+    (coeFn_torusRemove n r f)
+  filter_upwards [coeFn_torusPerm (n + 1) π (torusRemove n r f), hc,
+    coeFn_torusRemove n r' f] with θ h1 h2 h3
+  rw [h1, h3]
+  simp only [Function.comp_apply, torusPermMap_apply] at h2
+  rw [h2, h θ]
+
+/-- Integrating a permuted function over one slot is integrating the function
+over the corresponding slot. -/
+theorem slotIntegral_torusPerm (n : ℕ) (π : Equiv.Perm (Fin (n + 1))) {r r' : Fin (n + 1)}
+    (h : ∀ θ : UnitAddTorus (Fin (n + 1)), Fin.removeNth r (θ ∘ π.symm) = Fin.removeNth r' θ)
+    (k : Lp ℂ 2 (LineTorusMeasure (n + 1))) :
+    slotIntegral n r (torusPerm (n + 1) π k) = slotIntegral n r' k := by
+  apply ext_inner_left ℂ
+  intro f
+  rw [inner_slotIntegral, inner_slotIntegral, inner_torusPerm_right,
+    torusPerm_torusRemove n π.symm h]
+
+theorem contMul_zero (n : ℕ) (g : C(UnitAddTorus (Fin n), ℂ)) : contMul n g 0 = 0 := by
+  simpa using contMul_smul_right 0 g 0
+
+/-! ### Lemma 3.1 -/
+
+/-- The axis patterns of the low-degree coefficients. -/
+abbrev rowPattern : Fin 1 → Axis := ![Axis.horizontal]
+
+/-- The axis pattern of a column sign alone. -/
+abbrev columnPattern : Fin 1 → Axis := ![Axis.vertical]
+
+/-- Two row signs. -/
+abbrev twoRowPattern : Fin 2 → Axis := ![Axis.horizontal, Axis.horizontal]
+
+/-- A row sign and a column sign. -/
+abbrev mixedPattern : Fin 2 → Axis := ![Axis.horizontal, Axis.vertical]
+
+/-- **The symmetric coefficient of type `112`** with normalized coefficient
+function `k(r, r', β)` of the two row frequencies and the column frequency:
+the factor `1/√18` is the normalization of Section 3.4, and the three axis
+patterns carry the three positions of the column sign. -/
+def type112Freq (k : Lp ℂ 2 (LineTorusMeasure 3)) : LineFreqL2 3 :=
+  lp.single 2 ![Axis.horizontal, Axis.horizontal, Axis.vertical]
+      ((Real.sqrt 18 : ℂ)⁻¹ • k) +
+    lp.single 2 ![Axis.horizontal, Axis.vertical, Axis.horizontal]
+      ((Real.sqrt 18 : ℂ)⁻¹ • torusPerm 3 (Equiv.swap 1 2) k) +
+    lp.single 2 ![Axis.vertical, Axis.horizontal, Axis.horizontal]
+      ((Real.sqrt 18 : ℂ)⁻¹ • torusPerm 3 (finRotate 3) k)
+
+theorem type112Freq_apply (k : Lp ℂ 2 (LineTorusMeasure 3)) (σ : Fin 3 → Axis) :
+    type112Freq k σ =
+      (if σ = ![Axis.horizontal, Axis.horizontal, Axis.vertical] then
+          (Real.sqrt 18 : ℂ)⁻¹ • k else 0) +
+        (if σ = ![Axis.horizontal, Axis.vertical, Axis.horizontal] then
+          (Real.sqrt 18 : ℂ)⁻¹ • torusPerm 3 (Equiv.swap 1 2) k else 0) +
+        (if σ = ![Axis.vertical, Axis.horizontal, Axis.horizontal] then
+          (Real.sqrt 18 : ℂ)⁻¹ • torusPerm 3 (finRotate 3) k else 0) := by
+  classical
+  simp only [type112Freq, lp.coeFn_add, Pi.add_apply, lp.single_apply, Pi.single_apply]
+
+theorem sum_axis {E : Type*} [AddCommMonoid E] (F : Axis → E) :
+    (∑ x : Axis, F x) = F Axis.horizontal + F Axis.vertical := by
+  rw [show (Finset.univ : Finset Axis) = {Axis.horizontal, Axis.vertical} from rfl,
+    Finset.sum_pair (by decide)]
+
+theorem sqrt_eighteen_eq : Real.sqrt 18 = 3 * Real.sqrt 2 := by
+  rw [show (18 : ℝ) = 3 ^ 2 * 2 by norm_num, Real.sqrt_mul (by norm_num),
+    Real.sqrt_sq (by norm_num)]
+
+/-- **`eq:D2a`** (`manuscript.tex:832`).  In the normalization of Section 3.4,
+the two-row component of `D̃₂* k` is `-i sin(α) ∫ k(r, r', β) dm(β)`, where
+`α` is the second total frequency of the two-row coefficient. -/
+theorem lowering_twoRow (p : Fin 2 → ℝ) (k : Lp ℂ 2 (LineTorusMeasure 3)) :
+    (((Real.sqrt 2 : ℝ) : ℂ) • rawLowerFreq 2 p (type112Freq k) twoRowPattern :
+        UnitAddTorus (Fin 2) → ℂ) =ᵐ[LineTorusMeasure 2] fun θ =>
+      -Complex.I * (Real.sin (totalFrequency 2 p twoRowPattern θ 1) : ℂ) *
+        ∫ t, (k : UnitAddTorus (Fin 3) → ℂ) (Fin.insertNth 2 t θ)
+          ∂(AddCircle.haarAddCircle : Measure UnitAddCircle) := by
+  have hsector : rawLowerFreq 2 p (type112Freq k) twoRowPattern =
+      ((3 : ℂ) * (Real.sqrt 18 : ℂ)⁻¹) •
+        contMul 2 (star (raisingSymbolMap 2 p 1 twoRowPattern)) (slotIntegral 2 2 k) := by
+    rw [rawLowerFreq_apply, rawLowerSector, Fin.sum_univ_three]
+    simp only [sum_axis, type112Freq_apply]
+    have e0 : slotIntegral 2 0 (torusPerm 3 (finRotate 3) k) = slotIntegral 2 2 k :=
+      slotIntegral_torusPerm 2 _ (fun θ => by funext a; fin_cases a <;> rfl) k
+    have e1 : slotIntegral 2 1 (torusPerm 3 (Equiv.swap 1 2) k) = slotIntegral 2 2 k :=
+      slotIntegral_torusPerm 2 _ (fun θ => by funext a; fin_cases a <;> rfl) k
+    simp (config := { decide := true }) only [if_true, if_false, add_zero, zero_add,
+      map_zero, map_smul, e0, e1]
+    simp only [contMul_zero, zero_add, contMul_smul_right,
+      show axisIndex Axis.vertical = 1 from rfl]
+    module
+  rw [hsector]
+  filter_upwards [Lp.coeFn_smul ((3 : ℂ) * (Real.sqrt 18 : ℂ)⁻¹)
+      (contMul 2 (star (raisingSymbolMap 2 p 1 twoRowPattern)) (slotIntegral 2 2 k)),
+    coeFn_contMul (star (raisingSymbolMap 2 p 1 twoRowPattern)) (slotIntegral 2 2 k),
+    coeFn_slotIntegral 2 2 k] with θ h2 h3 h4
+  rw [Pi.smul_apply, h2, Pi.smul_apply, h3, h4, star_raisingSymbolMap_apply, smul_eq_mul,
+    smul_eq_mul, sqrt_eighteen_eq]
+  have h2ne : (Real.sqrt 2 : ℂ) ≠ 0 := by
+    exact_mod_cast (Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)).ne'
+  push_cast
+  field_simp
+
 end
 
 end Manhattan.Paper

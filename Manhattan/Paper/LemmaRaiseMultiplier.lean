@@ -324,19 +324,23 @@ def orderedMultiplierCLM (n : ℕ) (p : Fin 2 → ℝ) :
 theorem orderedMultiplierCLM_apply (n : ℕ) (p : Fin 2 → ℝ) (m : C(UnitAddTorus (Fin 2), ℂ)) :
     orderedMultiplierCLM n p m = orderedMultiplier n p m := rfl
 
-/-- **`Π_n` commutes with every continuous multiplier that is a function of
-`P`** (`lem:raise`, `manuscript.tex:1189-1190`). -/
-theorem offDiagonalProjection_comp_orderedMultiplier (n : ℕ) (p : Fin 2 → ℝ)
+/-- An operator on ordered coefficients that commutes with every simultaneous
+translation of the line indices commutes with every continuous multiplier that
+is a function of `P`.  This is the argument of `lem:raise`: the multiplier by
+`e^{i y·P}` is a constant multiple of the translation by `y`, and the
+trigonometric polynomials are uniformly dense. -/
+theorem comp_orderedMultiplier_of_commute (n : ℕ) (p : Fin 2 → ℝ)
+    (Q : OrderedCoefficient n →L[ℂ] OrderedCoefficient n)
+    (hQ : ∀ (x : Operator.Lattice) (c : OrderedCoefficient n),
+      Q (orderedTranslate n x c) = orderedTranslate n x (Q c))
     (m : C(UnitAddTorus (Fin 2), ℂ)) :
-    offDiagonalProjection n ∘L orderedMultiplier n p m =
-      orderedMultiplier n p m ∘L offDiagonalProjection n := by
+    Q ∘L orderedMultiplier n p m = orderedMultiplier n p m ∘L Q := by
   set Ψ : C(UnitAddTorus (Fin 2), ℂ) →L[ℂ]
       (OrderedCoefficient n →L[ℂ] OrderedCoefficient n) :=
-    (ContinuousLinearMap.compL ℂ _ _ _ (offDiagonalProjection n)) ∘L orderedMultiplierCLM n p -
-      ((ContinuousLinearMap.compL ℂ _ _ _).flip (offDiagonalProjection n)) ∘L
-        orderedMultiplierCLM n p with hΨ
-  have hΨapply : ∀ m, Ψ m = offDiagonalProjection n ∘L orderedMultiplier n p m -
-      orderedMultiplier n p m ∘L offDiagonalProjection n := fun m => rfl
+    (ContinuousLinearMap.compL ℂ _ _ _ Q) ∘L orderedMultiplierCLM n p -
+      ((ContinuousLinearMap.compL ℂ _ _ _).flip Q) ∘L orderedMultiplierCLM n p with hΨ
+  have hΨapply : ∀ m, Ψ m = Q ∘L orderedMultiplier n p m -
+      orderedMultiplier n p m ∘L Q := fun m => rfl
   let Ψl : C(UnitAddTorus (Fin 2), ℂ) →ₗ[ℂ]
       (OrderedCoefficient n →L[ℂ] OrderedCoefficient n) := Ψ
   have hspan : Submodule.span ℂ (Set.range (mFourier (d := Fin 2))) ≤ LinearMap.ker Ψl := by
@@ -346,8 +350,7 @@ theorem offDiagonalProjection_comp_orderedMultiplier (n : ℕ) (p : Fin 2 → �
       orderedMultiplier_mFourier, sub_eq_zero]
     ext1 c
     simp only [ContinuousLinearMap.comp_apply, smul_apply, map_smul,
-      LinearIsometry.coe_toContinuousLinearMap, LinearIsometryEquiv.coe_toLinearIsometry,
-      orderedTranslate_comm_offDiagonalProjection]
+      LinearIsometry.coe_toContinuousLinearMap, LinearIsometryEquiv.coe_toLinearIsometry, hQ]
   have hclosed : IsClosed (LinearMap.ker Ψl : Set C(UnitAddTorus (Fin 2), ℂ)) :=
     ContinuousLinearMap.isClosed_ker Ψ
   have htop : (⊤ : Submodule ℂ C(UnitAddTorus (Fin 2), ℂ)) ≤ LinearMap.ker Ψl := by
@@ -356,6 +359,15 @@ theorem offDiagonalProjection_comp_orderedMultiplier (n : ℕ) (p : Fin 2 → �
   have hm : m ∈ LinearMap.ker Ψl := htop Submodule.mem_top
   rw [LinearMap.mem_ker, ContinuousLinearMap.coe_coe, hΨapply, sub_eq_zero] at hm
   exact hm
+
+/-- **`Π_n` commutes with every continuous multiplier that is a function of
+`P`** (`lem:raise`, `manuscript.tex:1189-1190`). -/
+theorem offDiagonalProjection_comp_orderedMultiplier (n : ℕ) (p : Fin 2 → ℝ)
+    (m : C(UnitAddTorus (Fin 2), ℂ)) :
+    offDiagonalProjection n ∘L orderedMultiplier n p m =
+      orderedMultiplier n p m ∘L offDiagonalProjection n :=
+  comp_orderedMultiplier_of_commute n p (offDiagonalProjection n)
+    (fun x c => orderedTranslate_comm_offDiagonalProjection n x c) m
 
 end
 

@@ -390,6 +390,331 @@ theorem parityCost_eq {kappa delta Kw : ℝ} {q : Estimates.Parameters}
   rw [← hswapA, ← hadd, hswapS, hdens]
   rfl
 
+/-! ### `lem:effective-energy` at the parity competitor -/
+
+section Move1
+
+open Manhattan.V4 Manhattan.Operator
+
+/-- **`lem:effective-energy`** (`paper/arxiv/main.tex:951-1033`) at the parity
+competitor built from the profile `φ = t/q` on `Γ_δ`, with the column constant
+`Cb` of `eq:beta` for `M = 4(δ + |r| + |r'| + |β|)`: the objective of
+`lem:variational-bound` is at most `(1 - s ∫φ)²/H₀ + (15/4 + Cb) ∫ q φ²`. -/
+theorem move1_objective_paper {Cb : ℝ} (hCb : 0 ≤ Cb) (hB : BetaColumnBound 4 Cb)
+    {q : Estimates.Parameters} (hlam : 0 < q.lambda)
+    (p : Fin 2 → ℝ) {delta r0 : ℝ}
+    (hdelta : 0 < delta) (hlamdelta : q.lambda + 4 * |p 1| ≤ 4 * delta)
+    (hr014 : r0 ≤ 1 / 4) (hsqle : Real.sqrt delta ≤ r0)
+    (hmud : q.lambda + Estimates.dispersion (p 0) ≤ delta ^ 2) (t : ℝ) :
+    ∃ g : Manhattan.WalshL2,
+      (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hEnergy q.lambda g
+          + (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hMinusEnergy hlam
+              (Manhattan.walshL2 ∅ - Manhattan.concreteFiberA p g)
+        ≤ (1 - Real.sin (p 0) * (t * profileMass r0 delta)) ^ 2
+              / (q.lambda + Operator.theta p)
+            + (15 / 4 + Cb) * (t ^ 2 * profileMass r0 delta) := by
+  classical
+  have hpi := Real.pi_pos
+  have hr01 : r0 < 1 := lt_of_le_of_lt hr014 (by norm_num)
+  have hr0pi : r0 < Real.pi := by linarith [Real.pi_gt_three]
+  have hsqpos : 0 < Real.sqrt delta := Real.sqrt_pos.mpr hdelta
+  have h120 : (0:ℝ) < 4 := by norm_num
+  have hmu : 0 < q.lambda + Estimates.dispersion (p 0) :=
+    add_pos_of_pos_of_nonneg hlam (Estimates.dispersion_nonneg (p 0))
+  have hsinsq : Real.sin (p 0) ^ 2 ≤ 2 * (q.lambda + Estimates.dispersion (p 0)) := by
+    have := sin_sq_le_two_dispersion (p 0)
+    linarith
+  -- the profile
+  set phi : ℝ → ℝ := perProfile r0 delta t with hphidef
+  set Kp : ℝ := |t| * (Real.sqrt (-Real.log (Real.sqrt delta)) / Real.sqrt delta) with hKpdef
+  have hmphi : Measurable phi := measurable_perProfile r0 delta t
+  have hbphi : ∀ r, |phi r| ≤ Kp := fun r => perProfile_abs_le hsqpos hsqle hr01 t r
+  have hphieven : ∀ r, phi (-r) = phi r := perProfile_even r0 delta t
+  have hphiper : Function.Periodic phi (2 * Real.pi) := perProfile_periodic r0 delta t
+  have hsupp : ∀ r ∈ Estimates.torus,
+      ¬ (Real.sqrt delta ≤ |r| ∧ |r| ≤ r0) → phi r = 0 :=
+    fun r hr h => perProfile_supp_torus hr h
+  have hint : Integrable (fun r => Energy.effectiveWeight r * phi r ^ 2)
+      (volume.restrict Estimates.torus) :=
+    integrable_effectiveWeight_perProfile hsqpos hsqle hr01 hr0pi t
+  -- the degree-one profile
+  set g : ℝ → ℂ := fun x => -Complex.I * ((phi x : ℝ) : ℂ) with hgdef
+  have hgmeas : Measurable g := measurable_const.mul (Complex.measurable_ofReal.comp hmphi)
+  have hgnorm : ∀ r, ‖g r‖ = |phi r| := by
+    intro r
+    rw [hgdef]
+    simp only
+    rw [norm_mul, norm_neg, Complex.norm_I, one_mul, Complex.norm_real, Real.norm_eq_abs]
+  have hgb : ∀ r, ‖g r‖ ≤ Kp := fun r => by rw [hgnorm r]; exact hbphi r
+  have hgper : Function.Periodic g (2 * Real.pi) := by
+    intro x
+    show -Complex.I * ((phi (x + 2 * Real.pi) : ℝ) : ℂ) = -Complex.I * ((phi x : ℝ) : ℂ)
+    rw [hphiper x]
+  have hg : MemLp g 2 (volume.restrict (Set.Ioc (-Real.pi) Real.pi)) :=
+    memLp_neg_I_mul hmphi hbphi
+  set cco := fourierBasis.repr (rowTorusShift (p 1) (Manhattan.realTorusL2 g hg)) with hccodef
+  -- the parity competitor
+  set W : ParityProfile := sineProfile phi hmphi Kp hbphi hphieven hphiper with hWdef
+  set vp : ParityProfile := parityProfileV hlam h120 hdelta W with hvpdef
+  set v : ParityProfile := scaleProfile (Real.sqrt 2) vp with hvdef
+  have hK := torusBounded₃_parityKernel h120 hdelta v
+  set kc := Manhattan.type112ShiftTwist (p 0) (p 1) (rawType112Coefficients hK) with hkcdef
+  have hvcol : ∀ r, Function.Periodic (fun beta => v.toFun r beta) (2 * Real.pi) :=
+    scaleProfile_periodic_col (Real.sqrt 2) vp
+      (parityProfileV_periodic_col hlam h120 hdelta W (fun _ _ => rfl))
+  have hkTwoRow : Manhattan.type112DStarTwoRow p kc = 0 :=
+    type112DStarTwoRow_rawShiftTwist hK
+      (fun r r' b => parityKernel_neg_col v r r' b) p
+  have hcc := inner_empty_residual_shifted p hg kc
+  refine ⟨Manhattan.axisDegreeOneSynthesis Manhattan.Axis.horizontal cco
+    + Manhattan.type112WalshSynthesis kc, ?_⟩
+  rw [objective_eq_sectors hlam p cco kc hkTwoRow hcc]
+  -- the two substitution integrals
+  have hMass : Estimates.torusIntegral phi = t * profileMass r0 delta :=
+    torusIntegral_perProfile r0 delta t
+  set E := Estimates.torusIntegral (fun r => Energy.effectiveWeight r * phi r ^ 2) with hEdef
+  have hEval : E = t ^ 2 * profileMass r0 delta :=
+    torusIntegral_effectiveWeight_perProfile hsqpos hr01 hr0pi t
+  set Wr : ℝ → ℝ := fun r => Real.sin r * phi r with hWrdef
+  have hmw : Measurable Wr := Real.measurable_sin.mul hmphi
+  have hbw : ∀ r, |Wr r| ≤ Kp := by
+    intro r
+    have h1 := Real.abs_sin_le_one r
+    have h2 := hbphi r
+    have hKp0 : 0 ≤ Kp := le_trans (abs_nonneg _) (hbphi 0)
+    rw [hWrdef]
+    simp only
+    rw [abs_mul]
+    nlinarith [abs_nonneg (Real.sin r), abs_nonneg (phi r)]
+  set JJ := Estimates.torusIntegral (fun r => Wr r ^ 2 * parityFibreJ q 4 delta r) with hJJdef
+  -- (1) the degree-one energy
+  have hE1 : (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hEnergy q.lambda
+      (Manhattan.axisDegreeOneSynthesis Manhattan.Axis.horizontal cco) ≤ 3 / 4 * E := by
+    have heq : (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hEnergy q.lambda
+        (Manhattan.axisDegreeOneSynthesis Manhattan.Axis.horizontal cco)
+        = Estimates.torusIntegral (fun r =>
+            (q.lambda + Estimates.dispersion (p 0) + Estimates.dispersion r) * ‖g r‖ ^ 2) :=
+      hEnergy_degreeOneRowShift q.lambda p g hg
+    rw [heq]
+    have hcongr : (fun r => (q.lambda + Estimates.dispersion (p 0)
+          + Estimates.dispersion r) * ‖g r‖ ^ 2)
+        = fun r => (q.lambda + Estimates.dispersion (p 0)
+            + Estimates.dispersion r) * phi r ^ 2 := by
+      funext r
+      rw [hgnorm r, sq_abs]
+    rw [hcongr]
+    have hdelta1 : delta ≤ 1 := by
+      have h1 : Real.sqrt delta ≤ 1 := by linarith
+      have h2 := Real.sq_sqrt hdelta.le
+      nlinarith [Real.sqrt_nonneg delta]
+    exact degreeOne_cost_le_sharp hmu hdelta hdelta1 hmud hr014 hsupp hint
+  -- (2) the two-row sector
+  have hE2 : (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hMinusEnergy hlam
+      (Manhattan.type11WalshSynthesis (Manhattan.type11WalshAnalysis
+        (walshRaise p (Manhattan.axisDegreeOneSynthesis Manhattan.Axis.horizontal cco))))
+      ≤ 3 * E := by
+    have h := hMinusEnergy_twoRow_le hlam p g hg
+    have hcongr : (fun r => ‖g r‖ ^ 2) = fun r => phi r ^ 2 := by
+      funext r
+      rw [hgnorm r, sq_abs]
+    rw [hcongr] at h
+    exact h.trans (twoRow_cost_le_sharp (mu := q.lambda + Estimates.dispersion (p 0))
+      (s := Real.sin (p 0)) hmu hdelta hmud hsinsq hr014 hsupp hint)
+  -- (3) the degree-three cost, `eq:majorant` and `eq:parity-energy`
+  have hE3 : sectorHThreeForm q.lambda p (Manhattan.type112WalshSynthesis kc)
+      + sectorDFourForm hlam p (Manhattan.type112WalshSynthesis kc) ≤
+      Estimates.torusIntegral (fun beta => Estimates.torusIntegral (fun r =>
+        paritySigma 4 delta r beta * parityV q 4 delta (fun r' _ => Wr r') r beta ^ 2)) := by
+    have hop := sectorForms_rawWalsh_le hlam p hlamdelta hK
+      (fun r r' b => parityKernel_swap (kappa := 4) (delta := delta) v.toFun r r' b)
+    rw [evenMajorantEnergy_parityKernel h120 hdelta v] at hop
+    have hrw : rawWalsh p hK = Manhattan.type112WalshSynthesis kc := rfl
+    rw [hrw] at hop
+    have hveq : (fun beta => Estimates.torusIntegral (fun r =>
+          paritySigma 4 delta r beta * v.toFun r beta ^ 2))
+        = fun beta => 2 * Estimates.torusIntegral (fun r =>
+          paritySigma 4 delta r beta * parityV q 4 delta (fun r' _ => Wr r') r beta ^ 2) := by
+      funext beta
+      rw [← Estimates.torusIntegral_smul_left]
+      congr 1
+      funext r
+      exact paritySigma_scaled_sq _ _
+    rw [hveq, Estimates.torusIntegral_smul_left] at hop
+    linarith
+  -- (4) the mixed sector
+  have hE4 : (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hMinusEnergy hlam
+      (Manhattan.type12WalshSynthesis
+        (Manhattan.type12WalshAnalysis (walshRaise p
+            (Manhattan.axisDegreeOneSynthesis Manhattan.Axis.horizontal cco))
+          - Manhattan.type112DStarMixed p kc)) =
+      Estimates.torusIntegral (fun r => Estimates.torusIntegral (fun beta =>
+          (Wr r - paritySigma 4 delta r beta
+              * parityV q 4 delta (fun r' _ => Wr r') r beta) ^ 2
+            / Estimates.correctionB q r beta)) := by
+    have hden := hMinusEnergy_v4Mixed_density (q := q) hlam h120 hdelta v hvcol
+      hgmeas hgb hgper hg p
+    rw [hden]
+    congr 1
+    funext r
+    congr 1
+    funext beta
+    have hvv : v.toFun r beta
+        = Real.sqrt 2 * parityV q 4 delta (fun r' _ => Wr r') r beta := rfl
+    rw [norm_v4MixedSymbol_sq 4 delta v phi r beta, hvv, inv_sqrt_two_mul_scaled]
+  -- (5) `eq:scalar-energy`
+  have hE34 := parityCost_eq (q := q) hlam h120 hdelta hmw hbw
+  -- (6) `eq:beta`
+  have hE5 : JJ ≤ Cb * E := by
+    have h := v4_cost_le_of (q := q) (kappa := 4) (delta := delta) (r0 := r0)
+      (C1 := 0) (C3 := 1) hlam h120 hdelta hr014 le_rfl (by norm_num) hCb
+      (fun r h1 h2 => hB q delta r hlam hdelta h1 h2) hsupp hint
+    have hJJeq : JJ = Estimates.torusIntegral (fun r =>
+        Real.sin r ^ 2 * parityFibreJ q 4 delta r * phi r ^ 2) := by
+      rw [hJJdef]
+      congr 1
+      funext r
+      rw [hWrdef]
+      simp only
+      rw [mul_pow]
+      ring
+    rw [hJJeq]
+    have h0 : (0:ℝ) * Estimates.torusIntegral (fun r => (delta + r ^ 2) * phi r ^ 2) = 0 := by
+      ring
+    rw [h0, zero_add, zero_add] at h
+    linarith
+  rw [hMass] at hcc ⊢
+  rw [hEval] at hE1 hE2 hE5
+  rw [hE4]
+  linarith
+
+/-- `(π^{5/2} + π)/2 < 11`: the column constant of `eq:beta` at `M = 4(δ + |r| + |r'| + |β|)`. -/
+theorem betaColumnConstant_four_le :
+    Real.pi * Real.sqrt (Real.pi ^ 3 * 4) / 4 + Real.pi / 2 ≤ 11 := by
+  have hpi0 : (0:ℝ) < Real.pi := Real.pi_pos
+  have hpi : Real.pi < 3.141593 := Real.pi_lt_d6
+  have hsq : Real.pi ^ 2 < 9.8697 := by nlinarith [hpi, hpi0]
+  have hcube : Real.pi ^ 3 < 31.008 := by nlinarith [hsq, hpi, hpi0]
+  have hs : Real.sqrt (Real.pi ^ 3 * 4) < 11.2 := by
+    have h : Real.pi ^ 3 * 4 < 11.2 ^ 2 := by nlinarith [hcube]
+    calc Real.sqrt (Real.pi ^ 3 * 4) < Real.sqrt (11.2 ^ 2) :=
+          Real.sqrt_lt_sqrt (by positivity) h
+      _ = 11.2 := Real.sqrt_sq (by norm_num)
+  have hS0 : (0:ℝ) ≤ Real.sqrt (Real.pi ^ 3 * 4) := Real.sqrt_nonneg _
+  nlinarith [hs, hpi, hpi0, hS0]
+
+/-- **`lem:effective-energy` with the constant `16`.** -/
+theorem move1_objective_sixteen {q : Estimates.Parameters} (hlam : 0 < q.lambda)
+    (p : Fin 2 → ℝ) {delta r0 : ℝ}
+    (hdelta : 0 < delta) (hlamdelta : q.lambda + 4 * |p 1| ≤ 4 * delta)
+    (hr014 : r0 ≤ 1 / 4) (hsqle : Real.sqrt delta ≤ r0)
+    (hmud : q.lambda + Estimates.dispersion (p 0) ≤ delta ^ 2) (t : ℝ) :
+    ∃ g : Manhattan.WalshL2,
+      (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hEnergy q.lambda g
+          + (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hMinusEnergy hlam
+              (Manhattan.walshL2 ∅ - Manhattan.concreteFiberA p g)
+        ≤ (1 - Real.sin (p 0) * (t * profileMass r0 delta)) ^ 2
+              / (q.lambda + Operator.theta p)
+            + 16 * (t ^ 2 * profileMass r0 delta) := by
+  have hCb : (0:ℝ) ≤ Real.pi * Real.sqrt (Real.pi ^ 3 * 4) / 4 + Real.pi / 2 := by
+    have := Real.pi_pos
+    positivity
+  obtain ⟨g, hg⟩ := move1_objective_paper hCb (betaColumnBound_split (by norm_num)) hlam p
+    hdelta hlamdelta hr014 hsqle hmud t
+  refine ⟨g, hg.trans ?_⟩
+  have hsqle' : Real.sqrt delta ≤ 1 / 4 := le_trans hsqle hr014
+  have hr0 : 0 < r0 := lt_of_lt_of_le (Real.sqrt_pos.mpr hdelta) hsqle
+  have hm : 0 ≤ t ^ 2 * profileMass r0 delta := by
+    rw [← torusIntegral_effectiveWeight_perProfile (Real.sqrt_pos.mpr hdelta)
+      (lt_of_le_of_lt hr014 (by norm_num)) (by linarith [Real.pi_gt_three]) t]
+    refine Estimates.torusIntegral_nonneg' fun r => ?_
+    exact mul_nonneg (Energy.effectiveWeight_nonneg r) (sq_nonneg _)
+  have hc := betaColumnConstant_four_le
+  nlinarith [hm, hc]
+
+/-- **Move 1 at the frequency `p`**, with `δ = √λ + a(p)`. -/
+theorem move1_at_sixteen {lambda : ℝ} (hlambda : 0 < lambda) (hlambda1 : lambda ≤ 1)
+    (p : Fin 2 → ℝ) {r0 : ℝ} (hr0 : 0 < r0) (hr014 : r0 ≤ 1 / 4)
+    (hp0 : |p 0| ≤ Real.pi)
+    (hle : Real.sqrt lambda + Operator.maxFrequency p ≤ r0 ^ 4) (t : ℝ) :
+    ∃ g : Manhattan.WalshL2,
+      (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hEnergy lambda g
+          + (Manhattan.concreteFiberEnvironment.dissipativeSkewPair p).hMinusEnergy hlambda
+              (Manhattan.walshL2 ∅ - Manhattan.concreteFiberA p g)
+        ≤ (1 - Real.sin (p 0)
+                * (t * profileMass r0 (Real.sqrt lambda + Operator.maxFrequency p))) ^ 2
+              / (lambda + Operator.theta p)
+            + 16 * (t ^ 2 * profileMass r0 (Real.sqrt lambda + Operator.maxFrequency p)) := by
+  set a := Operator.maxFrequency p with hadef
+  have hann : 0 ≤ a := Frequency.maxFrequency_nonneg p
+  have hspos : 0 < Real.sqrt lambda := Real.sqrt_pos.mpr hlambda
+  set delta := Real.sqrt lambda + a with hdeltadef
+  have hdelta : 0 < delta := by positivity
+  have hlamsq : lambda ≤ Real.sqrt lambda := self_le_sqrt hlambda hlambda1
+  have hp0a : |p 0| ≤ a := le_max_left _ _
+  have hp1a : |p 1| ≤ a := le_max_right _ _
+  have hsq := Real.sq_sqrt hlambda.le
+  have hmud : lambda + Estimates.dispersion (p 0) ≤ delta ^ 2 := by
+    have hd := (Estimates.dispersion_quadratic_bounds hp0).2
+    have habs : (p 0) ^ 2 ≤ a ^ 2 := by
+      have := sq_abs (p 0)
+      nlinarith [abs_nonneg (p 0), hp0a]
+    have hexp : delta ^ 2 = lambda + 2 * Real.sqrt lambda * a + a ^ 2 := by
+      rw [hdeltadef]
+      nlinarith [hsq]
+    nlinarith [hexp, hd, habs, mul_nonneg hspos.le hann]
+  have hlamdelta : lambda + 4 * |p 1| ≤ 4 * delta := by
+    rw [hdeltadef]
+    nlinarith [hlamsq, hp1a, hspos]
+  have hsqle : Real.sqrt delta ≤ r0 :=
+    Frequency.sqrt_le_of_le_pow_four hr0 hr014 hle
+  exact move1_objective_sixteen (q := v4Parameters lambda) hlambda p hdelta hlamdelta hr014
+    hsqle hmud t
+
+/-- **`eq:optimized` with the constant `16`**: `r_λ(p) ≤ 1/(H₀ + s² Z_δ/16)` in the
+improvement region, `s = sin p₁` after exchanging rows and columns. -/
+theorem move2Supply_sixteen {r0 : ℝ} (hr0 : 0 < r0) (hr014 : r0 ≤ 1 / 4) :
+    Frequency.V4Move2Supply r0 16 := by
+  have hCpos : (0:ℝ) < 16 := by norm_num
+  intro lambda hlambda hlambda1 p hp0 hp1 hle
+  have hp0abs : |p 0| ≤ Real.pi := abs_le.2 ⟨hp0.1.le, hp0.2⟩
+  have hp1abs : |p 1| ≤ Real.pi := abs_le.2 ⟨hp1.1.le, hp1.2⟩
+  have hann : 0 ≤ Operator.maxFrequency p := Frequency.maxFrequency_nonneg p
+  have hspos : 0 < Real.sqrt lambda := Real.sqrt_pos.mpr hlambda
+  have hr4 : r0 ^ 4 ≤ (1 / 4 : ℝ) ^ 4 := pow_le_pow_left₀ hr0.le hr014 4
+  have hasmall : Operator.maxFrequency p ≤ Real.pi / 2 := by
+    norm_num at hr4
+    nlinarith [Real.pi_gt_three, hspos]
+  have hjordan : ∀ x : ℝ, |x| = Operator.maxFrequency p →
+      (2 / Real.pi) ^ 2 * Operator.maxFrequency p ^ 2 ≤ x.sin ^ 2 := by
+    intro x hx
+    have hxle : |x| ≤ Real.pi / 2 := by rw [hx]; exact hasmall
+    have hj := Real.mul_abs_le_abs_sin hxle
+    have hnn : 0 ≤ 2 / Real.pi * |x| := by positivity
+    have hsq := mul_self_le_mul_self hnn hj
+    rw [hx] at hsq
+    nlinarith [sq_abs (Real.sin x), hsq, sq_abs x]
+  rcases le_total (|p 1|) (|p 0|) with hbr | hbr
+  · have ha : Operator.maxFrequency p = |p 0| := max_eq_left hbr
+    refine ⟨Real.sin (p 0), hjordan (p 0) ha.symm, ?_⟩
+    exact v4_move2_at' hCpos hlambda p hr0 hr014 hle
+      (fun t => move1_at_sixteen hlambda hlambda1 p hr0 hr014 hp0abs hle t)
+  · have ha : Operator.maxFrequency p = |p 1| := max_eq_right hbr
+    refine ⟨Real.sin (p 1), hjordan (p 1) ha.symm, ?_⟩
+    refine v4_move2_at' hCpos hlambda p hr0 hr014 hle ?_
+    intro t
+    have hswap : Operator.maxFrequency (axisSwapFrequency p) = Operator.maxFrequency p :=
+      axisSwap_maxFrequency p
+    have hth : Operator.theta (axisSwapFrequency p) = Operator.theta p := axisSwap_theta p
+    have hle' : Real.sqrt lambda + Operator.maxFrequency (axisSwapFrequency p) ≤ r0 ^ 4 := by
+      rw [hswap]; exact hle
+    have h0' : |axisSwapFrequency p 0| ≤ Real.pi := by
+      rw [axisSwapFrequency_zero]; exact hp1abs
+    have hm := move1_at_sixteen hlambda hlambda1 (axisSwapFrequency p) hr0 hr014 h0' hle' t
+    rw [hswap, hth, axisSwapFrequency_zero] at hm
+    exact objective_of_axisSwap hlambda p hm
+
+end Move1
+
 end
 
 end Manhattan.Paper

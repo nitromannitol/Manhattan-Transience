@@ -4,7 +4,8 @@ import Manhattan.Paper.EffectiveEnergy
 `f` of degree one carrying only row signs and `k` of type `112` with `(D₂* k)₁₁ = 0`:
 the objective of `lem:variational-bound` equals the uncancelled degree-zero term plus
 the summands of `eq:E`, the degree-two summand split into its two-row and mixed
-sectors. -/
+sectors.  Hypothesis: the degree-zero coefficient `⟨1, 1 - A_p(f + k)⟩` is a real number
+`c` (`hc`); the degree-zero term is `c²/(λ + θ(p))`. -/
 
 open scoped lp
 open MeasureTheory Set UnitAddTorus

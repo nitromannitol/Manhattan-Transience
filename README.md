@@ -163,11 +163,13 @@ pinned source they transcribe:
 | `eq-construction-sector-energy` | `E_p(f_p,k_p) ≤ C √L`, third display of (25) | `manuscript.tex:785-790` |
 | `lem-formulas-d2a` … `-d1-mixed` | Lemma 3.1, the five formulas `eq:D2a`, `eq:D2b`, `eq:D1` | `manuscript.tex:827-841` |
 | `lem-raise-eq-raise`, `-projection`, `-commute` | Lemma 5.1 at every degree | `manuscript.tex:1179-1191` |
-| `eq-iso-hminus-energy` | `eq:iso` and `eq:Hsym` for the `H⁻¹` energy | `manuscript.tex:725-728`, `:749` |
+| `eq-iso-hminus-energy` | `eq:iso` and `eq:Hsym` for the `H⁻¹` energy | `manuscript.tex:730-732`, `:749` |
 | `lem-four` | Lemma 5.2 for every `k ∈ ℋ₃`, `κ = 97` | `manuscript.tex:1200-1207` |
 | `lem-distinct` | Lemma 5.3 for every coefficient of type `112` | `manuscript.tex:1212-1221` |
 | `lem-correction-calculation` | Lemma 5.4 at the operator level for the competitor | `manuscript.tex:1305-1420` |
 | `arxiv-eq-majorant` | `eq:majorant`, constant one, bounded kernels | `arxiv/main.tex:813-854` |
+| `arxiv-eq-uncancelled` | `eq:uncancelled`, the objective split into its sectors | `arxiv/main.tex:966-973` |
+| `arxiv-eq-scalar-energy` | `eq:scalar-energy` at its minimizer, integrated | `arxiv/main.tex:868-901` |
 | `arxiv-lem-effective-energy` | Lemma 5.1 with `16`, profiles `φ = t/q` on `Γ_δ` | `arxiv/main.tex:951-1033` |
 | `arxiv-eq-optimized` | `eq:optimized` with `16`, for some `s` with `s² ≥ (2/π)² a(p)²` | `arxiv/main.tex:1052-1067` |
 | `arxiv-prop-frequency` | Proposition 6.1 with `2048` | `arxiv/main.tex:1070-1092` |
@@ -176,7 +178,8 @@ pinned source they transcribe:
 
 The `manuscript.tex` nodes `lem-formulas-*`, `lem-raise-*`, `eq-iso-hminus-energy`,
 `lem-four`, `lem-distinct` and `lem-correction-calculation` state Lemmas 3.1 and 5.1 to 5.4 in
-the normalization and generality of the paper (Lemma 5.4 for the competitor of Section 4).
+the normalization of the paper, with the hypotheses recorded in
+[`CORRESPONDENCE.md`](CORRESPONDENCE.md) (Lemma 5.4 for the competitor of Section 4).
 The `arxiv/main.tex` nodes state the arXiv version's `eq:majorant`, `eq:uncancelled`,
 `eq:scalar-energy`, Lemma 5.1, `eq:optimized`, Proposition 6.1, Theorem 1.2 and
 `eq:green-explicit`, with the printed numerals; [`CORRESPONDENCE.md`](CORRESPONDENCE.md) gives

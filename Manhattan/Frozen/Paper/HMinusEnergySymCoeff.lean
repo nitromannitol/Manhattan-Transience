@@ -1,6 +1,6 @@
 import Manhattan.Paper.SymmetricIso
 
-/-! Equations `eq:iso` and `eq:Hsym` (`manuscript.tex:725-728`, `:749`) for the dual
+/-! Equations `eq:iso` and `eq:Hsym` (`manuscript.tex:730-732`, `:749`) for the dual
 energy: a degree-`n` element `F` with symmetric coefficient `f` has
 `‖F‖²_{H⁻¹} = n! ⟨f, (λ + θ(P))⁻¹ f⟩`. -/
 

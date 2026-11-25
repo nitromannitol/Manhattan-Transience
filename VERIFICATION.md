@@ -170,7 +170,8 @@ even `φ ∈ L²` vanishing off `Γ_δ`.
 (`Manhattan/Paper/EffectiveEnergy.lean`); the step from the objective to
 `r_λ(p)` is `resolventQuadratic_le`.  `Manhattan.Paper.move2Supply_sixteen`
 is `eq:optimized` in the form `prop:frequency` uses:
-`r_λ(p) ≤ 1/(H₀ + s² Z_δ/16)` on `√λ + a(p) ≤ 1/256` for some `s` with
+`r_λ(p) ≤ 1/(H₀ + s² Z_δ/16)` on `√λ + a(p) ≤ r₀⁴` for every `r₀ ∈ (0, 1/4]`
+(`1/256` at `r₀ = 1/4`), for some `s` with
 `s² ≥ (2/π)² a(p)²` (the proof takes `s = sin p₁` after exchanging rows and
 columns).  The route is the paper's: `eq:majorant` with constant one
 and `M = 4(δ + |r| + |r'| + |β|)` (`Manhattan.Paper.sectorForms_rawWalsh_le`),
@@ -196,7 +197,7 @@ frozen nodes in `Manhattan/Frozen/Paper/` (the statements pinned to
 | statement | numeral | Lean |
 | --- | --- | --- |
 | `lem:effective-energy` | `16` | `Manhattan.Paper.move1_objective_sixteen` (profiles `φ = t/q` on `Γ_δ`) |
-| `eq:optimized` | `16` | `Manhattan.Paper.move2Supply_sixteen` (on `√λ + a(p) ≤ 1/256`, for some `s` with `s² ≥ (2/π)² a(p)²`) |
+| `eq:optimized` | `16` | `Manhattan.Paper.move2Supply_sixteen` (on `√λ + a(p) ≤ r₀⁴`, `0 < r₀ ≤ 1/4`, for some `s` with `s² ≥ (2/π)² a(p)²`) |
 | `prop:frequency` | `2048` | `Manhattan.Paper.frequencyBound_2048` |
 | `thm:annealed` | `2048` | `Manhattan.Paper.annealed_laplace_le_2048` |
 | `eq:green-explicit` | `2048` | `Manhattan.Paper.annealed_green_le_2048` |

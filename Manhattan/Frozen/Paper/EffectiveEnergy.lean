@@ -5,8 +5,12 @@ with the constant `16`, for the profiles `φ = t/q` on `Γ_δ` that the proof of
 `prop:frequency` uses (not for every real even `φ ∈ L²` vanishing off `Γ_δ`): there is a
 test function `g` at which the objective of `lem:variational-bound` is at most
 `(1 - s ∫ φ)²/H₀ + 16 ∫ q φ²`, with `s = sin p₁`, `φ = t/q` on `Γ_δ` for a real `t`
-and `H₀ = λ + θ(p)`.  Hypotheses: `δ > 0`, `λ + 4|p₂| ≤ 4δ`, `√δ ≤ r₀ ≤ 1/4` and
-`λ + d(p₁) ≤ δ²`. -/
+and `H₀ = λ + θ(p)`; here `Γ_δ = {√δ ≤ |r| ≤ r₀}`, `q(r) = |r|/√(log(1/|r|))`, so that
+`perProfile r₀ δ 1 = 1/q` on `Γ_δ` and `profileMass r₀ δ = ∫_{Γ_δ} 1/q`.  Hypotheses:
+`δ > 0`, `λ + 4|p₂| ≤ 4δ`, `√δ ≤ r₀ ≤ 1/4` and `λ + d(p₁) ≤ δ²`.  For `λ ∈ (0,1]`,
+`0 < r₀ ≤ 1/4`, `|p₁| ≤ π` and `δ = √λ + a(p) ≤ r₀⁴` they hold
+(`Manhattan.Paper.move1_at_sixteen`); this covers the printed setting `|p₂| ≤ |p₁|`,
+`δ = √λ + |p₁| < 1/256` at `r₀ = 1/4`. -/
 
 open scoped lp
 open MeasureTheory Set UnitAddTorus

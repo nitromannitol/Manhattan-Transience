@@ -1,8 +1,10 @@
 import Manhattan.Paper.AnnealedConstant
 
 /-! Theorem 1.2 of the arXiv version (`thm:annealed`, `paper/arxiv/main.tex:180-188`, proof
-at `:1094-1121`) with the printed constant `2048`: for every `λ ∈ (0,1]`,
-`∫₀^∞ e^{-λt} p̄_t(0,0) dt ≤ 2048`.  The proof reaches about `1578`. -/
+at `:1097-1121`) with the printed constant `2048`: for every `λ ∈ (0,1]`,
+`∫₀^∞ e^{-λt} p̄_t(0,0) dt ≤ 2048`.  The proof uses Proposition 6.1 with `2048` and
+reaches `1/π² + 2^{7/2}·2048/(π²√(1 + log 4)) + log(4π) ≈ 1522.4`, the computation of
+`paper/arxiv/main.tex:1105-1113`. -/
 
 open MeasureTheory Set Filter Topology
 open scoped ENNReal

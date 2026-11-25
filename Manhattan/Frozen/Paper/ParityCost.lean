@@ -1,9 +1,11 @@
 import Manhattan.Paper.EffectiveEnergy
 
-/-! Equations `eq:scalar-energy` and `eq:parity-energy` of the arXiv version, integrated
-(`paper/arxiv/main.tex:868-901`): at the minimizer `V = w/(B + σ)`, for bounded
-measurable `w` and every majorant constant `κ > 0`, the degree-three density `σ V²` and
-the mixed residual `(w - σV)²/B` integrate to `∫ w² ∫ dm(β)/(B + σ)`. -/
+/-! Equation `eq:scalar-energy` of the arXiv version (`paper/arxiv/main.tex:873`) at its
+minimizer, integrated: at `V = w/(B + σ)`, for bounded measurable `w` and every majorant
+constant `κ > 0`, the degree-three density `σ V²` and the mixed residual `(w - σV)²/B`
+integrate to `∫ w² ∫ dm(β)/(B + σ)`.  The first integral is the right side of
+`eq:parity-energy` (`:897`); the identity `∫ M|K|² = ∫ σw²/W²` itself is not part of this
+statement. -/
 
 open scoped lp
 open MeasureTheory Set UnitAddTorus

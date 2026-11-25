@@ -1,8 +1,10 @@
 import Manhattan.Paper.AnnealedConstant
 
 /-! Equation `eq:green-explicit` of the arXiv version (`paper/arxiv/main.tex:1115-1121`)
-with the printed constant `2048`: `∫₀^∞ p̄_t(0,0) dt ≤ 2048`.  The proof reaches about
-`1578`. -/
+with the printed constant `2048`: `∫₀^∞ p̄_t(0,0) dt ≤ 2048`.  The proof uses
+Proposition 6.1 with `2048` and reaches
+`1/π² + 2^{7/2}·2048/(π²√(1 + log 4)) + log(4π) ≈ 1522.4`, the computation of
+`paper/arxiv/main.tex:1105-1113`. -/
 
 open MeasureTheory Set Filter Topology
 open scoped ENNReal

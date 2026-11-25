@@ -1037,7 +1037,7 @@ nodes:
   - id: eq-iso-hminus-energy
     version: 1
     kind: theorem
-    source: manuscript.tex:725-728, :749 (eq:iso, eq:Hsym)
+    source: manuscript.tex:730-732, :749 (eq:iso, eq:Hsym)
     file: Manhattan/Frozen/Paper/HMinusEnergySymCoeff.lean
     export: Manhattan.Frozen.Paper.hMinusEnergy_eq_symCoeff
     state: PROVED
@@ -1109,7 +1109,7 @@ nodes:
   - id: arxiv-eq-scalar-energy
     version: 1
     kind: theorem
-    source: arxiv/main.tex:868-901 (eq:scalar-energy at :873, eq:parity-energy at :897)
+    source: arxiv/main.tex:868-901 (eq:scalar-energy at :873)
     file: Manhattan/Frozen/Paper/ParityCost.lean
     export: Manhattan.Frozen.Paper.parityCost_eq
     state: PROVED
@@ -1157,7 +1157,7 @@ nodes:
   - id: arxiv-thm-annealed
     version: 1
     kind: theorem
-    source: arxiv/main.tex:180-188, :1094-1121
+    source: arxiv/main.tex:180-188, :1097-1121
     file: Manhattan/Frozen/Paper/AnnealedLaplace.lean
     export: Manhattan.Frozen.Paper.annealed_laplace_le_2048
     state: PROVED

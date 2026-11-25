@@ -1,8 +1,9 @@
 import Manhattan.Paper.LemmaRaiseMultiplier
 
 /-! Lemma 5.1 (`lem:raise`, `manuscript.tex:1189-1190`): `Π_n` commutes with every
-multiplier by a continuous function of the total frequency `P` (the paper also
-states it for bounded Borel functions; the continuous case is what the proofs use). -/
+multiplier by a continuous function of the total frequency `P` (the arXiv version,
+`paper/arxiv/main.tex:670`, also states it for bounded Borel functions; the continuous
+case is what the proofs use). -/
 
 open MeasureTheory UnitAddTorus
 open Manhattan Manhattan.Glue Manhattan.Paper

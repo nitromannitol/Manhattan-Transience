@@ -55,7 +55,9 @@ the undamped integral by $2048$.  The numeral $2048$ of Proposition 6.1 is
 $\Gamma_\delta$ used in Section 6.  Consequently the sentence of the arXiv
 Section 1.5, lines 432-434, "Every theorem, lemma and proposition of this
 paper has been formalized", holds for Lemma 5.1 only for the profiles
-$\varphi=t/q$ on $\Gamma_\delta$.
+$\varphi=t/q$ on $\Gamma_\delta$.  Eight manifest nodes in
+`Manhattan/Frozen/Paper/` register these numerals and the arXiv equations
+their proofs use (`arxiv-*` in `ledger/manifest.yaml`).
 
 ### 1.2 The variational bound
 
@@ -97,7 +99,8 @@ states $r_\lambda(p)\leq2048/(\lambda+a(p)^2[1+\log_+(1/(\sqrt\lambda+a(p)))]^{3
 
 Both texts obtain the logarithmic gain with exponent $3/2$ and deduce
 Theorem 1.2 from it.  The manifest of this repository certifies the route of
-`manuscript.tex`.  The arXiv route is formalized separately in
+`manuscript.tex`, together with eight nodes that register the arXiv numerals
+and the arXiv equations their proofs use.  The arXiv route is formalized separately in
 `Manhattan/V4/`, which proves Theorem 1.1 a second time (`Manhattan.V4.theorem_1_1_v4`)
 and the arXiv Lemma 5.1 and Proposition 6.1 with unspecified constants;
 `Manhattan/Paper/` proves Proposition 6.1 and Theorem 1.2 with $2048$ and

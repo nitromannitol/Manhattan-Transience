@@ -9,15 +9,17 @@ A Lean 4 formalization of the paper
 > *The randomly oriented Manhattan lattice in 2D is transient*,
 > [arXiv:2609.07621](https://arxiv.org/abs/2609.07621).
 
-Both main theorems of the paper are proved in Lean, for the model of the paper, with no hypothesis.
-Nothing is assumed: the results of other works that the proofs use are in mathlib or
-Lattice-Probability, or are proved here. The Lean statements follow a corrected text of the paper,
-[`paper/manuscript.tex`](paper/manuscript.tex), and the constants of the arXiv version are proved as
-well. The library has no `sorry` and uses only the standard axioms.
+The paper proves that the random walk on the randomly oriented Manhattan lattice of `ℤ²` is
+transient for almost every choice of the orientations. It also proves that the expected time the
+walk spends at its starting point, averaged over the orientations, is finite. Both main
+theorems are proved in Lean, with no hypothesis beyond the model of the paper. Nothing is assumed:
+the results of other works that the proofs use are in mathlib, in the library Lattice-Probability,
+or proved here. The library has no `sorry` and uses only the standard axioms.
 
 ## The paper
 
-Orient each horizontal and each vertical line of `ℤ²` by an independent fair coin. A walker at `z`
+Orient each horizontal and each vertical line of `ℤ²` by an independent fair coin. These
+orientations form the *environment* `ω`. A walker at `z`
 chooses one of the two lines through `z` with probability 1/2 each, and takes one step in the
 direction of that line. Redner introduced this walk as a model of transport in a random velocity
 field. Transience was conjectured by Guillotin-Plantard, and the paper proves it.
@@ -37,7 +39,7 @@ outgoing edges at rate 1, so its transition probabilities are
 `p^ω_t(0, 0)` over the environment.
 
 **Theorem 1.2.** There is `C < ∞` with `∫_0^∞ e^{−λt} p̄_t(0, 0) dt ≤ C` for all `λ ∈ (0, 1]`, and
-hence `∫_0^∞ p̄_t(0, 0) dt < ∞`.
+hence the annealed Green function `∫_0^∞ p̄_t(0, 0) dt` is finite.
 
 The proof writes the Laplace transform of `p̄_t(0, 0)` through a variational formula, in Fourier
 coordinates in space and Fourier–Walsh coordinates in the environment, and evaluates it at one
@@ -80,8 +82,8 @@ How to read the statements:
   with equation (2) of the paper is proved.
 - Finiteness of a nonnegative series or integral is stated as its value in `ℝ≥0∞` being `< ∞`.
 
-Each main theorem restates a registered statement, `Manhattan.Frozen.Main.theorem_1_1` and
-`Manhattan.Frozen.Main.theorem_1_2`, and is proved by applying it.
+They restate `Manhattan.Frozen.Main.theorem_1_1` and `Manhattan.Frozen.Main.theorem_1_2` of the
+table below; the second is displayed with its defining proposition unfolded.
 
 ## All numbered results
 
@@ -109,14 +111,12 @@ declaration that proves the result; the names are in the namespace `Manhattan.Fr
 | Lemma 5.3 | `Paper.lemma_distinct` | The error of the projection onto distinct row indices. |
 | Lemma 5.4 | `Paper.lemma_correction_calculation` | The correction calculation for the competitor of Section 4. |
 
-[`CORRESPONDENCE.md`](CORRESPONDENCE.md) maps all 95 registered statements to the lines of the paper
-they state, with the hypotheses of each.
+[`CORRESPONDENCE.md`](CORRESPONDENCE.md) maps each of the 95 pinned statements (see
+[Checking the proofs](#checking-the-proofs)) to the lines of the paper it states, with its hypotheses.
 
-## The arXiv version
-
-The text [arXiv:2609.07621v1](https://arxiv.org/abs/2609.07621v1) has the same main theorems, but a
-different proof of the frequency bound and different numbering. Its unmodified source is in
-[`paper/arxiv/`](paper/arxiv/). Its explicit constants are proved:
+The arXiv text, [arXiv:2609.07621v1](https://arxiv.org/abs/2609.07621v1), has the same main
+theorems, but a different proof of the frequency bound and a different numbering. Its unmodified
+source is in [`paper/arxiv/`](paper/arxiv/). Its explicit constants are proved:
 
 | arXiv:2609.07621v1 | Lean declaration |
 | --- | --- |
@@ -136,8 +136,9 @@ Lean statement.
 
 ## Corrections
 
-[`paper/CHANGES_FROM_ARXIV.md`](paper/CHANGES_FROM_ARXIV.md) compares the two texts result by result
-and lists the five corrections that `paper/manuscript.tex` carries:
+The Lean statements follow [`paper/manuscript.tex`](paper/manuscript.tex), the text of the paper
+numbered above. [`paper/CHANGES_FROM_ARXIV.md`](paper/CHANGES_FROM_ARXIV.md) compares it with the
+arXiv text result by result, and lists the five corrections that it carries:
 
 1. The continuous-time transition probabilities were used without a formula that identifies them;
    the formula by Poisson subordination is added.
@@ -162,7 +163,8 @@ In `paper/manuscript.tex`, Theorem 1.2 has an unspecified constant where the arX
   not formalized.
 - **Hypotheses of the lemmas.** Some lemmas are stated in the cases the proofs use. For example,
   (D2b) is stated for `k` symmetric in its two row frequencies. Lemma 5.4 assumes the hypotheses of
-  Proposition 4.2, `b_p ≠ 0`, and an integrability condition that is proved when `p₁ ≠ 0`. [`CORRESPONDENCE.md`](CORRESPONDENCE.md) records the hypotheses of each statement.
+  Proposition 4.2, `b_p ≠ 0`, and an integrability condition that is proved when `p₁ ≠ 0`.
+  [`CORRESPONDENCE.md`](CORRESPONDENCE.md) records the hypotheses of each statement.
 - **Not formalized.** The open questions of the last section of `paper/manuscript.tex`, the
   figures, and the survey of related work in the introduction.
 
@@ -172,9 +174,10 @@ In `paper/manuscript.tex`, Theorem 1.2 has an unspecified constant where the arX
   under [`ManhattanAudit/`](ManhattanAudit/) has one intentional `sorry` at the statement, which the
   matching solution proves.
 - **Standard axioms only.** [`Manhattan/Meta/AxiomsAudit.lean`](Manhattan/Meta/AxiomsAudit.lean)
-  prints the axioms of the main theorems and of every registered statement that is not superseded:
-  135 reports, a count the CI workflow checks. [`Manhattan/Certificate.lean`](Manhattan/Certificate.lean)
-  restates the main results in self-contained form and prints their axioms. Both steps fail on
+  prints the axioms of the main theorems, of every pinned statement except two superseded forms,
+  and of intermediate results: 135 reports, a count the CI workflow checks.
+  [`Manhattan/Certificate.lean`](Manhattan/Certificate.lean) restates the main results in
+  self-contained form and prints their axioms. Both steps fail on
   `sorryAx` or on any axiom other than `propext`, `Classical.choice` and `Quot.sound`.
 - **Independent check of the statements.** Each main theorem is restated in a `Challenge.lean` that
   imports mathlib alone. It rebuilds the model from mathlib's primitives: the sites and lines, the
@@ -184,17 +187,20 @@ In `paper/manuscript.tex`, Theorem 1.2 has an unspecified constant where the arX
   agree, that only the standard axioms are used, and replays the proof with the Lean and NanoDa
   kernels. See [`ManhattanAudit/README.md`](ManhattanAudit/README.md) and
   [`ManhattanAudit/COMPARATOR_RUNS.md`](ManhattanAudit/COMPARATOR_RUNS.md).
-- **Pinned statements.** [`ledger/manifest.yaml`](ledger/manifest.yaml) registers 95 statements, all
-  proved. The text of each between `-- FROZEN-STATEMENT-BEGIN` and `-- FROZEN-STATEMENT-END` is pinned
-  by its SHA-256, with the lines of the paper it states. The SHA-256 of `paper/manuscript.tex` is in
-  [`paper/SOURCE_PIN.txt`](paper/SOURCE_PIN.txt).
+- **Pinned statements.** The numbered results and the other claims of the paper that the proofs
+  use are stated in `Manhattan/Frozen/`, one per file: 95 statements, all proved.
+  [`ledger/manifest.yaml`](ledger/manifest.yaml) records for each the SHA-256 of its Lean text and
+  the lines of the paper it states, and CI checks the hashes. The SHA-256 of `paper/manuscript.tex`
+  is in [`paper/SOURCE_PIN.txt`](paper/SOURCE_PIN.txt).
 - **Continuous integration.** The **CI** workflow builds the library and checks the manifest, the
   warnings, the linters, the certificate and the axiom reports. The **Comparator audit** workflow
   checks both comparator pairs. Both run on request, from the
   [Actions page](https://github.com/nitromannitol/Manhattan-Transience/actions).
 
-The library, `Manhattan.lean` and `Manhattan/`, contains 258 Lean files with 62,767 lines, built on
-mathlib and Lattice-Probability. The comparator sources are 8 files with 1,124 lines.
+The library, `Manhattan.lean` and `Manhattan/`, contains 258 Lean files with 62,767 lines. The
+comparator sources are 8 files with 1,124 lines. The library is built on mathlib and on
+Lattice-Probability, which supplies the results that do not depend on the model, among them Pólya's
+theorem in two dimensions, the Nash inequality on `ℤ²` and the semigroup of a bounded generator.
 
 ## Building
 
@@ -209,10 +215,7 @@ lake build           # afterwards
 `bootstrap.sh` runs `lake exe cache get` for the prebuilt mathlib, which requires the committed
 [`lake-manifest.json`](lake-manifest.json) with its exact dependency revisions; do not run
 `lake update`. Never run `lake clean`: it discards the mathlib build artifacts. Lattice-Probability
-has no prebuilt cache, so the first build compiles it as well as the library. The results that do
-not depend on the Manhattan model come from Lattice-Probability: the semigroup of a bounded
-generator and its Laplace resolvent, the dissipative-skew pair and its coercive resolvents, Pólya's
-theorem in two dimensions, the Nash inequality on `ℤ²` and the rate-two Poisson clock. See
+has no prebuilt cache, so the first build compiles it as well as the library. See
 [`CONTRIBUTING.md`](CONTRIBUTING.md) for further building notes.
 
 `import Manhattan` loads every module except six: two superseded statements, two `Glue/` modules
@@ -230,8 +233,8 @@ The toolchain is Lean `v4.32.0`. The dependencies are public repositories, pinne
 To reproduce the axiom reports and build the certificate and the comparator libraries:
 
 ```bash
-lake build Manhattan.Meta.AxiomsAudit   # the main theorems and every proved node not superseded
-lake build Manhattan.Certificate        # the self-contained certificate of what is proved
+lake build Manhattan.Meta.AxiomsAudit   # the 135 axiom reports
+lake build Manhattan.Certificate        # the self-contained restatements of the main results
 lake build ManhattanAudit               # the comparator challenges and solutions
 ```
 
@@ -239,9 +242,9 @@ The checkers in `tools/` need Python 3.8 or newer and PyYAML (`pip install pyyam
 
 | command | what it checks |
 |---|---|
-| `python3 tools/check_manifest.py` | each frozen statement's bytes match its recorded SHA-256, every file under `Manhattan/Frozen/` belongs to exactly one node, each node's dependency-closure hash matches, and no `axiom`, `admit`, `sorryAx` or unregistered `sorry` occurs in the production tree |
-| `python3 tools/check_warnings.py` | the build of `Manhattan` emits no warning other than the `sorry` warnings the manifest authorizes (it authorizes none) |
-| `python3 tools/assumptions.py --check` | `ASSUMPTIONS.md` is current with the manifest |
+| `python3 tools/check_manifest.py` | each pinned statement and its dependency closure match their recorded SHA-256, every file under `Manhattan/Frozen/` has one entry in the manifest, and no `axiom`, `admit` or `sorry` occurs in the library |
+| `python3 tools/check_warnings.py` | the build of `Manhattan` emits no warning |
+| `python3 tools/assumptions.py --check` | [`ASSUMPTIONS.md`](ASSUMPTIONS.md), which records that nothing is assumed, agrees with the manifest |
 | `lake env lean tools/lint_fast.lean` | the fast mathlib environment linters pass on the whole library |
 | `lake env lean tools/lint_simpnf.lean` | the `simpNF` linter passes (slow) |
 
@@ -273,7 +276,7 @@ Manhattan.lean            the root module, importing all but six modules (see Bu
 Manhattan/
   MainTheorems.lean       the main theorems, stated in full
   Certificate.lean        self-contained restatements of what is proved, with their axioms
-  Frozen/                 the registered statements, one per file: Main/, Operator/,
+  Frozen/                 the pinned statements, one per file: Main/, Operator/,
                           Estimates/, Glue/, Paper/
   Model/                  sites, lines, the fair-coin environment, the kernels,
                           Poisson subordination
@@ -287,11 +290,12 @@ Manhattan/
   V4/                     the second proof of Theorem 1.1, along the arXiv version
   Paper/                  the lemmas of Sections 3 and 5 in the paper's normalization,
                           and further statements of the arXiv version
-  Meta/                   AxiomsAudit.lean (the axiom report), Cone.lean
+  Meta/                   AxiomsAudit.lean (the axiom reports), Cone.lean (the
+                          declarations a proof uses)
 ManhattanAudit/           the mathlib-only restatements and their solutions
 CORRESPONDENCE.md         paper to Lean, statement by statement
 VERIFICATION.md           statement-by-statement comparison with the arXiv version
-ledger/manifest.yaml      one row per registered statement: hash, paper lines, state
+ledger/manifest.yaml      one row per pinned statement: hash, paper lines, state
 paper/                    the pinned manuscript, its checksum, the unmodified arXiv
                           source (arxiv/) and CHANGES_FROM_ARXIV.md
 tools/                    the checkers listed under Building
@@ -306,7 +310,7 @@ lakefile.lean, lake-manifest.json, lean-toolchain   the pinned build
 ## How this was built
 
 The Lean code was written with AI assistance, using models from Anthropic (Claude) and
-DeepSeek, under the direction of the author. Every proof is checked by the Lean kernel. The
+DeepSeek, under the direction of Ahmed Bou-Rabee. Every proof is checked by the Lean kernel. The
 models, tooling, cost and review status are disclosed in [`formalization.yaml`](formalization.yaml),
 following the [mathlib-initiative](https://github.com/mathlib-initiative/formalization.yaml)
 standard.
